@@ -1,0 +1,168 @@
+/*----------------------------------------------*/
+/*--------------------CSS-----------------------*/
+/*----------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: white;
+}
+.ie7 body{
+	overflow:hidden;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*----------------------------------------------*/
+/*------------------FONTS-----------------------*/
+@font-face {
+    font-family: "Scriptina";
+    src:  url(../css/fonts/SCRIPTIN.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TepenoLight";
+    src:  url(../css/fonts/Tepeno Sans Light.ttf) format("truetype");
+}
+
+/*----------------------------------------------*/
+
+/*------------------MENU-----------------------*/
+.menu{
+	z-index:5;
+	position: fixed;
+	left: 50%;
+	margin-left: -500px;
+	width: 1000px;
+	height: 100px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+div .menu-div {
+	 font-family: 'TapenoLight', 'Arial Narrow', Arial, sans-serif;
+	 font-size: 9px;
+}
+/*div #asanti{
+	width: 100px;
+	height: 70px;
+	background: url(../img/logo21.png) no-repeat;
+
+}*/
+
+.menu-anim {	
+    position: relative;
+   	/*margin: 0px auto;*/
+   	border-bottom: 1px solid rgba(255,255,255,0.9);
+	padding-top: 8px;
+    height: 100px;
+    width: 1000px;
+    overflow: hidden;
+        }
+                .menu-anim li {
+                    float: right;
+                    list-style: none;
+                    top:50%;
+                    margin-top: 50px;
+                }
+                .menu-anim #asanti {
+                    float: left;
+                    list-style: none;
+                    background: url(../img/logo-small-white.png) no-repeat;
+                    width: 250px;
+					height: 100px;
+					top:0%;
+                    margin-top: 0px;
+                }
+                
+                    .menu-anim li.back {
+						border-bottom: 4px solid rgba(255,255,255,0.5);
+                        width: 6px;
+                        height: 104px;
+                        z-index: 8;
+                        position: absolute;
+                        top:0%;
+                    	margin-top: 0px;
+                    }
+                    
+                    .menu-anim li a {
+                        font: 13px Tahoma, Geneva, sans-serif;
+                        font-weight: bold;
+                        text-decoration: none;
+                        color: white;
+                        text-align: center;
+                        letter-spacing: 0;
+                        z-index: 10;
+                        display: block;
+                        float: left;
+                        height: 30px;
+                        line-height: 30px;
+                        padding-left: 35px;
+                        padding-right: 35px;
+                        position: relative;
+                        overflow: hidden;
+                        width: inherit;
+                    }
+                     .menu-anim li a:visited {
+                       	border: none;
+                    }
+                    .menu-anim a:active {
+                    	border: none;
+                    }
+                    
+                    .menu-anim  a:hover{                 	
+                    	border: none;
+                    }
+ 
+                    
+/*----------------------------------------------*/
+
+/*------------------MEDIA QUERIES---------------*/
+@media screen and (max-width: 767px) {
+	.container > header{
+		text-align: center;
+	}
+	p.codrops-demos {
+		position: relative;
+		top: auto;
+		left: auto;
+	}
+}
+/*----------------------------------------------*/
