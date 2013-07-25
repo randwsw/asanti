@@ -32,7 +32,7 @@
                     <li class="current" id="asanti"></li>
                     <li class="other"><a href="contact.html"><div class="menu-div">KONTAKT</div></a></li>                                        
                     <li class="other"><a href="about.html"><div class="menu-div">O NAS</div></a></li>
-                    <li class="other"><a href="shop.html"><div class="menu-div">SKLEP</div></a></li>
+                    <li class="other"><a href="shop.php"><div class="menu-div">SKLEP</div></a></li>
                     
 		</ul>    
             
