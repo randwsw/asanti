@@ -33,7 +33,7 @@ body {
 	overflow-x: hidden;
 	background: white;
 	color: #000;
-	font-family: "Open Sans", Arial;
+	font-family: "OpenSansBold", "OpenSansRegular", Arial;
 }
 .ie7 body{
 	overflow:hidden;
@@ -60,6 +60,14 @@ table {
     font-family: "Scriptina";
     src:  url(../css/fonts/SCRIPTIN.ttf) format("truetype");
 }
+@font-face {
+    font-family: "OpenSansRegular";
+    src:  url(../css/fonts/OpenSans-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSansBold";
+    src:  url(../css/fonts/OpenSans-Bold.ttf) format("truetype");
+}
 
 /*----------------------------------------------*/
 /*------------------CONTAINER-------------------*/
@@ -68,6 +76,9 @@ table {
 	width: 1000px;
 	height: auto;
 	overflow: hidden;
+	background-color: rgba(255,255,255,0.9);
+	padding-left: 50px;
+	padding-right: 50px;
 }
 .sub-menu-container {
 	width: auto;
@@ -123,7 +134,7 @@ div .menu-div{
                     
                     .menu-anim li a {
                         /*font: 13px Tahoma, Geneva, sans-serif;*/
-                        font-weight: bold;
+                        /*font-weight: bold;*/
                         text-decoration: none;
                         color: #000;
                         text-align: center;
@@ -192,7 +203,7 @@ div .menu-div{
                     
                     .sub-menu-anim li a {
                         /*font: 13px Tahoma, Geneva, sans-serif;*/
-                        font-weight: bold;
+                        /*font-weight: bold;*/
                         text-decoration: none;
                         color: #000;
                         text-align: center;
@@ -219,7 +230,47 @@ div .menu-div{
                     	border: none;
                     }
 /*----------------------------------------------*/
+/*-----------------PANEL------------------------*/
+div .panel-div {
+	margin-top: 10px;
+	width: auto;
+	height: 25px;
+}
+div .panel-div > #profile {
+		float: right;
+		margin-top: 3px;
+		font-size: 10pt;
+}
+div .panel-div > #profile-icon {
+		float: right;
+		width:20px;
+		height:20px;
+		background: url(../img/profile-full2.png) no-repeat center;
+}
+	/*div .panel-div > #profile-icon:hover {
+		background: url(../img/profile-full2.png) no-repeat center;
+	}*/
+	
+
+#profile p {
+	float: left;
+	color: #2d2d2d;
+
+	
+}
+#profile .p-profile {
+	cursor: pointer;
+	color: #996515;
+}
+
+/*----------------------------------------------*/
 /*-----------------PRODUCTS---------------------*/
+.products {
+	/*border-left: 1px solid black;
+	border-right: 1px solid black;
+	min-height: 800px;
+	min-width: 1000px;*/
+}
 .imageContainer {
 	width:	220px;
 	height: 300px;
@@ -282,43 +333,47 @@ div .cart {
 		
 	}
 
-div .panel-div {
-	float: left;
-	margin-top: 10px;
-	margin-left: 10px;
-	width: auto;
-	height:50px;
-}
-
-/*div .panel-div > #cart {
+div .panel-div > #cart {
 		background: url(../img/cart-big-dark.png) no-repeat center;
 		width: 40px;
 		height: 40px;
 		float: left;
 
 }
-	div .panel-div > #cart:hover {
-		background: url(../img/cart-big-darker.png) no-repeat center;
-	}*/
-	
-div .panel-div > #profile {
-		margin-top: 10px;
-		font-size: 11pt;
-		/*background: url(../img/profile-empty.png) no-repeat center;*/
-		height: 40px;
-		float: left;
-}
-	div .panel-div > #profile:hover {
-		/*background: url(../img/profile-full.png) no-repeat center;*/
-	}
-#profile p {
+div .cart-div {
+	height: 40px;
+	margin-top: 10px;
 	float: left;
-	
-}
-#profile .p-profile {
 	cursor: pointer;
-	color: #996515;
 }
+	div .cart-div:hover {
+		border-bottom: 1px solid black;
+	}
+
+.cart-div .cart-desc {
+	float: left;
+	font-size: 10pt;
+	top: 50%;
+	margin-top: 15px;
+	color: #2d2d2d;
+}
+.cart-div .cart-image{
+	float: left;
+	width: 40px;
+	height: 40px;
+}
+
+.cart-div .item-count {
+	float: left;
+	top: 50%;
+	font-size: 11pt;
+	margin-top: 15px;
+	margin-left: -5px;
+	color: #996515;
+
+}
+	
+
 /*----------------------------------------------*/
 
 
@@ -347,7 +402,7 @@ div .panel-div > #profile {
 
 #itemTitle {
 
-	font-family: "Open Sans";
+	font-family: "OpenSansRegular", Arial;
 	font-size: 16pt;
 	border-bottom: 2px solid #633b07;
 }
@@ -355,7 +410,9 @@ div .panel-div > #profile {
 #itemDescription {
 	margin-top: 30px;
 	font-size: 10pt;
-	font-family: "Open Sans";
+	font-family: "OpenSansRegular", Arial;
 	line-height: 120%;
 }
 /* --------------------------------------------- */
+
+

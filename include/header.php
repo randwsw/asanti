@@ -1,3 +1,12 @@
+<div class ="panel-div">
+	<div class="sub-panel-div" id="profile" >
+		<p>Witaj.&#160</p> 
+		<p class="p-profile" id="p-login">Zaloguj się</p>
+		<p>, lub&#160</p> 
+		<p class="p-profile" id="p-register">załóż konto.</p>
+	</div>
+	<div class="sub-panel-div" id="profile-icon" ></div>
+</div>
 <div class="menu">
 	                
 			<ul class="menu-anim">               
@@ -17,5 +26,10 @@
 		                    <li class="other"><a href="shop.html"><div class="menu-div">Kurtki i płaszcze</div></a></li>   
 		                    <li class="other"><a href="shop.html"><div class="menu-div">Komplety</div></a></li>                    
 				</ul>                
+			</div>
+			<div class="cart-div">
+				<p class="cart-desc">Koszyk</p>
+				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
+				<p class="item-count">0</p>
 			</div>
 		</div>

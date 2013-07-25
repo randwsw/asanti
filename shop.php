@@ -11,6 +11,7 @@
 
     
     <link rel="stylesheet" href="css/shopstyle.css" />
+    <link rel="stylesheet" href="css/sliderstyle.css" />
     
 </head>
 
@@ -20,8 +21,13 @@
     		<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-		
-		
+			 
+
+		<ul class="cb-slideshow">
+            <li><span>Image 01</span></li>
+            <li><span>Image 02</span></li>
+            <li><span>Image 03</span></li>
+        </ul>	
 		
 	<div class="products">
 	 	
