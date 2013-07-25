@@ -33,7 +33,7 @@ body {
 	overflow-x: hidden;
 	background: white;
 	color: #000;
-	font-family: Arial, sans-serif;
+	font-family: "Open Sans", Arial;
 }
 .ie7 body{
 	overflow:hidden;
@@ -160,6 +160,12 @@ div .menu-div{
 	float:right;
 }
 
+div .menu-div{
+	 /*font-family: 'Arial Narrow', Arial, sans-serif;*/
+	 font-size: 9px;
+}
+
+
 .sub-menu-anim {	
     position: relative;
    	/*margin: 0px auto;*/
@@ -250,7 +256,6 @@ div .menu-div{
 	margin-bottom: 10px;
 } 
 .product-info p{
-	/*font-family: Tahoma, Geneva, sans-serif;*/
 	font-size: 15px;
 }
 div .eye {
@@ -315,3 +320,42 @@ div .panel-div > #profile {
 	color: #996515;
 }
 /*----------------------------------------------*/
+
+
+
+
+/* ITEMKSY ------------------------------------- */
+
+#itemContainer {
+	
+}
+
+#itemPhotoContainer {
+	width: 500px;
+	float: left;
+}
+
+#itemBigPhoto {
+	max-width: 500px;
+}
+
+#itemDescriptionContainer {
+	float: left;
+	margin-left: 50px;
+	width: 450px;
+}
+
+#itemTitle {
+
+	font-family: "Open Sans";
+	font-size: 16pt;
+	border-bottom: 2px solid #633b07;
+}
+
+#itemDescription {
+	margin-top: 30px;
+	font-size: 10pt;
+	font-family: "Open Sans";
+	line-height: 120%;
+}
+/* --------------------------------------------- */
