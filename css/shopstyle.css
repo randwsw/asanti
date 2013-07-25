@@ -1,0 +1,287 @@
+/*----------------------------------------------*/
+/*--------------------CSS-----------------------*/
+/*----------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: white;
+	color: #000;
+}
+.ie7 body{
+	overflow:hidden;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*----------------------------------------------*/
+/*------------------FONTS-----------------------*/
+@font-face {
+    font-family: "Scriptina";
+    src:  url(../css/fonts/SCRIPTIN.ttf) format("truetype");
+}
+@font-face {
+    font-family: "TepenoLight";
+    src:  url(../css/fonts/Tepeno Sans Light.ttf) format("truetype");
+}
+
+/*----------------------------------------------*/
+/*------------------CONTAINER-------------------*/
+.container{
+	margin:0px auto;
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+}
+.sub-menu-container {
+	width: auto;
+	height: 100px;
+}
+/*----------------------------------------------*/
+/*------------------MENU------------------------*/
+.menu{
+	z-index:5;
+	height: 100px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	position: relative;
+}
+div .menu-div{
+	 font-family: 'TapenoLight', 'Arial Narrow', Arial, sans-serif;
+	 font-size: 9px;
+}
+
+.menu-anim {	
+    position: relative;
+   	/*margin: 0px auto;*/
+   	border-bottom: 1px solid rgba(0,0,0,0.9);
+	padding-top: 8px;
+    height: 100px;
+    width: 1000px;
+    overflow: hidden;
+        }
+                .menu-anim li {
+                    float: right;
+                    list-style: none;
+                    top:50%;
+                    margin-top: 50px;
+                }
+                .menu-anim #asanti {
+                    float: left;
+                    list-style: none;
+                    background: url(../img/logo-small-dark.png) no-repeat;
+                    width: 250px;
+					height: 100px;
+					top:0%;
+                    margin-top: 0px;
+                }
+                
+                    .menu-anim li.back {
+						border-bottom: 4px solid rgba(0,0,0,0.5);
+                        width: 6px;
+                        height: 104px;
+                        z-index: 8;
+                        position: absolute;
+                        top:0%;
+                    	margin-top: 0px;
+                    }
+                    
+                    .menu-anim li a {
+                        font: 13px Tahoma, Geneva, sans-serif;
+                        font-weight: bold;
+                        text-decoration: none;
+                        color: #000;
+                        text-align: center;
+                        letter-spacing: 0;
+                        z-index: 10;
+                        display: block;
+                        float: left;
+                        height: 30px;
+                        line-height: 30px;
+                        padding-left: 35px;
+                        padding-right: 35px;
+                        position: relative;
+                        overflow: hidden;
+                        width: inherit;
+                    }
+                     .menu-anim li a:visited {
+                       	border: none;
+                    }
+                    .menu-anim a:active {
+                    	border: none;
+                    }
+                    
+                    .menu-anim  a:hover{                 	
+                    	border: none;
+                    }
+/*----------------------------------------------*/
+
+/*------------------MENU-----------------------*/
+.sub-menu{
+	z-index:5;
+	width: 500px;
+	height: 50px;
+	margin-top: 8px;
+	float:right;
+}
+div .menu-div{
+	 font-family: 'Arial Narrow', Arial, sans-serif;
+	 font-size: 9px;
+}
+
+.sub-menu-anim {	
+    position: relative;
+   	/*margin: 0px auto;*/
+   	border-bottom: 1px solid rgba(0,0,0,0.9);
+    height: 30px;
+    width: 450px;
+    float:right;
+    overflow: hidden;
+        }
+                .sub-menu-anim li {
+                    float: right;
+                    list-style: none;
+                }
+                
+                    .sub-menu-anim li.back {
+						border-bottom: 2px solid rgba(0,0,0,0.5);
+                        width: 6px;
+                        height: 28px;
+                        z-index: 8;
+                        position: absolute;
+                        top:0%;
+                    	margin-top: 0px;
+                    }
+                    
+                    .sub-menu-anim li a {
+                        font: 13px Tahoma, Geneva, sans-serif;
+                        font-weight: bold;
+                        text-decoration: none;
+                        color: #000;
+                        text-align: center;
+                        letter-spacing: 0;
+                        z-index: 10;
+                        display: block;
+                        float: left;
+                        height: 30px;
+                        line-height: 30px;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        position: relative;
+                        overflow: hidden;
+                        width: inherit;
+                    }
+                     .sub-menu-anim li a:visited {
+                       	border: none;
+                    }
+                    .sub-menu-anim a:active {
+                    	border: none;
+                    }
+                    
+                    .sub-menu-anim  a:hover{                 	
+                    	border: none;
+                    }
+/*----------------------------------------------*/
+/*-----------------PRODUCTS---------------------*/
+.imageContainer {
+	width:	220px;
+	height: 300px;
+	display: block;
+	overflow: hidden;
+	position: relative;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid black;
+}
+
+.product-info{
+	width:	200px;
+	height: 400px;
+	display: block;
+	float: left;
+	margin-left: 35px;
+}
+.productImage {
+	position: absolute; 
+}
+.imageOverlay {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 10;
+	display: none;
+	position: absolute;
+}
+.product-price , .product-name {
+	margin-top: 15px;
+	margin-bottom: 10px;
+} 
+.product-info p{
+	font-family: 'Arial Narrow', Arial, sans-serif;
+	font-size: 15px;
+}
+div .eye {
+	height: 250px;
+	background: url(../img/spyglass.png) no-repeat center;
+	opacity: 0.5;
+	
+}
+	div .eye:hover {
+		opacity: 0.8;
+		
+	}
+
+div .cart {
+	float: right;
+	margin-right: 5px;
+	height: 50px;
+	width: 50px;	
+	background: url(../img/cart.png) no-repeat right;
+	opacity: 0.5;
+}
+	div .cart:hover {
+		opacity: 0.8;
+		
+	}
+/*----------------------------------------------*/
