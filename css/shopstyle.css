@@ -54,6 +54,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+a {
+	color: #996515;
+}
 /*----------------------------------------------*/
 /*------------------FONTS-----------------------*/
 @font-face {
@@ -251,16 +254,12 @@ div .panel-div > #profile-icon {
 		background: url(../img/profile-full2.png) no-repeat center;
 	}*/
 	
-
 #profile p {
 	float: left;
-	color: #2d2d2d;
-
-	
+	/*color: #2d2d2d;*/
 }
 #profile .p-profile {
 	cursor: pointer;
-	color: #996515;
 }
 
 /*----------------------------------------------*/
@@ -414,5 +413,84 @@ div .cart-div {
 	line-height: 120%;
 }
 /* --------------------------------------------- */
+/* LOGREG -------------------------------------- */
+.logreg-div {
+	width: 900px;
+	margin: 0 auto;
+	height: auto;
+	overflow:hidden;
+	border: 1px solid gray;
+	margin: 50px 50px 80px 50px;
+}
+.logreg-div h2{
+	font-size: 16pt;
+	/*letter-spacing: 1pt;*/
+}
+.log-div, .reg-div{
+	float: left;
+	padding: 80px 80px 55px 80px;
+}
+.logreg-div p {
+	font-family: "OpenSansRegular", Arial;
+	font-size: 10pt;
+	margin: 10px 0 10px 0;
+}
+.log-div-button  {
+	margin-top: 15px;
+	height: 30px;
+}
+.log-div-button input[type="checkbox"] {
+	margin-top: 9px;
+}
+.log-div-button div {
+	margin-top: -3px;
+	float: right;
+}
+.log-div-button * {
+	float: left;
+}
+#log-logo {
+	margin-top:20px;
+}
+.reg-div div {
+	margin-top:21px;
+	height:25px;
+}
 
-
+.reg-div ul {
+	margin-top: 28px;
+}
+.form-text-input {
+	margin-top: -7px;
+	margin-bottom: 12px;
+	width: 300px;
+	height: 25px;
+	padding-left: 5px;
+}
+.filler {
+	position: absolute;
+	left: 50%;
+	margin-left: -550px;
+	width: 1100px;
+	top: 50%;
+	margin-top: -332px;
+	height: 674px;
+}
+.form-button {
+	border: 1px solid gray;
+	width: 100px;
+	height: 28px;
+	background: #FFFFFF;
+}
+	.form-button:hover {
+		border: 1px solid gray;
+		background: #2d2d2d;
+		color:#FFFFFF;
+	}
+#back-p {
+	position: absolute;
+	margin-top: 360px;
+	margin-left: 720px;
+	color: gray;
+}
+/* --------------------------------------------- */
