@@ -30,7 +30,7 @@
         </ul>	
 		
 	<div class="products">
-	 	
+	 	<a href="item.php?id=1">
 	 	<div class="product-info">
 	 		<div class="product-price">
 	 			<p>9000$</p>
@@ -46,7 +46,7 @@
 	 			<p>Nazwa</p>
 	 		</div> 
 	    </div>
-	    
+	    </a>
 	 	<div class="product-info">
 	 		<div class="product-price">
 	 			<p>9000$</p>

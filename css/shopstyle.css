@@ -27,6 +27,12 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+h2 {
+	font-family: "OpenSansRegular", Arial;
+	font-size: 16pt;
+}
+
 body {
 	line-height: 1;
 	overflow-y: scroll;
@@ -392,6 +398,8 @@ div .cart-div {
 
 #itemBigPhoto {
 	max-width: 500px;
+	max-height: 500px;
+	float: right;
 }
 
 #itemDescriptionContainer {
@@ -401,9 +409,6 @@ div .cart-div {
 }
 
 #itemTitle {
-
-	font-family: "OpenSansRegular", Arial;
-	font-size: 16pt;
 	border-bottom: 2px solid #633b07;
 }
 

@@ -11,6 +11,99 @@
 
     
     <link rel="stylesheet" href="css/shopstyle.css" />
+    
+    
+    
+    
+    
+    
+<?php
+
+
+
+
+// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+$itemId = $_GET['id'];
+$conn1=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
+
+// class item {
+	// public $id;
+	// public $name;
+	// public $description;
+	// public $headPhotoUrl;
+// }
+// 
+// 
+// $itemList = array();
+// //////////////////////////////////////////////////////////////////////////////////////////////////// //
+
+
+
+
+
+
+
+// Get news /////////////////////////////////////////////////////////////////////////////////////////// //
+if (mysqli_connect_errno())
+	{
+ 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+
+$result1 = mysqli_query($conn1,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
+while($row1 = mysqli_fetch_array($result1))
+{
+	if($row1['count'] != 1){
+		header('Location: shop.php');
+	}else{
+		
+	$result2 = mysqli_query($conn2,"SELECT * FROM item WHERE id = '$itemId'");
+
+	while($row1 = mysqli_fetch_array($result2))
+		{
+			// $item = new item;
+			// $item->id = $row1['id'];
+			// $item->name = $row1['name'];
+			// $item->description = $row1['description'];
+			// $item->headPhotoUrl = $row1['headPhotoUrl'];
+			// array_push($itemList, $item);
+			$name = $row1['name'];
+			$description = $row1['description'];
+			$headPhotoUrl = $row1['headPhotoUrl'];
+		}
+		mysqli_close($conn1);
+		mysqli_close($conn2);
+}
+}
+
+
+
+// //////////////////////////////////////////////////////////////////////////////////////////////////// //
+	
+	
+	
+	
+	
+// Output ///////////////////////////////////////////////////////////////////////////////////////////// //
+	
+	// echo ('<select id="selectClasses">
+			// <option value="0">Wszystkie zajęcia</option>');
+	// foreach($itemList as $item) {
+		// echo ('<option value="' . $classes->id . '">' . $classes->name . '</option>');
+	// }
+	// echo ('</select>');
+	
+// //////////////////////////////////////////////////////////////////////////////////////////////////// //
+	
+
+
+?>
+    
+    
+    
+    
+    
 </head>
 
 <body>
@@ -23,28 +116,11 @@
 	
 	<div id="itemContainer">
 		<div id="itemPhotoContainer">
-			<img id="itemBigPhoto" src="img/produkty/6.jpg"/>
+			<img id="itemBigPhoto" src="<?php echo("$headPhotoUrl"); ?>"/>
 		</div>
 		<div id="itemDescriptionContainer">
-			<p id="itemTitle">SUKIENKA Z BANI.</p>
-			<p id="itemDescription">Wygodne zapięcie na zatrzask ozdobione perełką.
-
- 
-Idealne na chrzest, święta lub wesela.
-
-Wspaniale komponuje się z sukienkami z naszej kolekcji!
- 
- 
-Bolerko dostępne w kolorze:
-białym lub ecru
-Po zakupie prosimy o informację z kolorem bolerka.
-
- 
- 
-Ubranko na wzrost 74 cm
-WYMIARY BOLERKA:
-dł. rękawa od ramionka - 21 cm
-szer. pod pachami - 27 cm x2</p>
+			<h2 id="itemTitle"><?php echo("$name"); ?><h2>
+			<div id="itemDescription"><?php echo("$description"); ?></div>
 		</div>
 	</div>
 	 </div>
