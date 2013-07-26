@@ -18,16 +18,32 @@
 <body>
 
     <div class="container">
-    		<!-- Include header --------------------------------------------------------- -->
+   	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
+	<!-- Include background animation ------------------------------------------- -->
+	<?php include 'include/backanim.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
 			 
+        
+    	<div class="sub-menu-container"> 
+		<div class="sub-menu">
+		                
+			<ul class="sub-menu-anim">               
+		        	<li class="current"><a href="contact.html"><div class="menu-div">Wszystko</div></a></li>                                        
+		            <li class="other"><a href="about.html"><div class="menu-div">Obuwie</div></a></li>
+		            <li class="other"><a href="shop.html"><div class="menu-div">Nakrycia głowy</div></a></li>
+		        	<li class="other"><a href="shop.html"><div class="menu-div">Kurtki i płaszcze</div></a></li>   
+		    	<li class="other"><a href="shop.html"><div class="menu-div">Komplety</div></a></li>                    
+			</ul>                
+		</div>
+			<div class="cart-div">
+				<p class="cart-desc">Koszyk</p>
+				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
+				<p class="item-count">0</p>
+			</div>
+		</div>
 
-		<ul class="cb-slideshow">
-            <li><span>Image 01</span></li>
-            <li><span>Image 02</span></li>
-            <li><span>Image 03</span></li>
-        </ul>	
 		
 	<div class="products">
 	 	<a href="item.php?id=1">
