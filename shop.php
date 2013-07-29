@@ -22,19 +22,54 @@
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<!-- Include background animation ------------------------------------------- -->
-	<?php include 'include/backanim.php'; ?>
+	<!--<?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
-			 
+	<?php
+		$cat = 'all';
+		if(isset($_GET['category'])) {
+		    $cat = $_GET['category'];
+		}
+	?>
         
     	<div class="sub-menu-container"> 
 		<div class="sub-menu">
 		                
-			<ul class="sub-menu-anim">               
-		        	<li class="current"><a href="contact.html"><div class="menu-div">Wszystko</div></a></li>                                        
-		            <li class="other"><a href="about.html"><div class="menu-div">Obuwie</div></a></li>
-		            <li class="other"><a href="shop.html"><div class="menu-div">Nakrycia głowy</div></a></li>
-		        	<li class="other"><a href="shop.html"><div class="menu-div">Kurtki i płaszcze</div></a></li>   
-		    	<li class="other"><a href="shop.html"><div class="menu-div">Komplety</div></a></li>                    
+			<ul class="sub-menu-anim">
+				
+					<?php if ($cat == 'all') : ?>               
+		        	<li class="current">
+		        	<?php else : ?>
+		        	<li class="other">
+		        	<?php endif; ?>               
+					<a href="shop.php"><div class="menu-div">Wszystko</div></a></li>
+					
+					<?php if ($cat == 'shoes') : ?>               
+		        	<li class="current">
+		        	<?php else : ?>
+		        	<li class="other">
+		        	<?php endif; ?>                                        
+		            <a href="shop.php?category=shoes"><div class="menu-div">Obuwie</div></a></li>
+		            
+		            <?php if ($cat == 'shoes') : ?>               
+		        	<li class="current">
+		        	<?php else : ?>
+		        	<li class="other">
+		        	<?php endif; ?>  
+		            <a href="shop.php"><div class="menu-div">Nakrycia głowy</div></a></li>
+		            
+		            <?php if ($cat == 'shoes') : ?>               
+		        	<li class="current">
+		        	<?php else : ?>
+		        	<li class="other">
+		        	<?php endif; ?>  
+		        	<a href="shop.php"><div class="menu-div">Kurtki i płaszcze</div></a></li>
+		        	
+		        	<?php if ($cat == 'set') : ?>               
+		        	<li class="current">
+		        	<?php else : ?>
+		        	<li class="other">
+		        	<?php endif; ?>     
+		    		<a href="shop.php?category=set"><div class="menu-div">Komplety</div></a></li>                    
 			</ul>                
 		</div>
 			<div class="cart-div">
@@ -46,8 +81,53 @@
 
 		
 	<div class="products">
-	 	<a href="item.php?id=1">
-	 	<div class="product-info">
+		<?php
+			
+		// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+				
+		// Check connection
+		if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  }
+		
+		if($cat!='all')
+		{
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, value, url, i.id FROM item i, price pr, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND c.name ='$cat' AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
+		}
+		else {
+			$sql= mysqli_query($conn, "SELECT name AS iname, value, url, i.id FROM item i, price pr, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
+		}
+		
+		while($rec = mysqli_fetch_array($sql)) {
+			echo("<div class='product-info'>
+	 		<div class='product-price'>
+	 			<p>".$rec['value']."</p>
+	 		</div>
+	     	<div class='imageContainer'>
+				<div class='imageOverlay' id='item_".$rec['id']."' >
+					<a href='item.php?id=".$rec['id']."' >
+					<div class='eye'></div>
+					</a>
+					<div class='cart'></div>	 	    	
+		    	</div>		    	
+		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
+		    </div>
+		    <div class='product-name'>
+	 			<p>".$rec['iname']."</p>
+	 		</div> 
+	    </div>");
+		  	// echo "<p>".$rec['name']."</p>";
+		} 
+		
+		
+		
+		mysqli_close($conn);
+		
+		?>
+	 	<!-- <div class="product-info">
 	 		<div class="product-price">
 	 			<p>9000$</p>
 	 		</div>
@@ -197,7 +277,7 @@
 		    <div class="product-name">
 	 			<p>Nazwa</p>
 	 		</div> 
-	    </div>
+	    </div> -->
      	 
      </div>  
 		 
@@ -241,6 +321,7 @@ $('.imageContainer').mouseleave(function() {
 		$(this).stop();
 });
 });
+
 
 
 </script>

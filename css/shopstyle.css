@@ -418,6 +418,58 @@ div .cart-div {
 	line-height: 120%;
 }
 /* --------------------------------------------- */
+/* FORM -------------------------------------- */
+.form-text-input {
+	margin-top: -7px;
+	margin-bottom: 12px;
+	width: 300px;
+	height: 25px;
+	padding-left: 5px;
+}
+.form-text-input-small {
+	margin-top: -7px;
+	margin-bottom: 12px;
+	width: 132px;
+	height: 25px;
+	padding-left: 5px;
+}
+
+.separator {
+	float: left;
+	height: 25px;
+	width: 26px;
+}
+
+.small-div {
+	float: left;
+}
+
+.small-div p {
+	width: 120px;
+}
+
+.double-div {
+	height:60px;
+}
+
+.form-button {
+	border: 1px solid gray;
+	width: 100px;
+	height: 28px;
+	background: #FFFFFF;
+}
+	.form-button:hover {
+		border: 1px solid gray;
+		background: #2d2d2d;
+		color:#FFFFFF;
+	}
+	
+form p {
+	font-family: "OpenSansRegular", Arial;
+	font-size: 10pt;
+	margin: 10px 0 10px 0;
+}
+/* --------------------------------------------- */
 /* LOGREG -------------------------------------- */
 .logreg-div {
 	width: 900px;
@@ -435,11 +487,7 @@ div .cart-div {
 	float: left;
 	padding: 80px 80px 55px 80px;
 }
-.logreg-div p {
-	font-family: "OpenSansRegular", Arial;
-	font-size: 10pt;
-	margin: 10px 0 10px 0;
-}
+
 .log-div-button  {
 	margin-top: 15px;
 	height: 30px;
@@ -465,13 +513,7 @@ div .cart-div {
 .reg-div ul {
 	margin-top: 28px;
 }
-.form-text-input {
-	margin-top: -7px;
-	margin-bottom: 12px;
-	width: 300px;
-	height: 25px;
-	padding-left: 5px;
-}
+
 .filler {
 	position: absolute;
 	left: 50%;
@@ -481,17 +523,7 @@ div .cart-div {
 	margin-top: -332px;
 	height: 674px;
 }
-.form-button {
-	border: 1px solid gray;
-	width: 100px;
-	height: 28px;
-	background: #FFFFFF;
-}
-	.form-button:hover {
-		border: 1px solid gray;
-		background: #2d2d2d;
-		color:#FFFFFF;
-	}
+
 #back-p {
 	position: absolute;
 	margin-top: 360px;
@@ -499,3 +531,11 @@ div .cart-div {
 	color: gray;
 }
 /* --------------------------------------------- */
+/* --REGISTER----------------------------------- */
+#street {
+	width: 195px;
+}
+
+#pcode {
+	width: 70px;
+}

@@ -27,42 +27,48 @@
 		<div class="logreg-div">
 			
 			<div class="log-div">
-				<form method="POST" target="logFunction.php" class="logform">
-					<h2>Zaloguj się</h2>
-					<p>Masz już konto? Wpisz swoje dane.</p>
+				<form method="POST" target="regFunction.php" class="regform">
+					<h2>Rejestracja</h2>
 					<br>
 					<p>Adres email</p>
-					<input type='text' class="form-text-input" id="login-input"/>
+					<input type='text' class="form-text-input" />
 					<p>Hasło</p>
-					<input type='password' class="form-text-input" id="password-input"/>
-					<div class='log-div-button'>
-						<input class="form-button" type="button" value="Zaloguj się" />
-						<div>
-						<input type="checkbox" ><p> Zapamiętaj mnie</p></input>
+					<input type='password' class="form-text-input" />
+					<p>Potwierdź hasło</p>
+					<input type='password' class="form-text-input" />
+					<div class="double-div">
+						<div class="small-div">
+							<p>Imię</p>
+							<input type='text' class="form-text-input-small" />
+						</div>
+						<div class="separator"></div>
+						<div class="small-div">
+							<p>Nazwisko</p>
+							<input type='text' class="form-text-input-small" />
 						</div>
 					</div>
-					<p>Nie pamiętasz swojego hasła?</p> <a href="../asanti/login.php"><p>Kliknij tutaj.</p></a>
+					<div class="double-div">
+						<div class="small-div">
+							<p>Ulica</p>
+							<input type='text' class="form-text-input" id="street"/>
+						</div>
+						<div class="separator"></div>
+						<div class="small-div">
+							<p>Kod pocztowy</p>
+							<input type='text' class="form-text-input" id="pcode"/>
+						</div>
+					</div>
+					<p>asd</p>
+					<input type='text' class="form-text-input" />
+					<p>Telefon</p>
+					<input type='text' class="form-text-input" />
+					<br>
+					<input class="form-button" type="button" value="Zaloguj się" />
+					<a href="../asanti/shop.php"><p id="back-p">&#171 wróć do sklepu</p></a>
 				</form>
-			</div>
-			
-			<div class ="reg-div">
-				<h2>Zarejestruj się</h2>
-				<p>Nie masz konta? Kliknij poniżej.</p>
-				<br>
-				<ul>
-		            <li><p>&#187 Costam1</p></li>
-		            <li><p>&#187  Costam2</p></li>
-		            <li><p>&#187 Costam3</p></li>
-		            <li><p>&#187  Costam4</p></li>
-		            <li><p>&#187  Costam5</p></li>
-		        </ul>	
-				<div>
-					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
 				</div>
-			</div>
-			<a href="../asanti/shop.php"><p id="back-p">&#171 wróć do sklepu</p></a>
+			</div>						
 		</div>
-	</div>
 	</div>
 </body>
 </html>
