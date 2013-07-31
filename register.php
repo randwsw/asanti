@@ -6,6 +6,7 @@
 <title>Asanti - sklep</title>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
 

@@ -6,9 +6,10 @@
 <title>Asanti - sklep</title>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-
+    <script type="text/javascript" src="js/jquery-cookie.js"></script>
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
@@ -72,11 +73,13 @@
 		    		<a href="shop.php?category=set"><div class="menu-div">Komplety</div></a></li>                    
 			</ul>                
 		</div>
+			<a href="/asanti/cart.php">
 			<div class="cart-div">
 				<p class="cart-desc">Koszyk</p>
 				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
-				<p class="item-count">0</p>
+				<p class="item-count" id="cart-count">0</p>
 			</div>
+			</a>
 		</div>
 
 		
@@ -111,7 +114,7 @@
 					<a href='item.php?id=".$rec['id']."' >
 					<div class='eye'></div>
 					</a>
-					<div class='cart'></div>	 	    	
+					<div class='cart' id='item_".$rec['id']."'></div>	 	    	
 		    	</div>		    	
 		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
 		    </div>
@@ -286,9 +289,34 @@
 </body>      
 </html>
 <script type="text/javascript">
-	
-$( document ).ready(function() {
 
+function checkCart(){
+		var count=0;
+		if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		for (var i=0; i < cookieval.length; i++) {
+			if(cookieval.charAt(i)!=',')
+			{				
+			}
+			else
+			{
+				count++;
+				item="";
+			}
+		}
+	}
+	else{
+		count=0;		
+	}
+	$('#cart-count').html(count);
+}
+$(window).load(function() {
+	checkCart();
+});
+
+$( document ).ready(function() {
+	
 
 	$(function() {			
 	    $(".menu-anim").lavaLamp({
@@ -300,14 +328,7 @@ $( document ).ready(function() {
 	        fx: "backout",
 	        speed: 700,
 	    });
-			
-		// var $tlt = jQuery.noConflict();
-		// $tlt(function() {
-		// $tlt('.lavamenu').lavalamp();
-		// });
-	});
-	
-	
+	});	
 });
 
 $('.imageContainer').mouseenter(function() {
@@ -322,6 +343,36 @@ $('.imageContainer').mouseleave(function() {
 });
 });
 
+// function setCookie(name, value, expire) {
+        // document.cookie = name + "=" + escape(value) + ((expire==null)?"" : ("; expires=" + expire.toGMTString()))
+// }
+// 
+$('.cart').click(function() {
+	
+	var cookieArray = [];
+	if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		var item="";		
+		for (var i=0; i < cookieval.length; i++) {
+			if(cookieval.charAt(i)!=',')
+			{
+				item += cookieval.charAt(i);
+			}
+			else
+			{
+				cookieArray.push(item);
+				item="";
+			}
+		}
+	}
+	else{		
+	}
+	cookieArray.push($(this).attr('id'));
+	$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
+	alert("Produkt został dodany do koszyka");
+	checkCart();
+});
 
 
 </script>

@@ -336,7 +336,7 @@ div .cart {
 }
 	div .cart:hover {
 		opacity: 1;
-		
+		cursor: pointer;
 	}
 
 div .panel-div > #cart {
@@ -585,6 +585,7 @@ div .cart-div {
 		height:10px;
 		width: 20px;
 		margin-left: 63px;
+		text-align: center;
 	}
 
 .product-row  div{
