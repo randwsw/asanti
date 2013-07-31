@@ -119,7 +119,7 @@
 	 			<p>".$rec['iname']."</p>
 	 		</div> 
 	    </div>");
-		  	// echo "<p>".$rec['name']."</p>";
+		  	
 		} 
 		
 		

@@ -62,6 +62,7 @@ table {
 }
 a {
 	color: #996515;
+	text-decoration: none;
 }
 /*----------------------------------------------*/
 /*------------------FONTS-----------------------*/
@@ -420,37 +421,48 @@ div .cart-div {
 /* --------------------------------------------- */
 /* FORM -------------------------------------- */
 .form-text-input {
-	margin-top: -7px;
-	margin-bottom: 12px;
 	width: 300px;
 	height: 25px;
 	padding-left: 5px;
 }
-.form-text-input-small {
-	margin-top: -7px;
-	margin-bottom: 12px;
-	width: 132px;
+
+.form-text-input-s {
+	width: 135px;
 	height: 25px;
 	padding-left: 5px;
 }
 
-.separator {
-	float: left;
-	height: 25px;
-	width: 26px;
+
+.formdiv {
+	display:block;
+	margin-top: 10px;
+	margin-bottom: 22px;
+	overflow: auto;
 }
 
-.small-div {
-	float: left;
+	.formdiv p {
+		font-family: "OpenSansRegular", Arial;
+		font-size: 10pt;
+		margin-bottom: 5px;
+		padding-left: 1px;
+	}
+	
+	.formdiv li {
+		font-family: "OpenSansRegular", Arial;
+		font-size: 10pt;
+		margin-bottom: 10px;
+		margin-top: 9px;
+	}
+	
+.formdivcolumn {
+	float:left;
 }
-
-.small-div p {
-	width: 120px;
-}
-
-.double-div {
-	height:60px;
-}
+	.formdivcolumn p{
+		margin-top: 8px;
+	}
+	.formdivcolumn input[type="checkbox"]{
+		margin-top: 8px;
+	}
 
 .form-button {
 	border: 1px solid gray;
@@ -463,58 +475,41 @@ div .cart-div {
 		background: #2d2d2d;
 		color:#FFFFFF;
 	}
-	
-form p {
-	font-family: "OpenSansRegular", Arial;
-	font-size: 10pt;
-	margin: 10px 0 10px 0;
+
+#pback {
+	float: right;
+	/*color: gray;*/
+	margin-top: 7px;
 }
 /* --------------------------------------------- */
 /* LOGREG -------------------------------------- */
 .logreg-div {
-	width: 900px;
+	width: 1000px;
 	margin: 0 auto;
 	height: auto;
 	overflow:hidden;
 	border: 1px solid gray;
 	margin: 50px 50px 80px 50px;
 }
+
 .logreg-div h2{
 	font-size: 16pt;
-	/*letter-spacing: 1pt;*/
 }
 .log-div, .reg-div{
 	float: left;
-	padding: 80px 80px 55px 80px;
+	width: 320px;
+	padding: 40px 80px 27px 40px;
+	margin: 40px 0px 27px 40px;	
 }
-
-.log-div-button  {
-	margin-top: 15px;
-	height: 30px;
+.log-div {
+	border-right: 1px solid gray;
 }
-.log-div-button input[type="checkbox"] {
-	margin-top: 9px;
-}
-.log-div-button div {
-	margin-top: -3px;
+#logcheckbox, #logpcheckbox {
 	float: right;
 }
-.log-div-button * {
-	float: left;
-}
-#log-logo {
-	margin-top:20px;
-}
-.reg-div div {
-	margin-top:21px;
-	height:25px;
-}
 
-.reg-div ul {
-	margin-top: 28px;
-}
 
-.filler {
+.logfiller {
 	position: absolute;
 	left: 50%;
 	margin-left: -550px;
@@ -524,18 +519,93 @@ form p {
 	height: 674px;
 }
 
-#back-p {
-	position: absolute;
-	margin-top: 360px;
-	margin-left: 720px;
-	color: gray;
-}
+
 /* --------------------------------------------- */
 /* --REGISTER----------------------------------- */
-#street {
+#street, #divstreet {
 	width: 195px;
 }
 
-#pcode {
+#divpcode {
 	width: 70px;
+	float: right;
 }
+
+#pcode {
+	width: 58px;
+}
+
+.register-div {
+	width: 312px;
+	margin-top: 30px;
+}
+#lastname {
+	float: right;
+}
+
+.regfiller {
+	position: absolute;
+	left: 50%;
+	margin-left: -500px;
+	width: 1000px;
+	top: 50%;
+	margin-top: -380px;
+	height: 760px;
+}
+/* CART----------------------------------------- */
+.product-row {
+	height: auto;
+   overflow: hidden;
+}
+	.product-row p {
+		margin: 0 auto;
+		text-align: center;
+	}
+#top-row {
+	margin-top: 40px;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+	#top-row p {
+		font-size: 10pt;
+		width: 145px;
+	}
+
+#middle-row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+	#middle-row p {
+		font-size: 8pt;
+		margin-top: 3px;
+	}
+	#middle-row input[type="text"] {
+		height:10px;
+		width: 20px;
+		margin-left: 63px;
+	}
+
+.product-row  div{
+	float: left;
+}
+.column-name{
+	width: 300px;
+}
+
+.column-price{
+	width: 200px;
+}
+.column-quantity{
+	width: 150px;
+}
+
+.column-price-all{
+	width: 200px;
+}
+.column-remove{
+	width: 150px;
+}
+/* --------------------------------------------- */
+

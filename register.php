@@ -17,62 +17,78 @@
 </head>
 
 <body>
-	<div class="filler">
+	<div class="regfiller">
 		
-	<div class="container">
 	<!-- Include background animation ------------------------------------------- -->
 	<!-- <?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
 	<img src="img/forkids2.png" id="log-logo">
-		<div class="logreg-div">
-			
-			<div class="log-div">
+		<div class="register-div">
+					
 				<form method="POST" target="regFunction.php" class="regform">
 					<h2>Rejestracja</h2>
-					<br>
-					<p>Adres email</p>
-					<input type='text' class="form-text-input" />
-					<p>Hasło</p>
-					<input type='password' class="form-text-input" />
-					<p>Potwierdź hasło</p>
-					<input type='password' class="form-text-input" />
-					<div class="double-div">
-						<div class="small-div">
+					<div class ="formdiv">
+						<p>Adres email</p>
+						<input type='text' class="form-text-input" id="email-input"/>
+					</div>
+					<div class ="formdiv">
+						<p>Hasło</p>
+						<input type='password' class="form-text-input" id="pass-input"/>
+					</div>
+					<div class ="formdiv">
+						<p>Potwierdź hasło</p>
+						<input type='password' class="form-text-input" id="pass2-input"/>
+					</div>
+										
+					<div class ="formdiv">
+						<div class="formdivcolumn">
 							<p>Imię</p>
-							<input type='text' class="form-text-input-small" />
+							<input type='text' class="form-text-input-s" id="name-input"/>
 						</div>
-						<div class="separator"></div>
-						<div class="small-div">
+						<div class="formdivcolumn" id="lastname">
 							<p>Nazwisko</p>
-							<input type='text' class="form-text-input-small" />
+							<input type='text' class="form-text-input-s" id="lastname-input"/>
 						</div>
 					</div>
-					<div class="double-div">
-						<div class="small-div">
+					
+					<div class ="formdiv">
+						<div class="formdivcolumn" id="divstreet">
 							<p>Ulica</p>
 							<input type='text' class="form-text-input" id="street"/>
 						</div>
-						<div class="separator"></div>
-						<div class="small-div">
-							<p>Kod pocztowy</p>
+						<div class="formdivcolumn" id="divpcode">
+							<p>Kod poczt.</p>
 							<input type='text' class="form-text-input" id="pcode"/>
 						</div>
 					</div>
-					<p>asd</p>
-					<input type='text' class="form-text-input" />
-					<p>Telefon</p>
-					<input type='text' class="form-text-input" />
-					<br>
-					<input class="form-button" type="button" value="Zaloguj się" />
-					<a href="../asanti/shop.php"><p id="back-p">&#171 wróć do sklepu</p></a>
+					<div class ="formdiv">
+						<p>Miejscowość</p>
+						<input type='text' class="form-text-input" id="city-input"/>
+					</div>
+					<div class ="formdiv">
+						<p>Telefon</p>
+						<input type='text' class="form-text-input" id="phone-input"/>
+					</div>
+					<div class ="formdiv">
+						<input class="form-button" type="button" value="Zaloguj się" />
+						<a href="../asanti/shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
+					</div>
+					
 				</form>
-				</div>
+				
 			</div>						
-		</div>
 	</div>
 </body>
 </html>
 <script type="text/javascript">
-		$('#login-input').watermark("Wpisz tutaj swój adres email");
-		$('#password-input').watermark("Wpisz tutaj swoje hasło");
+		$('#email-input').watermark("Wpisz swój adres email");
+		$('#pass-input').watermark("Wpisz swoje hasło");
+		$('#pass2-input').watermark("Ponownie wpisz hasło");
+		$('#name-input').watermark("Wpisz swoje imię");
+		$('#lastname-input').watermark("Wpisz swoje nazwisko");
+		$('#street').watermark("Ulica i nr domu / mieszkania");
+		$('#pcode').watermark("xx - xxx");
+		$('#city-input').watermark("Wpisz swoje miasto / miejscowość");
+		$('#phone-input').watermark("Wpisz swój numer telefonu");
+
 </script>
