@@ -5,13 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
     
 </head>
 
@@ -31,6 +27,7 @@
 		}
 	?>
         
+<<<<<<< HEAD
     	<div class="sub-menu-container"> 
 		<div class="sub-menu">
 		                
@@ -78,6 +75,11 @@
 				<p class="item-count">0</p>
 			</div>
 		</div>
+=======
+   	<!-- Include submenu -------------------------------------------------------- -->
+	<?php include 'include/submenu.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+>>>>>>> fcad9aa5cc0702b51efd1e54db58291cc29b114f
 
 		
 	<div class="products">

@@ -1,0 +1,113 @@
+a:link {text-decoration:none; color: Black;}
+a:visited {text-decoration:none; color: Black;}
+a:hover {text-decoration:none; color: Black;}
+a:active {text-decoration:none; color: Black;} 
+
+body {
+	font-family: "Open Sans";
+}
+
+#container {
+	width: 1200px;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	margin-left: -600px;
+	/*background-color: Gray;*/
+}
+
+#header {
+	height: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	font-family: "Open Sans";
+	font-size: 18pt;
+	background-color: rgba(153,101,21,0.5);
+	color: White;
+}
+
+#cmsFooter {
+	width: 1200px;
+	height: 20px;
+	margin-top: 20px;
+	background-color: rgba(153,101,21,0.5);
+	color: White;
+	text-align: center;
+	float: left;
+}
+
+#cmsTitle {
+	float: left;
+}
+
+#cmsSubTitle {
+	font-size: 12pt;
+	padding-left: 30px;
+	padding-top: 8px;
+	float: left;
+}
+
+#content {
+	font-size: 10pt;
+}
+
+#leftMenu {
+	position: relative;
+	width: 150px;
+	height: 100%;
+	background-color: rgba(0,0,0,0.2);
+	float: left;
+}
+
+.navigation {
+	padding-left: 10px;
+	font-size: 10pt;
+	/*width: 150px;*/
+	float: left;
+}
+
+.navigation:hover {
+	font-weight: bold;
+}
+
+#rightContent {
+	width: 1050px;
+	height: auto;
+	float: left;
+}
+
+#rightContentContainer {
+	margin-left: 30px;
+	margin-top: 30px;
+}
+
+
+#newItemName {
+	width: 700px;
+}
+
+#newItemDescription {
+	width: 700px;
+	height: 400px;
+	resize: none;
+}
+
+#addPhotosBox {
+	margin-top: 50px;
+	min-height: 100px;
+}
+
+.preview-area {
+	width: 1010px;
+}
+
+.addItemFormLabel {
+	margin-top: 20px;
+	width: 1010px;
+	height: auto;
+	background-color: rgba(153,101,21,0.5);
+	font-size: 11pt;
+	color: White;
+	padding-left: 10px;
+}
