@@ -6,6 +6,8 @@
 <title>Asanti - sklep</title>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
     
@@ -36,7 +38,7 @@
 			</div>
 		</div>
 		
-		<div class="product-row" id="middle-row">
+		<!-- <div class="product-row" id="middle-row">
 			<div class="column-name">
 				<p>Produkt1</p>
 			</div>
@@ -70,8 +72,69 @@
 			<div class="column-remove">
 				<a href=""><p>X</p></a>
 			</div>
-		</div>
-		
+		</div> -->
+		<?php 
+		if(isset($_COOKIE['cartItem']))
+        {
+        		$querypart="";
+                $var = $_COOKIE['cartItem'];
+				$var = $var.',';
+				$item="";
+				
+                for ($i = 0; $i<strlen($var); $i++)  {
+				    $character = substr($var, $i,1);
+					if($character != ',')
+					{
+						$item= $item.$character;						
+					}
+					else {						
+						$item = substr($item, 5);
+						$querypart= $querypart."i.id = ".$item." OR "; 
+						$item="";
+					}
+				}
+				
+			$querypart = substr($querypart,0,-3);
+			// echo($querypart);
+			
+			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+			// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+					
+			// Check connection
+			if (mysqli_connect_errno())
+			{
+				echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			}
+			
+		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+			
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+			
+			while($rec = mysqli_fetch_array($sql)) {
+				echo(
+				"<div class='product-row' id='middle-row'>
+					<div class='column-name'>
+						<p>".$rec['iname']."</p>
+					</div>
+					<div class='column-price'>
+						<p>".$rec['value']."</p>
+					</div>
+					<div class='column-quantity'>
+						<input type='text' value='1'/>
+					</div>
+					<div class='column-price-all'>
+						<p>24,99</p>
+					</div>
+					<div class='column-remove'>
+						<a href=''><p>X</p></a>
+					</div>
+				</div>"
+				);
+			}
+		  
+        }
+		?>
 	</div>
 </body>
 </html>
