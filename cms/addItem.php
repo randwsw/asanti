@@ -130,7 +130,7 @@ if(!isset($_POST["submit"])){?>
 			<div id="rightContent">
 				<div id="rightContentContainer">
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
-					<form action="addPhotos.php"; method="POST" enctype="multipart/form-data">
+					<form action="addItem.php"; method="POST" enctype="multipart/form-data">
 						<div id="newItemNameBox">
 							<div class="addItemFormLabel">Nazwa przedmiotu:</div>
 							<input id="newItemName" name="newItemName" type="text" value="" />
@@ -189,6 +189,7 @@ else
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $name = mysql_real_escape_string($_POST['newItemName']);
 $description = mysql_real_escape_string($_POST['newItemDescription']);
 $headPhotoId = 0;
@@ -235,37 +236,28 @@ if (!mysqli_query($conn,$sql))
   
 // ADD SIZE_ITEM
 
-
-
-
-
-// if (isset($_POST['checkbox']) && is_array($_POST['checkbox'])) { echo implode(' ', $_POST['checkbox']); }
-
-
-
-
-
-if (isset($_POST['checkbox']) && is_array($_POST['checkbox'])) {
-	// Check connection
-	if (mysqli_connect_errno())
-	  {
-	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  }
-	$sizeId = $_POST['checkbox'];
-	$sql2="INSERT INTO size_item (sizeId, itemId)
-		VALUES
-		('$sizeId','$lastId')";
-	if (!mysqli_query($conn,$sql2))
-  	{
- 		die('Error: ' . mysqli_error($conn));
-  		mysqli_close($conn);
-  	}else
-		echo("success!");
-  	{
-  		
-	mysqli_close($conn);
-	
-  }
+if(!empty($_POST['pickSize'])) {
+    foreach($_POST['pickSize'] as $check) {
+    	
+		if (mysqli_connect_errno())
+	  	{
+	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  	}
+		
+		
+		$sql2="INSERT INTO size_item (sizeId, itemId)
+			VALUES
+			('$check','$lastId')";
+		if (!mysqli_query($conn3,$sql2))
+		{
+	  		die('Error: ' . mysqli_error($conn3));
+	  		// mysqli_close($conn3);
+	  	}else
+	  	{
+			// mysqli_close($conn3);
+	  	}
+	}
+	mysqli_close($conn3);
 }
 
   
