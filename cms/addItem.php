@@ -57,7 +57,8 @@ if(!isset($_POST["submit"])){?>
 </script>
   
 <script type="text/javascript">
-			$(document).ready(function(){
+
+		function showPreview(){
 			var inputLocalFont = document.getElementById("image-input");
 			inputLocalFont.addEventListener("change",previewImages,false);
 			
@@ -66,12 +67,48 @@ if(!isset($_POST["submit"])){?>
 			    
 			    var anyWindow = window.URL || window.webkitURL;
 	
-	        for(var i = 0; i < fileList.length; i++){
-	          var objectUrl = anyWindow.createObjectURL(fileList[i]);
-	          $('.preview-area').append('<img src="' + objectUrl + '" style="max-width: 150px; max-height: 150px;"/>');
-	          window.URL.revokeObjectURL(fileList[i]);
-	        }
+	        	for(var i = 0; i < fileList.length; i++){
+	          		var objectUrl = anyWindow.createObjectURL(fileList[i]);
+	          		$('.preview-area').append('<img src="' + objectUrl + '" style="max-width: 150px; max-height: 150px;"/>');
+	          		window.URL.revokeObjectURL(fileList[i]);
+	        	}
 			}
+		}
+		
+		
+		function selectSizeStartup(){
+			var sizeOf="height";
+			$.ajax({ 
+								url: "controllers/getAllSize.php",
+								type: "POST",
+								data:  {sizeOf: sizeOf},
+								cache: false
+								}).done(function(data) {
+						  		$("#sizePickBox").html(data);
+							});
+		}
+		
+		
+		function selectSize(){
+			$("#sizeOptions").on("change", function(){
+				$("#sizeOptions option:selected").each(function () {
+					var sizeOf = $(this).attr("value");
+					$.ajax({ // loading classes list
+								url: "controllers/getAllSize.php",
+								type: "POST",
+								data:  {sizeOf: sizeOf},
+								cache: false
+								}).done(function(data) {
+						  		$("#sizePickBox").html(data);
+							});
+				});
+			});
+		}
+			
+		$(document).ready(function(){
+			showPreview();
+			selectSize();
+			selectSizeStartup();
 		});
 		
 		</script>
@@ -95,20 +132,36 @@ if(!isset($_POST["submit"])){?>
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
 					<form action="addPhotos.php"; method="POST" enctype="multipart/form-data">
 						<div id="newItemNameBox">
-						<div class="addItemFormLabel">Nazwa przedmiotu:</div>
-						<input id="newItemName" name="newItemName" type="text" value="" />
-					</div>
-					<div class="addItemFormLabel">Opis przedmiotu:</div>
-        			<p>     
-                		<textarea id="newItemDescription" name="newItemDescription" cols="50" rows="15">Opis nowego przedmiotu.</textarea>
-                
-        			</p>
-					<div id="addPhotosBox">
+							<div class="addItemFormLabel">Nazwa przedmiotu:</div>
+							<input id="newItemName" name="newItemName" type="text" value="" />
+						</div>
+						<div id="newIteDescriptionBox">
+							<div class="addItemFormLabel">Opis przedmiotu:</div>
+	        				<p>     
+	                			<textarea id="newItemDescription" name="newItemDescription" cols="50" rows="15">Opis nowego przedmiotu.</textarea>
+	        				</p>
+	        			</div>
+	        			<div id="newItemPriceBox">
+	        				<div class="addItemFormLabel">Cena przedmiotu</div>
+	        				<input id="newPriceInput" type="text"/> zł.
+	        			</div>
+	        			<div id="newItemSizeBox">
+	        				<div class="addItemFormLabel">Wybierz rozmiar</div>
+	        				<select id="sizeOptions">
+	        					<option value="height">Wzrost</option>
+	        					<option value="foot">Długość stopy</option>
+	        					<option value="head">Obwód głowy</option>
+	        				</select>
+	        				<div id="sizePickBox">
+	        					
+	        				</div>
+	        			</div>
+						<div id="addPhotosBox">
 							<div class="addItemFormLabel">Wybierz zdjęcia:</div>
 							<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
 							<div class="preview-area"></div>
-					</div>
-					<input type="submit" name="submit" value="Dalej" />
+						</div>
+						<input type="submit" name="submit" value="Dalej" />
 					</form>
 				</div>				
 			</div>
@@ -143,7 +196,7 @@ $headPhotoId = 0;
 
 
 
-// Check connection
+// CREATE ITEM
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -178,10 +231,50 @@ if (!mysqli_query($conn,$sql))
   }
   
   
+  
+  
+// ADD SIZE_ITEM
+
+
+
+
+
+// if (isset($_POST['checkbox']) && is_array($_POST['checkbox'])) { echo implode(' ', $_POST['checkbox']); }
+
+
+
+
+
+if (isset($_POST['checkbox']) && is_array($_POST['checkbox'])) {
+	// Check connection
+	if (mysqli_connect_errno())
+	  {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  }
+	$sizeId = $_POST['checkbox'];
+	$sql2="INSERT INTO size_item (sizeId, itemId)
+		VALUES
+		('$sizeId','$lastId')";
+	if (!mysqli_query($conn,$sql2))
+  	{
+ 		die('Error: ' . mysqli_error($conn));
+  		mysqli_close($conn);
+  	}else
+		echo("success!");
+  	{
   		
+	mysqli_close($conn);
+	
+  }
+}
+
+  
+  
+    		
 			
 			
 
+			
 		
 	
 	set_time_limit(300);//for uploading big files
