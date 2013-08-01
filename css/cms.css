@@ -131,6 +131,14 @@ body {
 	/*float: left;*/
 }
 
+#newItemCategoryBox {
+	width: 1010px;
+	float: left;
+}
+
+#categoryLevel_0 {
+	float: left;
+}
 
 #addPhotosBox {
 	/*margin-top: 50px;*/

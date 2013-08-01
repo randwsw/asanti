@@ -104,11 +104,45 @@ if(!isset($_POST["submit"])){?>
 				});
 			});
 		}
-			
+		
+		
+		function getCategories(parentId){
+			$.ajax({ 
+		    type: 'POST', 
+		    url: 'controllers/getCategory.php', 
+		    data: {parentId: parentId},
+		    error: function (data) {
+		    	alert("error");
+		    },
+		    success: function (data) { 
+		    	var selectId;
+		    	if(parentId == 0){
+		    		selectId = "categoryLevel_0";
+		    	}else{
+		    		selectId = "categoryLevel_2";
+		    	}
+		    	$("#" + selectId).html(data);
+			},
+			})
+		}
+		
+		
+		function categoriesOnChange(){
+			$("#categoryLevel_0").on("change", function(){
+				$("#categoryLevel_0 option:selected").each(function () {
+					var parentId = $(this).val();
+					$(this).html(getCategories(parentId));
+				});
+			});	
+		}
+		
+		
 		$(document).ready(function(){
 			showPreview();
 			selectSize();
 			selectSizeStartup();
+			getCategories(0);
+			categoriesOnChange();
 		});
 		
 		</script>
@@ -143,7 +177,7 @@ if(!isset($_POST["submit"])){?>
 	        			</div>
 	        			<div id="newItemPriceBox">
 	        				<div class="addItemFormLabel">Cena przedmiotu</div>
-	        				<input id="newPriceInput" type="text"/> zł.
+	        				<input id="newPriceInput" name="newItemPrice" type="text" value="0,00"/> zł.
 	        			</div>
 	        			<div id="newItemSizeBox">
 	        				<div class="addItemFormLabel">Wybierz rozmiar</div>
@@ -155,6 +189,11 @@ if(!isset($_POST["submit"])){?>
 	        				<div id="sizePickBox">
 	        					
 	        				</div>
+	        			</div>
+	        			<div id="newItemCategoryBox">
+	        				<div class="addItemFormLabel">Wybierz kategorię</div>
+	        				<div id="categoryLevel_0"></div>
+	        				<div id="categoryLevel_2"></div>
 	        			</div>
 						<div id="addPhotosBox">
 							<div class="addItemFormLabel">Wybierz zdjęcia:</div>
@@ -190,9 +229,12 @@ else
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn4=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $name = mysql_real_escape_string($_POST['newItemName']);
 $description = mysql_real_escape_string($_POST['newItemDescription']);
 $headPhotoId = 0;
+$category = mysql_real_escape_string($_POST['categoryToPost']);
+$price = mysql_real_escape_string($_POST['newItemPrice']);
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -206,14 +248,14 @@ if (mysqli_connect_errno())
 
 
 
-$sql="INSERT INTO item (name, description, headPhotoId)
+$sql="INSERT INTO item (name, description, headPhotoId, price)
 VALUES
-('$name','$description','$headPhotoId')";
+('$name','$description','$headPhotoId', '$price')";
 
 if (!mysqli_query($conn,$sql))
   {
-  die('Error: ' . mysqli_error($conn));
-  mysqli_close($conn);
+	  die('Error: ' . mysqli_error($conn));
+	  mysqli_close($conn);
   }else
   {
   	mysqli_close($conn);
@@ -227,6 +269,7 @@ if (!mysqli_query($conn,$sql))
 		  {
 				$lastId = $row2['id'];
 		  }
+		  
 	mysqli_close($conn2);
 	
   }
@@ -263,7 +306,29 @@ if(!empty($_POST['pickSize'])) {
   
   
     		
-			
+// ADD CATEGORY
+
+if(!empty($category)) {
+    
+		if (mysqli_connect_errno())
+	  	{
+	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  	}
+		
+		
+		$sql3="INSERT INTO category_con (item_id, cat_id)
+			VALUES
+			('$lastId','$category')";
+		if (!mysqli_query($conn4,$sql3))
+		{
+	  		die('Error: ' . mysqli_error($conn4));
+	  		// mysqli_close($conn3);
+	  	}else
+	  	{
+			// mysqli_close($conn3);
+	  	}
+	mysqli_close($conn4);
+}			
 			
 
 			
