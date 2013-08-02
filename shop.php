@@ -44,12 +44,12 @@
 		        	<?php endif; ?>               
 					<a href="shop.php"><div class="menu-div">Wszystko</div></a></li>
 					
-					<?php if ($cat == 'shoes') : ?>               
+					<?php if ($cat == 'sukienki') : ?>               
 		        	<li class="current">
 		        	<?php else : ?>
 		        	<li class="other">
 		        	<?php endif; ?>                                        
-		            <a href="shop.php?category=shoes"><div class="menu-div">Obuwie</div></a></li>
+		            <a href="shop.php?category=sukienki"><div class="menu-div">Sukienki</div></a></li>
 		            
 		            <?php if ($cat == 'shoes') : ?>               
 		        	<li class="current">
@@ -85,7 +85,7 @@
 		
 	<div class="products">
 		<?php
-			
+		
 		// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
@@ -98,16 +98,19 @@
 		
 		if($cat!='all')
 		{
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, value, url, i.id FROM item i, price pr, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND c.name ='$cat' AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
-		}
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, i.id, price, url
+										FROM item i, photo ph, category c, category_con cc
+										WHERE i.headPhotoId = ph.id AND c.name = 'sukienki' 
+										AND cc.cat_id = c.id 
+										AND cc.item_id = i.id;") or die(mysql_error());		}
 		else {
-			$sql= mysqli_query($conn, "SELECT name AS iname, value, url, i.id FROM item i, price pr, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
+			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
 			echo("<div class='product-info'>
 	 		<div class='product-price'>
-	 			<p>".$rec['value']."</p>
+	 			<p>".$rec['price']."</p>
 	 		</div>
 	     	<div class='imageContainer'>
 				<div class='imageOverlay' id='item_".$rec['id']."' >
