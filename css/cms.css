@@ -53,7 +53,6 @@ body {
 }
 
 #leftMenu {
-	position: relative;
 	width: 150px;
 	height: 100%;
 	background-color: rgba(0,0,0,0.2);
@@ -71,6 +70,25 @@ body {
 	font-weight: bold;
 }
 
+.navMenuTitle {
+	padding-left: 5px;
+}
+
+#navMenu {
+	margin-top: -12px;
+	list-style-type: none;
+}
+
+#navMenu li {
+	cursor: pointer;
+	font-size: 10pt;
+	margin-left: -15px;
+}
+
+#navMenu li:hover {
+	font-weight: bold;
+}
+
 #rightContent {
 	width: 1050px;
 	height: auto;
@@ -78,6 +96,7 @@ body {
 }
 
 #rightContentContainer {
+	float: left;
 	margin-left: 30px;
 	margin-top: 30px;
 }
@@ -93,9 +112,38 @@ body {
 	resize: none;
 }
 
+#newPriceInput {
+	width: 40px;
+	text-align: left;
+}
+
+#newItemSizeBox {
+	float: left;
+	width: 1010px;
+}
+
+#sizeOptions {
+	float: left;
+}
+
+#sizePickBox {
+	width: 100px;
+	/*float: left;*/
+}
+
+#newItemCategoryBox {
+	width: 1010px;
+	float: left;
+}
+
+#categoryLevel_0 {
+	float: left;
+}
+
 #addPhotosBox {
-	margin-top: 50px;
+	/*margin-top: 50px;*/
 	min-height: 100px;
+	float: left;
 }
 
 .preview-area {

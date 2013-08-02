@@ -29,9 +29,9 @@
 	<!-- <?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
         
+		
 	<div class="products">
 		<?php
-		
 		
 		// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -55,6 +55,7 @@
 		{
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND ( c.name ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
 		}
+
 		else {
 			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
 		}
