@@ -80,6 +80,8 @@
                 $var = $_COOKIE['cartItem'];
 				$var = $var.',';
 				$item="";
+				$arr = array();
+				$test = array();
 				
                 for ($i = 0; $i<strlen($var); $i++)  {
 				    $character = substr($var, $i,1);
@@ -89,13 +91,23 @@
 					}
 					else {						
 						$item = substr($item, 5);
-						$querypart= $querypart."i.id = ".$item." OR "; 
+						if (in_array($item, $arr, true)) {
+							$test[$item]+=1;				 
+						}
+						else{
+							$test[$item]=1;
+							$querypart= $querypart."i.id = ".$item." OR ";  			 	
+						}
+						array_push($arr,$item);
+
 						$item="";
 					}
 				}
 				
 			$querypart = substr($querypart,0,-3);
 			// echo($querypart);
+			// print_r($arr);
+			// print_r($test);
 			
 			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -109,7 +121,7 @@
 			
 		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
 			
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id FROM item i WHERE ".$querypart.";");
 			
 			while($rec = mysqli_fetch_array($sql)) {
 				echo(
@@ -118,13 +130,13 @@
 						<p>".$rec['iname']."</p>
 					</div>
 					<div class='column-price'>
-						<p>".$rec['value']."</p>
+						<p>".$rec['price']."</p>
 					</div>
 					<div class='column-quantity'>
-						<input type='text' value='1'/>
+						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."'/>
 					</div>
 					<div class='column-price-all'>
-						<p>24,99</p>
+						<p>".$rec['price']*$test[$rec['id']].".00"."</p>
 					</div>
 					<div class='column-remove'>
 						<a href=''><p>X</p></a>

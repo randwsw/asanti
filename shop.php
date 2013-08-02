@@ -22,73 +22,23 @@
    	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-	<!-- Include background animation ------------------------------------------- -->
-	<!--<?php include 'include/backanim.php'; ?> -->
+	<!-- Include submenu -------------------------------------------------------- -->
+	<?php include 'include/submenu.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-	<?php
-		$cat = 'all';
-		if(isset($_GET['category'])) {
-		    $cat = $_GET['category'];
-		}
-	?>
+	<!-- Include background animation ------------------------------------------- -->
+	<!-- <?php include 'include/backanim.php'; ?> -->
+	<!-- ------------------------------------------------------------------------ -->
         
-    	<div class="sub-menu-container"> 
-		<div class="sub-menu">
-		                
-			<ul class="sub-menu-anim">
-				
-					<?php if ($cat == 'all') : ?>               
-		        	<li class="current">
-		        	<?php else : ?>
-		        	<li class="other">
-		        	<?php endif; ?>               
-					<a href="shop.php"><div class="menu-div">Wszystko</div></a></li>
-					
-					<?php if ($cat == 'shoes') : ?>               
-		        	<li class="current">
-		        	<?php else : ?>
-		        	<li class="other">
-		        	<?php endif; ?>                                        
-		            <a href="shop.php?category=shoes"><div class="menu-div">Obuwie</div></a></li>
-		            
-		            <?php if ($cat == 'shoes') : ?>               
-		        	<li class="current">
-		        	<?php else : ?>
-		        	<li class="other">
-		        	<?php endif; ?>  
-		            <a href="shop.php"><div class="menu-div">Nakrycia głowy</div></a></li>
-		            
-		            <?php if ($cat == 'shoes') : ?>               
-		        	<li class="current">
-		        	<?php else : ?>
-		        	<li class="other">
-		        	<?php endif; ?>  
-		        	<a href="shop.php"><div class="menu-div">Kurtki i płaszcze</div></a></li>
-		        	
-		        	<?php if ($cat == 'set') : ?>               
-		        	<li class="current">
-		        	<?php else : ?>
-		        	<li class="other">
-		        	<?php endif; ?>     
-		    		<a href="shop.php?category=set"><div class="menu-div">Komplety</div></a></li>                    
-			</ul>                
-		</div>
-			<a href="/asanti/cart.php">
-			<div class="cart-div">
-				<p class="cart-desc">Koszyk</p>
-				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
-				<p class="item-count" id="cart-count">0</p>
-			</div>
-			</a>
-		</div>
-
-		
 	<div class="products">
 		<?php
-			
+		
+		
 		// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+		
+		$sql = "SET NAMES 'utf8'";
+		!mysqli_query($conn,$sql);
 				
 		// Check connection
 		if (mysqli_connect_errno())
@@ -96,22 +46,27 @@
 		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		  }
 		
+		$lol = explode("-", $cat, 2);
+		$newcat = $lol[0];
+		 //echo($newcat);
+		// echo($cat);
+		
 		if($cat!='all')
 		{
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, value, url, i.id FROM item i, price pr, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND c.name ='$cat' AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND ( c.name ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
 		}
 		else {
-			$sql= mysqli_query($conn, "SELECT name AS iname, value, url, i.id FROM item i, price pr, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
+			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph WHERE i.headPhotoId = ph.id;") or die(mysql_error());			
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
 			echo("<div class='product-info'>
 	 		<div class='product-price'>
-	 			<p>".$rec['value']."</p>
+	 			<p>".$rec['price']."</p>
 	 		</div>
 	     	<div class='imageContainer'>
 				<div class='imageOverlay' id='item_".$rec['id']."' >
-					<a href='item.php?id=".$rec['id']."' >
+					<a href='item.php?id=".$rec['id']."&category=".$cat."' >
 					<div class='eye'></div>
 					</a>
 					<div class='cart' id='item_".$rec['id']."'></div>	 	    	
@@ -317,14 +272,18 @@ $(window).load(function() {
 
 $( document ).ready(function() {
 	
-
 	$(function() {			
 	    $(".menu-anim").lavaLamp({
 	        fx: "backout",
 	        speed: 700,
 	    });
 	    
-	    $(".sub-menu-anim").lavaLamp({
+	    $("#sub-menu-anim-b").lavaLamp({
+	        fx: "backout",
+	        speed: 700,
+	    });
+	    
+	    $("#sub-menu-anim-g").lavaLamp({
 	        fx: "backout",
 	        speed: 700,
 	    });
@@ -368,7 +327,16 @@ $('.cart').click(function() {
 	}
 	else{		
 	}
-	cookieArray.push($(this).attr('id'));
+	if(jQuery.inArray($(this).attr('id'), cookieArray)!=-1)	{
+			var id = jQuery.inArray($(this).attr('id'), cookieArray);
+			//alert(id);
+			// cookieArray[id]+="#2#"
+		}
+	else {
+		// cookieArray.push($(this).attr('id'));
+	}
+	
+	cookieArray.push($(this).attr('id'));	
 	$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
 	alert("Produkt został dodany do koszyka");
 	checkCart();

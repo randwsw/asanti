@@ -174,12 +174,39 @@ div .menu-div{
 
 /*------------------SUBMENU---------------------*/
 .sub-menu{
-	z-index:5;
-	width: 500px;
+	z-index:2;
+	/*width: 610px;*/
 	height: 50px;
-	margin-top: 8px;
+	/*margin-top: 8px;*/
 	float:right;
+	display:none;
 }
+
+
+.gender-picker{
+	z-index:2;
+	height: 30px;
+	margin-top: 50px;
+}
+	.gender-picker img, .genderp{
+		float: right;
+		margin: 0 5px 0 5px;
+		font-size: 10pt;
+	}
+	.gender-picker .genderp {
+		margin-top: 3px;
+	}
+	.gender-picker img {
+		width:21px;
+		height:21px;
+	}
+	
+	.gender-picker .gdiv{
+	height: 23px;
+	float:right;
+	cursor: pointer;
+	margin-left:15px;
+	}
 
 div .menu-div{
 	 /*font-family: 'Arial Narrow', Arial, sans-serif;*/
@@ -192,7 +219,7 @@ div .menu-div{
    	/*margin: 0px auto;*/
    	border-bottom: 1px solid rgba(0,0,0,0.9);
     height: 30px;
-    width: 450px;
+    /*width: 600px;*/
     float:right;
     overflow: hidden;
         }
@@ -276,6 +303,7 @@ div .panel-div > #profile-icon {
 	border-right: 1px solid black;
 	min-height: 800px;
 	min-width: 1000px;*/
+	overflow: auto;
 }
 .imageContainer {
 	width:	220px;
@@ -348,7 +376,7 @@ div .panel-div > #cart {
 }
 div .cart-div {
 	height: 40px;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	float: left;
 	cursor: pointer;
 }
