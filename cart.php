@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="js/jquery-cookie.js"></script>
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
@@ -123,7 +124,10 @@
 			
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id FROM item i WHERE ".$querypart.";");
 			
+			$sum=0;
+			
 			while($rec = mysqli_fetch_array($sql)) {
+				$sum+= $rec['price']*$test[$rec['id']];
 				echo(
 				"<div class='product-row' id='middle-row'>
 					<div class='column-name'>
@@ -138,7 +142,7 @@
 					<div class='column-price-all'>
 						<p>".$rec['price']*$test[$rec['id']].".00"."</p>
 					</div>
-					<div class='column-remove'>
+					<div class='column-remove' id='column-remove-".$rec['id']."'>
 						<a href=''><p>X</p></a>
 					</div>
 				</div>"
@@ -147,10 +151,55 @@
 		  
         }
 		?>
+		<!-- <div class="product-row" id="bot-row">
+			<div class="sum">
+					<p>Suma:</p>
+			</div>
+			<div class="sum-money">
+				<p><a>Zapłać</a> </p>
+			</div>
+			<div class="sum-money">
+					<p><?php echo($sum.".00"); ?></p>
+			</div>
+		</div> -->
+		<div class="product-row" id="bot-row">
+			<div class="column-name">
+				<p>Razem do zapłaty:</p>
+			</div>
+			<div class="column-price-all">
+				<p><?php echo($sum.".00"); ?></p>
+			</div>
+			<div class="column-remove">
+				<p><a>Zapłać</a> </p>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
 <script type="text/javascript">
+
+function checkCart(){
+		var count=0;
+		if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		for (var i=0; i < cookieval.length; i++) {
+			if(cookieval.charAt(i)!=',')
+			{				
+			}
+			else
+			{
+				count++;
+				item="";
+			}
+		}
+	}
+	else{
+		count=0;		
+	}
+	$('#cart-count').html(count);
+}
+
 $( document ).ready(function() {
 
 
@@ -161,6 +210,42 @@ $( document ).ready(function() {
 	    });
 			
 	});
+	
+});
+
+$('.column-remove').click(function() {
+	var remItem = "item_"+$(this).attr('id').substring(14);
+	var cookieArray = [];
+	if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		var item="";		
+		for (var i=0; i < cookieval.length; i++) {
+
+			if(cookieval.charAt(i)!=',')
+			{
+				item += cookieval.charAt(i);
+			}
+			else
+			{
+				if(item!=remItem)
+				{
+					cookieArray.push(item);
+				}
+				item="";
+			}
+		}
+	}
+	else{
+	}
+	$.cookie("cartItem", cookieArray, { expires: 0, path: '/' });
+	
+	if (cookieArray.length > 0) {
+		$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
+		alert("Produkt zostanie usunięty z koszyka");
+	}
+	//)
+	//checkCart();
 	
 });
 </script>

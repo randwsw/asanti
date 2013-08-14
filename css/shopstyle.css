@@ -600,6 +600,24 @@ div .cart-div {
 		width: 145px;
 	}
 
+#bot-row {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-top: 5px;
+	border-top: 1px solid gray;
+	float: right;
+}
+	#bot-row p {
+		font-size: 10pt;
+		width: 145px;
+	}
+	/*#bot-row .sum {
+		float: left;
+	}
+	#bot-row .sum-money {
+		float: right;
+	}*/
+
 #middle-row {
 	margin-top: 10px;
 	margin-bottom: 10px;
