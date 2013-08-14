@@ -14,7 +14,6 @@ if(!isset($_POST["submit"])){?>
 	<script type="text/javascript">
 	
 	function getItems(){
-		var category = "sukienki";
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/getItems.php', 
@@ -170,5 +169,52 @@ $sql3="DELETE FROM size_item
 	  	}
 	
 	
+	
+// DELETE FILES AND DIR ON FTP SERVER
+
+set_time_limit(300);//for uploading big files
+	
+	$paths="/asanti/img/items/" . $itemToDelete;
+
+	$ftp_server="serwer1309748.home.pl";
+
+	$ftp_user_name="serwer1309748";
+
+	$ftp_user_pass="9!c3Q9";
+
+	$filesList = array();
+
+
+
+	// set up a connection to ftp server
+	$conn_id = ftp_connect($ftp_server);
+	
+	// login with username and password
+	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+
+	// check connection and login result
+	if ((!$conn_id) || (!$login_result)) {
+		echo "FTP connection has encountered an error!";
+		echo "Attempted to connect to $ftp_server for user $ftp_user_name....";
+		exit;
+	   	} else {
+	       	echo "Connected to $ftp_server, for user $ftp_user_name".".....";
+	   	}
+   
+   
+	
+
+	ftp_chdir($conn_id, $paths);
+	$files = ftp_nlist($conn_id, ".");
+	foreach ($files as $file)
+	{
+	    ftp_delete($conn_id, $file);
+	}    
+		ftp_rmdir($conn_id, $paths);
+		// close the FTP connection
+		ftp_close($conn_id);	
+	
+	
+	header("Location: items.php");
 }
 ?>

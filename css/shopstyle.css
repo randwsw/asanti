@@ -327,6 +327,8 @@ div .panel-div > #profile-icon {
 }
 .productImage {
 	position: absolute; 
+	max-width: 220px;
+	max-height: 300px;
 }
 .imageOverlay {
 	width: 100%;

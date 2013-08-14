@@ -17,7 +17,8 @@ if(isset($_POST['category'])){
 }else{$categoryFilter = "";}
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
-
+$sql = "SET NAMES 'utf8'";
+!mysqli_query($conn,$sql);
 
 
 if (mysqli_connect_errno())
@@ -26,13 +27,14 @@ if (mysqli_connect_errno())
 		  }
 		
 		$result = mysqli_query($conn,"SELECT i.id AS itemId, i.name AS itemName, i.description AS itemDescription, 
-										ph.url AS headPhotoUrl, i.price AS itemPrice, c.name AS categoryName, c.urlName AS categoryUrlName
+										i.active AS itemActive, ph.url AS headPhotoUrl, i.price AS itemPrice, 
+										c.name AS categoryName, c.urlName AS categoryUrlName
 									FROM item i, category c, category_con cc, photo ph
 									WHERE c.id = cc.cat_id
-									AND i.id = cc.item_id
-									AND i.headPhotoId = ph.url"
+									AND i.id = cc.item_id"
+									// AND i.headPhotoId = ph.url"
 									. $idFilter . $nameFilter . $categoryFilter .
-									" GROUP BY i.name 
+									" GROUP BY i.id 
 									ORDER BY i.name ASC");
 		
 		while($e=mysqli_fetch_assoc($result))

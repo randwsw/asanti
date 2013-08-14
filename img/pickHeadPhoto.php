@@ -17,9 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // imagejpeg($dst_r,'headPhoto' . $id . '.jpg',$jpeg_quality);
     ob_start();
     imagejpeg($dst_r);
-   	header("Location: items.php");
-	
-	 $i = ob_get_clean(); 
+    $i = ob_get_clean(); 
 	
 	
 
@@ -94,37 +92,24 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 		echo('DIR CREATED </br>');
 	}
 
-
-
-	// Allows overwriting of existing files on the remote FTP server
-	$stream_options = array('ftp' => array('overwrite' => true));
-	
-	// Creates a stream context resource with the defined options
-	$stream_context = stream_context_create($stream_options);
-
-
-
-
-	// $fp = fopen($file, 'r+');
-	$fp = fopen("ftp://" . $ftp_user_name . ":" . $ftp_user_pass . "@" . $ftp_server . "/" . $paths . "/" . $file, "w", 0, $stream_context);
+	$fp = fopen($file, 'r+');
 	fwrite($fp, $i);
-	// rewind($fp);       
-	// ftp_fput($conn_id, $paths . "/" . $file, $fp, FTP_BINARY);
-	// unlink($file);
+	rewind($fp);       
+	ftp_fput($conn_id, $paths . "/" . $file, $fp, FTP_BINARY);
+	unlink($file);
 	// ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
 	
 	
 	// check the upload status
 	if (!$fp) {
-		// $fp2 = fopen($file, 'a+');
-		// $fp2 = fopen("ftp://serwer1309748:9!c3Q9@serwer1309748.home.pl/asanti/img/" . $file, "a+");
-		// fwrite($fp2, $i);
-		// rewind($fp2);       
-		// ftp_fput($conn_id, $paths . "/" . $file, $fp2, FTP_BINARY);
-		// unlink($file);
-		// if(!$fp2){
+		$fp2 = fopen($file, 'a+');
+		fwrite($fp2, $i);
+		rewind($fp2);       
+		ftp_fput($conn_id, $paths . "/" . $file, $fp2, FTP_BINARY);
+		unlink($file);
+		if(!$fp2){
 			
-		// }
+		}
 	   } else {
 	       	echo "Uploaded file to $ftp_server </br>";
 	   }
@@ -166,7 +151,9 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
  	
 	 mysqli_close($conn);
 
-	 
+	 header("Location: items.php");
+	
+
 	
     exit;
 }
@@ -186,7 +173,6 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 		<link rel="stylesheet" href="../js/jcrop/jquery.Jcrop.css" type="text/css" />
 		<link rel="stylesheet" href="../css/demos.css" type="text/css" />
 		<link rel="stylesheet" href="../css/jquery.Jcrop.css" type="text/css" />
-		<link rel="stylesheet" href="../css/cms.css" type="text/css" />
 		
 		<script type="text/javascript">
 		
@@ -267,110 +253,62 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 	</head>
 	
 	<body>
-		
-		
-		
-		
-		<div id="container">
-			<a href="../shop.php"><div>GO TO SHOP</div></a>
-			<div id="header"><div id="cmsTitle">ASANTI CMS</div><div id="cmsSubTitle">Wybierz zdjęcie główne</div></div>
-			<div id="content">
-				<div id="leftMenu">
-					<!-- Include links ---------------------------------------------------------- -->
-					<?php include 'include/leftMenu.php'; ?>
-					<!-- ------------------------------------------------------------------------ -->
-				</div>
-				<div id="rightContent">
-					<div id="rightContentContainer">
-						
-						
-						
-						
-						<div id="itemPhotos">
-							<?php 
-								
-								$itemId = $_GET['itemId'];
-								class photo {
-									public $id;
-									public $url;
-								}
-								
-								$photoList = array();
-								
-								$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-								
-								
-								if (mysqli_connect_errno())
-									{
-								 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-									}
-								
-								
-								
-								$result = mysqli_query($conn,"SELECT * FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
-								
-								while($row1 = mysqli_fetch_array($result))
-									{
-										$photo = new photo;
-								  	 	$photo->id = $row1['id'];
-										$photo->url = $row1['url'];
-										array_push($photoList, $photo);
-									}
-								
-								foreach($photoList as $photo){
-									echo('<img class="itemPhotoThumbnails" id="itemPhoto' . $photo->id . '" src="' . $photo->url . '" style="max-width: 200px; max-height: 200px;"/>');
-								}
-								
-								
-							?>
-						</div>
-						
-						
-						
-						
-						
-						Ustaw zdjęcie główne:
-						<form action="pickHeadPhoto.php" method="post" onsubmit="return checkCoords();">
+		<div id="itemPhotos">
+			<?php 
 				
-							<div id="cropThis" style="border: 2px solid Black;">Crop</div>
+				$itemId = $_GET['itemId'];
+				class photo {
+					public $id;
+					public $url;
+				}
 				
-					        <img id="cropbox" src="#" width="" height="" alt="your image" />
-					        
-					        <input type="hidden" id="imgUrl" name="imgUrl" value="" />
-					        
-					        <input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" />
-					        <input type="hidden" id="x" name="x" />
-				            <input type="hidden" id="y" name="y" />
-				            <input type="hidden" id="w" name="w" />
-				            <input type="hidden" id="h" name="h" />
-				            
-					        <input type="submit" value="Crop Image" />
-						</form>
-						
-						
-					</div>				
-				</div>
-			</div>	
-			<div id="cmsFooter">ASANTI CMS FOOTER</div>
+				$photoList = array();
+				
+				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+				
+				
+				if (mysqli_connect_errno())
+					{
+				 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					}
+				
+				
+				
+				$result = mysqli_query($conn,"SELECT * FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
+				
+				while($row1 = mysqli_fetch_array($result))
+					{
+						$photo = new photo;
+				  	 	$photo->id = $row1['id'];
+						$photo->url = $row1['url'];
+						array_push($photoList, $photo);
+					}
+				
+				foreach($photoList as $photo){
+					echo('<img class="itemPhotoThumbnails" id="itemPhoto' . $photo->id . '" src="' . $photo->url . '" style="max-width: 200px; max-height: 200px;"/>');
+				}
+				
+				
+			?>
 		</div>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		Ustaw zdjęcie główne:
+		<form action="pickHeadPhoto.php" method="post" onsubmit="return checkCoords();">
+
+			<div id="cropThis" style="border: 2px solid Black;">Crop</div>
+
+	        <img id="cropbox" src="#" width="" height="" alt="your image" />
+	        
+	        <input type="hidden" id="imgUrl" name="imgUrl" value="" />
+	        
+	        <input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" />
+	        <input type="hidden" id="x" name="x" />
+            <input type="hidden" id="y" name="y" />
+            <input type="hidden" id="w" name="w" />
+            <input type="hidden" id="h" name="h" />
+            
+	        <input type="submit" value="Crop Image" />
+		</form>
 		
 		
 	</body>
