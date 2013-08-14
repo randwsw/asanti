@@ -12,6 +12,7 @@
 
 <body>
 	<div id="container">
+		<a href="../shop.php"><div>GO TO SHOP</div></a>
 		<div id="header">ASANTI CMS</div>
 		<div id="content">
 			<div id="leftMenu">

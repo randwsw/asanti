@@ -1,3 +1,4 @@
+<a href="cms/index.php"><div>GO TO CMS</div></a>
 <div class ="panel-div">
 	<div class="sub-panel-div" id="profile" >
 		<p>Witaj.&#160</p> 

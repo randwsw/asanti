@@ -21,9 +21,9 @@
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $itemId = $_GET['id'];
-$conn1=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$photosList = array();
+$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
 
 
 // class item {
@@ -43,44 +43,47 @@ $conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwe
 
 
 
-// Get news /////////////////////////////////////////////////////////////////////////////////////////// //
+// Get item /////////////////////////////////////////////////////////////////////////////////////////// //
 if (mysqli_connect_errno())
 	{
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-$result1 = mysqli_query($conn1,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
+
+// CHECK FOR UNIQUE ITEM ////////////////////////////
+$result1 = mysqli_query($conn,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
 while($row1 = mysqli_fetch_array($result1))
 {
 	if($row1['count'] != 1){
 		header('Location: shop.php');
 	}else{
-		
-	$result2 = mysqli_query($conn2,"SELECT * FROM item WHERE id = '$itemId'");
-
-	while($row2 = mysqli_fetch_array($result2))
-		{
-			// $item = new item;
-			// $item->id = $row1['id'];
-			// $item->name = $row1['name'];
-			// $item->description = $row1['description'];
-			// $item->headPhotoUrl = $row1['headPhotoUrl'];
-			// array_push($itemList, $item);
-			$name = $row2['name'];
-			$description = $row2['description'];
-			$headPhotoId = $row2['headPhotoId'];
-		}
-		
-		$result3 = mysqli_query($conn3,"SELECT * FROM photo WHERE id = '$headPhotoId'");
-		
-		while($row3 = mysqli_fetch_array($result3))
-		{
-			$headPhotoUrl = $row3['url'];
-		}
-		mysqli_close($conn1);
-		mysqli_close($conn2);
-		mysqli_close($conn3);
-}
+		// GET ITEM ROWS ///////////////////////////////////
+		$result2 = mysqli_query($conn,"SELECT * FROM item WHERE id = '$itemId'");
+	
+		while($row2 = mysqli_fetch_array($result2))
+			{
+				$name = $row2['name'];
+				$description = $row2['description'];
+				$headPhotoId = $row2['headPhotoId'];
+			}
+			// GET HEAD PHOTO ////////////////////////////////////
+			$result3 = mysqli_query($conn,"SELECT * FROM photo WHERE id = '$headPhotoId'");
+			
+			while($row3 = mysqli_fetch_array($result3))
+			{
+				$headPhotoUrl = $row3['url'];
+			}
+			
+			$result4 = mysqli_query($conn,"SELECT * FROM photo WHERE item_id = '$itemId' AND isHeadPhoto = '0'");
+			
+			while($row4 = mysqli_fetch_array($result4))
+			{
+				$photo = $row4['url'];
+				array_push($photosList, $photo);
+			}
+			
+			mysqli_close($conn);
+	}
 }
 
 
@@ -265,73 +268,32 @@ while($row1 = mysqli_fetch_array($result1))
 						<a class="pageLink prev" style="visibility: hidden;" href="#" title="Previous Page"></a>
 					
 						<ul class="thumbs noscript">
-							<li>
-								<a class="thumb" name="leaf" href="<?php echo("$headPhotoUrl"); ?>" title="Title #0">
-									<img src="<?php echo("$headPhotoUrl"); ?>" height="100" alt="Title #0" />
+							<!-- <li>
+								<a class="thumb" name="leaf" href="<?php echo("$headPhotoUrl"); ?>" title="Asanti for kids">
+									<div class='frame'><span class='helper'></span>
+										<img src="<?php echo("$headPhotoUrl"); ?>" />
+									</div>
 								</a>
-								<!-- <div class="caption">
+								<div class="caption">
 									<div class="image-title">Title #0</div>
 									<div class="image-desc">Description</div>
 									<div class="download">
 										<a href="http://farm4.static.flickr.com/3261/2538183196_8baf9a8015_b.jpg">Download Original</a>
 									</div>
-								</div> -->
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="lizard" href="http://farm4.static.flickr.com/3153/2538167690_c812461b7b.jpg" title="Title #3">
-									<img src="http://farm4.static.flickr.com/3153/2538167690_c812461b7b_s.jpg" alt="Title #3" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
-							<li>
-								<a class="thumb" name="drop" href="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9.jpg" title="Title #1">
-									<img src="http://farm3.static.flickr.com/2404/2538171134_2f77bc00d9_s.jpg" alt="Title #1" />
-								</a>
-							</li>
+								</div> 
+							</li> -->
+							<?php
+								foreach($photosList as $photo)
+								{
+									echo("<li>
+												<a class='thumb' href='$photo' title='Asanti for kids' >
+													<div class='frame'><span class='helper'></span>
+														<img src='$photo' />
+												</div>
+												</a>
+										</li>");
+								}
+							?>
 						</ul>
 						<a class="pageLink next" style="visibility: hidden;" href="#" title="Next Page"></a>
 					</div>

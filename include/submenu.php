@@ -69,7 +69,7 @@
 				?>
 			</ul>                
 		</div>
-			<a href="/asanti/cart.php">
+			<a href="cart.php">
 			<div class="cart-div">
 				<p class="cart-desc">Koszyk</p>
 				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
@@ -105,9 +105,9 @@
 	}
 
 	$("#female").click(function(){
-		window.location.href = "http://localhost/asanti/shop.php?category=dla_dziewczynki";
+		window.location.href = "shop.php?category=dla_dziewczynki";
 	});
 	$("#male").click(function(){
-		window.location.href = "http://localhost/asanti/shop.php?category=dla_chlopca";
+		window.location.href = "shop.php?category=dla_chlopca";
 	});
 </script>

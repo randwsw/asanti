@@ -154,6 +154,7 @@ if(!isset($_POST["submit"])){?>
 
 <body>
 	<div id="container">
+		<a href="../shop.php"><div>GO TO SHOP</div></a>
 		<div id="header"><div id="cmsTitle">ASANTI CMS</div><div id="cmsSubTitle">Dodaj zdjęcia</div></div>
 		<div id="content">
 			<div id="leftMenu">
@@ -167,7 +168,7 @@ if(!isset($_POST["submit"])){?>
 					<form action="addItem.php"; method="POST" enctype="multipart/form-data">
 						<div id="newItemNameBox">
 							<div class="addItemFormLabel">Nazwa przedmiotu:</div>
-							<input id="newItemName" name="newItemName" type="text" value="" />
+							<input id="newItemName" name="newItemName" type="text" value="KORONKOWA" />
 						</div>
 						<div id="newIteDescriptionBox">
 							<div class="addItemFormLabel">Opis przedmiotu:</div>
@@ -230,11 +231,11 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 $conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn4=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$name = mysql_real_escape_string($_POST['newItemName']);
-$description = mysql_real_escape_string($_POST['newItemDescription']);
+$name = $conn->real_escape_string($_POST['newItemName']);
+$description = $conn->real_escape_string($_POST['newItemDescription']);
 $headPhotoId = 0;
-$category = mysql_real_escape_string($_POST['categoryToPost']);
-$price = mysql_real_escape_string($_POST['newItemPrice']);
+$category = $conn->real_escape_string($_POST['categoryToPost']);
+$price = $conn->real_escape_string($_POST['newItemPrice']);
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -407,7 +408,6 @@ if(!empty($category)) {
 	
 	}
 	
-	mysqli_close($conn);
-	// header("Location: pickHeadPhoto.php?itemId=" . $_GET['itemId']);
+	header("Location: pickHeadPhoto.php?itemId=" . $lastId);
 }
 ?>

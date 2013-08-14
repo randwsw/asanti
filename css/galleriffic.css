@@ -36,6 +36,7 @@ div.slideshow-container,
 div.loader,
 div.slideshow a.advance-link {
 	width: 510px; /* This should be set to be at least the width of the largest image in the slideshow with padding */
+	text-align: center;
 }
 
 div.loader,
@@ -60,10 +61,11 @@ div.loader {
 	background-position: center;
 }
 div.slideshow span.image-wrapper {
-	display: block;
 	position: absolute;
-	top: 30px;
-	left: 0;
+	display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-left: -250px;
 }
 div.slideshow a.advance-link {
 	display: block;
@@ -85,6 +87,12 @@ div.slideshow img {
 	border-width: 1px;*/
 	max-height: 500px;
 	max-width: 500px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	vertical-align: middle;
 }
 div.caption-container {
 	float: right;
@@ -154,24 +162,46 @@ ul.thumbs {
 	padding: 0;
 	width: 500px;
 }
-
+.frame {
+	position: absolute;
+	margin-top: 100px;
+	width: 106px;
+	height: 106px;
+	text-align: center; 
+	margin: 0px;
+	/*background-color: Red;*/
+}
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
 ul.thumbs li {
 	float: left;
 	padding: 0;
-	margin: 2px;
+	margin: 8px;
 	list-style: none;
-	min-height: 102px;
+	height: 106px;
+	width: 106px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid rgba(0,0,0,0.5);
 }
 a.thumb {
-	padding: 1px;
+	padding: 0px;
 	display: block;
 }
 a.thumb:focus {
 	outline: none;
 }
 ul.thumbs img {
-	border: none;
-	display: block;
+	vertical-align: middle;
+	max-width: 90px;
+	max-height: 90px;
+	position: relative;
+	margin-left: -4px;;
 }
 div.pagination {
 	clear: both;
