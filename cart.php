@@ -74,7 +74,8 @@
 				<a href=""><p>X</p></a>
 			</div>
 		</div> -->
-		<?php 
+		<?php
+		$sum=0; 
 		if(isset($_COOKIE['cartItem']))
         {
         		$querypart="";
@@ -124,7 +125,7 @@
 			
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id FROM item i WHERE ".$querypart.";");
 			
-			$sum=0;
+			
 			
 			while($rec = mysqli_fetch_array($sql)) {
 				$sum+= $rec['price']*$test[$rec['id']];
@@ -150,6 +151,10 @@
 			}
 		  
         }
+		else
+			{
+				echo("<div id='emptyCart'><p>Nie dodano jeszcze żadnego produktu</p></div>");
+			}
 		?>
 		<!-- <div class="product-row" id="bot-row">
 			<div class="sum">

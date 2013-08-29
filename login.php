@@ -5,9 +5,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<!-- Include links ---------------------------------------------------------- -->
-	<?php include 'include/links.php'; ?>
-	<!-- ------------------------------------------------------------------------ -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+    
+    <link rel="stylesheet" href="css/shopstyle.css" />
+    <link rel="stylesheet" href="css/sliderstyle.css" />
     
 </head>
 
@@ -22,21 +28,25 @@
 			
 			<div class="log-div">
 					
+					<form method="POST" class="logform" id="logform">
+					
 					<h2>Zaloguj się</h2>
 					<div class ="formdiv">
 						<p>Masz już konto? Wpisz swoje dane.</p>
 					</div>
 					<div class ="formdiv">
 						<p>Adres email</p>
-						<input type='text' class="form-text-input" id="login-input"/>
+						<input type='text' class="form-text-input" id="loginInput" name="loginInput"/>
+						<div class="errordiv" id="loginInput_label"></div>
 					</div>
 					<div class ="formdiv">
 						<p>Hasło</p>
-						<input type='password' class="form-text-input" id="password-input"/>
+						<input type='password' class="form-text-input" id="passwordInput" name="passwordInput"/>
+						<div class="errordiv" id="passwordInput_label"></div>
 					</div>
 					<div class ="formdiv">
 						<div class ="formdivcolumn">
-							<input class="form-button" type="button" value="Zaloguj się" />
+							<input class="form-button" type="submit" value="Zaloguj się" />
 						</div>
 						<div class ="formdivcolumn" id="logpcheckbox">
 							<p> Zapamiętaj mnie</p>
@@ -48,6 +58,9 @@
 					<div class ="formdiv">
 						<p>Nie pamiętasz swojego hasła?</p> <a href="../asanti/login.php"><p>Kliknij tutaj.</p></a>
 					</div>
+					
+					</form>
+					
 			</div>
 			
 			<div class ="reg-div">
@@ -63,7 +76,8 @@
 			            <li>&#187 Costam4</li>
 			            <li>&#187 Costam5</li>
 			        </ul>
-			    </div>	
+			    </div>
+			    <br>	
 				<div class ="formdiv">
 					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
 				</div>
@@ -76,6 +90,58 @@
 </body>
 </html>
 <script type="text/javascript">
-		$('#login-input').watermark("Wpisz tutaj swój adres email");
-		$('#password-input').watermark("Wpisz tutaj swoje hasło");
+		$('#loginInput').watermark("Wpisz tutaj swój adres email");
+		$('#passwordInput').watermark("Wpisz tutaj swoje hasło");
+		
+	jQuery.validator.addMethod("customEmail", function(value, element) {
+        return this.optional(element) || value.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+    }, "Zły format adresu email!")
+		
+var validate = $(".logform").validate({
+	errorPlacement: function(error, element) {
+	    var l = element.attr("name");
+	    l='#'+l+"_label";
+	    $(l).html( error );
+	        
+	},
+	success: function(label) {
+		
+	    // var l = label.attr("for");
+	    // l='#'+l;
+	    // l=l+"_label";
+	    // $(l).html( "Ok" );    
+	    
+	},
+	submitHandler: function(){
+        $.post("controllers/logUser.php", 
+        { email: $("#loginInput").val(), password1: $("#passwordInput").val() })
+		.done(function(data) {
+			if(data!='')
+			{
+				alert(data);
+			}else {
+				window.location.href = "shop.php";
+			}
+		});
+    },
+	rules: {
+		loginInput: {
+			required: true,
+			customEmail: true
+		},
+		passwordInput: {
+			required: true,
+			minlength: 8
+		}
+	},
+	 messages: {
+		loginInput: {
+			required: "Pole email jest puste !"
+		},
+		passwordInput: {
+			required: "Pole hasło jest puste !",
+			minlength: jQuery.format("Minimum {0} znaków !")
+		}
+	}
+});
 </script>

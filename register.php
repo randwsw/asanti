@@ -9,6 +9,8 @@
 	<script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
 
 
     
@@ -23,61 +25,80 @@
 	<!-- Include background animation ------------------------------------------- -->
 	<!-- <?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
-	<img src="img/forkids2.png" id="log-logo">
+	
 		<div class="register-div">
+			<img src="img/forkids2.png" id="log-logo">
 					
-				<form method="POST" target="regFunction.php" class="regform">
+				<form method="POST" class="regform" id="regform" >
 					<h2>Rejestracja</h2>
 					<div class ="formdiv">
 						<p>Adres email</p>
-						<input type='text' class="form-text-input" id="email-input"/>
+						<input type='text' class="form-text-input" id="email-input" name="email"/>
+						<div class="errordiv" id="email_label"></div>						
 					</div>
+					
 					<div class ="formdiv">
 						<p>Hasło</p>
-						<input type='password' class="form-text-input" id="pass-input"/>
+						<input type='password' class="form-text-input" id="pass-input" name="password1"/>
+						<div class="errordiv" id="password1_label"></div>						
 					</div>
+										
 					<div class ="formdiv">
 						<p>Potwierdź hasło</p>
-						<input type='password' class="form-text-input" id="pass2-input"/>
+						<input type='password' class="form-text-input" id="pass2-input" name="password2"/>
+						<div class="errordiv" id="password2_label"></div>
 					</div>
 										
 					<div class ="formdiv">
 						<div class="formdivcolumn">
 							<p>Imię</p>
-							<input type='text' class="form-text-input-s" id="name-input"/>
+							<input type='text' class="form-text-input-s" id="name-input" name="name"/>
+							<div class="errordiv" id="name_label"></div>
 						</div>
 						<div class="formdivcolumn" id="lastname">
 							<p>Nazwisko</p>
-							<input type='text' class="form-text-input-s" id="lastname-input"/>
+							<input type='text' class="form-text-input-s" id="lastname-input" name="lastname"/>
+							<div class="errordiv" id="lastname_label"></div>
 						</div>
 					</div>
+					
 					
 					<div class ="formdiv">
 						<div class="formdivcolumn" id="divstreet">
 							<p>Ulica</p>
-							<input type='text' class="form-text-input" id="street"/>
+							<input type='text' class="form-text-input" id="street" name="street"/>
+							<div class="errordiv" id="street_label"></div>
 						</div>
 						<div class="formdivcolumn" id="divpcode">
 							<p>Kod poczt.</p>
-							<input type='text' class="form-text-input" id="pcode"/>
+							<input type='text' class="form-text-input" id="pcode" name="pcode"/>
+							<div class="errordiv" id="pcode_label"></div>
 						</div>
 					</div>
+					
 					<div class ="formdiv">
 						<p>Miejscowość</p>
-						<input type='text' class="form-text-input" id="city-input"/>
-					</div>
+						<input type='text' class="form-text-input" id="city-input" name="city"/>
+						<div class="errordiv" id="city_label"></div>
+					</div>					
+					
 					<div class ="formdiv">
 						<p>Telefon</p>
-						<input type='text' class="form-text-input" id="phone-input"/>
+						<input type='text' class="form-text-input" id="phone-input" name="phone"/>
+						<div class="errordiv" id="phone_label"></div>
 					</div>
+										
 					<div class ="formdiv">
-						<input class="form-button" type="button" value="Zaloguj się" />
+						<input class="form-button" type="submit" value="Zarejestruj się" id="regButton"/>
 						<a href="../asanti/shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
 					</div>
 					
 				</form>
 				
-			</div>						
+			</div>
+			<!-- <div class = "needle">
+				 <img src="img/needle.png" alt="Smiley face" height="593" width="495"> 
+			</div>	 -->					
 	</div>
 </body>
 </html>
@@ -91,5 +112,158 @@
 		$('#pcode').watermark("xx - xxx");
 		$('#city-input').watermark("Wpisz swoje miasto / miejscowość");
 		$('#phone-input').watermark("Wpisz swój numer telefonu");
+		
+	jQuery.validator.addMethod("customEmail", function(value, element) {
+        return this.optional(element) || value.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+    }, "Zły format adresu email!")
+    
+    jQuery.validator.addMethod("Pcode", function(value, element) {
+        return this.optional(element) || value.match(/^[0-9]{2}\-[0-9]{3}$/);
+    }, "xx - xxx !")
+    
+    //^([A-Z][a-z]*((\s)))+[A-Z][a-z]*$
+    //^[A-Z][a-z]{1,}$
+    //^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$
+    jQuery.validator.addMethod("nameLastname", function(value, element) {
+        return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]{1,}$/);
+    }, "Nieprawidłowe imię !")
+    
+    jQuery.validator.addMethod("city", function(value, element) {
+        return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+(?:[\s-][A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+)*$/);
+    }, "Nieprawidłowa nazwa miejscowości !")
+    
+    jQuery.validator.addMethod("passW", function(value, element) {
+        return this.optional(element) || value.match(/^((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*$/);
+    }, "Musi zawierać małą i wielką literę oraz cyfrę, lub znak spec. !")
+    
+    jQuery.validator.addMethod("phone", function(value, element) {
+        return this.optional(element) || value.match(/^([0-9]{9})|(([0-9]{3} ){2}[0-9]{3})|(([0-9]{2} )[0-9]{7})$/);
+    }, "Tylko cyfry (9) i/lub znak spacji !")
+
+//^([0-9]{9})|(([0-9]{3}-){2}[0-9]{3})$
+jQuery.validator.addMethod("checkUser", function(value, element) {
+	var em = $('#email-input').val();
+	var user = null;
+	
+	$.ajax({
+        url: "controllers/checkUser.php",
+        type: 'post',
+        data: {email : em},
+        dataType: 'html',
+        async: false,
+        success: function(data) {
+            user = data;
+        } 
+     });
+  return this.optional(element) || value != user;
+}, "Ten adres email jest już używany!");
+var validate = $(".regform").validate({
+	errorPlacement: function(error, element) {
+	    var l = element.attr("name");
+	    l='#'+l+"_label";
+	    $(l).html( error );
+	    
+	        
+	},
+	success: function(label) {
+		
+	    var l = label.attr("for");
+	    l='#'+l;
+	    l=l+"_label";
+	    $(l).html( "Ok" );    
+	    
+	},
+	submitHandler: function(){
+        $.post("controllers/addUser.php", 
+        { email: $("#email-input").val(), password1: $("#pass-input").val(), password2: $("#pass2-input").val(), 
+          name: $("#name-input").val(), lastname: $("#lastname-input").val(), pcode: $("#pcode").val(), 
+          street: $("#street").val(), city: $("#city-input").val(), phone: $("#phone-input").val() })
+		.done(function(data) {
+		alert("Konto zostało utworzone");
+		});
+    },
+	rules: {
+		email: {
+			required: true,
+			customEmail: true,
+			checkUser: true
+		},
+		password1: {
+			required: true,
+			minlength: 8,
+			passW: true
+		},
+		password2: {
+			required: true,
+			equalTo: "#pass-input"
+		},
+		name: {
+			required: true,
+			nameLastname: true		
+		},
+		lastname: {
+			required: true,
+			nameLastname: true			
+		},
+		street: {
+			required: true
+		},
+		pcode: {
+			required: true,
+			Pcode: true
+		},
+		city: {
+			required: true,
+			city: true			
+		},
+		phone: {
+			required: true,
+			phone: true,
+			minlength: 9	
+		}
+	},
+	 messages: {
+		email: {
+			required: "Pole email jest puste !",
+			customEmail: "Zły format adresu email !",
+		},
+		password1: {
+			required: "Pole hasło jest puste !",
+			minlength: jQuery.format("Minimum {0} znaków !")
+		},
+		password2: {
+			required: "Pole hasło jest puste !",
+			equalTo: "Podane hasła różnią się !"
+		},
+		name: {
+			required: "Pole imię jest puste !",
+			nameLastname: "Nieprawidłowe imię !"
+		},
+		lastname: {
+			required: "Pole nazwisko jest puste !",
+			nameLastname: "Nieprawidłowe nazwisko !"		
+		},
+		street: {
+			required: "Pole ulica jest puste !"
+		},
+		pcode: {
+			required: "Brak kodu !"
+		},
+		city: {
+			required: "Pole miasto jest puste !",
+			city: "Od wielkiej litery, bez liczb i znaków spec. !"			
+		},
+		phone: {
+			required: "Pole telefon jest puste !",
+			number: "Wpisz prawidłowy numer (bez spacji) !",
+			minlength: jQuery.format("Minimum {0} znaków !")				
+		}
+	}
+});
+
+$("#regButton").click(function()
+{
+	
+});
 
 </script>

@@ -89,6 +89,7 @@ a {
 	background-color: rgba(255,255,255,0.9);
 	padding-left: 50px;
 	padding-right: 50px;
+	padding-bottom: 50px;
 }
 .sub-menu-container {
 	width: auto;
@@ -409,6 +410,15 @@ div .cart-div {
 
 }
 	
+.recommended {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	padding: 5px 5px 5px 5px;
+	border-radius: 8px;
+	border: 1px solid rgba(0,0,0,0.2);;
+	background: rgba(153,101,21,0.2);
+	/*#996515*/
+}
 
 /*----------------------------------------------*/
 
@@ -465,8 +475,8 @@ div .cart-div {
 
 .formdiv {
 	display:block;
-	margin-top: 10px;
-	margin-bottom: 22px;
+	margin-top: 5px;
+	/*margin-bottom: 22px;*/
 	overflow: auto;
 }
 
@@ -484,11 +494,20 @@ div .cart-div {
 		margin-top: 9px;
 	}
 	
+	form .errordiv{
+		font-family: "OpenSansRegular", Arial;
+		color: #633b07;
+		height:15px;
+		padding-top: 3px;
+		padding-left: 2px;
+		font-size: 8pt;
+	}
+	
 .formdivcolumn {
 	float:left;
 }
 	.formdivcolumn p{
-		margin-top: 8px;
+		/*margin-top: 8px;*/
 	}
 	.formdivcolumn input[type="checkbox"]{
 		margin-top: 8px;
@@ -538,6 +557,13 @@ div .cart-div {
 	float: right;
 }
 
+#logpcheckbox {
+	margin-top: 8px;
+}
+
+#log-logo {
+	margin-bottom:30px;
+}
 
 .logfiller {
 	position: absolute;
@@ -547,6 +573,7 @@ div .cart-div {
 	top: 50%;
 	margin-top: -332px;
 	height: 674px;
+	background: url(../img/needle2.png) no-repeat center;
 }
 
 
@@ -566,9 +593,15 @@ div .cart-div {
 }
 
 .register-div {
+	/*float:left;*/
 	width: 312px;
-	margin-top: 30px;
+	margin: 0px auto;
+	
 }
+.needle {
+	float: left;
+}
+
 #lastname {
 	float: right;
 }
@@ -577,11 +610,30 @@ div .cart-div {
 	position: absolute;
 	left: 50%;
 	margin-left: -500px;
-	width: 1000px;
+	width: 740px;
 	top: 50%;
 	margin-top: -380px;
 	height: 760px;
+	background: url(../img/needle2.png) no-repeat center;
+	
 }
+
+.updaterightCol {
+	float:right;
+}
+.updateleftCol {
+	float:left;
+}
+
+.emailUpdate, .passwordUpdate{
+	margin-top: 151px;
+	margin-left: 50px;
+	padding-left: 50px;
+	border-left: 1px solid gray;
+}
+	.passwordUpdate{
+		margin-top: 20px;
+	}
 /* CART----------------------------------------- */
 .product-row {
 	height: auto;
@@ -633,6 +685,15 @@ div .cart-div {
 		height:10px;
 		width: 20px;
 		margin-left: 63px;
+		text-align: center;
+	}
+#emptyCart {
+	height: 50px;
+   overflow: hidden;
+}
+	#emptyCart p {
+		margin: 0 auto;
+		margin-top: 15px;
 		text-align: center;
 	}
 

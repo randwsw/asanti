@@ -1,8 +1,12 @@
     <?php
-		$cat = 'all';
+    	// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+		
+		$cat = 'recommended';
 		if(isset($_GET['category'])) {
-		    $cat = $_GET['category'];
-
+		    //$cat = $_GET['category'];
+			$cat = $conn->real_escape_string($_GET['category']);
 		}
 	?>
     	<div class="sub-menu-container">
@@ -20,10 +24,6 @@
 		                
 			<ul class="sub-menu-anim" id="sub-menu-anim-g">
 				<?php
-
-				// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-				// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
 				
 				$sql = "SET NAMES 'utf8'";
 				!mysqli_query($conn,$sql);
