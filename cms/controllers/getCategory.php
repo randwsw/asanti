@@ -57,13 +57,17 @@ if (mysqli_connect_errno())
 			$categorySelect = "categoryToPost";
 		}
 		
-		echo("<select name='" . $categorySelect . "' id='categorySelectLevel_" . $parentId . "'>");
+		
+		
+		
+		// echo("<select name='" . $categorySelect . "' id='categorySelectLevel_" . $parentId . "'>");
 		foreach($categoryList as $c){
-			echo("<option value='" . $c->id . "'>");
-			echo($c->name);
-			echo("</option>");
+			echo("<input type='radio' value='" . $c->id . "' name='" . $categorySelect . "'>" . $c->name . "</br>");
+			// echo("<option value='" . $c->id . "'>");
+			// echo($c->name);
+			// echo("</option>");
 		}
-		echo("/select>");
+		// echo("/select>");
 		
 	mysqli_close($conn);
 ?>

@@ -4,7 +4,7 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Asanti - cms</title>
-	<link rel="stylesheet" href="../css/cms.css" type="text/css" />
+	<link rel="stylesheet" href="../css/cms2.css" type="text/css" />
 	<script type="text/javascript" src="../js/tinymce/tiny_mce.js"></script>
 	<?php include "../include/links.php"; ?>
 
@@ -21,10 +21,10 @@
 		    	// alert("error");
 		    },
 		    success: function (data) { 
-		    	$("#itemsTable").append("<tr class='itemsTableTrHeader'><td class='itemsTableTdNameHeader'>Nazwa przedmiotu</td>"
-		    	+ "<td class='itemsTableTdPriceHeader'>Cena</td>"
-		    	+ "<td class='itemsTableTdCategoryHeader'>Kategoria</td>"
-		    	+ "<td class='itemsTableTdOptionsHeader'>Aktywny</td>");
+		    	$("#itemsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
+		    	+ "<td class='price'>Cena</td>"
+		    	+ "<td class='category'>Kategoria</td>"
+		    	+ "<td class='options'>Aktywny</td>");
 
 		    	var j = 0;
 		    	$.each(data,function(i,row){
@@ -36,18 +36,18 @@
 		    		}
 		    		
 		    		if(j%2 == 0){
-		    			var trClass = "1";
+		    			var trClass = "odd";
 		    		}else{
-		    			var trClass = "2";
+		    			var trClass = "even";
 		    		}
 		    		
 		    		$("#itemsTable").append(
-		    			"<tr class='itemsTableTr" + trClass + "'><td class='itemsTableTdName' id='nameTd" + row.itemId + "'>" + row.itemName 
-		    			+ "</td><td class='itemsTableTdPrice' id='priceTd" + row.itemId + "'>" + row.itemPrice + " zł" 
-		    			+ "</td><td class='itemsTableTdCategory' id='categoryTd" + row.itemId + "'>" + row.categoryName
-		    			+ "</td><td class='itemsTableTdOptions'>"
-		    			+ "<input type='button' class='editItemButton' value='Edytuj' id='editButton" + row.itemId + "'/>"
-		    			+ "<input type='button' class='deleteItemButton' value='Usuń' id='deleteButton" + row.itemId + "'/>"
+		    			"<tr class='" + trClass + "'><td class='name' id='nameTd" + row.itemId + "'>" + row.itemName 
+		    			+ "</td><td class='price' id='priceTd" + row.itemId + "'>" + row.itemPrice + " zł" 
+		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.categoryName
+		    			+ "</td><td class='options'>"
+		    			+ "<input type='button' class='edit' value='Edytuj' id='editButton" + row.itemId + "'/>"
+		    			+ "<input type='button' class='delete' value='Usuń' id='deleteButton" + row.itemId + "'/>"
 		    			// + "<input type='checkbox' class='itemActiveCheckbox' id='active" + row.ItemId + "'checked='" + checked + "'/></td></tr>"
 		    			+ "<div class='squaredOne'><input type='checkbox' value='None' " + checked + " class='squaredOneCheckbox' id='squaredOne" + row.itemId + "' name='check' />"
 						+ "<label for='squaredOne" + row.itemId + "'></label></div></td></tr>"
@@ -62,34 +62,16 @@
 		})
 	}
 	
-	
-	// function deleteButtonClick(){
-		// $(".deleteItemButtons").click(function(){
-				// $("#popupMessageBackground").css({"visibility" : "visible"});
-				// $("#popupMessage").css({"visibility" : "visible"});
-				// $("#popupMessageButtons").css({"visibility" : "visible"});
-// 				
-				// var itemId = $(this).attr("id");
-				// itemId = itemId.substr(12,5);
-// 				
-				// var itemName = $("#nameTd" + itemId).html();
-				// $("#popupMessageItemName").html(itemName);
-				// cancelButtonClick();
-				// deleteItem(itemId);
-		// })
-	// }
-	
-	
 	function editButton(){
-		$(".editItemButton").click(function(){
+		$("input.edit").click(function(){
 			var itemId = $(this).attr("id");
 			itemId2 = itemId.substr(10,5);
-			window.location.replace("pickHeadPhoto.php?itemId=" + itemId2);
+			window.location.replace("editItem.php?itemId=" + itemId2);
 		})
 	}
 	
 	function deleteItem(){
-		$(".deleteItemButton").click(function(){
+		$("input.delete").click(function(){
 			if(!window.confirm("Na pewno chcesz usunąć ten przedmiot?")){
 	            return false;
 	        }else{
@@ -110,9 +92,6 @@
 			    	alert("ajaxError");
 			    },
 			    success: function (data) {
-			    	// alert("ajaxSuccess");
-			    	// alert(data);
-			    	hidePopupMessage();
 			    	$("#itemsTable").html("");
 			    	getItems();
 				},
@@ -152,24 +131,10 @@
 			
 	}
 	
-	
-	function cancelButtonClick(){
-		$("#popupMessageCancelButton").click(function(){
-			hidePopupMessage();
-		})
-	}
-	
-	function hidePopupMessage(){
-		$("#popupMessageBackground").css({"visibility" : "hidden"});
-		$("#popupMessage").css({"visibility" : "hidden"});
-		$("#popupMessageButtons").css({"visibility" : "hidden"});
-	}
-	
-	
 	$(document).ready(function(){
+		
 		$("#progress").hide();
 		getItems();
-		// editClick();
 		
 	})
 	</script>
@@ -179,39 +144,48 @@
 
 
 <body>
-	<!-- <div id="popupMessageBackground"></div>
-	<div id="popupMessage">
-		<div id="popupMessageTitle">Czy na pewno chcesz usunąć przedmiot?</div>
-		<div id="popupMessageItemName"></div>
-		<input type="hidden" id="popupMessageHidden" value="" />
-	</div>
-	<div id="popupMessageButtons">
-		<input type="button" class="popupMessageButton" id="popupMessageDeleteButton" value="Usuń" />
-		<input type="button" class="popupMessageButton" id="popupMessageCancelButton" value="Anuluj" />
-	</div> -->
-	<div id="container">
+	
+	<div id="siteContainer">
+		
 		<a href="../shop.php"><div>GO TO SHOP</div></a>
-		<div id="header"><div id="cmsTitle">ASANTI CMS</div><div id="cmsSubTitle">Dodaj zdjęcia</div></div>
-		<div id="content">
+		
+		<div id="header"><div id="title">ASANTI CMS</div><div id="subTitle">Przedmioty</div></div>
+		
+		<div id="container">
+			
 			<div id="leftMenu">
 				<!-- Include links ---------------------------------------------------------- -->
 				<?php include 'include/leftMenu.php'; ?>
 				<!-- ------------------------------------------------------------------------ -->
 			</div>
+			
+			
 			<div id="rightContent">
-				<div id="rightContentContainer">
-					<!-- <div class='squaredOne'><input type='checkbox' value='None' id='squaredOne' name='check' />
-					<label for='squaredOne'></label></div> -->
+				
+				<div id="container">
+					
 					<img src="../img/progress_indicator.gif" id="progress" />
-					<table id="itemsTable">
-						<tr class="itemsTableTr">
-							<td class="itemsTableTd"></td><td class="itemsTableTd"></td><td class="itemsTableTd"></td>
-						</tr>
-					</table>
-				</div>				
+					
+					<div id="items">
+						
+						<div id="container">
+							
+							<table id="itemsTable"></table>
+							
+						</div>
+						
+					</div>
+					
+					
+				</div>	
+							
 			</div>
+			
 		</div>	
-		<div id="cmsFooter">ASANTI CMS FOOTER</div>
+		
+		<!-- Include footer --------------------------------------------------------- -->
+		<?php include 'include/footer.php'; ?>
+		<!-- ------------------------------------------------------------------------ -->
 	</div>
 </body>	
 		

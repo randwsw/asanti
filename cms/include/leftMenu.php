@@ -1,5 +1,5 @@
-<p class="navMenuTitle"><a href="items.php">Przedmioty</a></p>
-<ul id="navMenu">
+<p class="title"><a href="items.php">Przedmioty</a></p>
+<ul id="navigation">
 	<li><a href="addItem.php">Dodaj przedmiot</a></li>
 	<!-- <li><a href="addItem.php">Edytuj przedmiot</a></li>
 	<li><a href="deleteItem.php">Usuń przedmiot</a></li> -->

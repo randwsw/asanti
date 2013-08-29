@@ -8,7 +8,6 @@
 
 <link rel="stylesheet" href="css/shopstyle.css" />
 <link rel="stylesheet" href="css/sliderstyle.css" />
-<!-- <link rel="stylesheet" href="css/basic.css" type="text/css" /> -->
-<link rel="stylesheet" href="css/galleriffic.css" type="text/css" />   
+<!-- <link rel="stylesheet" href="css/galleriffic.css" type="text/css" />    -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
