@@ -434,14 +434,33 @@ div .cart-div {
 	.sortBy {
 		font-size: 10pt;
 	}
+	
+	.sortBy {
+	position: absolute;
+	z-index: 3;
+
+    width: 200px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+	}
+	.sortBy > ul { display: none; }
+	.sortBy:hover > ul {display: block; background: #f9f9f9; border-top: 1px solid gray;}
+	.sortBy:hover > ul > li { padding: 5px; border-bottom: 1px solid #4f4f4f;}
+	.sortBy:hover > ul > li:hover { background: white;}
+	.sortBy:hover > ul > li:hover > a { color: red; }
+	
 	.sortBy select {		
 	   text-overflow: '';
 	   text-indent: 0.01px;
 	   -moz-appearance: none;
 	   -webkit-appearance: none;
 	   border: 1px solid white;
-	   border-bottom: 1px solid black;
+	  background: rgba(153,101,21,0.2);
 	   
+   }
+   .sortBy option {
+   	border: none;
    }
 	
 	.itemMenu a {

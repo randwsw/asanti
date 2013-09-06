@@ -89,10 +89,12 @@
 		echo("<div class='itemMenu'>");
 		//echo("<div class='sortBy'><a>Sortuj: </a><a href='shop.php?category=".$cat."&page=$page&order=az' >alfabetycznie, </a><a href='shop.php?category=".$cat."&page=$page&order=pa' >po cenie</a></div>");
 		echo("<div class='sortBy'>
-		<select>
-		  <option value='volvo'>Volvo</option>
-		  <option value='saab'>Saab</option>	
-		</select> 
+		<a>Sortuj:</a>	    
+	    <ul>
+	        <li><a href='#'>Item 1</a></li>
+	        <li><a href='#'>Item 2</a></li>
+	        <li><a href='#'>Item 3</a></li>
+	    </ul> 
 		</div>");
 
 		echo("<div class='pages'>"); 
