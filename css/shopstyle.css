@@ -474,24 +474,91 @@ div .cart-div {
 /* ITEMKSY ------------------------------------- */
 
 #itemContainer {
-	
+	margin-top: 50px;
 }
 
 #itemPhotoContainer {
-	width: 500px;
+	width: 510px;
 	float: left;
+	
 }
 
 #itemBigPhoto {
+	width: 510px;
+	height: 500px;
+	/*background-color: rgba(0,0,0,0.3);*/
+	text-align: center;
+}
+
+#itemBigPhotoImage {
 	max-width: 500px;
 	max-height: 500px;
-	float: right;
+	vertical-align: middle;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.photoThumbnails {
+	/*position: absolute;*/
+	margin-top: 30px;	
+	margin-left: 8px;
+}
+
+ul.thumbs {
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 500px;
+}
+
+.frame {
+	position: absolute;
+	margin-top: 100px;
+	width: 106px;
+	height: 106px;
+	text-align: center; 
+	margin: 0px;
+	/*background-color: Red;*/
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+ul.thumbs li {
+	float: left;
+	padding: 0;
+	margin: 8px;
+	list-style: none;
+	height: 106px;
+	width: 106px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid rgba(0,0,0,0.5);
+}
+
+ul.thumbs img {
+	vertical-align: middle;
+	max-width: 90px;
+	max-height: 90px;
+	position: relative;
+	margin-left: -4px;;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	cursor: pointer;
 }
 
 #itemDescriptionContainer {
 	float: left;
 	margin-left: 50px;
-	width: 450px;
+	width: 440px;
 }
 
 #itemTitle {
@@ -764,4 +831,5 @@ div .cart-div {
 	width: 150px;
 }
 /* --------------------------------------------- */
+
 

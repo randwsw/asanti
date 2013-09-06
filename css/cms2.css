@@ -7,7 +7,7 @@ body {
 	font-family: "Open Sans";
 }
 
-#container {
+body div#siteContainer {
 	width: 1200px;
 	height: auto;
 	position: absolute;
@@ -16,7 +16,7 @@ body {
 	/*background-color: Gray;*/
 }
 
-#header {
+div#siteContainer #header {
 	height: 40px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -27,7 +27,7 @@ body {
 	color: White;
 }
 
-#cmsFooter {
+div#siteContainer #footer {
 	width: 1200px;
 	height: 20px;
 	margin-top: 80px;
@@ -37,252 +37,155 @@ body {
 	float: left;
 }
 
-#cmsTitle {
+div#siteContainer #title {
 	float: left;
 }
 
-#cmsSubTitle {
+
+div#siteContainer #subTitle {
 	font-size: 12pt;
 	padding-left: 30px;
 	padding-top: 8px;
 	float: left;
 }
 
-#content {
+div#siteContainer #container {
 	font-size: 10pt;
 }
 
-#leftMenu {
+div#leftMenu {
 	width: 150px;
 	height: 100%;
 	background-color: rgba(0,0,0,0.2);
 	float: left;
 }
 
-.navigation {
-	padding-left: 10px;
-	font-size: 10pt;
-	/*width: 150px;*/
-	float: left;
-}
-
-.navigation:hover {
-	font-weight: bold;
-}
-
-.navMenuTitle {
+div#leftMenu .title {
+	margin-top: 0px;
+	margin-bottom: 12px;
 	padding-left: 5px;
 }
 
-#navMenu {
+div#leftMenu ul#navigation {
 	margin-top: -12px;
 	list-style-type: none;
 }
 
-#navMenu li {
+div#leftMenu ul#navigation li {
 	cursor: pointer;
 	font-size: 10pt;
 	margin-left: -15px;
 }
 
-#navMenu li:hover {
+div#leftMenu ul#navigation li:hover {
 	font-weight: bold;
 }
 
-#rightContent {
+div#rightContent {
 	width: 1050px;
 	height: auto;
 	float: left;
 }
 
-#rightContentContainer {
+div#rightContent #container {
 	float: left;
 	margin-left: 30px;
 	margin-top: 30px;
 }
 
-#popupMessageBackground {
-	background-color: white;
-    filter:alpha(opacity=30); /* IE */
-    opacity: 0.3; /* Safari, Opera */
-    -moz-opacity:0.30; /* FireFox */
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-    background-repeat:no-repeat;
-    background-position:center;
-    position:fixed;
-    top: 0px;
-    left: 0px;
-    visibility: hidden;
-}
-
-#popupMessage {
-	background-color: White;
-	border: 2px solid rgba(153,101,21,0.5);
-	min-width: 500px;
-	height: 70px;
-	left: 50%;
-	margin-left: -250px;
-	top: 50%;
-	margin-top: -50px;
-	position: fixed;
-	z-index: 3;
-	overflow: hidden;
-	visibility: hidden;
-	color: White;
-}
-
-#popupMessageTitle {
-	background: rgba(153,101,21,0.5);
-	color: Black;
-	width: 100%;
+div#rightContent #container #items #container{
+	margin-top: 0px;
 	margin-left: 0px;
-	text-align: center;
-	font-size: 10pt;
-	padding-top: 5px;
-	padding-bottom: 5px;
 }
 
-#popupMessageItemName {
-	padding-top: 10px;
-	padding-left: 5px;
-	padding-right: 5px;
-	font-size: 10pt;
-	color: Black;
-}
-
-#popupMessageButtons {
-	z-index: 3;
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	margin-top: 25px;
-	margin-left: 50px;
-	visibility: hidden;
-}
-
-.popupMessageButton {
-	width: 100px;
-	color: rgba(255,255,255,0.8);
-	border: none;
-	cursor: pointer;
-	height: 22px;
-}
-
-#popupMessageDeleteButton {
-	background-color: rgba(191,21,21,0.8);
-}
-
-#popupMessageCancelButton {
-	background-color: rgba(0,0,0,0.5);
-}
-
-table {
+table#itemsTable {
+	width: 1020px;
+	height: auto;
 	border-collapse:collapse;
 }
 
-#itemsTable {
-	width: 1020px;
-	height: auto;
-	/*border: 1px solid Black;*/
-}
-
-.itemsTableTrHeader {
+table#itemsTable tr.header {
 	background-color: rgba(153,101,21,0.4);
 	color: White;
 	cursor: pointer;
 }
 
-.itemsTableTr1 {
+table#itemsTable tr.header td.name{
+	width: 400px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border: 2px solid White;
+}
+
+table#itemsTable tr.header td.price{
+	border: 2px solid White;
+	width: 40px;
+	text-align: right;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#itemsTable tr.header td.category{
+	border: 2px solid White;
+	width: 200px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#itemsTable tr.header td.options{
+	border: 2px solid White;
+	width: 120px;
+	text-align: right;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#itemsTable tr.odd{
 	background-color: rgba(153,101,21,0.0);
 }
 
-.itemsTableTr2 {
+table#itemsTable tr.odd:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+table#itemsTable tr.even{
 	background-color: rgba(153,101,21,0.2);
 }
 
-.itemsTableTr1:hover{
+table#itemsTable tr.even:hover{
 	background-color: rgba(153,101,21,0.5);
 }
 
-.itemsTableTr2:hover{
-	background-color: rgba(153,101,21,0.5);
-}
-
-.itemsTableTdNameHeader {
-	width: 400px;
-	padding-left: 5px;
-	padding-right: 5px;
-	font-weight: bold;
-	border: 2px solid White;
-}
-
-
-.itemsTableTdName {
-	/*border: 2px solid rgba(153,101,21,0.5);*/
+table#itemsTable td.name{
 	width: 400px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
-.itemsTableTdPriceHeader {
-	border: 2px solid White;
-	width: 40px;
-	text-align: right;
-	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-.itemsTableTdPrice {
-	/*border: 2px solid rgba(153,101,21,0.5);*/
+table#itemsTable td.price{
 	width: 40px;
 	text-align: right;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
-.itemsTableTdCategoryHeader {
-	border: 2px solid White;
-	width: 200px;
-	text-align: center;
-	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-.itemsTableTdCategory {
-	/*border: 2px solid rgba(153,101,21,0.5);*/
+table#itemsTable td.category{
 	width: 200px;
 	text-align: center;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
-.itemsTableTdOptionsHeader {
-	border: 2px solid White;
-	width: 120px;
-	text-align: right;
-	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-.itemsTableTdOptions {
-	/*border: 2px solid rgba(153,101,21,0.5);*/
+table#itemsTable td.options{
 	width: 120px;
 }
 
-.deleteItemButton {
-	background-color: rgba(191,21,21,0.8);
-	color: rgba(255,255,255,0.8);
-	border: none;
-	cursor: pointer;
-	height: 22px;
-}
-
-.editItemButton {
+table#itemsTable input.edit {
 	/*background-color: rgba(50,64,168,0.8);*/
 	background-color: #49a05e;
 	color: rgba(255,255,255,0.8);
@@ -291,12 +194,13 @@ table {
 	height: 22px;
 }
 
-.itemActiveCheckbox {
-	margin-left: 25px;
+table#itemsTable input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
 }
-
-
-
 
 /* SQUARED ONE */
 .squaredOne {
@@ -352,31 +256,57 @@ table {
 }
 
 
-
-
-#editItemTitle{
+div#editItem #title{
 	width: 100%;
 	font-size: 14pt;
-	border-bottom: 1px solid Black;
+	/*border-bottom: 1px solid Black;
+	margin-bottom: 30px;*/
+	margin-bottom: 10px;
 }
 
-#editItemPhotos{
+div#editItem #photos{
 	width: 1000px;
 	min-height: 150px;
 	margin-top: 30px;
 }
 
-#editItemEditHeadPhoto{
+div#editItem #photos #container{
+	margin-left: 0px;
+	margin-top: 0px;
+}
+div#editItem #photos #headPhoto img.headPhoto{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid black;
+}
+
+div#editItem #photos #headPhoto #overlay{
 	opacity: 0;
 	width: 220px;
-	height: 300px;
+	/*height: 300px;*/
 	position: absolute;
 	text-align: center;
-	padding-top: 120px;
+	padding-top: 115px;
+	padding-bottom: 115px;
 	font-size: 13pt;
 	font-weight: bold;
 	background-color: #cbb189;
 	cursor: pointer;
+	margin-left: 1px;
+	margin-top: 1px;
+}
+
+div#editItem #photos #headPhoto #overlay:hover{
+	opacity: 0.5;
+}
+
+div#editItem #photos #thumbnails{
+	margin-left: 220px;
+}
+
+div#editItem #photos #thumbnails #container{
+	
 }
 
 #addMorePhotosButton{
@@ -394,8 +324,20 @@ table {
 	cursor: pointer;
 }
 
-#editItemEditHeadPhoto:hover{
-	opacity: 0.5;
+.nameInput{
+	width: 1010px;
+	height: 25px;
+	padding-left: 5px;
+}
+
+div#editItem #description{
+	margin-top: 320px;	
+}
+
+div#editItem #category{
+	width: 1010px;
+	height: 100%;
+	float: left;
 }
 
 .moveBefore {
@@ -467,17 +409,20 @@ table {
 	opacity: 1;
 }
 
-#itemPhotos {
+#pickPhoto {
+	margin-top: 30px;
 	width: 1000px;
 	min-height: 150px;
 }
 
 
-#actualHeadPhotoContainer {
+#headPhoto {
 	float: left;
 }
 
-#actualHeadPhoto {
+div#headPhoto #container{
+	margin-left: 0px;
+	margin-top: 0px;
 	width:	220px;
 	height: 300px;
 	display: block;
@@ -491,20 +436,33 @@ table {
 	/*float: left;*/
 }
 
-#photoThumbnailsContainer {
+div#pickPhoto #thumbnails {
 	margin-left: 220px;
 }
 
-#photoThumbnailsContainer2 {
+div#rightContent #thumbnails{
 	width: 1000px;
 }
 
-#addPhotosBox2 {
-
+div#rightContent #thumbnails #container{
+	
 }
 
-.photoThumbnails2 {
+div#rightContent #thumbnails #container ul.thumbs {
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 750px;
+	margin-left: 20px;
+}
 
+div#rightContent #container #addPhotos{
+	width: 1000px;
+}
+
+div#rightContent #container #addPhotos #container{
+	margin-left: 0px;
 }
 
 .photoThumbnails {
@@ -514,14 +472,14 @@ table {
 	height: auto;
 }
 
-ul.thumbs {
+/*ul.thumbs {
 	position: relative;
 	float: left;
 	margin: 0;
 	padding: 0;
 	width: 750px;
 	margin-left: 20px;
-}
+}*/
 
 .frame {
 	position: absolute;
@@ -530,7 +488,6 @@ ul.thumbs {
 	height: 106px;
 	text-align: center; 
 	margin: 0px;
-	/*background-color: Red;*/
 }
 
 .helper {
@@ -613,23 +570,18 @@ ul.thumbs img {
 	/*position: absolute;*/
 }
 
-
-
-
-
-
-
-
-
-
-#newItemName {
+div#newItem #name{
 	width: 700px;
 }
 
-#newItemDescription {
+div#newItem #description{
 	width: 700px;
 	height: 400px;
 	resize: none;
+}
+
+div#newItem #price{
+	
 }
 
 #newPriceInput {
@@ -637,30 +589,36 @@ ul.thumbs img {
 	text-align: left;
 }
 
-#newItemSizeBox {
+div#newItem #size{
 	float: left;
 	width: 1010px;
 }
 
-#sizeOptions {
+div#newItem #size select#options {
 	float: left;
 }
 
-#sizePickBox {
+div#newItem #size #sizes {
 	width: 100px;
 	/*float: left;*/
 }
 
-#newItemCategoryBox {
+div#newItem #category{
 	width: 1010px;
 	float: left;
 }
 
 #categoryLevel_0 {
 	float: left;
+	height: 100%;
+	padding-right: 15px;
 }
 
-#addPhotosBox {
+#categoryLevel_2 {
+	float: left;
+}
+
+div#newItem #photos{
 	/*margin-top: 50px;*/
 	min-height: 100px;
 	float: left;
@@ -670,12 +628,195 @@ ul.thumbs img {
 	width: 1010px;
 }
 
-.addItemFormLabel {
+body div.label {
 	margin-top: 20px;
-	width: 1010px;
+	margin-bottom: 4px;
+	width: 1000px;
 	height: auto;
 	background-color: rgba(153,101,21,0.5);
 	font-size: 11pt;
 	color: White;
 	padding-left: 10px;
 }
+
+div#editCategories #confirmAlert{
+	width: 200px;
+	height: 50px;
+	background: #cbb189;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -25px;
+	opacity: 0.9;
+	font-size: 14pt;
+	color: White;
+	text-align: center;
+	padding-top: 15px;
+	/*visibility: hidden;*/
+}
+
+div#editCategories #category .box{
+	width: 450px;
+	/*background-color: Red;*/
+	float: left;
+	margin-top: 20px;
+	margin-left: 15px;
+	border-left: 2px solid #cbb189;
+}
+
+div#editCategories #category .box .cl1{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;	
+	border-bottom: 2px solid #cbb189;
+}
+
+div#editCategories #category .box .container{
+	margin-left: 0px;	
+	display: inline;
+}
+
+div#editCategories #category .box input.editTextbox{
+	margin-left: -1px;
+	width: 330px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.08);
+}
+
+div#editCategories #category .box input.newCategoryTextbox{
+	margin-left: 4px;
+	margin-top: 20px;
+	width: 330px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+div#editCategories #category .box span.name{
+	
+}
+
+div#editCategories #category .box .cl2{
+	padding-left: 5px;	
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div#editCategories #category .box .buttons{
+	float: right;
+}
+
+div#editCategories #category .box input.edit{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editCategories #category .box input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editCategories #category .box input.add{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 104px;
+	margin-top: 17px;
+}
+
+
+
+
+
+div#editSize #size .box{
+	width: 300px;
+	/*background-color: Red;*/
+	float: left;
+	margin-top: 20px;
+	margin-left: 15px;
+	border-left: 2px solid #cbb189;
+}
+
+div#editSize #size .box .sizeOf{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;	
+	border-bottom: 2px solid #cbb189;
+}
+
+div#editSize #size .box .container{
+	margin-left: 0px;	
+	display: inline;
+}
+
+div#editSize #size .box input.editTextbox{
+	margin-left: -1px;
+	width: 180px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.08);
+}
+
+div#editSize #size .box input.newSizeTextbox{
+	margin-left: 4px;
+	margin-top: 20px;
+	width: 180px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+div#editSize #size .box span.name{
+	
+}
+
+div#editSize #size .box .size{
+	padding-left: 5px;	
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div#editSize #size .box .buttons{
+	float: right;
+}
+
+div#editSize #size .box input.edit{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editSize #size .box input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editSize #size .box input.add{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 104px;
+	margin-top: 17px;
+}
+
+
+
+
+

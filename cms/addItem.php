@@ -1,3 +1,7 @@
+<!-- 
+	automatyczne generowanie optionów w select dla rozmiarów
+ -->
+
 <?php
 
 if(!isset($_POST["submit"])){?>
@@ -7,7 +11,7 @@ if(!isset($_POST["submit"])){?>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Asanti - cms</title>
-	<link rel="stylesheet" href="../css/cms.css" type="text/css" />
+	<link rel="stylesheet" href="../css/cms2.css" type="text/css" />
 	<script type="text/javascript" src="../js/tinymce/tiny_mce.js"></script>
 	<?php include "../include/links.php"; ?>
 
@@ -77,21 +81,21 @@ if(!isset($_POST["submit"])){?>
 		
 		
 		function selectSizeStartup(){
-			var sizeOf="height";
+			var sizeOf="wzrost";
 			$.ajax({ 
 								url: "controllers/getAllSize.php",
 								type: "POST",
 								data:  {sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
-						  		$("#sizePickBox").html(data);
+						  		$("div#newItem #size #sizes").html(data);
 							});
 		}
 		
 		
 		function selectSize(){
-			$("#sizeOptions").on("change", function(){
-				$("#sizeOptions option:selected").each(function () {
+			$("select#options").on("change", function(){
+				$("select#options option:selected").each(function () {
 					var sizeOf = $(this).attr("value");
 					$.ajax({ // loading classes list
 								url: "controllers/getAllSize.php",
@@ -99,12 +103,11 @@ if(!isset($_POST["submit"])){?>
 								data:  {sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
-						  		$("#sizePickBox").html(data);
+						  		$("div#newItem #size #sizes").html(data);
 							});
 				});
 			});
 		}
-		
 		
 		function getCategories(parentId){
 			$.ajax({ 
@@ -118,21 +121,35 @@ if(!isset($_POST["submit"])){?>
 		    	var selectId;
 		    	if(parentId == 0){
 		    		selectId = "categoryLevel_0";
+		    		$("#" + selectId).html(data);
+		    		// $("#categoryLevel_0 option:selected").each(function(){
+		    			// getCategories($("#categoryLevel_0 option:selected").val());
+		    		// });
 		    	}else{
 		    		selectId = "categoryLevel_2";
+		    		$("#" + selectId).html(data);
 		    	}
-		    	$("#" + selectId).html(data);
+		    	categoriesOnChange();
 			},
 			})
 		}
 		
 		
 		function categoriesOnChange(){
-			$("#categoryLevel_0").on("change", function(){
-				$("#categoryLevel_0 option:selected").each(function () {
-					var parentId = $(this).val();
-					$(this).html(getCategories(parentId));
-				});
+			$("input:radio[name='categoryRoot']").on("change", function(){
+				// var parentId = $(this).val();
+				// alert(parentId);
+				if ($(this).is(':checked')) {
+		            var parentId = $(this).val();
+		            $(this).html(getCategories(parentId));
+		            // alert(parentId);
+		        }
+				
+				
+				// $("#categoryLevel_0 option:selected").each(function () {
+					// var parentId = $(this).val();
+					// $(this).html(getCategories(parentId));
+				// });
 			});	
 		}
 		
@@ -153,61 +170,115 @@ if(!isset($_POST["submit"])){?>
 
 
 <body>
-	<div id="container">
+	
+	<div id="siteContainer">
+		
 		<a href="../shop.php"><div>GO TO SHOP</div></a>
-		<div id="header"><div id="cmsTitle">ASANTI CMS</div><div id="cmsSubTitle">Dodaj zdjęcia</div></div>
-		<div id="content">
+		
+		<div id="header"><div id="title">ASANTI CMS</div><div id="subtitle">Dodaj przedmiot</div></div>
+		
+		<div id="container">
+			
 			<div id="leftMenu">
 				<!-- Include links ---------------------------------------------------------- -->
 				<?php include 'include/leftMenu.php'; ?>
 				<!-- ------------------------------------------------------------------------ -->
 			</div>
+			
 			<div id="rightContent">
-				<div id="rightContentContainer">
+				
+				<div id="container">
+					
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
-					<form action="addItem.php"; method="POST" enctype="multipart/form-data">
-						<div id="newItemNameBox">
-							<div class="addItemFormLabel">Nazwa przedmiotu:</div>
-							<input id="newItemName" name="newItemName" type="text" value="KORONKOWA" />
-						</div>
-						<div id="newIteDescriptionBox">
-							<div class="addItemFormLabel">Opis przedmiotu:</div>
-	        				<p>     
-	                			<textarea id="newItemDescription" name="newItemDescription" cols="50" rows="15">Opis nowego przedmiotu.</textarea>
-	        				</p>
-	        			</div>
-	        			<div id="newItemPriceBox">
-	        				<div class="addItemFormLabel">Cena przedmiotu</div>
-	        				<input id="newPriceInput" name="newItemPrice" type="text" value="0,00"/> zł.
-	        			</div>
-	        			<div id="newItemSizeBox">
-	        				<div class="addItemFormLabel">Wybierz rozmiar</div>
-	        				<select id="sizeOptions">
-	        					<option value="height">Wzrost</option>
-	        					<option value="foot">Długość stopy</option>
-	        					<option value="head">Obwód głowy</option>
-	        				</select>
-	        				<div id="sizePickBox">
-	        					
-	        				</div>
-	        			</div>
-	        			<div id="newItemCategoryBox">
-	        				<div class="addItemFormLabel">Wybierz kategorię</div>
-	        				<div id="categoryLevel_0"></div>
-	        				<div id="categoryLevel_2"></div>
-	        			</div>
-						<div id="addPhotosBox">
-							<div class="addItemFormLabel">Wybierz zdjęcia:</div>
-							<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
-							<div class="preview-area"></div>
-						</div>
-						<input type="submit" name="submit" value="Dalej" />
-					</form>
-				</div>				
+					
+					<div id="newItem">
+						<form action="addItem.php"; method="POST" enctype="multipart/form-data">
+							
+							<div id="name">
+								
+								<div class="label">Nazwa przedmiotu:</div>
+								
+								<input id="name" name="name" type="text" value="" />
+								
+							</div>
+							
+							
+							<div id="description">
+								
+								<div class="label">Opis przedmiotu:</div>
+								
+		        				<p>     
+		                			<textarea name="description" cols="50" rows="15">Opis nowego przedmiotu.</textarea>
+		        				</p>
+		        				
+		        			</div>
+		        			
+		        			
+		        			<div id="price">
+		        				
+		        				<div class="label">Cena przedmiotu</div>
+		        				
+		        				<input id="price" name="price" type="text" value="0,00"/> zł.
+		        				
+		        			</div>
+		        			
+		        			
+		        			<div id="size">
+		        				
+		        				<div class="label">Wybierz rozmiar</div>
+		        				
+		        				<select id="options">
+		        					<option value="wzrost">Wzrost</option>
+		        					<option value="dlugosc_stopy">Długość stopy</option>
+		        					<option value="obwod_glowy">Obwód głowy</option>
+		        				</select>
+		        				
+		        				<div id="sizes">
+		        					
+		        				</div>
+		        				
+		        			</div>
+		        			
+		        			
+		        			<div id="category">
+		        				
+		        				<div class="label">Wybierz kategorię</div>
+		        				
+		        				<div id="categoryLevel_0"></div>
+		        				
+		        				<div id="categoryLevel_2"></div>
+		        				
+		        			</div>
+		        			
+		        			
+							<div id="photos">
+								
+								<div class="label">Wybierz zdjęcia:</div>
+								
+								<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
+								
+								<div class="preview-area"></div>
+								
+							</div>
+							
+							
+							<input type="submit" name="submit" value="Dalej" />
+							
+						</form>
+					
+					</div>
+					
+				</div>	
+							
 			</div>
+			
 		</div>	
-		<div id="cmsFooter">ASANTI CMS FOOTER</div>
+		
+		
+		<div id="footer">ASANTI CMS FOOTER</div>
+		
 	</div>
+	
 </body>
 	
 	
@@ -231,11 +302,11 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 $conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 $conn4=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$name = $conn->real_escape_string($_POST['newItemName']);
-$description = $conn->real_escape_string($_POST['newItemDescription']);
+$name = $conn->real_escape_string($_POST['name']);
+$description = $conn->real_escape_string($_POST['description']);
 $headPhotoId = 0;
 $category = $conn->real_escape_string($_POST['categoryToPost']);
-$price = $conn->real_escape_string($_POST['newItemPrice']);
+$price = $conn->real_escape_string($_POST['price']);
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -394,16 +465,17 @@ if(!empty($category)) {
 	{
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-	$i=1;
+	$i="1";
 	foreach($filesList as $file){
-		$sql = ("INSERT INTO photo (item_id, url) 
-			VALUES ('" . $lastId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $lastId . "/" . $file . "')");
+		$sql = ("INSERT INTO photo (name, item_id, url, orderN) 
+			VALUES ('" . $file . "', '" . $lastId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $lastId . "/" . $file . "', '$i')");
+			$i++;
 	if (!mysqli_query($conn,$sql))
   	{
   		die('Error: ' . mysqli_error($conn));
   	} else {
-  		echo $i . " record added </br>";
-		$i++;
+  		// echo $i . " record added </br>";
+		// $i++;
   	}
 	
 	}

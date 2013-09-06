@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // imagejpeg($dst_r,'headPhoto' . $id . '.jpg',$jpeg_quality);
     ob_start();
     imagejpeg($dst_r);
-   	header("Location: items.php");
+   	header("Location: editItem.php?itemId=" . $id);
 	
 	 $i = ob_get_clean(); 
 	
@@ -177,6 +177,49 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 
 
 
+<?php
+
+
+$itemId = $_GET['itemId'];
+class photo {
+	public $id;
+	public $url;
+}
+										
+$photoList = array();
+$headPhotoUrl = "";									
+$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+										
+										
+if (mysqli_connect_errno())
+	{
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+										
+										
+										
+$result = mysqli_query($conn,"SELECT * FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0' ORDER BY orderN ASC");
+										
+while($row1 = mysqli_fetch_array($result))
+	{
+		$photo = new photo;
+		$photo->id = $row1['id'];
+		$photo->url = $row1['url'];
+		array_push($photoList, $photo);
+	}
+
+$result2 = mysqli_query($conn,"SELECT * FROM photo WHERE id = (SELECT headPhotoId FROM item WHERE id = $itemId)");
+
+while($row2 = mysqli_fetch_array($result2))
+	{
+		$headPhotoUrl = $row2['url'];
+	}	
+	
+	
+mysqli_close($conn);
+?>
+
+
 <html>
 	<head>
 		<?php include "../include/links.php"; ?>
@@ -186,12 +229,20 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 		<link rel="stylesheet" href="../js/jcrop/jquery.Jcrop.css" type="text/css" />
 		<link rel="stylesheet" href="../css/demos.css" type="text/css" />
 		<link rel="stylesheet" href="../css/jquery.Jcrop.css" type="text/css" />
-		<link rel="stylesheet" href="../css/cms.css" type="text/css" />
+		<link rel="stylesheet" href="../css/cms2.css" type="text/css" />
 		
 		<script type="text/javascript">
 		
 		function thumbnailsClick(){
-				$(".itemPhotoThumbnails").click(function(){
+				$(".photoThumb").click(function(){
+					
+					$(".photoThumb").css("opacity", "1.0");
+					$(this).css("opacity", "0.4");
+					$("#cropbox").css("margin-left", "0px");
+					$("#cropTip").css("display", "none");
+					$("#proceedCrop").css("display", "none");
+					$("#cropThis").css("display", "inline");
+					
 					JcropAPI = $('#cropbox').data('Jcrop');
 					$("#cropbox").css("width", "auto");
 					$("#cropbox").css("height", "auto");
@@ -206,6 +257,7 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 		$( document ).ready(function() {
 			
 			thumbnailsClick();
+			
 			
 			
 			
@@ -232,6 +284,8 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 	
 			$("#cropThis").click(function(){
 				cropThis();
+				$(this).css("display", "none");
+				$("#proceedCrop").css("display", "inline");
 			})		
 			
 			function cropThis(){
@@ -271,69 +325,80 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 		
 		
 		
-		<div id="container">
+		<div id="siteContainer">
+			
 			<a href="../shop.php"><div>GO TO SHOP</div></a>
-			<div id="header"><div id="cmsTitle">ASANTI CMS</div><div id="cmsSubTitle">Wybierz zdjęcie główne</div></div>
-			<div id="content">
+			
+			<div id="header"><div id="title">ASANTI CMS</div><div id="subtitle">Wybierz zdjęcie główne</div></div>
+			
+			<div id="container">
+				
 				<div id="leftMenu">
+					
 					<!-- Include links ---------------------------------------------------------- -->
 					<?php include 'include/leftMenu.php'; ?>
 					<!-- ------------------------------------------------------------------------ -->
+					
 				</div>
+				
 				<div id="rightContent">
-					<div id="rightContentContainer">
+					
+					<div id="container">
 						
 						
 						
+						<div class="label">Ustaw zdjęcie główne:</div>
 						
-						<div id="itemPhotos">
-							<?php 
+						<div id="pickPhoto">
+							
+							<div id="headPhoto">
 								
-								$itemId = $_GET['itemId'];
-								class photo {
-									public $id;
-									public $url;
-								}
+								<div id="container">
+									
+									<img src="<?php echo($headPhotoUrl); ?>" />
+									
+								</div>
 								
-								$photoList = array();
+							</div>
+							
+							<div id="thumbnails">
 								
-								$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-								
-								
-								if (mysqli_connect_errno())
-									{
-								 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-									}
-								
-								
-								
-								$result = mysqli_query($conn,"SELECT * FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
-								
-								while($row1 = mysqli_fetch_array($result))
-									{
-										$photo = new photo;
-								  	 	$photo->id = $row1['id'];
-										$photo->url = $row1['url'];
-										array_push($photoList, $photo);
-									}
-								
-								foreach($photoList as $photo){
-									echo('<img class="itemPhotoThumbnails" id="itemPhoto' . $photo->id . '" src="' . $photo->url . '" style="max-width: 200px; max-height: 200px;"/>');
-								}
-								
-								
-							?>
+								<div class="container">
+									
+									<ul class="thumbs noscript">
+										<?php 
+											
+											foreach($photoList as $photo){
+												echo("<li>
+															<div class='frame'><span class='helper'></span>
+																<img src='$photo->url' class='photoThumb' id='itemPhoto$photo->id'/>
+															</div>	
+													</li>")	;
+												
+												// echo('<img class="itemPhotoThumbnails" id="itemPhoto' . $photo->id . '" src="' . $photo->url . '" style="max-width: 200px; max-height: 200px;"/>');
+											}
+											
+											
+										?>
+									</ul>
+								</div>
+							</div>
+							
 						</div>
 						
 						
 						
 						
 						
-						Ustaw zdjęcie główne:
+						<div id="asd" style="width: 400px; height: 150px; background-color: none;"></div>
 						<form action="pickHeadPhoto.php" method="post" onsubmit="return checkCoords();">
 				
-							<div id="cropThis" style="border: 2px solid Black;">Crop</div>
-				
+							<div id="cropButtons">
+								<div id="cropTip">Wybierz zdjęcie</div>
+								<input type="button" id="cropThis" value="Dopasuj zdjęcie"/>
+								<input type="submit" id="proceedCrop" value="Ustaw zdjęcie główne"/>
+							</div>
+							
 					        <img id="cropbox" src="#" width="" height="" alt="your image" />
 					        
 					        <input type="hidden" id="imgUrl" name="imgUrl" value="" />
@@ -344,14 +409,16 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 				            <input type="hidden" id="w" name="w" />
 				            <input type="hidden" id="h" name="h" />
 				            
-					        <input type="submit" value="Crop Image" />
+					        
 						</form>
 						
 						
 					</div>				
 				</div>
 			</div>	
-			<div id="cmsFooter">ASANTI CMS FOOTER</div>
+			<!-- Include footer --------------------------------------------------------- -->
+			<?php include 'include/footer.php'; ?>
+			<!-- ------------------------------------------------------------------------ -->
 		</div>
 		
 		
