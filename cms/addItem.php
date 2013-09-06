@@ -1,3 +1,7 @@
+<!-- 
+	automatyczne generowanie optionów w select dla rozmiarów
+ -->
+
 <?php
 
 if(!isset($_POST["submit"])){?>
@@ -77,7 +81,7 @@ if(!isset($_POST["submit"])){?>
 		
 		
 		function selectSizeStartup(){
-			var sizeOf="height";
+			var sizeOf="wzrost";
 			$.ajax({ 
 								url: "controllers/getAllSize.php",
 								type: "POST",
@@ -224,9 +228,9 @@ if(!isset($_POST["submit"])){?>
 		        				<div class="label">Wybierz rozmiar</div>
 		        				
 		        				<select id="options">
-		        					<option value="height">Wzrost</option>
-		        					<option value="foot">Długość stopy</option>
-		        					<option value="head">Obwód głowy</option>
+		        					<option value="wzrost">Wzrost</option>
+		        					<option value="dlugosc_stopy">Długość stopy</option>
+		        					<option value="obwod_glowy">Obwód głowy</option>
 		        				</select>
 		        				
 		        				<div id="sizes">

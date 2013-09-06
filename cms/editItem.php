@@ -1,3 +1,8 @@
+<!--
+	Typ rozmiaru po załądowaniu strony powinien być ustawiony od razu na taki jaki ma dany przedmiot
+	automatyczne generowanie optionów dla selecta rozmiarów
+-->
+
 <?php
 
 
@@ -208,7 +213,7 @@ mysqli_close($conn);
 		}
 		
 		function selectSizeStartup(){
-			var sizeOf="height";
+			var sizeOf="wzrost";
 			$.ajax({ 
 								url: "controllers/getAllSize.php",
 								type: "POST",

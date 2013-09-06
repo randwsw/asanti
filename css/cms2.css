@@ -61,6 +61,8 @@ div#leftMenu {
 }
 
 div#leftMenu .title {
+	margin-top: 0px;
+	margin-bottom: 12px;
 	padding-left: 5px;
 }
 
@@ -636,4 +638,185 @@ body div.label {
 	color: White;
 	padding-left: 10px;
 }
+
+div#editCategories #confirmAlert{
+	width: 200px;
+	height: 50px;
+	background: #cbb189;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -25px;
+	opacity: 0.9;
+	font-size: 14pt;
+	color: White;
+	text-align: center;
+	padding-top: 15px;
+	/*visibility: hidden;*/
+}
+
+div#editCategories #category .box{
+	width: 450px;
+	/*background-color: Red;*/
+	float: left;
+	margin-top: 20px;
+	margin-left: 15px;
+	border-left: 2px solid #cbb189;
+}
+
+div#editCategories #category .box .cl1{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;	
+	border-bottom: 2px solid #cbb189;
+}
+
+div#editCategories #category .box .container{
+	margin-left: 0px;	
+	display: inline;
+}
+
+div#editCategories #category .box input.editTextbox{
+	margin-left: -1px;
+	width: 330px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.08);
+}
+
+div#editCategories #category .box input.newCategoryTextbox{
+	margin-left: 4px;
+	margin-top: 20px;
+	width: 330px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+div#editCategories #category .box span.name{
+	
+}
+
+div#editCategories #category .box .cl2{
+	padding-left: 5px;	
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div#editCategories #category .box .buttons{
+	float: right;
+}
+
+div#editCategories #category .box input.edit{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editCategories #category .box input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editCategories #category .box input.add{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 104px;
+	margin-top: 17px;
+}
+
+
+
+
+
+div#editSize #size .box{
+	width: 300px;
+	/*background-color: Red;*/
+	float: left;
+	margin-top: 20px;
+	margin-left: 15px;
+	border-left: 2px solid #cbb189;
+}
+
+div#editSize #size .box .sizeOf{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;	
+	border-bottom: 2px solid #cbb189;
+}
+
+div#editSize #size .box .container{
+	margin-left: 0px;	
+	display: inline;
+}
+
+div#editSize #size .box input.editTextbox{
+	margin-left: -1px;
+	width: 180px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.08);
+}
+
+div#editSize #size .box input.newSizeTextbox{
+	margin-left: 4px;
+	margin-top: 20px;
+	width: 180px;
+	height: 18px;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+div#editSize #size .box span.name{
+	
+}
+
+div#editSize #size .box .size{
+	padding-left: 5px;	
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div#editSize #size .box .buttons{
+	float: right;
+}
+
+div#editSize #size .box input.edit{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editSize #size .box input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#editSize #size .box input.add{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 104px;
+	margin-top: 17px;
+}
+
+
+
+
 
