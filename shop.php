@@ -85,15 +85,41 @@
 		} else {
 			$edge = 0;
 		}
-
+		
+		$order = 'az';
+		if(isset($_GET['order'])) {
+			$order = $conn->real_escape_string($_GET['order']);
+		}
+		$ordername='';
+		$orderdb='';
+		switch ($order) {
+		    case "az":
+		        $ordername = 'Alfabetycznie: a - z';
+		        $orderdb='i.name ASC, price ASC';
+		        break;
+		    case "za":
+		        $ordername = 'Alfabetycznie: z - a';
+		        $orderdb='i.name DESC, price ASC';
+		        break;
+		    case "pa":
+		        $ordername = 'Cena: od najmniejszej';
+		        $orderdb='price ASC, i.name ASC';
+		        break;
+			case "pd":
+		        $ordername = 'Cena: od największej';
+				$orderdb='price DESC, i.name ASC';
+		        break;
+		}
+		
 		echo("<div class='itemMenu'>");
 		//echo("<div class='sortBy'><a>Sortuj: </a><a href='shop.php?category=".$cat."&page=$page&order=az' >alfabetycznie, </a><a href='shop.php?category=".$cat."&page=$page&order=pa' >po cenie</a></div>");
 		echo("<div class='sortBy'>
-		<a>Sortuj:</a>	    
+		<a>Sortuj: $ordername</a>	    
 	    <ul>
-	        <li><a href='#'>Item 1</a></li>
-	        <li><a href='#'>Item 2</a></li>
-	        <li><a href='#'>Item 3</a></li>
+	    	<li><a href='shop.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
+	        <li><a href='shop.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
+	        <li><a href='shop.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
+	        <li><a href='shop.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
 	    </ul> 
 		</div>");
 
@@ -127,12 +153,15 @@
 		if($cat!='recommended')
 		{
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
-			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id limit $min, $itemsPerPage;") or die(mysql_error());
+			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
 		}else {
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id, c.urlName AS urlName, c.parentId AS parentId FROM category c, category_con cc, item i, photo ph, recommended r WHERE i.id = cc.item_id AND c.id = cc.cat_id AND i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
+			if($cat=='recommended') {
+				$cat=$rec['urlName']."-".$rec['parentId'];
+			}
 			echo("<div class='product-info'>
 	 		<div class='product-price'>
 	 			<p>".$rec['price']."zł</p>

@@ -120,7 +120,7 @@
 		<img src='img/forkids2.png' id='log-logo'>
 					
 				<form method='POST' class='profileform' id='regform' >
-					<h2>Użytkownik ( ".$login." )</h2>
+					<div id='phead'><h2>Użytkownik </h2><a>( ".$login." )</a></div>
 					<br>
 														
 					<div class ='formdiv'>
