@@ -26,7 +26,7 @@
 	<?php include 'include/submenu.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<!-- Include background animation ------------------------------------------- -->
-	<!--<?php include 'include/backanim.php'; ?> -->
+	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 
 	<?php

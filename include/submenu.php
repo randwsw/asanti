@@ -97,16 +97,16 @@
 	if ( (name.indexOf("dla_dziewczynki") >= 0) || (name.indexOf("-4") >= 0) ) {
 		$("#sub-menu-boy").css("display","none");
 		$("#sub-menu-girl").css("display","block");
-		$("#female").css("color","#996515");
-		$("#male").css("color","black");
+		$("#female").css("color","#C99C57");
+		$("#male").css("color","#3D3D3D");
 	}
 	
 	//if(name=="dla_chlopca")
 	if ( (name.indexOf("dla_chlopca") >= 0) || (name.indexOf("-5") >= 0) ) {
 		$("#sub-menu-boy").css("display","block");
 		$("#sub-menu-girl").css("display","none");
-		$("#male").css("color","#996515");
-		$("#female").css("color","black");
+		$("#male").css("color","#C99C57");
+		$("#female").css("color","3D3D3D");
 	}
 
 	$("#female").click(function(){

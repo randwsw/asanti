@@ -38,7 +38,7 @@ body {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	background: white;
-	color: #000;
+	color: #3D3D3D;
 	font-family: "OpenSansBold", "OpenSansRegular", Arial;
 }
 .ie7 body{
@@ -61,7 +61,7 @@ table {
 	border-spacing: 0;
 }
 a {
-	color: #996515;
+	color: #C99C57;
 	text-decoration: none;
 }
 /*----------------------------------------------*/
@@ -111,7 +111,7 @@ div .menu-div{
 .menu-anim {	
     position: relative;
    	/*margin: 0px auto;*/
-   	border-bottom: 1px solid rgba(0,0,0,0.9);
+   	border-bottom: 1px solid #C99C57;
 	padding-top: 8px;
     height: 100px;
     width: 1000px;
@@ -134,7 +134,7 @@ div .menu-div{
                 }
                 
                     .menu-anim li.back {
-						border-bottom: 4px solid rgba(0,0,0,0.5);
+						border-bottom: 4px solid #C99C57;
                         width: 6px;
                         height: 104px;
                         z-index: 8;
@@ -147,7 +147,7 @@ div .menu-div{
                         /*font: 13px Tahoma, Geneva, sans-serif;*/
                         /*font-weight: bold;*/
                         text-decoration: none;
-                        color: #000;
+                        color: #3D3D3D;
                         text-align: center;
                         letter-spacing: 0;
                         z-index: 10;
@@ -192,7 +192,7 @@ div .menu-div{
 	.gender-picker img, .genderp{
 		float: right;
 		margin: 0 5px 0 5px;
-		font-size: 10pt;
+		font-size: 8pt;
 	}
 	.gender-picker .genderp {
 		margin-top: 3px;
@@ -218,7 +218,7 @@ div .menu-div{
 .sub-menu-anim {	
     position: relative;
    	/*margin: 0px auto;*/
-   	border-bottom: 1px solid rgba(0,0,0,0.9);
+   	border-bottom: 1px solid #C99C57;
     height: 30px;
     /*width: 600px;*/
     float:right;
@@ -230,7 +230,7 @@ div .menu-div{
                 }
                 
                     .sub-menu-anim li.back {
-						border-bottom: 2px solid rgba(0,0,0,0.5);
+						border-bottom: 2px solid #C99C57;
                         width: 6px;
                         height: 28px;
                         z-index: 8;
@@ -243,7 +243,7 @@ div .menu-div{
                         /*font: 13px Tahoma, Geneva, sans-serif;*/
                         /*font-weight: bold;*/
                         text-decoration: none;
-                        color: #000;
+                        color: #3D3D3D;
                         text-align: center;
                         letter-spacing: 0;
                         z-index: 10;
@@ -270,6 +270,7 @@ div .menu-div{
 /*----------------------------------------------*/
 /*-----------------PANEL------------------------*/
 div .panel-div {
+	color: #3D3D3D;
 	margin-top: 10px;
 	width: auto;
 	height: 25px;
@@ -334,7 +335,7 @@ div .panel-div > #profile-icon {
 .imageOverlay {
 	width: 100%;
 	height: 100%;
-	background-color: rgba(153,101,21,0.4);
+	background-color: rgba(201,156,87,0.4);
 	z-index: 10;
 	display: none;
 	position: absolute;
@@ -392,7 +393,7 @@ div .cart-div {
 	font-size: 10pt;
 	top: 50%;
 	margin-top: 15px;
-	color: #2d2d2d;
+	color: #3D3D3D;
 }
 .cart-div .cart-image{
 	float: left;
@@ -561,14 +562,18 @@ ul.thumbs img {
 }
 
 #itemTitle {
-	border-bottom: 2px solid #633b07;
+	font-size: 13pt;
+	border-left: 2px solid #C99C57;
+	padding-left: 8px;
+	color: #3D3D3D
 }
 
 #itemDescription {
+	color: #3D3D3D;
 	margin-top: 30px;
-	font-size: 10pt;
+	font-size: 9pt;
 	font-family: "OpenSansRegular", Arial;
-	line-height: 120%;
+	line-height: 140%;
 }
 /* --------------------------------------------- */
 /* FORM -------------------------------------- */
