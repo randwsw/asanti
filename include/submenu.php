@@ -8,6 +8,11 @@
 		    //$cat = $_GET['category'];
 			$cat = $conn->real_escape_string($_GET['category']);
 		}
+		
+		$page = 1;
+		if(isset($_GET['page'])) {
+			$page = $conn->real_escape_string($_GET['page']);
+		}
 	?>
     	<div class="sub-menu-container">
     		<div class="gender-picker">

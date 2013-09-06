@@ -28,15 +28,18 @@
 	<!-- Include background animation ------------------------------------------- -->
 	<!--<?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
-    <div class="recommended">
-    <?php
-    if($cat=='recommended')
-	echo("<div><p>Polecane</p></div>");
-	?>
-	<div class="products">
-		<?php
-		
-		// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+
+	<?php
+	
+	$itemsPerPage = 8;
+	
+	 echo ('<style type="text/css">
+        #page_'.$page.' {
+            color: #996515;
+        }
+        </style>'
+		);
+			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
 		
@@ -55,11 +58,76 @@
 		// echo($cat);
 		
 		if($cat!='recommended')
-		{
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
+		{		
+			$sql2= mysqli_query($conn, "SELECT count(*) AS count FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
+			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
 		}
 		else {
-			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());			
+			$sql2= mysqli_query($conn, "SELECT count(*) AS count FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());	
+		}
+		
+		while($rec2 = mysqli_fetch_array($sql2)) {
+			$count =  $rec2['count'];
+		}
+		
+		$pages=1;
+		for ($i = 1; $i <= $count; $i++) {
+		    if($i%$itemsPerPage==0){
+		    	$pages++;
+		    }
+		}
+		$nextpage = $page+1;
+		$prevpage = $page+-1;
+		if(($page==1)||($page==$pages)){
+			$edge = 2;
+		} else if(($page==2)||($page==$pages-1)){
+			$edge = 2;
+		} else {
+			$edge = 0;
+		}
+
+		echo("<div class='itemMenu'>");
+		//echo("<div class='sortBy'><a>Sortuj: </a><a href='shop.php?category=".$cat."&page=$page&order=az' >alfabetycznie, </a><a href='shop.php?category=".$cat."&page=$page&order=pa' >po cenie</a></div>");
+		echo("<div class='sortBy'>
+		<select>
+		  <option value='volvo'>Volvo</option>
+		  <option value='saab'>Saab</option>	
+		</select> 
+		</div>");
+
+		echo("<div class='pages'>"); 
+		if($page>1)
+		echo("<a href='shop.php?category=".$cat."&page=$prevpage'>&#171</a> ");
+			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
+				if(($i>0)&&($i<=$pages))
+				{
+				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i'>".$i."</a> ");
+				}
+			}
+		if($page<$pages)
+		echo("<a href='shop.php?category=".$cat."&page=$nextpage'>&#187</a> ");
+		echo("</div>");
+		echo("</div>");
+	?>
+	
+    <div class="recommended">
+    <?php
+    if($cat=='recommended')
+	echo("<div><p>Polecane</p></div>");
+	?>
+	<div class="products">
+		<?php
+		
+
+		$min = $itemsPerPage*($page-1);
+		$max = $min+4;
+		
+		if($cat!='recommended')
+		{
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
+			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id limit $min, $itemsPerPage;") or die(mysql_error());
+		}else {
+			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
@@ -241,7 +309,23 @@
 	    </div> -->
      	 
      </div>  
-</div>		 
+</div>
+<?php
+echo("<div class='itemMenu'>");
+		echo("<div class='pages'>"); 
+		if($page>1)
+		echo("<a href='shop.php?category=".$cat."&page=$prevpage'>&#171</a> ");
+			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
+				if(($i>0)&&($i<=$pages))
+				{
+				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i'>".$i."</a> ");
+				}
+			}
+		if($page<$pages)
+		echo("<a href='shop.php?category=".$cat."&page=$nextpage'>&#187</a> ");
+		echo("</div>");
+		echo("</div>");	 
+?>
      </div>
    
 </body>      
@@ -271,6 +355,12 @@ function checkCart(){
 }
 $(window).load(function() {
 	checkCart();
+	
+	$.post("controllers/autoRemember.php", 
+        { email: $.cookie("rememberme")})
+		.done(function(data) {
+		}
+	);
 });
 
 $( document ).ready(function() {

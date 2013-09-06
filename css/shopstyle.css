@@ -93,7 +93,7 @@ a {
 }
 .sub-menu-container {
 	width: auto;
-	height: 100px;
+	height: 85px;
 }
 /*----------------------------------------------*/
 /*------------------MENU------------------------*/
@@ -419,7 +419,34 @@ div .cart-div {
 	background: rgba(153,101,21,0.2);
 	/*#996515*/
 }
-
+.itemMenu {
+	overflow: hidden;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+	.itemMenu .pages {
+		float:right;
+	}
+	.itemMenu .sortBy {
+		float:left;
+	}
+	
+	.sortBy {
+		font-size: 10pt;
+	}
+	.sortBy select {		
+	   text-overflow: '';
+	   text-indent: 0.01px;
+	   -moz-appearance: none;
+	   -webkit-appearance: none;
+	   border: 1px solid white;
+	   border-bottom: 1px solid black;
+	   
+   }
+	
+	.itemMenu a {
+		color: gray;
+	}
 /*----------------------------------------------*/
 
 

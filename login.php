@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/jquery-cookie.js"></script>
 
     
     <link rel="stylesheet" href="css/shopstyle.css" />
@@ -52,7 +53,7 @@
 							<p> Zapamiętaj mnie</p>
 						</div>
 						<div class ="formdivcolumn" id="logcheckbox">
-							<input type="checkbox" ></input>
+							<input type="checkbox" name="rememberMe" id="rememberMe" ></input>
 						</div>
 					</div>
 					<div class ="formdiv">
@@ -114,13 +115,14 @@ var validate = $(".logform").validate({
 	},
 	submitHandler: function(){
         $.post("controllers/logUser.php", 
-        { email: $("#loginInput").val(), password1: $("#passwordInput").val() })
+        { email: $("#loginInput").val(), password1: $("#passwordInput").val(), rememberMe: $("#rememberMe").prop('checked') })
 		.done(function(data) {
 			if(data!='')
 			{
 				alert(data);
 			}else {
-				window.location.href = "shop.php";
+				$.cookie("rememberme", $("#loginInput").val(), { expires: 365, path: '/' });
+				window.location.href = "shop.php";				
 			}
 		});
     },
