@@ -129,7 +129,7 @@
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
 			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id limit $min, $itemsPerPage;") or die(mysql_error());
 		}else {
-			$sql= mysqli_query($conn, "SELECT name AS iname, price, url, i.id FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
