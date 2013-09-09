@@ -126,22 +126,24 @@
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id FROM item i WHERE ".$querypart.";");
 			
 			
-			
+			echo("<form method='POST' action='confirm.php' name='cartForm'>");
 			while($rec = mysqli_fetch_array($sql)) {
 				$sum+= $rec['price']*$test[$rec['id']];
 				echo(
 				"<div class='product-row' id='middle-row'>
 					<div class='column-name'>
 						<p>".$rec['iname']."</p>
+						<input type='hidden' value='".$rec['iname']."' name='name[]'>
 					</div>
 					<div class='column-price'>
-						<p>".$rec['price']."</p>
+						<p id=price-".$rec['id'].">".$rec['price']."</p>
+						<input type='hidden' value='".$rec['price']."' name='price[]'>
 					</div>
 					<div class='column-quantity'>
-						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb'/>
+						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
 					</div>
 					<div class='column-price-all'>
-						<p id='price-all-".$test[$rec['id']].">".$rec['price']*$test[$rec['id']].".00"."</p>
+						<p id=price-all-".$rec['id'].">".$rec['price']*$test[$rec['id']]."</p>
 					</div>
 					<div class='column-remove' id='column-remove-".$rec['id']."'>
 						<a href=''><p>X</p></a>
@@ -149,7 +151,7 @@
 				</div>"
 				);
 			}
-		  
+		 
         }
 		else
 			{
@@ -172,12 +174,13 @@
 				<p>Razem do zapłaty:</p>
 			</div>
 			<div class="column-price-all">
-				<p><?php echo($sum.".00"); ?></p>
+				<p id='complPrice'><?php echo($sum); ?></p>
 			</div>
 			<div class="column-remove">
-				<p><a>Zapłać</a> </p>
+				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
 			</div>
 		</div>
+		</form>
 	</div>
 </body>
 </html>
@@ -216,13 +219,19 @@ $( document ).ready(function() {
 			
 	});
 	var x = 0;
+	var y = 0;
 	$( ".quantityTb" ).change(function() {
-		// alert( $(this).attr("id") );
-		alert(x);
+		var res = $("#price-"+x).html()*$(this).attr("value");
+		var add = $("#price-"+x).html()*y;
+		$("#price-all-"+x).html(res);
+		var cp = $("#complPrice").html() - add + res;
+		$("#complPrice").html(cp);
 	});
 
 	$( ".quantityTb" ).focus(function() {
-		x = $(this).attr("value");
+		x = $(this).attr("id");
+		y = $(this).attr("value");
+		x = x.substring(8);
 	});
 	
 });

@@ -42,6 +42,7 @@
 $("#logoutButton").click(function(){
         $.post("controllers/logoutUser.php")
 		.done(function(data) {
+				$.cookie("rememberme", "", { expires: 0, path: '/' });
 				window.location.href = "shop.php";
 		});
 });

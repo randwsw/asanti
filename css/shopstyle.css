@@ -790,12 +790,20 @@ ul.thumbs img {
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-top: 5px;
+	height: 20px;
 	border-top: 1px solid gray;
 	float: right;
 }
 	#bot-row p {
 		font-size: 10pt;
 		width: 145px;
+	}
+	#bot-row a {
+		font-family: "OpenSansBold", Arial;
+		font-size: 8pt;
+	}
+	#cartSubmit {
+		cursor: pointer;
 	}
 	/*#bot-row .sum {
 		float: left;
@@ -805,13 +813,16 @@ ul.thumbs img {
 	}*/
 
 #middle-row {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	height: 20px;
 }
 
 	#middle-row p {
-		font-size: 8pt;
+		font-size: 10pt;
 		margin-top: 3px;
+		font-family: "OpenSansRegular", Arial;
+
 	}
 	#middle-row input[type="text"] {
 		height:10px;
@@ -847,6 +858,20 @@ ul.thumbs img {
 	width: 200px;
 }
 .column-remove{
+	width: 150px;
+}
+/* --------------------------------------------- */
+/* SUMMARY-------------------------------------- */
+.column-name1{
+	width: 150px;
+}
+.column-name2{
+	width: 150px;
+}
+.column-address{
+	width: 400px;
+}
+.column-phone{
 	width: 150px;
 }
 /* --------------------------------------------- */
