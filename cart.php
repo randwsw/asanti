@@ -138,10 +138,10 @@
 						<p>".$rec['price']."</p>
 					</div>
 					<div class='column-quantity'>
-						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."'/>
+						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb'/>
 					</div>
 					<div class='column-price-all'>
-						<p>".$rec['price']*$test[$rec['id']].".00"."</p>
+						<p id='price-all-".$test[$rec['id']].">".$rec['price']*$test[$rec['id']].".00"."</p>
 					</div>
 					<div class='column-remove' id='column-remove-".$rec['id']."'>
 						<a href=''><p>X</p></a>
@@ -215,8 +215,19 @@ $( document ).ready(function() {
 	    });
 			
 	});
+	var x = 0;
+	$( ".quantityTb" ).change(function() {
+		// alert( $(this).attr("id") );
+		alert(x);
+	});
+
+	$( ".quantityTb" ).focus(function() {
+		x = $(this).attr("value");
+	});
 	
 });
+
+
 
 $('.column-remove').click(function() {
 	var remItem = "item_"+$(this).attr('id').substring(14);

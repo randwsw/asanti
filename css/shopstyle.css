@@ -127,20 +127,21 @@ div .menu-div{
                     float: left;
                     list-style: none;
                     background: url(../img/forkids2.png) no-repeat;
-                    width: 250px;
+                    width: 200px;
 					height: 100px;
 					top:0%;
                     margin-top: 0px;
+                    cursor: pointer;
                 }
+           
                 
                     .menu-anim li.back {
 						border-bottom: 4px solid #C99C57;
                         width: 6px;
-                        height: 104px;
-                        z-index: 8;
+                        margin-top: 104px;
+                        z-index: 2;
                         position: absolute;
                         top:0%;
-                    	margin-top: 0px;
                     }
                     
                     .menu-anim li a {
@@ -439,19 +440,18 @@ div .cart-div {
 	.sortBy {
 	position: absolute;
 	z-index: 3;
-
-    width: 200px;
+    width: 190px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 	}
 	.sortBy > ul { display: none; }
-	.sortBy:hover > ul {display: block; background: #f9f9f9; border-top: 1px solid gray;}
-	.sortBy:hover > ul > li { padding: 5px; border-bottom: 1px solid #4f4f4f;}
+	.sortBy:hover > ul {display: block; background: #f9f9f9; border-top: 1px solid gray; font-size: 8pt;}
+	.sortBy:hover > ul > li { padding: 5px; border-bottom: 1px solid gray;}
 	.sortBy:hover > ul > li:hover { background: white;}
-	.sortBy:hover > ul > li:hover > a { color: red; }
+	.sortBy:hover > ul > li:hover > a { color: #996515; }
 	
-	.sortBy select {		
+	/*.sortBy select {		
 	   text-overflow: '';
 	   text-indent: 0.01px;
 	   -moz-appearance: none;
@@ -462,7 +462,7 @@ div .cart-div {
    }
    .sortBy option {
    	border: none;
-   }
+   }*/
 	
 	.itemMenu a {
 		color: gray;
@@ -742,6 +742,20 @@ ul.thumbs img {
 .updateleftCol {
 	float:left;
 }
+
+#phead {
+	width: 300px;
+	height: 30px;
+}
+	#phead h2 {
+		float:left;
+	}
+	
+	#phead a {
+		margin-top: 5px;
+		font-size: 10pt;
+		float: right;
+	}
 
 .emailUpdate, .passwordUpdate{
 	margin-top: 151px;

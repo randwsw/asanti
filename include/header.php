@@ -45,4 +45,8 @@ $("#logoutButton").click(function(){
 				window.location.href = "shop.php";
 		});
 });
+
+$("#asanti").click(function(){
+	window.location.href = "shop.php";
+});
 </script>
