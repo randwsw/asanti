@@ -127,20 +127,21 @@ div .menu-div{
                     float: left;
                     list-style: none;
                     background: url(../img/forkids2.png) no-repeat;
-                    width: 250px;
+                    width: 200px;
 					height: 100px;
 					top:0%;
                     margin-top: 0px;
+                    cursor: pointer;
                 }
+           
                 
                     .menu-anim li.back {
 						border-bottom: 4px solid #C99C57;
                         width: 6px;
-                        height: 104px;
-                        z-index: 8;
+                        margin-top: 104px;
+                        z-index: 2;
                         position: absolute;
                         top:0%;
-                    	margin-top: 0px;
                     }
                     
                     .menu-anim li a {
@@ -192,7 +193,7 @@ div .menu-div{
 	.gender-picker img, .genderp{
 		float: right;
 		margin: 0 5px 0 5px;
-		font-size: 8pt;
+		font-size: 9pt;
 	}
 	.gender-picker .genderp {
 		margin-top: 3px;
