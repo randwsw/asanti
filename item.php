@@ -25,6 +25,7 @@ if(!session_id())
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $itemId = $_GET['id'];
 $photosList = array();
+$sizeList = array();
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
 
@@ -83,6 +84,15 @@ while($row1 = mysqli_fetch_array($result1))
 			{
 				$photo = $row4['url'];
 				array_push($photosList, $photo);
+			}
+			
+			
+			$result5 = mysqli_query($conn,"SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId");
+			
+			while($row5 = mysqli_fetch_array($result5))
+			{
+				$size = $row5['value'];
+				array_push($sizeList, $size);
 			}
 			
 			mysqli_close($conn);
@@ -157,6 +167,15 @@ while($row1 = mysqli_fetch_array($result1))
 		<div id="itemDescriptionContainer">
 			<h2 id="itemTitle"><?php echo("$name"); ?><h2>
 			<div id="itemDescription"><?php echo("$description"); ?></div>
+			<div id="itemSizes">
+				<?php
+					echo("<select>");
+					foreach($sizeList as $s){
+						echo("<option value='$s'>$s</option>");
+					}
+				 	echo("</select>");
+			 	?>
+			 </div>
 		</div>
 	</div>
 	 </div>

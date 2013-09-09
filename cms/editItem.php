@@ -481,9 +481,9 @@ mysqli_close($conn);
 			        				<div class="label">Wybierz rozmiar</div>
 			        				
 			        				<select id="options">
-			        					<option value="height">Wzrost</option>
-			        					<option value="foot">Długość stopy</option>
-			        					<option value="head">Obwód głowy</option>
+			        					<option value="wzrost">Wzrost</option>
+			        					<option value="dlugosc_stopy">Długość stopy</option>
+			        					<option value="obwod_glowy">Obwód głowy</option>
 			        				</select>
 			        				
 			        				<div id="sizes">
