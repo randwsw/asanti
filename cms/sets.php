@@ -11,20 +11,67 @@
 
 	<script type="text/javascript">
 	
-	function getItems(){
+	function getSets(){
 		$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getItems.php', 
+		    url: 'controllers/getSets.php', 
 		    data: {},
 		    dataType: 'json',
 		    error: function (data) {
 		    	alert("error");
 		    },
 		    success: function (data) { 
-		    	$("#itemsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
-		    	+ "<td class='price'>Cena</td>"
+		    	$("#setsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
 		    	+ "<td class='category'>Kategoria</td>"
-		    	+ "<td class='options'>Aktywny</td>");
+		    	+ "<td class='options'>Opcje</td>");
+
+		    	var j = 0;
+		    	$.each(data,function(i,row){
+		    		
+		    		if(row.itemActive == 1){
+		    			var checked = "checked";
+		    		}else{
+		    			var checked = "";
+		    		}
+		    		
+		    		if(j%2 == 0){
+		    			var trClass = "odd";
+		    		}else{
+		    			var trClass = "even";
+		    		}
+		    		
+		    		$("#setsTable").append(
+		    			"<tr class='" + trClass + "'><td class='name' id='nameTd" + row.itemId + "'>" + row.itemName 
+		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.categoryName
+		    			+ "</td><td class='options'>"
+		    			+ "<input type='button' class='edit' value='Edytuj' id='editButton" + row.itemId + "'/>"
+		    			+ "<input type='button' class='delete' value='Usuń komplet' id='deleteButton" + row.itemId + "'/>"
+						+ "</td></tr>"
+		    		);
+		    		j++;
+
+		    	})
+		    	// addButton();
+		    	// deleteItem();
+		    	// changeActiveItem();
+			},
+		})
+	}
+	
+	
+	function getItems(){
+		$.ajax({ 
+		    type: 'POST', 
+		    url: 'controllers/getItems.php', 
+		    data: {sets: "sets"},
+		    dataType: 'json',
+		    error: function (data) {
+		    	// alert("error");
+		    },
+		    success: function (data) { 
+		    	$("#itemsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
+		    	+ "<td class='category'>Kategoria</td>"
+		    	+ "<td class='options'>Opcje</td>");
 
 		    	var j = 0;
 		    	$.each(data,function(i,row){
@@ -43,34 +90,50 @@
 		    		
 		    		$("#itemsTable").append(
 		    			"<tr class='" + trClass + "'><td class='name' id='nameTd" + row.itemId + "'>" + row.itemName 
-		    			+ "</td><td class='price' id='priceTd" + row.itemId + "'>" + row.itemPrice + " zł" 
 		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.categoryName
 		    			+ "</td><td class='options'>"
-		    			+ "<input type='button' class='edit' value='Edytuj' id='editButton" + row.itemId + "'/>"
-		    			+ "<input type='button' class='delete' value='Usuń' id='deleteButton" + row.itemId + "'/>"
-		    			// + "<input type='checkbox' class='itemActiveCheckbox' id='active" + row.ItemId + "'checked='" + checked + "'/></td></tr>"
-		    			+ "<div class='squaredOne'><input type='checkbox' value='None' " + checked + " class='squaredOneCheckbox' id='squaredOne" + row.itemId + "' name='check' />"
-						+ "<label for='squaredOne" + row.itemId + "'></label></div></td></tr>"
+		    			+ "<input type='button' class='add' value='Dodaj jako komplet' id='addButton" + row.itemId + "'/>"
+						+ "</td></tr>"
 		    		);
 		    		j++;
 
 		    	})
-		    	editButton();
+		    	addButton();
 		    	deleteItem();
 		    	changeActiveItem();
 			},
 		})
 	}
 	
-	function editButton(){
-		$("input.edit").click(function(){
+	function addButton(){
+		$("input.add").click(function(){
 			var itemId = $(this).attr("id");
-			itemId2 = itemId.substr(10,5);
-			window.location.replace("editItem.php?itemId=" + itemId2);
+			itemId2 = itemId.substr(9,5);
+			
+			$.ajax({ 
+			    type: 'POST', 
+			    url: 'controllers/addSet.php', 
+			    data: {itemId: itemId2},
+			    timeout: 50000,
+			    beforeSend: function(){
+			    	$("#progress").show();
+			    },
+			    complete: function(){
+			    	$("#progress").hide();
+			    },
+			    error: function (data) {
+			    	alert("ajaxError");
+			    },
+			    success: function (data) {
+			    	window.location.replace("sets.php");
+				},
+			})
+			
+			
 		})
 	}
 	
-	function deleteItem(){
+	function deleteSet(){
 		$("input.delete").click(function(){
 			if(!window.confirm("Na pewno chcesz usunąć ten przedmiot?")){
 	            return false;
@@ -132,10 +195,9 @@
 	}
 	
 	$(document).ready(function(){
-		
 		$("#progress").hide();
 		getItems();
-		
+		getSets();
 	})
 	</script>
 </head>
@@ -166,12 +228,30 @@
 					
 					<img src="../img/progress_indicator.gif" id="progress" />
 					
-					<div id="items">
+					<div id="sets">
 						
 						<div id="container">
+							<?php
 							
-							<table id="itemsTable"></table>
+							if(!isset($_GET['action'])){
+								echo('<a href="sets.php?action=add"><input type="button" value="Dodaj komplet"></button></a>
+									<table id="setsTable"></table>');
+							}
 							
+							?>
+							
+							
+							
+							
+							
+							
+							
+							<?php
+							
+							if(isset($_GET['action']) && $_GET['action'] == "add"){
+								echo('<a href="sets.php"><input type="button" value="Wróć" /></a><table id="itemsTable"></table>');
+							}		
+							?>
 						</div>
 						
 					</div>

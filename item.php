@@ -8,7 +8,9 @@
 	<!-- Include links ---------------------------------------------------------- -->
 	<?php include 'include/links.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-    
+    <!-- Include background animation ------------------------------------------- -->
+	<?php include 'include/backanim.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
     
     
     
@@ -86,14 +88,17 @@ while($row1 = mysqli_fetch_array($result1))
 				array_push($photosList, $photo);
 			}
 			
+			// SIZES
 			
-			$result5 = mysqli_query($conn,"SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId");
 			
-			while($row5 = mysqli_fetch_array($result5))
-			{
-				$size = $row5['value'];
-				array_push($sizeList, $size);
-			}
+			
+			// $result5 = mysqli_query($conn,"SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId");
+// 			
+			// while($row5 = mysqli_fetch_array($result5))
+			// {
+				// $size = $row5['value'];
+				// array_push($sizeList, $size);
+			// }
 			
 			mysqli_close($conn);
 	}
@@ -126,60 +131,107 @@ while($row1 = mysqli_fetch_array($result1))
 </head>
 
 <body>
-
-    <div class="container">
-    	
-	<!-- Include header --------------------------------------------------------- -->
-	<?php include 'include/header.php'; ?>
-	<!-- ------------------------------------------------------------------------ -->
-	<!-- Include submenu -------------------------------------------------------- -->
-	<?php include 'include/submenu.php'; ?>
-	<!-- ------------------------------------------------------------------------ -->
-	
-	
-	<div id="itemContainer">
-		<div id="itemPhotoContainer">
-			<div id="itemBigPhoto">
-				<span class='helper'></span>
-				<img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' />
-			</div>		
-			<div class="photoThumbnails">
-					<ul class="thumbs noscript">
+	<div class="bg">
+	    <div class="container">
+	    	
+		<!-- Include header --------------------------------------------------------- -->
+		<?php include 'include/header.php'; ?>
+		<!-- ------------------------------------------------------------------------ -->
+		<!-- Include submenu -------------------------------------------------------- -->
+		<?php include 'include/submenu.php'; ?>
+		<!-- ------------------------------------------------------------------------ -->
+		
+		<div id="frame1">
+			<img src="img/asanti_kwiaty2.png" />
+		</div>
+		<div id="itemContainer">
+			<div id="itemPhotoContainer">
+				<div id="itemBigPhoto">
+					<span class='helper'></span>
+					<img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' />
+				</div>		
+				<div class="photoThumbnails">
+						<ul class="thumbs noscript">
+								
+							<?php
+								foreach($photosList as $photo)
+								{
+									echo("<li>
+													
+													<div class='frame'><span class='helper'></span>
+														<img src='$photo' class='photoThumb'/>
+												</div>
+													
+										</li>");
+								}
+							?>
 							
+						</ul>
+					</div>
+					<!-- End Gallery Html Containers -->
+					<div style="clear: both;"></div>
+			</div>
+			<div id="itemDescriptionContainer">
+				<div id="container">
+					<h2 id="itemTitle"><?php echo("$name"); ?><h2>
+					<div id="itemDescription"><?php echo("$description"); ?></div>
+					
+					
+					<div id="itemSizes"><div id="title">Dostępne rozmiary:</div>
 						<?php
-							foreach($photosList as $photo)
-							{
-								echo("<li>
-												
-												<div class='frame'><span class='helper'></span>
-													<img src='$photo' class='photoThumb'/>
-											</div>
-												
-									</li>");
-							}
-						?>
+						$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 						
-					</ul>
-				</div>
-				<!-- End Gallery Html Containers -->
-				<div style="clear: both;"></div>
-		</div>
-		<div id="itemDescriptionContainer">
-			<h2 id="itemTitle"><?php echo("$name"); ?><h2>
-			<div id="itemDescription"><?php echo("$description"); ?></div>
-			<div id="itemSizes">
-				<?php
-					echo("<select>");
-					foreach($sizeList as $s){
-						echo("<option value='$s'>$s</option>");
-					}
-				 	echo("</select>");
-			 	?>
-			 </div>
-		</div>
+						if (mysqli_connect_errno())
+						{
+					 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						}
+						
+						// ENCODING TO UTF8
+						$sql = "SET NAMES 'utf8'";
+						!mysqli_query($conn2,$sql);	
+						
+						
+						
+						$sizeNames = array();
+					
+						$result5 = mysqli_query($conn2,"SELECT s.name AS name FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId GROUP BY s.name ORDER BY s.name DESC");
+						
+						while($row5= mysqli_fetch_array($result5))
+						{
+							$name = $row5['name'];
+							array_push($sizeNames, $name);
+						}
+						
+						foreach($sizeNames as $s){
+							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><select>");
+							
+							$result6 = mysqli_query($conn2, "SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId AND s.name = '$s'");
+							
+							while($row6= mysqli_fetch_array($result6))
+							{
+								$value = $row6['value'];
+								echo("<option value='$value'>$value cm</option>");
+								
+							}
+							echo("</select></div></div>");
+						}
+					 	?>
+					 </div>
+					 <div id="cart">
+					 	<a href="cart.php">
+					 		<img src="img/cart-big-dark.png" />
+					 	</a>
+					 </div>
+					 <div id="questions">
+					 	<a href="shop.php">
+					 		<div id="mark">? </div> Zadaj pytanie odnośnie przedmiotu.
+					 	</a>
+					 </div>
+					</div> 
+			</div>
+			</div>
+		 </div>
 	</div>
-	 </div>
-   
 </body>      
 </html>
 <script type="text/javascript">

@@ -4,15 +4,9 @@
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
-if(isset($_POST['sets'])){
-	if($_POST['sets'] == "sets"){
-		$sets = " AND i.id NOT IN (SELECT item_id FROM sets)";
-	}else{
-		$sets = "";
-	}
-}else{
-	$sets = "";
-}
+
+		$sets = " AND i.id IN (SELECT item_id FROM sets)";
+
 
 if(isset($_POST['id'])){
 	$idFilter = " AND i.id = '" . $_POST['id'] . "'";
