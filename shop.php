@@ -137,7 +137,8 @@
 		echo("</div>");
 		echo("</div>");
 	?>
-	
+
+	<div class="rightleftBor"></div>
     <div class="recommended">
     <?php
     if($cat=='recommended')
@@ -187,159 +188,10 @@
 		mysqli_close($conn);
 		
 		?>
-	 	<!-- <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-				<div class="imageOverlay" >
-					<div class="eye"></div>
-					<div class="cart"></div>	 	    	
-		    	</div>
-		     	<img class="productImage" src="img/produkty/1.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    </a>
-	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-				<div class="imageOverlay">
-					<div class="eye"></div>
-					<div class="cart"></div>	 	    	
-		    	</div>
-		     	<img class="productImage" src="img/produkty/2.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/3.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/4.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/5.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/6.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/7.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/8.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/1.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/2.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/3.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/4.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div> -->
      	 
      </div>  
+</div>
+<div class="rightleftBor"></div>
 </div>
 <?php
 echo("<div class='itemMenu'>");

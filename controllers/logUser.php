@@ -34,7 +34,7 @@ if($rememberMe == "true")
 		  }
 }
 
-$result = mysqli_query($conn,"SELECT id, email, name, lastName FROM users WHERE email = '$email' AND password = '$password1'");
+$result = mysqli_query($conn,"SELECT id, email, name, lastName FROM users WHERE email = '$email' AND password = '$password1' AND conf = 1");
 		while($e = mysqli_fetch_array($result))
 		  {
 				$em = $e['email'];
@@ -62,7 +62,7 @@ if($em != null)
 	
 }
 else {
-	print("Zły login lub hasło");
+	print("Zły login, hasło lub nieaktywne konto");
 }
 mysqli_close($conn);
 ?>

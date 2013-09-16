@@ -1,0 +1,72 @@
+.bigdiv {
+	width: 1000px;
+}
+	/*========ROWS========*/
+	.bigdiv .rowdiv {
+		width: 1000px;
+		overflow: hidden;
+	}
+	.bigdiv #topdiv, #botdiv {
+		height: 172px;
+		/*background-color: #707070;*/
+	}
+	.bigdiv #botdiv {
+		height: 172px;
+		margin-top: -30px;
+	}
+	.bigdiv #middiv {
+		margin-top: -30px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdiv .rightdiv {
+		float: right;
+	}
+	.rowdiv .leftdiv {
+		float: left;
+	}
+	.rowdiv .centerdiv {
+		float: right;
+	}
+	/*======TOP-BOT========*/
+	#toprightdiv, #topleftdiv, #botrightdiv, #botleftdiv {
+		width: 100px;
+		height: 100px; /*100*/
+	}
+	#topcenterdiv, #botcenterdiv {
+		width: 800px; 
+		height: 100px; /*100*/
+		padding-top: 50px;
+	}
+	/*====================*/
+	/*========MID=========*/
+	#midrightdiv, #midleftdiv {
+		width: 20px;
+		height: 800px;
+	}
+	#midcenterdiv {
+		width: 950px;
+		padding-right: 5px;
+	}
+	/*====================*/
+
+/* TEST */
+.bigdiv {
+	margin: 0px auto;
+	border-radius: 20px;
+}
+
+#topdiv {
+	background:  url(../img/top.png) top no-repeat;
+}
+#botdiv {
+	background:  url(../img/bot.png) top no-repeat;
+}
+
+#midrightdiv {
+		background:  url(../img/4.png) right repeat-y;
+}
+#midleftdiv {
+		background:  url(../img/3.png) left repeat-y;
+}
+
