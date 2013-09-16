@@ -30,13 +30,15 @@
 
 </div>
 <div class="menu">
-	                
-			<ul class="menu-anim">               
+	        <div id="background">
+				<!-- <img src="img/asanti_kwiaty2.png" /> -->
+			</div>   
+			<!-- <ul class="menu-anim">               
 	                    <li class="other" id="asanti"></li>
 	                    <li class="other"><a href="contact.html"><div class="menu-div">KONTAKT</div></a></li>                                        
 	                    <li class="other"><a href="about.html"><div class="menu-div">O NAS</div></a></li>
 	                    <li class="current"><a href="shop.php"><div class="menu-div">SKLEP</div></a></li>                 
-			</ul>                
+			</ul>      -->           
 </div>
 <script type="text/javascript">
 $("#logoutButton").click(function(){

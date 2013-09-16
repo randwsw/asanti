@@ -141,9 +141,7 @@ while($row1 = mysqli_fetch_array($result1))
 		<?php include 'include/submenu.php'; ?>
 		<!-- ------------------------------------------------------------------------ -->
 		
-		<div id="frame1">
-			<img src="img/asanti_kwiaty2.png" />
-		</div>
+		
 		<div id="itemContainer">
 			<div id="itemPhotoContainer">
 				<div id="itemBigPhoto">
