@@ -387,10 +387,12 @@ mysqli_close($conn);
 		$( document ).ready(function() {
 			
 			getPhotos();
-			selectSize();
-			selectSizeStartup();
+			// selectSize();
+			// selectSizeStartup();
 			categoryUpdate();
 			// categoriesOnChange();
+			getItemSizes();
+			changeSize();
 			getItemCategory();
 		});
 	</script>
@@ -480,11 +482,95 @@ mysqli_close($conn);
 		        				
 			        				<div class="label">Wybierz rozmiar</div>
 			        				
-			        				<select id="options">
-			        					<option value="height">Wzrost</option>
-			        					<option value="foot">Długość stopy</option>
-			        					<option value="head">Obwód głowy</option>
-			        				</select>
+			        				<div id="test">
+			        					
+			        					
+			        					
+			        				</div>
+			        				
+			        				
+			        				
+			        				
+			        				<?php
+
+		
+										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");										
+										class size {
+											public $id;
+											public $value;
+											public $sizeOf;
+										}
+										
+										
+										class sizeCat {
+											public $name;
+											public $sizeOf;
+										}
+										
+										$sizeOfList = array();
+																				
+										// ENCODING TO UTF8
+										$sql = "SET NAMES 'utf8'";
+										!mysqli_query($conn,$sql);		
+																				
+										if (mysqli_connect_errno())
+											{
+												echo "Failed to connect to MySQL: " . mysqli_connect_error();
+											}
+																				
+																				
+																				
+										$result1 = mysqli_query($conn,"SELECT name, sizeOf FROM size GROUP BY name");
+																					
+										while($row1 = mysqli_fetch_array($result1))
+											{
+												$sizeCat = new sizeCat;
+												$sizeCat->name = $row1['name'];
+												$sizeCat->sizeOf = $row1['sizeOf'];
+												array_push($sizeOfList, $sizeCat);
+											}
+											
+											
+											
+										foreach($sizeOfList as $sizeOf){
+											$sizeList = array();
+											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name'");
+																					
+											while($row = mysqli_fetch_array($result))
+												{
+													$size = new size;
+													$size->id = $row['id'];
+													$size->value = $row['value'];
+													$size->sizeOf = $row['sizeOf'];
+													array_push($sizeList, $size);
+												}
+											
+											echo("<div class='box'>
+														<div class='sizeOf' id='sizeOf_$sizeOf->name'>
+																$sizeOf->name
+														</div>");
+											foreach($sizeList as $s){
+
+												echo("<input type='checkbox' class='sizeCheckbox' name='pickSize[]' value='" . $s->id . "'>" . $s->value . "cm</br>");
+											}
+											
+											echo("</div>");
+											unset($sizeList);
+										}
+										
+										mysqli_close($conn);
+										
+										
+										?>
+			        				
+			        				
+			        				
+			        				
+			        				<!-- <select id="options">
+			        					<option value="wzrost">Wzrost</option>
+			        					<option value="dlugosc_stopy">Długość stopy</option>
+			        					<option value="obwod_glowy">Obwód głowy</option>
+			        				</select> -->
 			        				
 			        				<div id="sizes">
 			        					
