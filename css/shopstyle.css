@@ -106,9 +106,17 @@ a {
 	z-index:5;
 	height: 100px;
 	margin-bottom: 150px;
-	margin-top: 10px;
-	position: relative;
+	margin-top: 0px;
 }
+
+div.menu #background{
+	position: absolute;
+	width: 1300px;
+	height: 300px;
+	margin-left: -150px;
+	background: url("../img/bg_header.png") no-repeat;
+}
+
 div .menu-div{
 	 font-size: 11px;
 }
