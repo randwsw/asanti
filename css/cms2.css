@@ -904,7 +904,7 @@ div#sets table#setsTable tr.even:hover{
 }
 
 div#sets table#setsTable td.name{
-	width: 400px;
+	width: 480px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
@@ -917,14 +917,14 @@ div#sets table#setsTable td.price{
 }
 
 div#sets table#setsTable td.category{
-	width: 200px;
+	width: 220px;
 	text-align: center;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
 div#sets table#setsTable td.options{
-	width: 120px;
+	width: 80px;
 }
 
 div#sets table#setsTable input.add {
@@ -951,4 +951,70 @@ div#sets table#setsTable input.delete {
 	border: none;
 	cursor: pointer;
 	height: 22px;
+}
+
+
+
+
+div#connItem #title{
+	width: 100%;
+	font-size: 14pt;
+	/*border-bottom: 1px solid Black;
+	margin-bottom: 30px;*/
+	margin-bottom: 10px;
+	float: left;
+}
+
+div#connItem .label{
+	margin-bottom: 10px;
+}
+
+div#connItem #title p.title{
+	padding: 0px;
+	margin: 0px;
+	padding-left: 10px;
+	font-size: 10pt;
+}
+
+div#connItem #connections{
+	width: 100%;
+	float: left;
+	font-size: 14pt;
+	/*border-bottom: 1px solid Black;
+	margin-bottom: 30px;*/
+	margin-bottom: 10px;
+}
+
+div#connItem #connections .row{
+	margin-bottom: 3px;
+	width: 100%;
+	float: left;
+}
+
+div#connItem #connections p.title{
+	padding: 0px;
+	margin: 0px;
+	padding-left: 10px;
+	font-size: 10pt;
+	margin-left: 50px;
+	/*float: left;*/
+	width: 200px;
+}
+
+div#connItem input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	float: left;
+}
+
+div#sets input.addMore{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: auto;
 }

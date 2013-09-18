@@ -6,6 +6,7 @@
 </ul>
 <p class="title"><a href="categories.php">Kategorie</a></p>
 <p class="title"><a href="sizes.php">Rozmiary</a></p>
+<p class="title"><a href="connections.php">Powiązane</a></p>
 <!-- <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Dodaj przedmiot</a>
 <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Edytuj przedmiot</a>
 <a href="addPhoto.php" class="navigation" id="dodajZdjęcie">Dodaj zdjęcie</a> -->

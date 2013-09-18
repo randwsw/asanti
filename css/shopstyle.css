@@ -112,7 +112,7 @@ a {
 div.menu #background{
 	position: absolute;
 	width: 1300px;
-	height: 300px;
+	height: 250px;
 	margin-left: -150px;
 	background: url("../img/bg_header.png") no-repeat;
 }
@@ -202,18 +202,20 @@ div .menu-div{
 	z-index:2;
 	height: 30px;
 	margin-top: 50px;
+	font-family: Gabriola;
+	font-weight: bold;
+	font-size: 16pt;
 }
 	.gender-picker img, .genderp{
 		float: right;
 		margin: 0 5px 0 5px;
-		font-size: 11pt;
+		/*font-size: 11pt;*/
 	}
 	.gender-picker .genderp {
 		margin-top: 3px;
 	}
 	.gender-picker img {
-		width:21px;
-		height:21px;
+		margin-top: -40px;
 	}
 	
 	.gender-picker .gdiv{

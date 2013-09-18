@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+<div class="bg">
     <div class="container">
    	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
@@ -358,6 +358,7 @@ echo("<div class='itemMenu'>");
 		echo("</div>");	 
 ?>
      </div>
+</div>     
    
 </body>      
 </html>
