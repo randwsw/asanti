@@ -98,7 +98,7 @@
 		$("#sub-menu-boy").css("display","none");
 		$("#sub-menu-girl").css("display","block");
 		$("#female").css("color","#C99C57");
-		$("#male").css("color","#3D3D3D");
+		$("#male").css("color","#58300c");
 	}
 	
 	//if(name=="dla_chlopca")
@@ -106,7 +106,7 @@
 		$("#sub-menu-boy").css("display","block");
 		$("#sub-menu-girl").css("display","none");
 		$("#male").css("color","#C99C57");
-		$("#female").css("color","3D3D3D");
+		$("#female").css("color","#58300c");
 	}
 
 	$("#female").click(function(){

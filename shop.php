@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
+    <link rel="stylesheet" href="css/bigdiv.css" />
     
 </head>
 
@@ -137,7 +138,16 @@
 		echo("</div>");
 		echo("</div>");
 	?>
-	
+
+	<div class="bigdiv">
+		<div class="rowdiv" id="topdiv">
+		</div>
+		<div class="rowdiv" id="middiv">
+			<!-- Original texture used: http://subtlepatterns.com/wave-grind/ -->
+			<div class="rightdiv" id="midrightdiv">
+				
+			</div>
+			<div class="centerdiv" id="midcenterdiv">
     <div class="recommended">
     <?php
     if($cat=='recommended')
@@ -187,160 +197,17 @@
 		mysqli_close($conn);
 		
 		?>
-	 	<!-- <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-				<div class="imageOverlay" >
-					<div class="eye"></div>
-					<div class="cart"></div>	 	    	
-		    	</div>
-		     	<img class="productImage" src="img/produkty/1.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    </a>
-	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-				<div class="imageOverlay">
-					<div class="eye"></div>
-					<div class="cart"></div>	 	    	
-		    	</div>
-		     	<img class="productImage" src="img/produkty/2.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/3.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/4.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/5.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/6.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/7.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/8.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/1.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	 	<div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/2.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/3.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div>
-	    
-	    <div class="product-info">
-	 		<div class="product-price">
-	 			<p>9000$</p>
-	 		</div>
-	     	<div class="imageContainer">
-		     	 <img class="productImage" src="img/produkty/4.png" alt="Smiley face" >
-		    </div>
-		    <div class="product-name">
-	 			<p>Nazwa</p>
-	 		</div> 
-	    </div> -->
      	 
      </div>  
 </div>
+</div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div>
 <?php
 echo("<div class='itemMenu'>");
 		echo("<div class='pages'>"); 
@@ -358,8 +225,7 @@ echo("<div class='itemMenu'>");
 		echo("</div>");	 
 ?>
      </div>
-</div>     
-   
+ </div>  
 </body>      
 </html>
 <script type="text/javascript">
@@ -393,9 +259,14 @@ $(window).load(function() {
 		.done(function(data) {
 		}
 	);
+	 
+	
 });
 
 $( document ).ready(function() {
+	
+	var height = $( '#midcenterdiv' ).css( "height" );
+	 $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
 	
 	$(function() {			
 	    $(".menu-anim").lavaLamp({

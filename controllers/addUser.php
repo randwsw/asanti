@@ -62,6 +62,32 @@ VALUES ('$phone', $returnValue)");
 mysqli_query($conn,"INSERT INTO address (pcode, street, city, user_id)
 VALUES ('$pcode', '$street', '$city', $returnValue)");
 
+//Aktywacja
+$activationKey = md5(time().date("Y:m:d"));
+
+mysqli_query($conn,"INSERT INTO usr_activate (user_id, user_key)
+VALUES ($returnValue, '$activationKey')");
+
+$to = "$email";
+$subject = "Aktywacja konta";
+$message = "<html>
+				<head>
+				<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+				<title>Aktywacja konta użytkownika</title>
+				</head>
+				<body>
+				<div>Kliknij w link poniżej, aby aktywować konto.</div>
+				<a href='controllers/activate.php?userkey=$activationKey'> controllers/activate.php?userkey=$activationKey</a>
+				</body>
+			</html>";
+$from = "no-reply@asanti.com";
+$headers = "From:" . $from;
+mail($to,$subject,$message,$headers);
+//echo "Mail Sent.";
+//echo($activationKey);
+//echo($message);
+
+
 mysqli_close($conn);
 
 
