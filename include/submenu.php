@@ -18,10 +18,10 @@
     		<div class="gender-picker">
     			<div class="gdiv" id="female">
 	    			<p class="genderp">Dziewczynka</p>
-					<!-- <img src="img/female.png" alt="Smiley face"> -->
+					<img src="img/girl.png" alt="Smiley face">
 				</div>
 				<div class="gdiv" id="male">
-					<!-- <img src="img/male.png" alt="Smiley face"> -->
+					<img src="img/boy.png" alt="Smiley face">
 					<p class="genderp">Chłopiec</p>
 				</div>
     		</div> 
@@ -77,6 +77,7 @@
 			<a href="cart.php">
 			<div class="cart-div">
 				<p class="cart-desc">Koszyk</p>
+				 <!-- Icon by http://www.visualpharm.com -->
 				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
 				<p class="item-count" id="cart-count">0</p>
 			</div>

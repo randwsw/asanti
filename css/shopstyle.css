@@ -88,7 +88,7 @@ a {
 }
 .container{
 	margin:0px auto;
-	width: 1000px;
+	width: 1100px;
 	height: auto;
 	overflow: hidden;
 	
@@ -99,23 +99,44 @@ a {
 .sub-menu-container {
 	width: auto;
 	height: 85px;
+	margin-top: 238px;
 }
 /*----------------------------------------------*/
 /*------------------MENU------------------------*/
-.menu{
+/*.menu{
 	z-index:5;
 	height: 100px;
 	margin-bottom: 150px;
 	margin-top: 0px;
+}*/
+.n-menu {
+		font-family: "Gabriola", "OpenSansRegular", Arial;
+		font-size: 26pt;
+		overflow: hidden;
+		width:1000px;
+		margin: 0 auto;
+		margin-top: 60px;
+}
+.n-menu p {
+	margin-left: 20px;
+	float: right;
 }
 
-div.menu #background{
+#background{
+	position: absolute;
+	width: 1300px;
+	height: 240px;
+	margin-left: -100px;
+	background: url("../img/bg_header.png") no-repeat;
+}
+
+/*div.menu #background{
 	position: absolute;
 	width: 1300px;
 	height: 300px;
 	margin-left: -150px;
 	background: url("../img/bg_header.png") no-repeat;
-}
+}*/
 
 div .menu-div{
 	 font-size: 11px;
@@ -192,7 +213,7 @@ div .menu-div{
 	z-index:2;
 	/*width: 610px;*/
 	height: 50px;
-	/*margin-top: 8px;*/
+	margin-top: 30px;
 	float:right;
 	display:none;
 }
@@ -201,7 +222,7 @@ div .menu-div{
 .gender-picker{
 	z-index:2;
 	height: 30px;
-	margin-top: 50px;
+	margin-top: 60px;
 }
 	.gender-picker img, .genderp{
 		float: right;
@@ -209,11 +230,11 @@ div .menu-div{
 		font-size: 11pt;
 	}
 	.gender-picker .genderp {
-		margin-top: 3px;
+		padding-top: 23px;
 	}
 	.gender-picker img {
-		width:21px;
-		height:21px;
+		width:28px;
+		height:57px;
 	}
 	
 	.gender-picker .gdiv{
@@ -284,10 +305,12 @@ div .menu-div{
 /*----------------------------------------------*/
 /*-----------------PANEL------------------------*/
 div .panel-div {
-	color: #383838;
-	margin-top: 10px;
+	color: #383838;	
 	width: auto;
 	height: 25px;
+	margin:0 auto;
+	margin-top: 10px;
+	padding-right: 150px;
 }
 div .panel-div > #profile {
 		float: right;
@@ -331,15 +354,16 @@ div .panel-div > #profile-icon {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	border: 1px solid black;
+	border: 1px solid #C99C57;
 }
 
 .product-info{
-	width:	200px;
+	width:	220px;
 	height: 400px;
 	display: block;
 	float: left;
-	margin-left: 35px;
+	margin-left: 17px;
+	margin-right: 17px;
 }
 .productImage {
 	position: absolute; 
@@ -420,7 +444,8 @@ div .cart-div {
 	top: 50%;
 	font-size: 11pt;
 	margin-top: 15px;
-	margin-left: -5px;
+	/*margin-left: -5px;*/ /*Old*/
+	margin-left: 3px;
 	color: 	;
 
 }
@@ -428,7 +453,7 @@ div .cart-div {
 .recommended {
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
-	padding: 5px 5px 5px 5px;
+	/*padding: 5px 5px 5px 5px;*/
 	border-radius: 8px;
 	/*border: 1px solid rgba(0,0,0,0.2);
 	background: rgba(153,101,21,0.2);*/
@@ -436,6 +461,7 @@ div .cart-div {
 }
 .itemMenu {
 	overflow: hidden;
+	width:1100px;
 	margin-bottom: 5px;
 	margin-top: 5px;
 }
@@ -459,10 +485,10 @@ div .cart-div {
     border-radius: 5px;
 	}
 	.sortBy > ul { display: none; }
-	.sortBy:hover > ul {display: block; background: #f9f9f9; border-top: 1px solid gray; font-size: 8pt;}
+	.sortBy:hover > ul {display: block; background: #f7efca; border-top: 1px solid gray; font-size: 8pt;}
 	.sortBy:hover > ul > li { padding: 5px; border-bottom: 1px solid gray;}
 	.sortBy:hover > ul > li:hover { background: white;}
-	.sortBy:hover > ul > li:hover > a { color: #996515; }
+	.sortBy:hover > ul > li:hover > a { color: #C99C57; }
 	
 	/*.sortBy select {		
 	   text-overflow: '';

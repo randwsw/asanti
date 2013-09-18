@@ -13,11 +13,12 @@
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
+    <link rel="stylesheet" href="css/bigdiv.css" />
     
 </head>
 
 <body>
-
+<div class="bg">
     <div class="container">
    	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
@@ -138,7 +139,15 @@
 		echo("</div>");
 	?>
 
-	<div class="rightleftBor"></div>
+	<div class="bigdiv">
+		<div class="rowdiv" id="topdiv">
+		</div>
+		<div class="rowdiv" id="middiv">
+			<!-- Original texture used: http://subtlepatterns.com/wave-grind/ -->
+			<div class="rightdiv" id="midrightdiv">
+				
+			</div>
+			<div class="centerdiv" id="midcenterdiv">
     <div class="recommended">
     <?php
     if($cat=='recommended')
@@ -191,8 +200,14 @@
      	 
      </div>  
 </div>
-<div class="rightleftBor"></div>
 </div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div>
 <?php
 echo("<div class='itemMenu'>");
 		echo("<div class='pages'>"); 
@@ -210,7 +225,7 @@ echo("<div class='itemMenu'>");
 		echo("</div>");	 
 ?>
      </div>
-   
+ </div>  
 </body>      
 </html>
 <script type="text/javascript">
@@ -244,9 +259,14 @@ $(window).load(function() {
 		.done(function(data) {
 		}
 	);
+	 
+	
 });
 
 $( document ).ready(function() {
+	
+	var height = $( '#midcenterdiv' ).css( "height" );
+	 $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
 	
 	$(function() {			
 	    $(".menu-anim").lavaLamp({
