@@ -474,6 +474,14 @@ div .cart-div {
 	
 	.sortBy {
 		font-size: 10pt;
+		cursor: default;
+	}
+	
+	.sortBy a {
+		display:inline-block;
+		width: 190px;
+		padding-top: 6px;
+		height: 20px;
 	}
 	
 	.sortBy {
@@ -485,8 +493,8 @@ div .cart-div {
     border-radius: 5px;
 	}
 	.sortBy > ul { display: none; }
-	.sortBy:hover > ul {display: block; background: #f7efca; border-top: 1px solid gray; font-size: 8pt;}
-	.sortBy:hover > ul > li { padding: 5px; border-bottom: 1px solid gray;}
+	.sortBy:hover > ul {display: block; background: #f7efca;opacity: 0.9; border-top: 1px solid gray; font-size: 8pt;}
+	.sortBy:hover > ul > li { padding-left: 5px; border-bottom: 1px solid gray;}
 	.sortBy:hover > ul > li:hover { background: white;}
 	.sortBy:hover > ul > li:hover > a { color: #C99C57; }
 	
