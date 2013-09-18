@@ -6,7 +6,9 @@ $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer
 
 if(isset($_POST['sets'])){
 	if($_POST['sets'] == "sets"){
-		$sets = " AND i.id NOT IN (SELECT item_id FROM sets)";
+		$itemId = $_POST['itemId'];
+		$sets = " AND i.id != $itemId AND i.id NOT IN (SELECT ic.item2_id FROM item_conn ic WHERE ic.item1_id = $itemId)
+										AND i.id NOT IN (SELECT ic.item1_id FROM item_conn ic WHERE ic.item2_id = $itemId)";
 	}else{
 		$sets = "";
 	}

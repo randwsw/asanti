@@ -17,12 +17,12 @@
     	<div class="sub-menu-container">
     		<div class="gender-picker">
     			<div class="gdiv" id="female">
-	    			<p class="genderp">Dziewczynka</p>
+	    			<p class="genderp">dla dziewczynki</p>
 					<img src="img/girl.png" alt="Smiley face">
 				</div>
 				<div class="gdiv" id="male">
 					<img src="img/boy.png" alt="Smiley face">
-					<p class="genderp">Chłopiec</p>
+					<p class="genderp">dla chłopca</p>
 				</div>
     		</div> 
 		<div class="sub-menu" id="sub-menu-girl">
@@ -77,7 +77,6 @@
 			<a href="cart.php">
 			<div class="cart-div">
 				<p class="cart-desc">Koszyk</p>
-				 <!-- Icon by http://www.visualpharm.com -->
 				<img class="cart-image" src="img/cart-big-dark.png" alt="Smiley face">
 				<p class="item-count" id="cart-count">0</p>
 			</div>
@@ -99,7 +98,7 @@
 		$("#sub-menu-boy").css("display","none");
 		$("#sub-menu-girl").css("display","block");
 		$("#female").css("color","#C99C57");
-		$("#male").css("color","#3D3D3D");
+		$("#male").css("color","#58300c");
 	}
 	
 	//if(name=="dla_chlopca")
@@ -107,7 +106,7 @@
 		$("#sub-menu-boy").css("display","block");
 		$("#sub-menu-girl").css("display","none");
 		$("#male").css("color","#C99C57");
-		$("#female").css("color","3D3D3D");
+		$("#female").css("color","#58300c");
 	}
 
 	$("#female").click(function(){

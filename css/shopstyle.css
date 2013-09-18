@@ -223,12 +223,15 @@ div .menu-div{
 	z-index:2;
 	height: 30px;
 	margin-top: 60px;
+	
 }
 	.gender-picker img, .genderp{
 		float: right;
 		margin: 0 5px 0 5px;
-		font-size: 11pt;
-	}
+		font-size: 15pt;
+		font-family: "Gabriola";
+		font-weight: bold;
+		/*color: #58300c;*/	}
 	.gender-picker .genderp {
 		padding-top: 23px;
 	}
@@ -246,7 +249,10 @@ div .menu-div{
 
 div .menu-div{
 	 /*font-family: 'Arial Narrow', Arial, sans-serif;*/
-	 font-size: 11px;
+	 font-size: 13pt;
+	 font-family: "Gabriola";
+	 font-weight: bold;
+	 color: #58300c;
 }
 
 

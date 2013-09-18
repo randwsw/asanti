@@ -2,7 +2,9 @@
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
-$itemId = $_POST['itemId'];
+$itemId1 = $_POST['itemId1'];
+$itemId2 = $_POST['itemId2'];
+echo ($itemId1 . "   " . $itemId2);
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -20,9 +22,9 @@ $sql = "SET NAMES 'utf8'";
 
 
 
-$sql="INSERT INTO sets (item_id)
+$sql="INSERT INTO item_conn (item1_id, item2_id)
 VALUES
-('$itemId')";
+('$itemId1', '$itemId2')";
 
 if (!mysqli_query($conn,$sql))
   {
