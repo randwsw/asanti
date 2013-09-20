@@ -11,18 +11,30 @@
 
 	<script type="text/javascript">
 	
+	function getURLParameter(name) {
+		    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+		}
+	
+	
+	
 	function getSets(){
+		
+		var category = getURLParameter("category");
+		var sortBy = getURLParameter("sortBy");
+		var direction = getURLParameter("direction");
+		// alert(category + "  " + sort + "  " + direction);
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/getSets.php', 
-		    data: {},
+		    data: {category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
 		    	alert("error");
 		    },
 		    success: function (data) { 
-		    	$("#setsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
-		    	+ "<td class='category'>Powiązania</td>"
+		    	$("#setsTable").html("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
+		    	+ "<td class='category'>Kategoria</td>"
+		    	+ "<td class='connections'>Powiązania</td>"
 		    	+ "<td class='options'>Opcje</td>");
 
 		    	var j = 0;
@@ -42,19 +54,21 @@
 		    		
 		    		$("#setsTable").append(
 		    			"<tr class='" + trClass + "'><td class='name' id='nameTd" + row.itemId + "'>" + row.itemName 
-		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.connections
+		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.categoryName
+		    			+ "</td><td class='connections' id='connectionsTd" + row.itemId + "'>" + row.connections
 		    			+ "</td><td class='options'>"
 		    			+ "<a href='connections.php?action=add&itemId=" + row.itemId + "'><input type='button' class='addMore' value='Dodaj' id='addButton" + row.itemId + "'/></a>"
 		    			+ "<a href='connections.php?action=edit&itemId=" + row.itemId + "'><input type='button' class='edit' value='Edytuj' id='editButton" + row.itemId + "'/></a>"
-		    			+ "<input type='button' class='delete' value='Usuń' id='deleteButton" + row.itemId + "'/>"
+		    			+ "<input type='button' class='deleteAll' value='Usuń' id='deleteButton_" + row.itemId + "'/>"
 						+ "</td></tr>"
 		    		);
 		    		j++;
 
 		    	})
-		    	// addButton();
-		    	// deleteItem();
-		    	// changeActiveItem();
+		    	deleteAll();
+		    	filter();
+		    	sort();
+		    	// sort();
 			},
 		})
 	}
@@ -152,12 +166,20 @@
 			if(!window.confirm("Na pewno chcesz usunąć powiązanie?")){
 	            return false;
 	        }else{
-			var itemId = $(this).attr("id");
-			itemId = itemId.substr(12,5);
+	        	
+	        $.urlParam = function(name){
+			    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+			    return results[1] || 0;
+			}
+			var itemId1 =  $.urlParam('itemId');
+			
+			var itemId2 = $(this).attr("id");
+			itemId2 = itemId2.substr(13,5);
+			alert(itemId1 + "  " + itemId2);
 			$.ajax({ 
 			    type: 'POST', 
 			    url: 'controllers/deleteSet.php', 
-			    data: {itemToDelete: itemId},
+			    data: {itemId1: itemId1, itemId2: itemId2},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -169,8 +191,7 @@
 			    	alert("ajaxError");
 			    },
 			    success: function (data) {
-			    	$("#itemsTable").html("");
-			    	getItems();
+			    	window.location.replace("connections.php?action=edit&itemId=" + itemId1);
 				},
 			})
 		}
@@ -178,14 +199,118 @@
 	}
 	
 	
+	function deleteAll(){
+		$("input.deleteAll").click(function(){
+			if(!window.confirm("Na pewno chcesz usunąć wszystkie powiązania?")){
+	            return false;
+	        }else{
+	        	
+			var itemId2 = $(this).attr("id");
+			itemId2 = itemId2.substr(13,5);
+			// alert(itemId2);
+			$.ajax({ 
+			    type: 'POST', 
+			    url: 'controllers/deleteAllSets.php', 
+			    data: {itemId2: itemId2},
+			    timeout: 50000,
+			    beforeSend: function(){
+			    	$("#progress").show();
+			    },
+			    complete: function(){
+			    	$("#progress").hide();
+			    },
+			    error: function (data) {
+			    	alert("ajaxError");
+			    },
+			    success: function (data) {
+			    	window.location.replace("connections.php");
+				},
+			})
+		}
+		});
+	}
+	
+	function filter(){
+		// var val = "2";
+		// $("select#filter option").filter(function() {
+		    // return $(this).val() == val; 
+		// }).prop('selected', true);
+		
+		$("select#categoryFilter").on("change", function(){
+			var sortByParam = getURLParameter("sortBy");
+			var directionParam = getURLParameter("direction");
+			var id = $(this).find("option:selected").attr('value');
+
+			if(sortByParam != null && directionParam != null){
+				var filter = ("sortBy=" + sortByParam + "&direction=" + directionParam);
+				if(id=="all"){
+					window.location.replace("connections.php?" + filter);
+				}else{
+					window.location.replace("connections.php?category=" + id + "&" + filter);
+				}
+			}else{
+				var filter = "";
+				if(id=="all"){
+					window.location.replace("connections.php?");
+				}else{
+					window.location.replace("connections.php?category=" + id);
+				}
+			}
+			
+			
+			
+		})
+	}
+	
+	
+	function sort(){
+		$("select#sort").on("change", function(){
+			var direction = $(this).find("option:selected").attr('value');
+			if(direction.substr(0,4) == "ASC_"){
+				direction = "ASC";
+			}else{
+				if(direction.substr(0,4) == "DESC"){
+					direction = "DESC";
+				}
+			}
+			var sortBy = $(this).find("option:selected").attr('value').substr(5,20);
+			var category = getURLParameter("category");
+			if(category != null){
+				window.location.replace("connections.php?category=" + category + "&sortBy=" + sortBy + "&direction=" + direction);
+			}else{
+				window.location.replace("connections.php?ssortBy=" + sortBy + "&direction=" + direction);
+			}
+		})
+	}
+	
+	function setSelects(){		
+		var filterParam = getURLParameter("category");
+		var sortParam = getURLParameter("sortBy");
+		var directionParam = getURLParameter("direction");
+
+		$("select#categoryFilter").val(filterParam);
+		if(directionParam == "ASC"){
+			directionParam = "ASC__";
+		}else{
+			if(directionParam == "DESC"){
+				directionParam = "DESC_";
+			}
+		}
+		$("select#sort").val(directionParam + sortParam);
+	}
 	
 	
 	$(document).ready(function(){
 		$("#progress").hide();
-		getSets();
-		getItems();
 		
+		sort();
+		getSets();
+		setSelects();
+		// sort();
+		getItems();
+		// deleteSet();
 		addMore();
+		
 	})
 	</script>
 </head>
@@ -219,6 +344,59 @@
 					<div id="sets">
 						
 						<div id="container">
+							<div id="filters">
+								<div class="filter">
+									kategoria
+									<select id="categoryFilter">
+										<option value="all">wszystkie</option>
+										<?php
+										
+										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+										$catList = array();
+										
+										$sql = "SET NAMES 'utf8'";
+										!mysqli_query($conn,$sql);
+										
+										
+										if (mysqli_connect_errno())
+												  {
+												  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+												  }
+												
+										$result = mysqli_query($conn,"SELECT id, parentId, name, urlName FROM category WHERE name != 'root' GROUP BY name ORDER BY catLevel");
+												
+										while($row1 = mysqli_fetch_array($result))
+											{
+												$parentId = $row1['parentId'];
+												$result2 = mysqli_query($conn, "SELECT name FROM category WHERE id = '$parentId'");
+												while($row2 = mysqli_fetch_array($result2))
+													{
+														if($row2['name'] == "root"){
+															echo('<option value="' . $row1['id'] . '">' . $row1['name'] . '</option>');
+														}else{
+															echo('<option value="' . $row1['id'] . '">' . $row2['name'] . '  |  ' . $row1['name'] . '</option>');
+														}
+														
+													}
+												
+											}
+												
+														
+										mysqli_close($conn);
+										
+										?>
+									</select>
+									Sortuj wg:
+									<select id="sort">
+										<option value="ASC__itemName">Nazwy a-z</option>
+										<option value="DESC_itemName">Nazwy z-a</option>
+										<option value="ASC__categoryName">Kategorii a-z</option>
+										<option value="DESC_categoryName">Kategorii z-a</option>
+										<option value="ASC__connections">Powiązań rosnąco</option>
+										<option value="DESC_connections">Powiązań malejąco</option>
+									</select>
+								</div>
+							</div>
 							<?php
 							
 							if(!isset($_GET['action'])){
@@ -289,7 +467,7 @@
 										while($row2 = mysqli_fetch_array($result2))
 											{
 												echo('<div class="row">');
-												echo("<input type='button' class='delete' value='Usuń' id='deleteButton" . $row2['itemId'] . "'/>");
+												echo("<input type='button' class='delete' value='Usuń' id='deleteButton_" . $row2['itemId'] . "'/>");
 												echo ('<p class="title">' . $row2["itemName"] . '</p>');
 												
 												echo('</div>');

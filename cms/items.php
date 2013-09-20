@@ -11,17 +11,19 @@
 
 	<script type="text/javascript">
 	
-	function getItems(){
+	function getItems(category){
+		var category = category;
+		// alert(category);
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/getItems.php', 
-		    data: {},
+		    data: {category : category},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
-		    	$("#itemsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
+		    	$("#itemsTable").html("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
 		    	+ "<td class='price'>Cena</td>"
 		    	+ "<td class='category'>Kategoria</td>"
 		    	+ "<td class='options'>Aktywny</td>");
@@ -131,11 +133,46 @@
 			
 	}
 	
+	
+	
+	
+	function filter(){
+		// var val = "2";
+		// $("select#filter option").filter(function() {
+		    // return $(this).val() == val; 
+		// }).prop('selected', true);
+		
+		$("select#categoryFilter").on("change", function(){
+			var id = $(this).find("option:selected").attr('value');
+			if(id=="all"){
+				getItems();
+			}else{
+				getItems(id);
+			}
+			
+		})
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$(document).ready(function(){
 		
 		$("#progress").hide();
 		getItems();
-		
+		filter();
 	})
 	</script>
 </head>
@@ -169,6 +206,50 @@
 					<div id="items">
 						
 						<div id="container">
+							<div id="filters">
+								<div class="filter">
+									kategoria
+									<select id="categoryFilter">
+										<option value="all">wszystkie</option>
+										<?php
+										
+										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+										$catList = array();
+										
+										$sql = "SET NAMES 'utf8'";
+										!mysqli_query($conn,$sql);
+										
+										
+										if (mysqli_connect_errno())
+												  {
+												  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+												  }
+												
+										$result = mysqli_query($conn,"SELECT id, parentId, name, urlName FROM category WHERE name != 'root' GROUP BY name ORDER BY catLevel");
+												
+										while($row1 = mysqli_fetch_array($result))
+											{
+												$parentId = $row1['parentId'];
+												$result2 = mysqli_query($conn, "SELECT name FROM category WHERE id = '$parentId'");
+												while($row2 = mysqli_fetch_array($result2))
+													{
+														if($row2['name'] == "root"){
+															echo('<option value="' . $row1['id'] . '">' . $row1['name'] . '</option>');
+														}else{
+															echo('<option value="' . $row1['id'] . '">' . $row2['name'] . '  |  ' . $row1['name'] . '</option>');
+														}
+														
+													}
+												
+											}
+												
+														
+										mysqli_close($conn);
+										
+										?>
+									</select>
+								</div>
+							</div>
 							
 							<table id="itemsTable"></table>
 							

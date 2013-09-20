@@ -99,7 +99,7 @@ a {
 .sub-menu-container {
 	width: auto;
 	height: 85px;
-	margin-top: 238px;
+	margin-top: 250px;
 }
 /*----------------------------------------------*/
 /*------------------MENU------------------------*/
@@ -125,7 +125,7 @@ a {
 #background{
 	position: absolute;
 	width: 1300px;
-	height: 240px;
+	height: 260px;
 	margin-left: -100px;
 	background: url("../img/bg_header.png") no-repeat;
 }
@@ -231,7 +231,8 @@ div .menu-div{
 		font-size: 15pt;
 		font-family: "Gabriola";
 		font-weight: bold;
-		/*color: #58300c;*/	}
+		/*color: #58300c;*/	
+		}
 	.gender-picker .genderp {
 		padding-top: 23px;
 	}

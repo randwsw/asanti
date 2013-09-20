@@ -253,15 +253,7 @@
 										?>
 		
 			        			</div>
-							
-							
-								<input type="submit" name="submit" value="Dalej" />
-							        
-							        
-								<!-- <input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" /> -->
-							       
-						            
-							        
+
 							</form>
 							
 							
