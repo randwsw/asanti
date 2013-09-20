@@ -826,6 +826,9 @@ div#editSize #size .box input.add{
 }
 
 
+
+
+
 div#sets{
 	
 }
@@ -850,7 +853,8 @@ div#sets table#itemsTable input.add {
 
 div#sets table#setsTable tr.header td.options{
 	border: 2px solid White;
-	width: 120px;
+	width: 77px;
+	max-width: 77px;
 	text-align: center;
 	font-weight: bold;
 	padding-left: 5px;
@@ -870,7 +874,8 @@ div#sets table#setsTable tr.header {
 }
 
 div#sets table#setsTable tr.header td.name{
-	width: 400px;
+	width: 180px;
+	max-width: 180px;
 	padding-left: 5px;
 	padding-right: 5px;
 	font-weight: bold;
@@ -880,11 +885,22 @@ div#sets table#setsTable tr.header td.name{
 
 div#sets table#setsTable tr.header td.category{
 	border: 2px solid White;
-	width: 200px;
+	width: 140px;
 	text-align: center;
 	font-weight: bold;
 	padding-left: 5px;
 	padding-right: 5px;
+}
+
+div#sets table#setsTable tr.header td.connections{
+	width: 20px;
+	max-width: 50px;
+	border: 2px solid White;
+	/*width: 40px;*/
+	text-align: center;
+	font-weight: bold;
+	/*padding-left: 5px;
+	padding-right: 5px;*/
 }
 
 div#sets table#setsTable tr.odd{
@@ -904,7 +920,8 @@ div#sets table#setsTable tr.even:hover{
 }
 
 div#sets table#setsTable td.name{
-	width: 480px;
+	width: 180px;
+	max-width: 180px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
@@ -917,14 +934,24 @@ div#sets table#setsTable td.price{
 }
 
 div#sets table#setsTable td.category{
-	width: 220px;
+	width: 140px;
 	text-align: center;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
+div#sets table#setsTable td.connections{
+	width: 20px;
+	/*width: 40px;*/
+	text-align: center;
+	max-width: 50px;
+	/*padding-left: 5px;
+	padding-right: 5px;*/
+}
+
 div#sets table#setsTable td.options{
-	width: 80px;
+	width: 77px;
+	max-width: 77px;
 }
 
 div#sets table#setsTable input.add {
@@ -945,7 +972,7 @@ div#sets table#setsTable input.edit {
 	height: 22px;
 }
 
-div#sets table#setsTable input.delete {
+div#sets table#setsTable input.deleteAll {
 	background-color: rgba(191,21,21,0.8);
 	color: rgba(255,255,255,0.8);
 	border: none;
