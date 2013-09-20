@@ -144,9 +144,9 @@
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-if ($def = $config-&gt;maybeGetRawHTMLDefinition()) {
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+if ($def = $config-maybeGetRawHTMLDefinition()) {
     // our code will go here
 }</pre>
 
@@ -193,10 +193,10 @@ if ($def = $config-&gt;maybeGetRawHTMLDefinition()) {
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-<strong>$config-&gt;set('Cache.DefinitionImpl', null); // TODO: remove this later!</strong>
-$def = $config-&gt;getHTMLDefinition(true);</pre>
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+<strong>$config-set('Cache.DefinitionImpl', null); // TODO: remove this later!</strong>
+$def = $config-getHTMLDefinition(true);</pre>
 
 <p>
   A few things should be mentioned about the caching mechanism before
@@ -249,10 +249,10 @@ $def = $config-&gt;getHTMLDefinition(true);</pre>
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-$config-&gt;set('Cache.DefinitionImpl', null); // remove this later!
-$def = $config-&gt;getHTMLDefinition(true);
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+$config-set('Cache.DefinitionImpl', null); // remove this later!
+$def = $config-getHTMLDefinition(true);
 <strong>$def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');</strong></pre>
 
 <p>
@@ -367,11 +367,11 @@ $def = $config-&gt;getHTMLDefinition(true);
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-$config-&gt;set('Cache.DefinitionImpl', null); // remove this later!
-$def = $config-&gt;getHTMLDefinition(true);
-<strong>$def-&gt;addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+$config-set('Cache.DefinitionImpl', null); // remove this later!
+$def = $config-getHTMLDefinition(true);
+<strong>$def-addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
   array('_blank','_self','_target','_top')
 ));</strong></pre>
 
@@ -470,7 +470,7 @@ $def = $config-&gt;getHTMLDefinition(true);
   noticed declarations like this:
 </p>
 
-<pre>&lt;!ELEMENT LI - O (%flow;)*             -- list item --&gt;</pre>
+<pre>!ELEMENT LI - O (%flow;)*             -- list item --</pre>
 
 <p>
   The <code>(%flow;)*</code> indicates the allowed children of the
@@ -679,8 +679,8 @@ $def = $config-&gt;getHTMLDefinition(true);
   <a href="http://www.w3.org/TR/html4/sgml/loosedtd.html">transitional DTD</a>:
 </p>
 
-<pre>&lt;!ELEMENT FORM - - (%flow;)* -(FORM)   -- interactive form --&gt;
-&lt;!ATTLIST FORM
+<pre>!ELEMENT FORM - - (%flow;)* -(FORM)   -- interactive form --
+!ATTLIST FORM
   %attrs;                              -- %coreattrs, %i18n, %events --
   action      %URI;          #REQUIRED -- server-side form handler --
   method      (GET|POST)     GET       -- HTTP method used to submit the form--
@@ -691,7 +691,7 @@ $def = $config-&gt;getHTMLDefinition(true);
   onreset     %Script;       #IMPLIED  -- the form was reset --
   target      %FrameTarget;  #IMPLIED  -- render in this frame --
   accept-charset %Charsets;  #IMPLIED  -- list of supported charsets --
-  &gt;</pre>
+  </pre>
 
 <p>
   Juicy! With just this, we can answer four of our five questions:
@@ -714,14 +714,14 @@ $def = $config-&gt;getHTMLDefinition(true);
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-$config-&gt;set('Cache.DefinitionImpl', null); // remove this later!
-$def = $config-&gt;getHTMLDefinition(true);
-$def-&gt;addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+$config-set('Cache.DefinitionImpl', null); // remove this later!
+$def = $config-getHTMLDefinition(true);
+$def-addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
   array('_blank','_self','_target','_top')
 ));
-<strong>$form = $def-&gt;addElement(
+<strong>$form = $def-addElement(
   'form',   // name
   'Block',  // content set
   'Flow', // allowed children
@@ -732,7 +732,7 @@ $def-&gt;addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
     'name' => 'ID'
   )
 );
-$form-&gt;excludes = array('form' => true);</strong></pre>
+$form-excludes = array('form' => true);</strong></pre>
 
 <p>
   Each of the parameters corresponds to one of the questions we asked.
@@ -794,9 +794,9 @@ $form-&gt;excludes = array('form' => true);</strong></pre>
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-$def = $config-&gt;getHTMLDefinition(true);
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+$def = $config-getHTMLDefinition(true);
 <strong>$def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');</strong>
 $purifier = new HTMLPurifier($config);</pre>
 
@@ -807,9 +807,9 @@ $purifier = new HTMLPurifier($config);</pre>
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$config-&gt;set('HTML.DefinitionID', 'enduser-customize.html tutorial');
-$config-&gt;set('HTML.DefinitionRev', 1);
-<strong>if ($def = $config-&gt;maybeGetRawHTMLDefinition()) {
+$config-set('HTML.DefinitionID', 'enduser-customize.html tutorial');
+$config-set('HTML.DefinitionRev', 1);
+<strong>if ($def = $config-maybeGetRawHTMLDefinition()) {
     $def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
 }</strong>
 $purifier = new HTMLPurifier($config);</pre>
@@ -820,7 +820,7 @@ $purifier = new HTMLPurifier($config);</pre>
 </p>
 
 <pre>$config = HTMLPurifier_Config::createDefault();
-$def = $config-&gt;getHTMLDefinition(true);
+$def = $config-getHTMLDefinition(true);
 $def->addAttribute('a', 'target', 'Enum#_blank,_self,_target,_top');
 $purifier = new HTMLPurifier($config);</pre>
 

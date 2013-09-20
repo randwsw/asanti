@@ -103,7 +103,7 @@ if(!session_id())
 	    session_start();
 	}
 	if(!isset($_SESSION['login'])) {
-		header('Location: login.php');
+		header('Location: login.php?cr=1');
 	}else {
 		
 		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';

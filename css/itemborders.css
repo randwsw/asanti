@@ -1,0 +1,57 @@
+.bigdiv {
+	width: 530px;
+	/*background-color: #303030;*/
+}
+	/*========ROWS========*/
+	.bigdiv .rowdiv {
+		width: 530px;
+		
+	}
+	.bigdiv #topdiv, #botdiv {
+		height: 43px;
+		/*background-color: #707070;*/
+	}
+	.bigdiv #middiv {
+		height: auto;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdiv .rightdiv {
+		float: right;
+	}
+	.rowdiv .leftdiv {
+		float: right;
+	}
+	.rowdiv .centerdiv {
+		float: right;
+	}
+	/*========MID=========*/
+	 #midleftdiv {
+		width: 37px;		
+	}
+	#midrightdiv {
+		width: 42px;
+	}
+	#midcenterdiv {
+		width: 448px;
+		/*background-color: #f6e9bc;*/
+		background:  url(../img/pat2.png) repeat;
+	}
+	/*====================*/
+
+/* TEST */
+
+#topdiv {
+	background:  url(../img/borders/topitem.png) top no-repeat;
+}
+#botdiv {
+	background:  url(../img/borders/botitem.png) top no-repeat;
+}
+
+#midrightdiv {
+		background:  url(../img/borders/right.png) left repeat-y;
+}
+#midleftdiv {
+		background:  url(../img/borders/left.png) left repeat-y;
+}
+

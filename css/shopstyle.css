@@ -63,6 +63,7 @@ table {
 a {
 	color: #C99C57;
 	text-decoration: none;
+	cursor: pointer;
 }
 /*----------------------------------------------*/
 /*------------------FONTS-----------------------*/
@@ -84,13 +85,17 @@ a {
 .bg{
 	width: 100%;
 	height: 100%;
-	background-color: rgba(247,235,208,0.8);
+	/*background-color: rgba(247,235,208,0.8); */ 
+	background-color: rgba(247,239,222,0.8); 
+	position: fixed;
+	z-index: -1;
 }
 .container{
 	margin:0px auto;
 	width: 1100px;
 	height: auto;
 	overflow: hidden;
+	z-index:1;
 	
 	padding-left: 50px;
 	padding-right: 50px;
@@ -124,9 +129,9 @@ a {
 
 #background{
 	position: absolute;
-	width: 1300px;
+	width: 1400px;
 	height: 240px;
-	margin-left: -100px;
+	margin-left: -158px;
 	background: url("../img/bg_header.png") no-repeat;
 }
 
@@ -245,6 +250,7 @@ div .menu-div{
 	float:right;
 	cursor: pointer;
 	margin-left:15px;
+	color: #58300c;
 	}
 
 div .menu-div{
@@ -316,7 +322,7 @@ div .panel-div {
 	height: 25px;
 	margin:0 auto;
 	margin-top: 10px;
-	padding-right: 150px;
+	padding-right: 185px;
 }
 div .panel-div > #profile {
 		float: right;
@@ -365,11 +371,12 @@ div .panel-div > #profile-icon {
 
 .product-info{
 	width:	220px;
-	height: 400px;
+	height: 380px;
 	display: block;
 	float: left;
 	margin-left: 17px;
 	margin-right: 17px;
+	margin-top: 17px;
 }
 .productImage {
 	position: absolute; 
@@ -385,11 +392,22 @@ div .panel-div > #profile-icon {
 	position: absolute;
 }
 .product-price , .product-name {
-	margin-top: 15px;
-	margin-bottom: 10px;
+	margin-top: 10px;
+	/*margin-bottom: 10px;*/
 } 
+.product-price p {
+	float: right;
+	margin-left: 10px;
+	color: #58300c;
+	font-size: 12pt;
+}
+.product-name p{
+	color: #C99C57;
+	font-size: 11pt;	
+}
+
 .product-info p{
-	font-size: 15px;
+	/*font-size: 15px;*/
 }
 div .eye {
 	height: 250px;
@@ -423,7 +441,7 @@ div .panel-div > #cart {
 
 }
 div .cart-div {
-	height: 40px;
+	height: 42px;
 	/*margin-top: 10px;*/
 	float: left;
 	cursor: pointer;
@@ -434,15 +452,22 @@ div .cart-div {
 
 .cart-div .cart-desc {
 	float: left;
-	font-size: 10pt;
+	font-size: 14pt;
+	font-weight: bold;
 	top: 50%;
 	margin-top: 15px;
-	color: #383838;
+	color: #58300c;
+	font-family: "Gabriola", "OpenSansRegular", Arial;
 }
+
+.cart-image{	
+	width: 40px;
+	height: 42px;
+}
+
 .cart-div .cart-image{
 	float: left;
-	width: 40px;
-	height: 40px;
+	margin-left:4px;
 }
 
 .cart-div .item-count {
@@ -451,7 +476,7 @@ div .cart-div {
 	font-size: 11pt;
 	margin-top: 15px;
 	/*margin-left: -5px;*/ /*Old*/
-	margin-left: 3px;
+	margin-left: -3px;
 	color: 	;
 
 }
@@ -470,6 +495,9 @@ div .cart-div {
 	width:1100px;
 	margin-bottom: 5px;
 	margin-top: 5px;
+	font-family: "Gabriola", "OpenSansBold", Arial;
+	font-weight: bold;
+	font-size: 20pt;
 }
 	.itemMenu .pages {
 		float:right;
@@ -479,11 +507,11 @@ div .cart-div {
 	}
 	
 	.sortBy {
-		font-size: 10pt;
+		font-size: 14pt;
 		cursor: default;
 	}
 	
-	.sortBy a {
+	.sortBy .ele {
 		display:inline-block;
 		width: 190px;
 		padding-top: 6px;
@@ -499,7 +527,7 @@ div .cart-div {
     border-radius: 5px;
 	}
 	.sortBy > ul { display: none; }
-	.sortBy:hover > ul {display: block; background: #f7efca;opacity: 0.9; border-top: 1px solid gray; font-size: 8pt;}
+	.sortBy:hover > ul {display: block; background: #f7efca;opacity: 0.9; border-top: 1px solid gray; font-size: 12pt;}
 	.sortBy:hover > ul > li { padding-left: 5px; border-bottom: 1px solid gray;}
 	.sortBy:hover > ul > li:hover { background: white;}
 	.sortBy:hover > ul > li:hover > a { color: #C99C57; }
@@ -612,9 +640,9 @@ ul.thumbs img {
 div#itemDescriptionContainer {
 	float: left;
 	margin-left: 50px;
-	width: 430px;
-	background-color: rgba(255,255,255,0.5);
-	border: 1px solid Gray;
+	width: 530px;
+	/*background-color: rgba(255,255,255,0.5);
+	border: 1px solid Gray;*/
 	border-radius: 5px;
 }
 
@@ -681,7 +709,7 @@ div#itemSizes .sizeBox .title{
 	padding-bottom: 5px;
 }
 
-.styled-select select {
+/*.styled-select select {
    	background: transparent;
    	width: 106px;
    	padding: 5px;
@@ -693,16 +721,61 @@ div#itemSizes .sizeBox .title{
    	-webkit-appearance: none;
    	-moz-appearance: none;
    	appearance: none;
-   }
+   }*/
+.styled-select select{
+	width:100px;
+	height: 22px;
+    padding:2px;
+     background: #f8f8f8;
+    color:#888;
+    border: 1px solid #888;
+    /*border:none;*/
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:18px}
+}
+
+.styled-select label {position:relative}
+.styled-select label:after {
+    content:'>';
+    font:13px "Consolas", monospace;
+    font-weight: bold;
+    color:#aaa;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:6px; top:-2px;
+    padding:2px;
+    border-bottom:1px solid #888;
+    position:absolute;
+    pointer-events:none;
+}
+.styled-select label:before {
+    content:'';
+    right:3px; top:-2px;
+    width:26px; height:18px;
+    background:#f8f8f8;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
 
 .styled-select {
 	float: left;
-  	width: 106px;
+  	width: 100px;
 	height: 26px;
   	overflow: hidden;
- 	background: url(../img/drop_arrow.png) no-repeat right;
- 	background-size: 26px;
-  	border: 1px solid #ccc; 
+  	margin-right: 2px;
 }
 
 /* --------------------------------------------- */
@@ -784,8 +857,8 @@ div#itemSizes .sizeBox .title{
 	margin: 0 auto;
 	height: auto;
 	overflow:hidden;
-	border: 1px solid gray;
-	margin: 50px 50px 80px 50px;
+	/*border: 1px solid gray;*/
+	margin: 0px 50px 80px 50px;
 }
 
 .logreg-div h2{
@@ -809,17 +882,18 @@ div#itemSizes .sizeBox .title{
 }
 
 #log-logo {
-	margin-bottom:30px;
+	/*margin-bottom:30px;*/
+	margin: 20px 0 0 45px;
 }
 
 .logfiller {
 	position: absolute;
 	left: 50%;
-	margin-left: -550px;
+	margin-left: -530px;
 	width: 1100px;
 	top: 50%;
-	margin-top: -332px;
-	height: 674px;
+	margin-top: -350px;
+	height: 700px;
 	background: url(../img/needle2.png) no-repeat center;
 }
 
@@ -856,7 +930,7 @@ div#itemSizes .sizeBox .title{
 .regfiller {
 	position: absolute;
 	left: 50%;
-	margin-left: -500px;
+	margin-left: -370px;
 	width: 740px;
 	top: 50%;
 	margin-top: -380px;
@@ -905,10 +979,19 @@ div#itemSizes .sizeBox .title{
 		text-align: center;
 	}
 #top-row {
+	margin: 0 auto;
 	margin-top: 40px;
 	margin-bottom: 15px;
 	padding-bottom: 5px;
 	border-bottom: 1px solid gray;
+	width:1000px;
+}
+.cart-fill {
+	margin 0 auto;
+	width: 1000px;
+	height: 10px;
+	margin-top: 190px;
+	opacity: 0;
 }
 	#top-row p {
 		font-size: 10pt;
@@ -922,6 +1005,7 @@ div#itemSizes .sizeBox .title{
 	height: 20px;
 	border-top: 1px solid gray;
 	float: right;
+	margin-right: 50px;
 }
 	#bot-row p {
 		font-size: 10pt;
@@ -942,9 +1026,11 @@ div#itemSizes .sizeBox .title{
 	}*/
 
 #middle-row {
+	margin: 0 auto;
 	margin-top: 8px;
 	margin-bottom: 8px;
 	height: 20px;
+	width:1000px;
 }
 
 	#middle-row p {

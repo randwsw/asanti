@@ -15,16 +15,34 @@
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
+    <link rel="stylesheet" href="css/loginborders.css" />
     
 </head>
 
 <body>
+	<div class="bigdiv">
+		<div class="rowdiv" id="topdiv">
+		</div>
+		<div class="rowdiv" id="middiv">
+			<div class="rightdiv" id="midrightdiv">
+				
+			</div>
+			<div class="centerdiv" id="midcenterdiv">
+				
+			</div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div>
 	<div class="logfiller">
 		
 	<!-- Include background animation ------------------------------------------- -->
 	<!-- <?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
-	<img src="img/forkids2.png" id="log-logo">
+	<img src="img/nextlogo.png" id="log-logo">
 		<div class="logreg-div">
 			
 			<div class="log-div">
@@ -83,7 +101,7 @@
 					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
 				</div>
 				<div class ="formdiv" id="backdiv">
-					<a href="../asanti/shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
+					<a href="shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
 				</div>
 			</div>
 		</div>
@@ -91,6 +109,17 @@
 </body>
 </html>
 <script type="text/javascript">
+
+$.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+}
+
 		$('#loginInput').watermark("Wpisz tutaj swój adres email");
 		$('#passwordInput').watermark("Wpisz tutaj swoje hasło");
 		
@@ -122,7 +151,15 @@ var validate = $(".logform").validate({
 				alert(data);
 			}else {
 				$.cookie("rememberme", $("#loginInput").val(), { expires: 365, path: '/' });
-				window.location.href = "shop.php";				
+				
+				cr = $.urlParam('cr');
+				if(cr==1)
+				{ 
+					window.location.href = "cart.php";		
+				}
+				else {
+					window.location.href = "shop.php";		
+				}		
 			}
 		});
     },

@@ -17,10 +17,16 @@
     
 </head>
 <body>
+	<div class="bg">
+	</div>
 	<div class ="container">
 	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
+	<!-- Include background animation ------------------------------------------- -->
+	<?php include 'include/backanim.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+	<div class="cart-fill"></div>
 		<div class="product-row" id="top-row">
 			<div class="column-name">
 				<p>Nazwa produktu</p>
@@ -123,16 +129,17 @@
 			
 		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
 			
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id FROM item i WHERE ".$querypart.";");
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
 			
 			
 			echo("<form method='POST' action='confirm.php' name='cartForm'>");
 			while($rec = mysqli_fetch_array($sql)) {
+				$cat = $rec['urlName']."-".$rec['parentId'];
 				$sum+= $rec['price']*$test[$rec['id']];
 				echo(
 				"<div class='product-row' id='middle-row'>
 					<div class='column-name'>
-						<p>".$rec['iname']."</p>
+						<p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
 						<input type='hidden' value='".$rec['iname']."' name='name[]'>
 					</div>
 					<div class='column-price'>
@@ -170,6 +177,9 @@
 			</div>
 		</div> -->
 		<div class="product-row" id="bot-row">
+			<div class="column-remove">
+				<p><a href="shop.php">wróć do sklepu</a></a></p>
+			</div>
 			<div class="column-name">
 				<p>Razem do zapłaty:</p>
 			</div>

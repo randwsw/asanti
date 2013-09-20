@@ -13,10 +13,30 @@
   
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
+    <link rel="stylesheet" href="css/profileborders.css" />
     
 </head>
 
 <body>
+	<div class="bg">
+	</div> 
+	<div class="bigdiv">
+		<div class="rowdiv" id="topdiv">
+		</div>
+		<div class="rowdiv" id="middiv">
+			<div class="rightdiv" id="midrightdiv">
+				
+			</div>
+			<div class="centerdiv" id="midcenterdiv">
+				</div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div>
+				
 <?php
 	if(!session_id())
 	{
@@ -60,64 +80,12 @@
 		mysqli_close($conn);
 	} 
 
-// echo("<div class='logfiller'>
-// 
-	// <img src='img/forkids2.png' id='log-logo'>
-		// <div class='logreg-div'>
-			// <div class='log-div'>
-				// <div class ='formdiv'>
-					// <p>Email:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Imię:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Nazwisko:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Ulica:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Kod pocztowy:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Miasto:</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>Telefon:</p>
-				// </div>						
-			// </div>
-// 			
-			// <div class ='reg-div'>
-				// <div class ='formdiv'>
-					// <p>".$login."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$name."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$lastname."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$street."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$pcode."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$city."</p>
-				// </div>
-				// <div class ='formdiv'>
-					// <p>".$phone."</p>
-				// </div>	
-			// </div>
-		// </div>
-	// </div>");
+	
 	echo("
 	<div class='regfiller'>
 		
 		<div class='updateleftCol'>
-		<img src='img/forkids2.png' id='log-logo'>
+		<img src='img/nextlogo.png' id='log-logo'>
 					
 				<form method='POST' class='profileform' id='regform' >
 					<div id='phead'><h2>Użytkownik </h2><a>( ".$login." )</a></div>
@@ -203,7 +171,7 @@
 						</div>
 						<div class ='formdiv'>
 							<input class='form-button' type='submit' value='Aktualizuj' id='passButton'/>
-							<a href='../asanti/shop.php'><p id='pback'>&#171 wróć do sklepu</p></a>
+							<a onclick='history.back(-1)'><p id='pback'>&#171 wróć</p></a>
 						</div>	
 					</form>
 				</div>
@@ -214,6 +182,12 @@
 </body>
 </html>
 <script type="text/javascript">
+$( document ).ready(function() {
+
+	var height = $( '#midcenterdiv' ).css( "height" );
+	$( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
+});
+
 		$('#email-input').watermark("Wpisz swój nowy adres email");
 		$('#newemail2-input').watermark("Ponownie wpisz adres email");
 		$('#pass-input').watermark("Wpisz swoje hasło");

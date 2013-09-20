@@ -18,7 +18,8 @@
 </head>
 
 <body>
-<div class="bg">
+	<div class="bg">
+	</div> 
     <div class="container">
    	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
@@ -117,24 +118,24 @@
 		echo("<div class='sortBy'>
 		<a>Sortuj: $ordername</a>	    
 	    <ul>
-	    	<li><a href='shop.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
-	        <li><a href='shop.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
-	        <li><a href='shop.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
-	        <li><a href='shop.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
+	    	<li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
+	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
+	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
+	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
 	    </ul> 
 		</div>");
 
 		echo("<div class='pages'>"); 
 		if($page>1)
-		echo("<a href='shop.php?category=".$cat."&page=$prevpage'>&#171</a> ");
+		echo("<a href='shop.php?category=".$cat."&page=$prevpage&order=$order'>&#171</a> ");
 			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
 				if(($i>0)&&($i<=$pages))
 				{
-				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i'>".$i."</a> ");
+				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i&order=$order'>".$i."</a> ");
 				}
 			}
 		if($page<$pages)
-		echo("<a href='shop.php?category=".$cat."&page=$nextpage'>&#187</a> ");
+		echo("<a href='shop.php?category=".$cat."&page=$nextpage&order=$order'>&#187</a> ");
 		echo("</div>");
 		echo("</div>");
 	?>
@@ -173,9 +174,6 @@
 				$cat=$rec['urlName']."-".$rec['parentId'];
 			}
 			echo("<div class='product-info'>
-	 		<div class='product-price'>
-	 			<p>".$rec['price']."zł</p>
-	 		</div>
 	     	<div class='imageContainer'>
 				<div class='imageOverlay' id='item_".$rec['id']."' >
 					<a href='item.php?id=".$rec['id']."&category=".$cat."' >
@@ -185,6 +183,9 @@
 		    	</div>		    	
 		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
 		    </div>
+		    <div class='product-price'>
+	 			<p>".$rec['price']."zł</p>
+	 		</div>
 		    <div class='product-name'>
 	 			<p>".$rec['iname']."</p>
 	 		</div> 
@@ -224,8 +225,7 @@ echo("<div class='itemMenu'>");
 		echo("</div>");
 		echo("</div>");	 
 ?>
-     </div>
- </div>  
+     </div> 
 </body>      
 </html>
 <script type="text/javascript">
@@ -252,7 +252,6 @@ function checkCart(){
 	$('#cart-count').html(count);
 }
 $(window).load(function() {
-	checkCart();
 	
 	$.post("controllers/autoRemember.php", 
         { email: $.cookie("rememberme")})
@@ -264,6 +263,7 @@ $(window).load(function() {
 });
 
 $( document ).ready(function() {
+	checkCart();
 	
 	var height = $( '#midcenterdiv' ).css( "height" );
 	 $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );

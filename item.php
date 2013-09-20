@@ -11,7 +11,7 @@
     <!-- Include background animation ------------------------------------------- -->
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-    
+    <link rel="stylesheet" href="css/itemborders.css" />
     
     
     
@@ -132,6 +132,7 @@ while($row1 = mysqli_fetch_array($result1))
 
 <body>
 	<div class="bg">
+		</div>
 	    <div class="container">
 	    	
 		<!-- Include header --------------------------------------------------------- -->
@@ -168,8 +169,16 @@ while($row1 = mysqli_fetch_array($result1))
 					</div>
 					<!-- End Gallery Html Containers -->
 					<div style="clear: both;"></div>
-			</div>
+			</div>			
 			<div id="itemDescriptionContainer">
+				<div class="bigdiv">
+				<div class="rowdiv" id="topdiv">
+				</div>
+				<div class="rowdiv" id="middiv">
+					<div class="rightdiv" id="midrightdiv">
+							
+					</div>
+					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
 					<h2 id="itemTitle"><?php echo("$name"); ?><h2>
 					<div id="itemDescription"><?php echo("$description"); ?></div>
@@ -201,7 +210,7 @@ while($row1 = mysqli_fetch_array($result1))
 						}
 						
 						foreach($sizeNames as $s){
-							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><select>");
+							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><label><select>");
 							
 							$result6 = mysqli_query($conn2, "SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId AND s.name = '$s'");
 							
@@ -211,13 +220,13 @@ while($row1 = mysqli_fetch_array($result1))
 								echo("<option value='$value'>$value cm</option>");
 								
 							}
-							echo("</select></div></div>");
+							echo("<label></select></div></div>");
 						}
 					 	?>
 					 </div>
 					 <div id="cart">
-					 	<a href="cart.php">
-					 		<img src="img/cart-big-dark.png" />
+					 	<a class="item-cart" <?php echo("id='item_".$_GET["id"]."' ") ?>>
+					 		<img class="cart-image" src="img/cart-big-dark.png" />
 					 	</a>
 					 </div>
 					 <div id="questions">
@@ -225,17 +234,26 @@ while($row1 = mysqli_fetch_array($result1))
 					 		<div id="mark">? </div> Zadaj pytanie odnośnie przedmiotu.
 					 	</a>
 					 </div>
-					</div> 
+					</div>
+					</div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div> 
 			</div>
 			</div>
 		 </div>
-	</div>
 </body>      
 </html>
 <script type="text/javascript">
 	
 $( document ).ready(function() {
-
+checkCart();
+var height = $( '#midcenterdiv' ).css( "height" );
+$( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
 
 	$(function() {			
 	    $(".menu-anim").lavaLamp({
@@ -269,6 +287,62 @@ $('.imageContainer').mouseleave(function() {
 });
 });
 
+function checkCart(){
+		var count=0;
+		if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		for (var i=0; i < cookieval.length; i++) {
+			if(cookieval.charAt(i)!=',')
+			{				
+			}
+			else
+			{
+				count++;
+				item="";
+			}
+		}
+	}
+	else{
+		count=0;		
+	}
+	$('#cart-count').html(count);
+}
 
+$('.item-cart').click(function() {
+	
+	var cookieArray = [];
+	if (jQuery.cookie("cartItem")) {
+		var cookieval = $.cookie("cartItem");
+		cookieval+=",";
+		var item="";		
+		for (var i=0; i < cookieval.length; i++) {
+			if(cookieval.charAt(i)!=',')
+			{
+				item += cookieval.charAt(i);
+			}
+			else
+			{
+				cookieArray.push(item);
+				item="";
+			}
+		}
+	}
+	else{		
+	}
+	if(jQuery.inArray($(this).attr('id'), cookieArray)!=-1)	{
+			var id = jQuery.inArray($(this).attr('id'), cookieArray);
+			//alert(id);
+			// cookieArray[id]+="#2#"
+		}
+	else {
+		// cookieArray.push($(this).attr('id'));
+	}
+	
+	cookieArray.push($(this).attr('id'));	
+	$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
+	alert("Produkt został dodany do koszyka");
+	checkCart();
+});
 </script>
 

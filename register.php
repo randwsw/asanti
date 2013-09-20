@@ -16,10 +16,27 @@
     
     <link rel="stylesheet" href="css/shopstyle.css" />
     <link rel="stylesheet" href="css/sliderstyle.css" />
+    <link rel="stylesheet" href="css/profileborders.css" />
     
 </head>
 
 <body>
+	<div class="bigdiv">
+		<div class="rowdiv" id="topdiv">
+		</div>
+		<div class="rowdiv" id="middiv">
+			<div class="rightdiv" id="midrightdiv">
+				
+			</div>
+			<div class="centerdiv" id="midcenterdiv">
+				</div>
+			<div class="leftdiv" id="midleftdiv">
+				
+			</div>
+		</div>
+		<div class="rowdiv" id="botdiv">
+		</div>
+	</div>
 	<div class="regfiller">
 		
 	<!-- Include background animation ------------------------------------------- -->
@@ -27,7 +44,7 @@
 	<!-- ------------------------------------------------------------------------ -->
 	
 		<div class="register-div">
-			<img src="img/forkids2.png" id="log-logo">
+			<img src="img/nextlogo.png" id="log-logo">
 					
 				<form method="POST" class="regform" id="regform" >
 					<h2>Rejestracja</h2>
@@ -90,7 +107,7 @@
 										
 					<div class ="formdiv">
 						<input class="form-button" type="submit" value="Zarejestruj się" id="regButton"/>
-						<a href="../asanti/shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
+						<a onclick="history.back(-1)"><p id="pback">&#171 wróć do sklepu</p></a>
 					</div>
 					
 				</form>
