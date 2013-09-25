@@ -671,6 +671,7 @@ div#itemDescriptionContainer #cart:hover{
 div#itemDescriptionContainer #questions{
 	margin-top: 30px;
 	font-size: 9pt;
+	margin-bottom: 30px;
 }
 
 div#itemDescriptionContainer #questions #mark{
@@ -784,6 +785,36 @@ div#itemSizes .sizeBox .title{
   	overflow: hidden;
   	margin-right: 2px;
 }
+
+div#itemDescriptionContainer #connections{
+	width: auto;
+	margin-left: 10px;
+}
+
+div.connectionBox{
+	width: 130px;
+	height: 220px;
+	/*background-color: Gray;*/
+	float: left;
+	margin-right: 5px;
+}
+
+img.connectionImg{
+	margin-left: 10px;
+	height: 150px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	/*border: 1px solid #C99C57;*/
+	
+}
+
+div.connectionBox .connectionTitle{
+	font-size: 10pt;
+	margin-top: 3px;
+	text-align: center;
+}
+
 
 /* --------------------------------------------- */
 /* FORM -------------------------------------- */

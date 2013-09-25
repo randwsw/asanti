@@ -208,7 +208,7 @@
 																</div>
 																<div class='buttons'>
 																		<input type='button' class='edit' id='edit_$cl1_id' value='Zmień' />
-																		<input type='button' class='delete' id='delete_$cl1_id' value='Usuń' />
+
 																</div>
 														</div>");
 											foreach($categoryList as $c){

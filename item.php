@@ -222,6 +222,7 @@ while($row1 = mysqli_fetch_array($result1))
 							}
 							echo("<label></select></div></div>");
 						}
+						mysqli_close($conn2);
 					 	?>
 					 </div>
 					 <div id="cart">
@@ -234,6 +235,43 @@ while($row1 = mysqli_fetch_array($result1))
 					 		<div id="mark">? </div> Zadaj pytanie odnośnie przedmiotu.
 					 	</a>
 					 </div>
+					 <div>
+					 <?php
+					 	$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+						$id = $_GET['id'];
+						
+						
+						if (mysqli_connect_errno())
+						{
+					 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						}
+						
+						// ENCODING TO UTF8
+						$sql = "SET NAMES 'utf8'";
+						!mysqli_query($conn3,$sql);	
+						
+						// $result6 = mysqli_query($conn3,"SELECT i.name AS itemName, p.url AS photoUrl FROM item i, photo p WHERE i.headPhotoId = p.id AND ");
+						$result6 = mysqli_query($conn3,"SELECT i.id AS itemId, i.name AS itemName FROM item i, item_conn ic WHERE (ic.item1_id = $id AND i.id = ic.item2_id) OR (ic.item2_id = $id AND i.id = ic.item1_id) GROUP BY itemName");
+						
+						echo('<div id="connections">');
+						while($row6= mysqli_fetch_array($result6))
+						{
+							$itemName = $row6['itemName'];
+							$itemId = $row6['itemId'];
+							$result7 = mysqli_query($conn3,"SELECT p.url AS photoUrl FROM photo p, item i WHERE i.id = $itemId AND p.id = i.headPhotoId");
+							while($row7= mysqli_fetch_array($result7))
+							{
+								$photoUrl = $row7['photoUrl'];
+								echo('<a href="item.php?id=216"><div class="connectionBox">
+										<img src="' . $photoUrl . '" class="connectionImg"/><div class="connectionTitle">' . $itemName . '</div>
+								</div></a>');
+							}
+						}
+						echo('</div>');
+						mysqli_close($conn3);
+					 	?>
+					
+					</div>
 					</div>
 					</div>
 			<div class="leftdiv" id="midleftdiv">

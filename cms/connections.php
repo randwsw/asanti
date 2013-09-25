@@ -167,15 +167,12 @@
 	            return false;
 	        }else{
 	        	
-	        $.urlParam = function(name){
-			    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
-			    return results[1] || 0;
-			}
-			var itemId1 =  $.urlParam('itemId');
+	       
+			var itemId1 =  getURLParameter("itemId");
 			
 			var itemId2 = $(this).attr("id");
 			itemId2 = itemId2.substr(13,5);
-			alert(itemId1 + "  " + itemId2);
+			// alert(itemId1 + "  " + itemId2);
 			$.ajax({ 
 			    type: 'POST', 
 			    url: 'controllers/deleteSet.php', 
@@ -240,18 +237,17 @@
 			var sortByParam = getURLParameter("sortBy");
 			var directionParam = getURLParameter("direction");
 			var id = $(this).find("option:selected").attr('value');
-
 			if(sortByParam != null && directionParam != null){
 				var filter = ("sortBy=" + sortByParam + "&direction=" + directionParam);
 				if(id=="all"){
-					window.location.replace("connections.php?" + filter);
+					window.location.replace("connections.php");
 				}else{
 					window.location.replace("connections.php?category=" + id + "&" + filter);
 				}
 			}else{
 				var filter = "";
 				if(id=="all"){
-					window.location.replace("connections.php?");
+					window.location.replace("connections.php");
 				}else{
 					window.location.replace("connections.php?category=" + id);
 				}
@@ -278,7 +274,7 @@
 			if(category != null){
 				window.location.replace("connections.php?category=" + category + "&sortBy=" + sortBy + "&direction=" + direction);
 			}else{
-				window.location.replace("connections.php?ssortBy=" + sortBy + "&direction=" + direction);
+				window.location.replace("connections.php?sortBy=" + sortBy + "&direction=" + direction);
 			}
 		})
 	}
@@ -288,7 +284,12 @@
 		var sortParam = getURLParameter("sortBy");
 		var directionParam = getURLParameter("direction");
 
-		$("select#categoryFilter").val(filterParam);
+		if(filterParam == null){
+			$("select#categoryFilter").val("all");
+		}else{
+			$("select#categoryFilter").val(filterParam);
+		}
+		
 		if(directionParam == "ASC"){
 			directionParam = "ASC__";
 		}else{
@@ -296,7 +297,12 @@
 				directionParam = "DESC_";
 			}
 		}
-		$("select#sort").val(directionParam + sortParam);
+		if(sortParam == null){
+			$("select#sort").val("ASC__itemName");
+		}else{
+			$("select#sort").val(directionParam + sortParam);
+		}
+		
 	}
 	
 	
@@ -308,7 +314,7 @@
 		setSelects();
 		// sort();
 		getItems();
-		// deleteSet();
+		deleteSet();
 		addMore();
 		
 	})
@@ -344,59 +350,63 @@
 					<div id="sets">
 						
 						<div id="container">
-							<div id="filters">
-								<div class="filter">
-									kategoria
-									<select id="categoryFilter">
-										<option value="all">wszystkie</option>
-										<?php
-										
-										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-										$catList = array();
-										
-										$sql = "SET NAMES 'utf8'";
-										!mysqli_query($conn,$sql);
-										
-										
-										if (mysqli_connect_errno())
-												  {
-												  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-												  }
-												
-										$result = mysqli_query($conn,"SELECT id, parentId, name, urlName FROM category WHERE name != 'root' GROUP BY name ORDER BY catLevel");
-												
-										while($row1 = mysqli_fetch_array($result))
-											{
-												$parentId = $row1['parentId'];
-												$result2 = mysqli_query($conn, "SELECT name FROM category WHERE id = '$parentId'");
-												while($row2 = mysqli_fetch_array($result2))
-													{
-														if($row2['name'] == "root"){
-															echo('<option value="' . $row1['id'] . '">' . $row1['name'] . '</option>');
-														}else{
-															echo('<option value="' . $row1['id'] . '">' . $row2['name'] . '  |  ' . $row1['name'] . '</option>');
+							<?php
+							if((!isset($_GET['action'])) || ($_GET['action'] != "add") && ($_GET['action'] != "edit")){
+								echo('<div id="filters">
+									<div class="filter">
+										kategoria
+										<select id="categoryFilter">
+											<option value="all">wszystkie</option>');
+											
+											
+											$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+											$catList = array();
+											
+											$sql = "SET NAMES 'utf8'";
+											!mysqli_query($conn,$sql);
+											
+											
+											if (mysqli_connect_errno())
+													  {
+													  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+													  }
+													
+											$result = mysqli_query($conn,"SELECT id, parentId, name, urlName FROM category WHERE name != 'root' GROUP BY name ORDER BY catLevel");
+													
+											while($row1 = mysqli_fetch_array($result))
+												{
+													$parentId = $row1['parentId'];
+													$result2 = mysqli_query($conn, "SELECT name FROM category WHERE id = '$parentId'");
+													while($row2 = mysqli_fetch_array($result2))
+														{
+															if($row2['name'] == "root"){
+																echo('<option value="' . $row1['id'] . '">' . $row1['name'] . '</option>');
+															}else{
+																echo('<option value="' . $row1['id'] . '">' . $row2['name'] . '  |  ' . $row1['name'] . '</option>');
+															}
+															
 														}
-														
-													}
-												
-											}
-												
-														
-										mysqli_close($conn);
-										
-										?>
-									</select>
-									Sortuj wg:
-									<select id="sort">
-										<option value="ASC__itemName">Nazwy a-z</option>
-										<option value="DESC_itemName">Nazwy z-a</option>
-										<option value="ASC__categoryName">Kategorii a-z</option>
-										<option value="DESC_categoryName">Kategorii z-a</option>
-										<option value="ASC__connections">Powiązań rosnąco</option>
-										<option value="DESC_connections">Powiązań malejąco</option>
-									</select>
-								</div>
-							</div>
+													
+												}
+													
+															
+											mysqli_close($conn);
+											
+											
+										echo('</select>
+										Sortuj wg:
+										<select id="sort">
+											<option value="ASC__itemName">Nazwy a-z</option>
+											<option value="DESC_itemName">Nazwy z-a</option>
+											<option value="ASC__categoryName">Kategorii a-z</option>
+											<option value="DESC_categoryName">Kategorii z-a</option>
+											<option value="ASC__connections">Powiązań rosnąco</option>
+											<option value="DESC_connections">Powiązań malejąco</option>
+										</select>
+									</div>
+								</div>');
+							}
+							?>
 							<?php
 							
 							if(!isset($_GET['action'])){
@@ -415,7 +425,7 @@
 							<?php
 							
 							if(isset($_GET['action']) && $_GET['action'] == "add"){
-								echo('<a href="sets.php"><input type="button" value="Wróć" /></a><table id="itemsTable"></table>');
+								echo('<table id="itemsTable"></table><a href="connections.php"><input type="button" class="backButton" value="Wróć" /></a>');
 							}		
 							?>
 							
@@ -477,7 +487,7 @@
 														<input type="button" class="addMore" value="Dodaj nowy" id="addMoreButton_' . $itemId . '"/>
 													</a>
 												</div>');
-										echo('</div></div>');	
+										echo('</div></div><a href="connections.php"><input type="button" class="backButton" value="Wróć" /></a>');	
 												
 									mysqli_close($conn);
 									

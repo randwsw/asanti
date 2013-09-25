@@ -11,13 +11,21 @@
 
 	<script type="text/javascript">
 	
+	function getURLParameter(name) {
+		    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+		}
+	
+	
+	
 	function getItems(category){
-		var category = category;
+		var category = getURLParameter("category");
+		var sortBy = getURLParameter("sortBy");
+		var direction = getURLParameter("direction");
 		// alert(category);
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/getItems.php', 
-		    data: {category : category},
+		    data: {category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -60,6 +68,8 @@
 		    	editButton();
 		    	deleteItem();
 		    	changeActiveItem();
+		    	filter();
+		    	sort();
 			},
 		})
 	}
@@ -143,14 +153,75 @@
 		// }).prop('selected', true);
 		
 		$("select#categoryFilter").on("change", function(){
+			var sortByParam = getURLParameter("sortBy");
+			var directionParam = getURLParameter("direction");
 			var id = $(this).find("option:selected").attr('value');
-			if(id=="all"){
-				getItems();
+			if(sortByParam != null && directionParam != null){
+				var filter = ("sortBy=" + sortByParam + "&direction=" + directionParam);
+				if(id=="all"){
+					window.location.replace("items.php");
+				}else{
+					window.location.replace("items.php?category=" + id + "&" + filter);
+				}
 			}else{
-				getItems(id);
+				var filter = "";
+				if(id=="all"){
+					window.location.replace("items.php");
+				}else{
+					window.location.replace("items.php?category=" + id);
+				}
 			}
 			
+			
+			
 		})
+	}
+	
+	
+	function sort(){
+		$("select#sort").on("change", function(){
+			var direction = $(this).find("option:selected").attr('value');
+			if(direction.substr(0,4) == "ASC_"){
+				direction = "ASC";
+			}else{
+				if(direction.substr(0,4) == "DESC"){
+					direction = "DESC";
+				}
+			}
+			var sortBy = $(this).find("option:selected").attr('value').substr(5,20);
+			var category = getURLParameter("category");
+			if(category != null){
+				window.location.replace("items.php?category=" + category + "&sortBy=" + sortBy + "&direction=" + direction);
+			}else{
+				window.location.replace("items.php?sortBy=" + sortBy + "&direction=" + direction);
+			}
+		})
+	}
+	
+	function setSelects(){		
+		var filterParam = getURLParameter("category");
+		var sortParam = getURLParameter("sortBy");
+		var directionParam = getURLParameter("direction");
+
+		if(filterParam == null){
+			$("select#categoryFilter").val("all");
+		}else{
+			$("select#categoryFilter").val(filterParam);
+		}
+		
+		if(directionParam == "ASC"){
+			directionParam = "ASC__";
+		}else{
+			if(directionParam == "DESC"){
+				directionParam = "DESC_";
+			}
+		}
+		if(sortParam == null){
+			$("select#sort").val("ASC__itemName");
+		}else{
+			$("select#sort").val(directionParam + sortParam);
+		}
+		
 	}
 	
 	
@@ -171,7 +242,9 @@
 	$(document).ready(function(){
 		
 		$("#progress").hide();
+		sort();
 		getItems();
+		setSelects();
 		filter();
 	})
 	</script>
@@ -247,6 +320,15 @@
 										mysqli_close($conn);
 										
 										?>
+									</select>
+									Sortuj wg:
+									<select id="sort">
+										<option value="ASC__itemName">Nazwy a-z</option>
+										<option value="DESC_itemName">Nazwy z-a</option>
+										<option value="ASC__categoryName">Kategorii a-z</option>
+										<option value="DESC_categoryName">Kategorii z-a</option>
+										<option value="ASC__connections">Powiązań rosnąco</option>
+										<option value="DESC_connections">Powiązań malejąco</option>
 									</select>
 								</div>
 							</div>
