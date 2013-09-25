@@ -8,9 +8,6 @@
 	<!-- Include links ---------------------------------------------------------- -->
 	<?php include 'include/links.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-    <!-- Include background animation ------------------------------------------- -->
-	<?php include 'include/backanim.php'; ?>
-	<!-- ------------------------------------------------------------------------ -->
     <link rel="stylesheet" href="css/itemborders.css" />
     
     
@@ -131,6 +128,12 @@ while($row1 = mysqli_fetch_array($result1))
 </head>
 
 <body>
+	<!-- Include background animation ------------------------------------------- -->
+	<?php include 'include/backanim.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+	<!-- Include header --------------------------------------------------------- -->
+	<?php include 'include/header.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
 	<div class="bg">
 		</div>
 	    <div class="container">
@@ -210,7 +213,7 @@ while($row1 = mysqli_fetch_array($result1))
 						}
 						
 						foreach($sizeNames as $s){
-							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><label><select>");
+							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><label><select class='size-sel'>");
 							
 							$result6 = mysqli_query($conn2, "SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId AND s.name = '$s'");
 							
@@ -288,61 +291,200 @@ $('.imageContainer').mouseleave(function() {
 });
 
 function checkCart(){
-		var count=0;
-		if (jQuery.cookie("cartItem")) {
+var cookieArray = [];
+	
+	/*====Read====*/
+	var sizes = [];
+	var i = 0;
+	var rid = -1;
+	var ric = -1;
+	
+	if (jQuery.cookie("cartItem")) {
 		var cookieval = $.cookie("cartItem");
-		cookieval+=",";
-		for (var i=0; i < cookieval.length; i++) {
-			if(cookieval.charAt(i)!=',')
-			{				
-			}
-			else
-			{
-				count++;
-				item="";
-			}
+		
+		 while(i==0){
+		 if(cookieval!=""){
+			var start_pos =  0;
+			var end_pos =  cookieval.indexOf('|',start_pos);
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			cookieArray.push(text_to_get);
+			cookieval =  cookieval.substring(end_pos+1);
+		 }
+		 else {
+		 	i++;
+		 }
+	 }
+	// alert(cookieArray);
+	
+	for (var j = 0; j < cookieArray.length; j++) {
+	sizes = [];
+	i = 0;
+	rid = -1;
+	ric = -1;
+    
+   
+	var cookieval = cookieArray[j];
+	
+	
+	var end_pos = cookieval.indexOf('[');
+	var rid = cookieval.substring(0,end_pos);
+	
+	i=0;
+	while(i==0){
+		var start_pos =  cookieval.indexOf('[');
+		var end_pos =  cookieval.indexOf(']',start_pos)+1;
+		if (end_pos <= 0)
+		{
+			i++;
+		} else {	
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			sizes.push(text_to_get);
+			 // alert(text_to_get);
+			 cookieval =  cookieval.substring(end_pos);
 		}
+		
 	}
-	else{
-		count=0;		
+	ric =  cookieval;
+	ric = ric.substring(3);
+	 $('#cart-count').html(ric);
 	}
-	$('#cart-count').html(count);
+ } else {
+ 	$('#cart-count').html("0");
+ }
 }
 
 $('.item-cart').click(function() {
-	
 	var cookieArray = [];
+	
+	
+	/*====Read====*/
+	var sizes = [];
+	var i = 0;
+	var rid = -1;
+	var ric = -1;
+	
 	if (jQuery.cookie("cartItem")) {
 		var cookieval = $.cookie("cartItem");
-		cookieval+=",";
-		var item="";		
-		for (var i=0; i < cookieval.length; i++) {
-			if(cookieval.charAt(i)!=',')
-			{
-				item += cookieval.charAt(i);
-			}
-			else
-			{
-				cookieArray.push(item);
-				item="";
-			}
+		
+		 while(i==0){
+		 if(cookieval!=""){
+			var start_pos =  0;
+			var end_pos =  cookieval.indexOf('|',start_pos);
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			cookieArray.push(text_to_get);
+			cookieval =  cookieval.substring(end_pos+1);
+		 }
+		 else {
+		 	i++;
+		 }
+	 }
+	 //alert(cookieArray+"|");
+	
+	for (var j = 0; j < cookieArray.length; j++) {
+	sizes = [];
+	i = 0;
+	rid = -1;
+	ric = -1;
+    
+   
+	var cookieval = cookieArray[j];
+	
+	
+	var end_pos = cookieval.indexOf('[');
+	var rid = cookieval.substring(0,end_pos);
+	
+	i=0;
+	while(i==0){
+		var start_pos =  cookieval.indexOf('[');
+		var end_pos =  cookieval.indexOf(']',start_pos)+1;
+		if (end_pos <= 0)
+		{
+			i++;
+		} else {	
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			sizes.push(text_to_get);
+			 // alert(text_to_get);
+			 cookieval =  cookieval.substring(end_pos);
 		}
+		
 	}
-	else{		
-	}
-	if(jQuery.inArray($(this).attr('id'), cookieArray)!=-1)	{
-			var id = jQuery.inArray($(this).attr('id'), cookieArray);
-			//alert(id);
-			// cookieArray[id]+="#2#"
-		}
-	else {
-		// cookieArray.push($(this).attr('id'));
+	ric =  cookieval;
+	// alert(rid+sizes+ric);
 	}
 	
-	cookieArray.push($(this).attr('id'));	
-	$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
-	alert("Produkt został dodany do koszyka");
-	checkCart();
+	/*====WRITE====*/
+	var eq = 0;
+	var id = $(this).attr("id");
+	var names = [];
+	var values = [];
+	var count = 0;
+	var ic = 1;
+
+	var word=id.toString();
+	$('.title').each(function(){
+	  names.push($(this).html());
+	  count ++;
+	});
+	
+	$('.size-sel').each(function(){
+	    values.push($(this).val());
+	});
+
+	for (var i = 0; i < count; i++) {
+		word+="["+names[i]+values[i]+"]"
+	}
+	var eq = 0;
+	for (var j = 0; j < cookieArray.length; j++) {
+		var cv = cookieArray[j];
+		if (cv.indexOf(word) >= 0)
+		{
+			eq=1;
+			var nr =cv.indexOf("ic");
+			var nr2 = cv.substring(nr+3);
+			nr2 = parseInt(nr2);
+			nr2+=1;
+			cookieArray[j] = cv.substring(0,nr+3)+nr2;
+			alert(cookieArray[j]);
+		} else {
+		}
+	}
+	if(eq==0){
+		
+		cookieArray.push(word+"ic=1");
+	}
+	var val= "";
+	for (var j = 0; j < cookieArray.length; j++) {
+		val += cookieArray[j]+"|";
+	}
+	$.cookie("cartItem", val, { expires: 1, path: '/' });
+} else {
+	var eq = 0;
+	var id = $(this).attr("id");
+	var names = [];
+	var values = [];
+	var count = 0;
+	var ic = 1;
+
+	var word=id.toString();
+	$('.title').each(function(){
+	  names.push($(this).html());
+	  count ++;
+	});
+	
+	$('.size-sel').each(function(){
+	    values.push($(this).val());
+	});
+
+	for (var i = 0; i < count; i++) {
+		word+="["+names[i]+values[i]+"]"
+	}
+	word+="ic="+ic+"|";
+	$.cookie("cartItem", word, { expires: 1, path: '/' });
+}
+var count = $('#cart-count').html();
+count=parseInt(count) + 1;
+$('#cart-count').html(count);
+	
 });
 </script>
 
