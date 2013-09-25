@@ -19,13 +19,13 @@
 <body>
 	<div class="bg">
 	</div>
-	<div class ="container">
 	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<!-- Include background animation ------------------------------------------- -->
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
+	<div class ="container">
 	<div class="cart-fill"></div>
 		<div class="product-row" id="top-row">
 			<div class="column-name">
@@ -81,84 +81,123 @@
 			</div>
 		</div> -->
 		<?php
+		class cartItem
+		{
+		    public $sizes = array();
+		    public $price = 0;
+			public $id = 0;		
+		}
+		
+		$cartItems = array();
+		
+		
+		
 		$sum=0; 
 		if(isset($_COOKIE['cartItem']))
         {
-        		$querypart="";
-                $var = $_COOKIE['cartItem'];
-				$var = $var.',';
+				$cookies = array();
 				$item="";
-				$arr = array();
-				$test = array();
+				
+                $var = $_COOKIE['cartItem'];	
 				
                 for ($i = 0; $i<strlen($var); $i++)  {
 				    $character = substr($var, $i,1);
-					if($character != ',')
+					if($character != '|')
 					{
 						$item= $item.$character;						
 					}
-					else {						
-						$item = substr($item, 5);
-						if (in_array($item, $arr, true)) {
-							$test[$item]+=1;				 
-						}
-						else{
-							$test[$item]=1;
-							$querypart= $querypart."i.id = ".$item." OR ";  			 	
-						}
-						array_push($arr,$item);
-
+					else {
+						echo($item);
+						echo("<br>");						
+						array_push($cookies, $item);
 						$item="";
 					}
-				}
+				 }
+				echo("<br>");
+				print_r($cookies);
 				
-			$querypart = substr($querypart,0,-3);
+				for ($j = 1; $j <= sizeof($cookies); $j++) {
+				
+				$citem = new cartItem();	
+				
+				// sizes = [];
+				// i = 0;
+				// rid = -1;
+				// ric = -1;
+			    
+			   
+				$cookieval = $cookies[j];
+				
+				
+				var end_pos = cookieval.indexOf('[');
+				var rid = cookieval.substring(0,end_pos);
+				
+				i=0;
+				while(i==0){
+					var start_pos =  cookieval.indexOf('[');
+					var end_pos =  cookieval.indexOf(']',start_pos)+1;
+					if (end_pos <= 0)
+					{
+						i++;
+					} else {	
+						var text_to_get =  cookieval.substring(start_pos,end_pos)
+						sizes.push(text_to_get);
+						 // alert(text_to_get);
+						 cookieval =  cookieval.substring(end_pos);
+					}
+					
+				}
+				ric =  cookieval;
+				// alert(rid+sizes+ric);
+				}
+// 				
+			// $querypart = substr($querypart,0,-3);
 			// echo($querypart);
 			// print_r($arr);
 			// print_r($test);
 			
 			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-			// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
-					
-			// Check connection
-			if (mysqli_connect_errno())
-			{
-				echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			}
-			
-		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
-			
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
-			
-			
-			echo("<form method='POST' action='confirm.php' name='cartForm'>");
-			while($rec = mysqli_fetch_array($sql)) {
-				$cat = $rec['urlName']."-".$rec['parentId'];
-				$sum+= $rec['price']*$test[$rec['id']];
-				echo(
-				"<div class='product-row' id='middle-row'>
-					<div class='column-name'>
-						<p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
-						<input type='hidden' value='".$rec['iname']."' name='name[]'>
-					</div>
-					<div class='column-price'>
-						<p id=price-".$rec['id'].">".$rec['price']."</p>
-						<input type='hidden' value='".$rec['price']."' name='price[]'>
-					</div>
-					<div class='column-quantity'>
-						<input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
-					</div>
-					<div class='column-price-all'>
-						<p id=price-all-".$rec['id'].">".$rec['price']*$test[$rec['id']]."</p>
-					</div>
-					<div class='column-remove' id='column-remove-".$rec['id']."'>
-						<a href=''><p>X</p></a>
-					</div>
-				</div>"
-				);
-			}
-		 
+			// $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+			// // //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+// 					
+			// // Check connection
+			// if (mysqli_connect_errno())
+			// {
+				// echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			// }
+// 			
+		  	 // //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+// 			
+			// $sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
+// 			
+// 			
+			// echo("<form method='POST' action='confirm.php' name='cartForm'>");
+			// while($rec = mysqli_fetch_array($sql)) {
+				// $cat = $rec['urlName']."-".$rec['parentId'];
+				// $sum+= $rec['price']*$test[$rec['id']];
+				// echo(
+				// "<div class='product-row' id='middle-row'>
+					// <div class='column-name'>
+						// <p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
+						// <input type='hidden' value='".$rec['iname']."' name='name[]'>
+					// </div>
+					// <div class='column-price'>
+						// <p id=price-".$rec['id'].">".$rec['price']."</p>
+						// <input type='hidden' value='".$rec['price']."' name='price[]'>
+					// </div>
+					// <div class='column-quantity'>
+						// <input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
+					// </div>
+					// <div class='column-price-all'>
+						// <p id=price-all-".$rec['id'].">".$rec['price']*$test[$rec['id']]."</p>
+					// </div>
+					// <div class='column-remove' id='column-remove-".$rec['id']."'>
+						// <a href=''><p>X</p></a>
+					// </div>
+				// </div>"
+				// );
+			// }
+// 		 
         }
 		else
 			{
