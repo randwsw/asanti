@@ -1,13 +1,12 @@
 <?php
-
-require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
+require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
 
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
-$email = $conn->real_escape_string($_POST['email']);
+$email = $conn->real_escape_string($_COOKIE['rememberme']);
 $email= $purifier->purify($email);
 
 $result = mysqli_query($conn,"SELECT id, email, name, lastName FROM users WHERE email = '$email'");
@@ -33,4 +32,5 @@ if($em != null)
 }
 else {
 }
+mysqli_close($conn);
 ?>

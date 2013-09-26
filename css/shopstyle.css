@@ -416,7 +416,8 @@ div .panel-div > #profile-icon {
 	/*font-size: 15px;*/
 }
 div .eye {
-	height: 250px;
+	/*height: 250px;*/
+	height: 100%;
 	background: url(../img/spyglass.png) no-repeat center;
 	opacity: 0.5;
 	
@@ -894,6 +895,7 @@ div#itemSizes .sizeBox .title{
 }
 
 .logfiller {
+	z-index: 3;
 	position: absolute;
 	left: 50%;
 	margin-left: -530px;
@@ -935,6 +937,7 @@ div#itemSizes .sizeBox .title{
 }
 
 .regfiller {
+	z-index:3;
 	position: absolute;
 	left: 50%;
 	margin-left: -370px;
@@ -993,11 +996,12 @@ div#itemSizes .sizeBox .title{
 	border-bottom: 1px solid gray;
 	width:1000px;
 }
+
 .cart-fill {
 	margin 0 auto;
 	width: 1000px;
 	height: 10px;
-	margin-top: 190px;
+	margin-top: 250px;
 	opacity: 0;
 }
 	#top-row p {
@@ -1036,7 +1040,8 @@ div#itemSizes .sizeBox .title{
 	margin: 0 auto;
 	margin-top: 8px;
 	margin-bottom: 8px;
-	height: 20px;
+	min-height: 20px;
+	padding-bottom: 4px;
 	width:1000px;
 }
 
@@ -1066,20 +1071,22 @@ div#itemSizes .sizeBox .title{
 	float: left;
 }
 .column-name{
-	width: 300px;
+	width: 250px;
 }
-
+.column-size{
+	width: 150px;
+}
 .column-price{
-	width: 200px;
+	width: 150px;
 }
 .column-quantity{
 	width: 150px;
 }
 
 .column-price-all{
-	width: 200px;
+	width: 150px;
 }
-.column-remove{
+.column-remove, .column-submit{
 	width: 150px;
 }
 /* --------------------------------------------- */
@@ -1104,3 +1111,63 @@ div#itemSizes .sizeBox .title{
 	margin-left: -150px;
 	/*z-index: 20;*/
 }
+/*---------------------ORDERS------------------- */
+#top-row-o, #top-row-os {
+	margin: 0 auto;
+	margin-top: 40px;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+	width:750px;
+}
+
+#top-row-os {
+	width: 850px;
+}
+	#top-row-o p, #top-row-os  p {
+			font-size: 10pt;
+			width: 145px;
+		}
+		
+#middle-row-o, #middle-row-os {
+	margin: 0 auto;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	min-height: 20px;
+	padding-bottom: 4px;
+	width:750px;
+}
+
+#middle-row-os {
+	width: 850px;
+}
+
+	#middle-row-o p, #middle-row-os p {
+		font-size: 10pt;
+		margin-top: 3px;
+		font-family: "OpenSansRegular", Arial;
+
+	}
+	#middle-row-o input[type="text"], #middle-row-os input[type="text"] {
+		height:10px;
+		width: 20px;
+		margin-left: 63px;
+		text-align: center;
+	}
+#bot-row-os {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-top: 5px;
+	height: 20px;
+	border-top: 1px solid gray;
+	float: right;
+	margin-right: 125px;
+}
+	#bot-row-os p {
+		font-size: 10pt;
+		width: 145px;
+	}
+	#bot-row-os a {
+		font-family: "OpenSansBold", Arial;
+		font-size: 8pt;
+	}

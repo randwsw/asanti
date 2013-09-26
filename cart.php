@@ -31,6 +31,9 @@
 			<div class="column-name">
 				<p>Nazwa produktu</p>
 			</div>
+			<div class="column-size">
+				<p>Rozmiary</p>
+			</div>
 			<div class="column-price">
 				<p>Cena za sztukę</p>
 			</div>
@@ -45,51 +48,21 @@
 			</div>
 		</div>
 		
-		<!-- <div class="product-row" id="middle-row">
-			<div class="column-name">
-				<p>Produkt1</p>
-			</div>
-			<div class="column-price">
-				<p>24,99</p>
-			</div>
-			<div class="column-quantity">
-				<input type="text"/>
-			</div>
-			<div class="column-price-all">
-				<p>24,99</p>
-			</div>
-			<div class="column-remove">
-				<a href=""><p>X</p></a>
-			</div>
-		</div>
 		
-		<div class="product-row" id="middle-row">
-			<div class="column-name">
-				<p>Produkt2</p>
-			</div>
-			<div class="column-price">
-				<p>34,99</p>
-			</div>
-			<div class="column-quantity">
-				<input type="text"/>
-			</div>
-			<div class="column-price-all">
-				<p>34,99</p>
-			</div>
-			<div class="column-remove">
-				<a href=""><p>X</p></a>
-			</div>
-		</div> -->
 		<?php
 		class cartItem
 		{
 		    public $sizes = array();
-		    public $price = 0;
-			public $id = 0;		
+		    public $count = "";
+			public $id = 0;
+			function addSize($sizeItem)
+			{
+			    array_push($this->sizes, $sizeItem);
+			}		
 		}
 		
 		$cartItems = array();
-		
+		$querypart = "";
 		
 		
 		$sum=0; 
@@ -106,117 +79,117 @@
 					{
 						$item= $item.$character;						
 					}
-					else {
-						echo($item);
-						echo("<br>");						
+					else {					
 						array_push($cookies, $item);
 						$item="";
 					}
 				 }
-				echo("<br>");
-				print_r($cookies);
 				
-				for ($j = 1; $j <= sizeof($cookies); $j++) {
+				
+				
+				for ($j = 0; $j < sizeof($cookies); $j++) {
 				
 				$citem = new cartItem();	
 				
-				// sizes = [];
-				// i = 0;
-				// rid = -1;
-				// ric = -1;
-			    
-			   
-				$cookieval = $cookies[j];
+				$cookieval = $cookies[$j];
+				$cookievalArray = str_split($cookies[$j]);
 				
+				$end_pos = array_search('[', $cookievalArray);
+				$rid = substr($cookieval,5 , $end_pos-5);
+				$citem->id=$rid;
+				// echo($rid);
+				// echo("<br>"); 
 				
-				var end_pos = cookieval.indexOf('[');
-				var rid = cookieval.substring(0,end_pos);
-				
-				i=0;
-				while(i==0){
-					var start_pos =  cookieval.indexOf('[');
-					var end_pos =  cookieval.indexOf(']',start_pos)+1;
-					if (end_pos <= 0)
-					{
-						i++;
-					} else {	
-						var text_to_get =  cookieval.substring(start_pos,end_pos)
-						sizes.push(text_to_get);
-						 // alert(text_to_get);
-						 cookieval =  cookieval.substring(end_pos);
+				$i=0;
+				while($i==0){
+					$start_pos = array_search('[', $cookievalArray);
+					$end_pos =  array_search(']', $cookievalArray)+1; 
+					//echo($start_pos."-".$end_pos);
+					//echo("<br>");
+					{	
+						$text_to_get = substr($cookieval, $start_pos+1, $end_pos-($start_pos+2));
+						$citem->addSize($text_to_get);
+						//echo("TEXT TO GET: ".$text_to_get);
+						//echo("<br>");
+						 $cookieval = substr($cookieval, $end_pos);
+						 //echo($cookieval."<br>");
+						 $cookievalArray = str_split($cookieval);
 					}
-					
+					if (array_search(']', $cookievalArray)==null) {
+					    $i++;
+					}
 				}
-				ric =  cookieval;
-				// alert(rid+sizes+ric);
+				$citem->count = substr($cookieval, 3, $end_pos-3);
+				array_push($cartItems, $citem);
 				}
 // 				
-			// $querypart = substr($querypart,0,-3);
-			// echo($querypart);
-			// print_r($arr);
-			// print_r($test);
 			
 			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-			// $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-			// // //////////////////////////////////////////////////////////////////////////////////////////////////// //	
-// 					
-			// // Check connection
-			// if (mysqli_connect_errno())
-			// {
-				// echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			// }
-// 			
-		  	 // //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
-// 			
-			// $sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
-// 			
-// 			
-			// echo("<form method='POST' action='confirm.php' name='cartForm'>");
-			// while($rec = mysqli_fetch_array($sql)) {
-				// $cat = $rec['urlName']."-".$rec['parentId'];
-				// $sum+= $rec['price']*$test[$rec['id']];
-				// echo(
-				// "<div class='product-row' id='middle-row'>
-					// <div class='column-name'>
-						// <p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
-						// <input type='hidden' value='".$rec['iname']."' name='name[]'>
-					// </div>
-					// <div class='column-price'>
-						// <p id=price-".$rec['id'].">".$rec['price']."</p>
-						// <input type='hidden' value='".$rec['price']."' name='price[]'>
-					// </div>
-					// <div class='column-quantity'>
-						// <input type='text' value='".$test[$rec['id']]."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
-					// </div>
-					// <div class='column-price-all'>
-						// <p id=price-all-".$rec['id'].">".$rec['price']*$test[$rec['id']]."</p>
-					// </div>
-					// <div class='column-remove' id='column-remove-".$rec['id']."'>
-						// <a href=''><p>X</p></a>
-					// </div>
-				// </div>"
-				// );
-			// }
-// 		 
+			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+			// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+					
+			// Check connection
+			if (mysqli_connect_errno())
+			{
+				echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			}
+			
+		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+		  	 $count = 0;
+			foreach ($cartItems as $val) {
+				
+			$querypart = "i.id = ".$val->id;
+			   			
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
+			
+			
+			echo("<form method='POST' action='confirm.php' name='cartForm'>");
+			while($rec = mysqli_fetch_array($sql)) {
+				$cat = $rec['urlName']."-".$rec['parentId'];
+				$sum+= $rec['price']*$val->count;
+				echo(
+				"<div class='product-row' id='middle-row'>
+				<input type='hidden' value='".$rec['id']."' name='iid[]'>			
+					<div class='column-name'>
+						<p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
+						<input type='hidden' value='".$rec['iname']."' name='name[]'>
+					</div>
+					<div class='column-size'>");
+					$s_ = '';
+					foreach ($val->sizes as $s) {
+						$s = str_replace(":", ": ", $s);
+						$s_.=$s.' ';
+						echo("<p>".$s."</p>");
+					}
+					echo("<input type='hidden' value='".$s_."' name='sizes[]'>");						
+					echo("</div>
+					<div class='column-price' id=pc".$count.">
+						<p id=price-".$rec['id'].">".$rec['price']."</p>
+						<input type='hidden' value='".$rec['price']."' name='price[]'>
+					</div>
+					<div class='column-quantity' id=cq".$count.">
+						<input type='text' value='".$val->count."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
+					</div>
+					<div class='column-price-all'>
+						<p class='price-all' id=price-all-".$rec['id'].">".$rec['price']*$val->count."</p>
+					</div>
+					<div class='column-remove' id='".$cookies[$count]."|'>
+						<a href=''><p>X</p></a>
+					</div>
+				</div>"
+				);
+			}
+			$count++;
+		  }
+		  mysqli_close($conn);	 
         }
 		else
 			{
 				echo("<div id='emptyCart'><p>Nie dodano jeszcze żadnego produktu</p></div>");
 			}
 		?>
-		<!-- <div class="product-row" id="bot-row">
-			<div class="sum">
-					<p>Suma:</p>
-			</div>
-			<div class="sum-money">
-				<p><a>Zapłać</a> </p>
-			</div>
-			<div class="sum-money">
-					<p><?php echo($sum.".00"); ?></p>
-			</div>
-		</div> -->
 		<div class="product-row" id="bot-row">
-			<div class="column-remove">
+			<div class="column-submit">
 				<p><a href="shop.php">wróć do sklepu</a></a></p>
 			</div>
 			<div class="column-name">
@@ -225,8 +198,8 @@
 			<div class="column-price-all">
 				<p id='complPrice'><?php echo($sum); ?></p>
 			</div>
-			<div class="column-remove">
-				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
+			<div class="column-submit">
+				<p><a id='cartSubmit' onclick="$.cookie('cartItem', 'newcookie', { expires: 0, path: '/' });document.cartForm.submit();">Kup</a></a></p>
 			</div>
 		</div>
 		</form>
@@ -267,12 +240,15 @@ $( document ).ready(function() {
 	    });
 			
 	});
+	
 	var x = 0;
 	var y = 0;
 	$( ".quantityTb" ).change(function() {
 		var res = $("#price-"+x).html()*$(this).attr("value");
 		var add = $("#price-"+x).html()*y;
-		$("#price-all-"+x).html(res);
+		var p1 = $(this).parent().attr("id");
+		var p2 = $("#"+p1).parent().find(".price-all").html(res);
+		
 		var cp = $("#complPrice").html() - add + res;
 		$("#complPrice").html(cp);
 	});
@@ -288,34 +264,19 @@ $( document ).ready(function() {
 
 
 $('.column-remove').click(function() {
-	var remItem = "item_"+$(this).attr('id').substring(14);
-	var cookieArray = [];
 	if (jQuery.cookie("cartItem")) {
+		
 		var cookieval = $.cookie("cartItem");
-		cookieval+=",";
-		var item="";		
-		for (var i=0; i < cookieval.length; i++) {
-
-			if(cookieval.charAt(i)!=',')
-			{
-				item += cookieval.charAt(i);
-			}
-			else
-			{
-				if(item!=remItem)
-				{
-					cookieArray.push(item);
-				}
-				item="";
-			}
-		}
+		var minuscookie = $(this).attr("id");
+		var newcookie = cookieval.replace(minuscookie,'');
+		
 	}
 	else{
 	}
-	$.cookie("cartItem", cookieArray, { expires: 0, path: '/' });
+	$.cookie("cartItem", newcookie, { expires: 0, path: '/' });
 	
-	if (cookieArray.length > 0) {
-		$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
+	if (newcookie.length > 0) {
+		$.cookie("cartItem", newcookie, { expires: 1, path: '/' });
 		alert("Produkt zostanie usunięty z koszyka");
 	}
 	//)

@@ -315,7 +315,7 @@ var cookieArray = [];
 		 }
 	 }
 	// alert(cookieArray);
-	
+	var icint = 0;
 	for (var j = 0; j < cookieArray.length; j++) {
 	sizes = [];
 	i = 0;
@@ -346,7 +346,8 @@ var cookieArray = [];
 	}
 	ric =  cookieval;
 	ric = ric.substring(3);
-	 $('#cart-count').html(ric);
+	icint += parseInt(ric);
+	 $('#cart-count').html(icint);
 	}
  } else {
  	$('#cart-count').html("0");
@@ -444,7 +445,6 @@ $('.item-cart').click(function() {
 			nr2 = parseInt(nr2);
 			nr2+=1;
 			cookieArray[j] = cv.substring(0,nr+3)+nr2;
-			alert(cookieArray[j]);
 		} else {
 		}
 	}
@@ -481,6 +481,7 @@ $('.item-cart').click(function() {
 	word+="ic="+ic+"|";
 	$.cookie("cartItem", word, { expires: 1, path: '/' });
 }
+alert("Produkt został dodany do koszyka");
 var count = $('#cart-count').html();
 count=parseInt(count) + 1;
 $('#cart-count').html(count);

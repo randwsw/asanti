@@ -18,6 +18,9 @@
 </head>
 
 <body>
+	<!-- Include background animation ------------------------------------------- -->
+	<?php include 'include/backanim.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
 	<div class="bg">
 	</div> 
 	<div class="bigdiv">

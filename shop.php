@@ -18,12 +18,17 @@
 </head>
 
 <body>
+	<!-- Include autoremeber --------------------------------------------------------- -->
+	<?php include 'controllers/autoRemember.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
 	<!-- Include background animation ------------------------------------------- -->
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
+	
+	
 	<div class="bg">
 	</div> 
     <div class="container">
@@ -180,7 +185,7 @@
 					<a href='item.php?id=".$rec['id']."&category=".$cat."' >
 					<div class='eye'></div>
 					</a>
-					<div class='cart' id='item_".$rec['id']."'></div>	 	    	
+					<!--<div class='cart' id='item_".$rec['id']."'></div>-->	 	    	
 		    	</div>		    	
 		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
 		    </div>
@@ -232,36 +237,79 @@ echo("<div class='itemMenu'>");
 <script type="text/javascript">
 
 function checkCart(){
-		var count=0;
-		if (jQuery.cookie("cartItem")) {
+var cookieArray = [];
+	
+	/*====Read====*/
+	var sizes = [];
+	var i = 0;
+	var rid = -1;
+	var ric = -1;
+	
+	if (jQuery.cookie("cartItem")) {
 		var cookieval = $.cookie("cartItem");
-		cookieval+=",";
-		for (var i=0; i < cookieval.length; i++) {
-			if(cookieval.charAt(i)!=',')
-			{				
-			}
-			else
-			{
-				count++;
-				item="";
-			}
+		
+		 while(i==0){
+		 if(cookieval!=""){
+			var start_pos =  0;
+			var end_pos =  cookieval.indexOf('|',start_pos);
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			cookieArray.push(text_to_get);
+			cookieval =  cookieval.substring(end_pos+1);
+		 }
+		 else {
+		 	i++;
+		 }
+	 }
+	// alert(cookieArray);
+	var icint = 0;
+	for (var j = 0; j < cookieArray.length; j++) {
+	sizes = [];
+	i = 0;
+	rid = -1;
+	ric = -1;
+    
+   
+	var cookieval = cookieArray[j];
+	
+	
+	var end_pos = cookieval.indexOf('[');
+	var rid = cookieval.substring(0,end_pos);
+	
+	i=0;
+	while(i==0){
+		var start_pos =  cookieval.indexOf('[');
+		var end_pos =  cookieval.indexOf(']',start_pos)+1;
+		if (end_pos <= 0)
+		{
+			i++;
+		} else {	
+			var text_to_get =  cookieval.substring(start_pos,end_pos)
+			sizes.push(text_to_get);
+			 // alert(text_to_get);
+			 cookieval =  cookieval.substring(end_pos);
 		}
+		
 	}
-	else{
-		count=0;		
+	ric =  cookieval;
+	ric = ric.substring(3);
+	icint += parseInt(ric);
+	$('#cart-count').html(icint);
 	}
-	$('#cart-count').html(count);
+ } else {
+ 	$('#cart-count').html("0");
+ }
 }
-$(window).load(function() {
-	
-	$.post("controllers/autoRemember.php", 
-        { email: $.cookie("rememberme")})
-		.done(function(data) {
-		}
-	);
-	 
-	
-});
+
+// $(window).load(function() {
+// 	
+	// $.post("controllers/autoRemember.php", 
+        // { email: $.cookie("rememberme")})
+		// .done(function(data) {
+		// }
+	// );
+// 	 
+// 	
+// });
 
 $( document ).ready(function() {
 	checkCart();
