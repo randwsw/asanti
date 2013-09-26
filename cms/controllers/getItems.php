@@ -55,7 +55,10 @@ if(isset($_POST['name'])){
 
 if(isset($_POST['category'])){
 	$category = $_POST['category'];
-	$result2 = mysqli_query($conn,"SELECT catLevel FROM category WHERE id = '$category'");
+	if($category == null){
+		$categoryFilter = "";
+	}else{
+		$result2 = mysqli_query($conn,"SELECT catLevel FROM category WHERE id = '$category'");
 	while($row2 = mysqli_fetch_array($result2))
 		{
 			
@@ -68,9 +71,23 @@ if(isset($_POST['category'])){
 				$categoryFilter = " AND c.id = '$category'";
 			}
 		}	
+	}
+	
 }else{$categoryFilter = "";}
 
 
+
+if(isset($_POST['sortBy'])){
+	$sortBy = $_POST['sortBy'];
+	$direction = $_POST['direction'];
+	if($sortBy == null || $direction == null){
+		$sort = " ORDER BY i.name ASC";
+	}else{
+		$sort = " ORDER BY $sortBy $direction";
+	}
+}else{
+	$sort = " ORDER BY i.name ASC";
+}
 
 
 		
@@ -80,9 +97,9 @@ if(isset($_POST['category'])){
 									FROM item i, category c, category_con cc, photo ph
 									WHERE c.id = cc.cat_id
 									AND i.id = cc.item_id"
-									. $idFilter . $nameFilter . $categoryFilter . $sets .
-									" GROUP BY i.id 
-									ORDER BY i.name ASC");
+									. $idFilter . $nameFilter . $categoryFilter . //$sets .
+									" GROUP BY i.id"
+									. $sort);
 		
 		while($e=mysqli_fetch_assoc($result))
               $output[]=$e;

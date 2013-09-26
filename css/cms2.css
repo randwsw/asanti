@@ -833,6 +833,11 @@ div#sets{
 	
 }
 
+div#rightContent #container #sets #container{
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
 div#sets table#itemsTable tr.header td.options{
 	border: 2px solid White;
 	width: 120px;
@@ -1044,4 +1049,295 @@ div#sets input.addMore{
 	cursor: pointer;
 	height: 22px;
 	width: auto;
+}
+
+
+/* USERS ////////////////////////////////////////////////// */
+
+div#rightContent #container #users #container{
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+table#usersTable {
+	width: 1020px;
+	height: auto;
+	border-collapse:collapse;
+}
+
+table#usersTable tr.header {
+	background-color: rgba(153,101,21,0.4);
+	color: White;
+	cursor: pointer;
+}
+
+table#usersTable tr.header td.email{
+	width: 150px;
+	max-width: 150px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border: 2px solid White;
+}
+
+table#usersTable tr.header td.name{
+	border: 2px solid White;
+	width: 100px;
+	max-width: 100px;
+	text-align: left;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable tr.header td.lastName{
+	border: 2px solid White;
+	width: 100px;
+	max-width: 100px;
+	text-align: left;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable tr.header td.address{
+	border: 2px solid White;
+	width: 200px;
+	text-align: left;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable tr.header td.options{
+	border: 2px solid White;
+	width: 80px;
+	text-align: right;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable tr.odd{
+	background-color: rgba(153,101,21,0.0);
+}
+
+table#usersTable tr.odd:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+table#usersTable tr.even{
+	background-color: rgba(153,101,21,0.2);
+}
+
+table#usersTable tr.even:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+table#usersTable td.email
+	/*width: 100px;*/
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable td.name{
+	/*width: 40px;*/
+	text-align: rcenter;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable td.lastName{
+	/*width: 200px;*/
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable td.address{
+	/*width: 200px;*/
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#usersTable td.options{
+	/*width: 120px;*/
+}
+
+table#usersTable input.edit {
+	/*background-color: rgba(50,64,168,0.8);*/
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+table#usersTable input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+div#users #container .row{
+	height: 30px;
+}
+
+div#users #container .row .title{
+	float: left;
+	width: 120px;
+	padding-top: 4px;
+}
+
+div#users #container .row .userInput{
+	width: 250px;
+	padding-left: 3px;
+}
+
+div#users #container .row input#update, input#updatePw{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+input.backButton{
+	background-color: #cbb189;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+/* GALLERY ----------------------------------------------- */
+div#newGallery #name{
+	width: 700px;
+}
+
+table#galleriesTable img{
+	height: 100px;
+	}
+	
+
+
+
+
+table#galleriesTable {
+	width: 700px;
+	height: auto;
+	border-collapse:collapse;
+}
+
+table#galleriesTable tr.header {
+	background-color: rgba(153,101,21,0.4);
+	color: White;
+	cursor: pointer;
+}
+
+table#galleriesTable tr.header td.img{
+	width: 100px;
+	max-width: 160px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border: 2px solid White;
+}
+
+table#galleriesTable tr.header td.title{
+	border: 2px solid White;
+	width: 500px;
+	max-width: 100px;
+	text-align: left;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+
+table#galleriesTable tr.header td.options{
+	border: 2px solid White;
+	width: 50px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#galleriesTable tr.odd{
+	background-color: rgba(153,101,21,0.0);
+}
+
+table#galleriesTable tr.odd:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+table#galleriesTable tr.even{
+	background-color: rgba(153,101,21,0.2);
+}
+
+table#galleriesTable tr.even:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+table#galleriesTable td.img
+	/*width: 100px;*/
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#galleriesTable td.title{
+	/*width: 40px;*/
+	text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table#galleriesTable td.options{
+	/*width: 120px;*/
+}
+
+table#galleriesTable input.edit {
+	/*background-color: rgba(50,64,168,0.8);*/
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+table#galleriesTable input.delete {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;
+}
+
+div#galleries input#addNew{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	margin-bottom: 10px;
+}
+
+div#gallery #title{
+	width: 100%;
+	font-size: 14pt;
+	/*border-bottom: 1px solid Black;
+	margin-bottom: 30px;*/
+	margin-bottom: 0px;
+}
+
+div#gallery #photos{
+	width: 100%;
+	min-height: 150px;
+	margin-left: -30px;
 }
