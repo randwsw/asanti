@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!--
 	Typ rozmiaru po załądowaniu strony powinien być ustawiony od razu na taki jaki ma dany przedmiot
 	automatyczne generowanie optionów dla selecta rozmiarów
@@ -133,14 +137,16 @@ mysqli_close($conn);
 		        }else{
 					$.ajax({ 
 				    type: 'POST', 
-				    url: 'controllers/deletePhotoController.php', 
-				    data: {photoId: photoId, itemId : itemId},
+				    url: 'controllers/photosController.php', 
+				    data: {action : "delete", photoId: photoId, itemId : itemId},
 				  
 				    error: function (data) {
 				    	alert("porażka!");
 				    },
 				    success: function (data) {
 				    	getPhotos();
+				    	$("#confirmAlert").fadeIn("fast");
+						$("#confirmAlert").delay(800).fadeOut(800);
 					},
 				})
 			}
@@ -156,8 +162,8 @@ mysqli_close($conn);
 				var direction = "left";
 				$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/changeOrderController.php', 
-			    data: {photoId: photoId, itemId: itemId, direction: direction},
+			    url: 'controllers/photosController.php', 
+			    data: {action : "changeOrder", photoId: photoId, itemId: itemId, direction: direction},
 			  
 			    error: function (data) {
 			    	alert("porażka!");
@@ -178,8 +184,8 @@ mysqli_close($conn);
 				var direction = "right";
 				$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/changeOrderController.php', 
-			    data: {photoId: photoId, itemId: itemId, direction: direction},
+			    url: 'controllers/photosController.php', 
+			    data: {action : "changeOrder", photoId: photoId, itemId: itemId, direction: direction},
 			  
 			    error: function (data) {
 			    	alert("porażka!");
@@ -197,8 +203,8 @@ mysqli_close($conn);
 				var itemId = $("#passItemId").val();
 				$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/getPhotosController.php', 
-			    data: {itemId: itemId},
+			    url: 'controllers/photosController.php', 
+			    data: {action : "getAll", itemId: itemId},
 			  
 			    error: function (data) {
 			    	alert("porażka!");
@@ -215,9 +221,9 @@ mysqli_close($conn);
 		function selectSizeStartup(){
 			var sizeOf="wzrost";
 			$.ajax({ 
-								url: "controllers/getAllSize.php",
+								url: "controllers/sizeController.php",
 								type: "POST",
-								data:  {sizeOf: sizeOf},
+								data:  {action : "getAll", sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
 						  		$("div#editItem #size #sizes").html(data);
@@ -232,9 +238,9 @@ mysqli_close($conn);
 				$("select#options option:selected").each(function () {
 					var sizeOf = $(this).attr("value");
 					$.ajax({ // loading classes list
-								url: "controllers/getAllSize.php",
+								url: "controllers/sizeController.php",
 								type: "POST",
-								data:  {sizeOf: sizeOf},
+								data:  {action : "getAll", sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
 						  		$("div#editItem #size #sizes").html(data);
@@ -250,8 +256,8 @@ mysqli_close($conn);
 			var itemId = $("#passItemId").val();
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/getItemSizes.php', 
-			    data: {itemId : itemId},
+			    url: 'controllers/sizeController.php', 
+			    data: {action : "getItemSizes", itemId : itemId},
 			    dataType: 'json',
 			    error: function (data) {
 			    	// alert("error");
@@ -276,8 +282,8 @@ mysqli_close($conn);
 				var sizeId = $(this).val();			
 				$.ajax({ 
 				    type: 'POST', 
-				    url: 'controllers/changeItemSizeController.php', 
-				    data: {itemId: itemId, sizeId : sizeId, active: active},
+				    url: 'controllers/sizeController.php', 
+				    data: {action : "changeItemSize", itemId: itemId, sizeId : sizeId, active: active},
 				    beforeSend: function(){
 				    	// $("#progress").show();
 				    },
@@ -298,8 +304,8 @@ mysqli_close($conn);
 			var itemId = $("#passItemId").val();
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/getItemCategory.php', 
-			    data: {itemId : itemId},
+			    url: 'controllers/categoryController.php', 
+			    data: {action : "getItemCategory", itemId : itemId},
 			    // dataType: 'json',
 			    error: function (data) {
 			    	// alert("error");
@@ -324,8 +330,8 @@ mysqli_close($conn);
 			
 			$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getCategory.php', 
-		    data: {parentId: parentId},
+		    url: 'controllers/categoryController.php', 
+		    data: {action : "getCategories", parentId: parentId},
 		    error: function (data) {
 		    	alert("error");
 		    },
@@ -385,7 +391,7 @@ mysqli_close($conn);
 		
 		
 		$( document ).ready(function() {
-			
+			$("#confirmAlert").hide();
 			getPhotos();
 			// selectSize();
 			// selectSizeStartup();
@@ -424,7 +430,7 @@ mysqli_close($conn);
 						<div id="editItem">
 							
 							<form action=""; method="POST" enctype="multipart/form-data">
-								
+								<div id="confirmAlert">Usunięto zdjęcie</div>
 								<div id="title">
 									<div class="label">Nazwa przedmiotu:</div>
 									<input class="nameInput" name="name" type="text" value="<?php echo($itemTitle); ?>"/>
@@ -591,7 +597,7 @@ mysqli_close($conn);
 							
 							
 								<input type="submit" name="submit" value="Dalej" />
-							        
+							    <a href="items.php"><input type="button" name="goBack" value="Wróć" /></a>
 							        
 								<input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" />
 							       

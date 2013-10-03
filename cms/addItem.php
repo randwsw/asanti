@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!-- 
 	automatyczne generowanie optionów w select dla rozmiarów
  -->
@@ -83,9 +87,9 @@ if(!isset($_POST["submit"])){?>
 		function selectSizeStartup(){
 			var sizeOf="wzrost";
 			$.ajax({ 
-								url: "controllers/getAllSize.php",
+								url: "controllers/sizeController.php",
 								type: "POST",
-								data:  {sizeOf: sizeOf},
+								data:  {action : "getAll", sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
 						  		$("div#newItem #size #sizes").html(data);
@@ -98,9 +102,9 @@ if(!isset($_POST["submit"])){?>
 				$("select#options option:selected").each(function () {
 					var sizeOf = $(this).attr("value");
 					$.ajax({ // loading classes list
-								url: "controllers/getAllSize.php",
+								url: "controllers/sizeController.php",
 								type: "POST",
-								data:  {sizeOf: sizeOf},
+								data:  {action : "getAll", sizeOf: sizeOf},
 								cache: false
 								}).done(function(data) {
 						  		$("div#newItem #size #sizes").html(data);
@@ -112,8 +116,8 @@ if(!isset($_POST["submit"])){?>
 		function getCategories(parentId){
 			$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getCategory.php', 
-		    data: {parentId: parentId},
+		    url: 'controllers/categoryController.php', 
+		    data: {action : "getCategories", parentId: parentId},
 		    error: function (data) {
 		    	alert("error");
 		    },
@@ -376,14 +380,27 @@ else
 			
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$conn4=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
+require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
+
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+
 $name = $conn->real_escape_string($_POST['name']);
+$name = $purifier->purify($name);
+
 $description = $conn->real_escape_string($_POST['description']);
+// $description = $purifier->purify($desciption);
+
 $headPhotoId = 0;
+
 $category = $conn->real_escape_string($_POST['categoryToPost']);
+$category = $purifier->purify($category);
+
 $price = $conn->real_escape_string($_POST['price']);
+$price = $purifier->purify($price);
+
+
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -407,19 +424,17 @@ if (!mysqli_query($conn,$sql))
 	  mysqli_close($conn);
   }else
   {
-  	mysqli_close($conn);
+  	// mysqli_close($conn);
 	if (mysqli_connect_errno())
 		  {
 		  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		  }
 		
-		$result = mysqli_query($conn2,"SELECT id FROM item ORDER BY id DESC LIMIT 1 ");
+		$result = mysqli_query($conn,"SELECT id FROM item ORDER BY id DESC LIMIT 1 ");
 		while($row2 = mysqli_fetch_array($result))
 		  {
 				$lastId = $row2['id'];
 		  }
-		  
-	mysqli_close($conn2);
 	
   }
   
@@ -440,16 +455,15 @@ if(!empty($_POST['pickSize'])) {
 		$sql2="INSERT INTO size_item (sizeId, itemId)
 			VALUES
 			('$check','$lastId')";
-		if (!mysqli_query($conn3,$sql2))
+		if (!mysqli_query($conn,$sql2))
 		{
-	  		die('Error: ' . mysqli_error($conn3));
+	  		die('Error: ' . mysqli_error($conn));
 	  		// mysqli_close($conn3);
 	  	}else
 	  	{
 			// mysqli_close($conn3);
 	  	}
 	}
-	mysqli_close($conn3);
 }
 
   
@@ -468,15 +482,14 @@ if(!empty($category)) {
 		$sql3="INSERT INTO category_con (item_id, cat_id)
 			VALUES
 			('$lastId','$category')";
-		if (!mysqli_query($conn4,$sql3))
+		if (!mysqli_query($conn,$sql3))
 		{
-	  		die('Error: ' . mysqli_error($conn4));
+	  		die('Error: ' . mysqli_error($conn));
 	  		// mysqli_close($conn3);
 	  	}else
 	  	{
 			// mysqli_close($conn3);
 	  	}
-	mysqli_close($conn4);
 }			
 			
 
@@ -536,7 +549,6 @@ if(!empty($category)) {
 	
 	// Add files to SQL ///////////////////////////////////////////////////////////////////
 	
-	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 	
 	if (mysqli_connect_errno())
 	{
@@ -556,7 +568,7 @@ if(!empty($category)) {
   	}
 	
 	}
-	
+	mysqli_close($conn);
 	header("Location: pickHeadPhoto.php?itemId=" . $lastId);
 }
 ?>

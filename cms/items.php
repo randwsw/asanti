@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,8 +28,8 @@
 		// alert(category);
 		$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getItems.php', 
-		    data: {category : category, sortBy : sortBy, direction : direction},
+		    url: 'controllers/itemController.php', 
+		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -91,8 +95,8 @@
 			itemId = itemId.substr(12,5);
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/deleteItemController.php', 
-			    data: {itemToDelete: itemId},
+			    url: 'controllers/itemController.php', 
+			    data: {action : "delete", itemToDelete: itemId},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -125,8 +129,8 @@
 			itemId = itemId.substr(10,5);
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/itemActiveController.php', 
-			    data: {itemId: itemId, active: active},
+			    url: 'controllers/itemController.php', 
+			    data: {action : "changeActive", itemId: itemId, active: active},
 			    beforeSend: function(){
 			    	// $("#progress").show();
 			    },
@@ -224,20 +228,7 @@
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	$(document).ready(function(){
 		

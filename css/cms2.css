@@ -301,6 +301,24 @@ div#editItem #photos #headPhoto #overlay:hover{
 	opacity: 0.5;
 }
 
+div#editItem input[type="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;	
+}
+
+div#editItem input[name="goBack"]{
+	background-color: rgba(153,101,21,0.5);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;		
+}
+
 div#editItem #photos #thumbnails{
 	margin-left: 220px;
 }
@@ -459,6 +477,24 @@ div#rightContent #thumbnails #container ul.thumbs {
 
 div#rightContent #container #addPhotos{
 	width: 1000px;
+}
+
+div#rightContent #container #addPhotos input[name="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 100px;	
+}
+
+input[name="goBack"]{
+	background-color: rgba(153,101,21,0.5);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;		
 }
 
 div#rightContent #container #addPhotos #container{
@@ -648,7 +684,7 @@ body div.label {
 	padding-left: 10px;
 }
 
-div#editCategories #confirmAlert{
+div#confirmAlert{
 	width: 200px;
 	height: 50px;
 	background: #cbb189;
@@ -662,6 +698,7 @@ div#editCategories #confirmAlert{
 	color: White;
 	text-align: center;
 	padding-top: 15px;
+	z-index: 100;
 	/*visibility: hidden;*/
 }
 
@@ -825,7 +862,22 @@ div#editSize #size .box input.add{
 	margin-top: 17px;
 }
 
+div#editSize #addNew .title{
+	float: left;
+	width: 60px;	
+}
+div#editSize #addNew input[type = text]{
+	width: 240px;
+}
 
+div#editSize #addNew input[type = submit]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 100px;
+}
 
 
 
@@ -1340,4 +1392,70 @@ div#gallery #photos{
 	width: 100%;
 	min-height: 150px;
 	margin-left: -30px;
+}
+
+div#gallery input[name="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 100px;		
+}
+
+div#cmsLogin{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	margin-left: -8px;
+	margin-top: -8px;
+	background-color: rgba(153,101,21,0.5);
+}
+
+div#cmsLogin #box{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -100px;
+	width: 300px;
+	height: 240px;
+	background-color: rgba(255,255,255,0.3);
+	border: 2px solid White;
+}
+
+div#cmsLogin #box img{
+	margin-top: 10px;
+	margin-left: 60px;
+	width: 180px;
+}
+
+div#cmsLogin #box #loginRow{
+	margin-top: 20px;	
+	margin-left: 40px;
+}
+
+div#cmsLogin #box #passwordRow{
+	margin-left: 40px;	
+}
+
+div#cmsLogin #box .title{
+	float: left;	
+	font-size: 11pt;
+	width: 50px;
+}
+
+div#cmsLogin #box input{
+	width: 180px;
+}
+
+div#cmsLogin #box input[type="submit"]{
+	margin-top: 10px;
+	margin-left: 90px;
+	width: 186px;	
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
 }

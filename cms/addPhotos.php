@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <?php
 
 	if(!isset($_POST["submit"])){
@@ -53,8 +57,8 @@
 				var itemId = $("#passItemId").val();
 				$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/getPhotosController.php', 
-			    data: {itemId: itemId},
+			    url: 'controllers/photosController.php', 
+			    data: {action : "getAll", itemId: itemId},
 			  
 			    error: function (data) {
 			    	// alert("porażka!");
@@ -104,7 +108,7 @@
 				<div id="container">
 					
 					
-					<input type="button" onclick="history.go(-1)" value="Powrót" />
+					<a href="editItem.php?itemId=<?php echo($itemId); ?>"><input type="button" name="goBack" value="Powrót" /></a>
 					
 					
 					
@@ -133,7 +137,7 @@
 								<div class="label">Dodaj nowe zdjęcia:</div>
 								<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
 								<div class="preview-area"></div>
-								<input type="submit" name="submit" value="Dalej" />
+								<input type="submit" name="submit" value="Dodaj zdjęcia" />
 								
 							</div>
 							

@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!-- 
 	automatyczne generowanie optionów w select dla rozmiarów
  -->
@@ -120,6 +124,8 @@
 			    success: function (data) {
 			    	$("#galleriesTable").html("");
 			    	getGalleries();
+			    	$("#confirmAlert").fadeIn("fast");
+					$("#confirmAlert").delay(800).fadeOut(800);
 				},
 			})
 		}
@@ -143,8 +149,9 @@
 				    	// alert("porażka!");
 				    },
 				    success: function (data) {
-				    	// alert("success");
 				    	getPhotos();
+				    	$("#confirmAlert").fadeIn("fast");
+						$("#confirmAlert").delay(800).fadeOut(800);
 					},
 				})
 			}
@@ -221,7 +228,7 @@
 		
 		
 		$(document).ready(function(){
-			
+			$("#confirmAlert").hide();
 			var action = getURLParameter("action")
 			
 			if(action == "edit"){
@@ -232,7 +239,9 @@
 				getGalleries();
 				showPreview();
 			}
-			
+			if(action == "add"){
+				showPreview();
+			}
 		});
 		
 		</script>
@@ -276,6 +285,7 @@
 						?>			
 								
 					<div id="galleries">
+						<div id="confirmAlert">Usunięto galerię</div>
 						<a href="gallery.php?action=add"><input type="button" id="addNew" value="Stwórz nową galerię"/></a>
 						<table id="galleriesTable">
 							
@@ -345,7 +355,7 @@
 						  
 						?>
 					<div id="gallery">
-								
+					<div id="confirmAlert">Usunięto zdjęcie</div>			
 	
 						<form action="controllers/galleryController.php"; method="POST" enctype="multipart/form-data">
 								
@@ -393,6 +403,7 @@
 								<input type="hidden" name="action" value="addPhotos" />
 								<input type="hidden" name="galleryId" value="<?php echo($_GET['id']); ?>" />
 								<input type="submit" name="submit" value="Dodaj zdjęcia" />
+								<a href="gallery.php"><input type="button" name="goBack" value="Wróć" /></a>
 									
 							</form> 
 								<!-- <input type="hidden" id="passGalleryId" name="passGalleryId" value="" /> -->
