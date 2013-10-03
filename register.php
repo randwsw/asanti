@@ -5,18 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-
-
-
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
-    <link rel="stylesheet" href="css/profileborders.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+    <link rel="stylesheet" href="css/borders/profileborders.css" />
     
 </head>
 
@@ -55,32 +47,32 @@
 					<h2>Rejestracja</h2>
 					<div class ="formdiv">
 						<p>Adres email</p>
-						<input type='text' class="form-text-input" id="email-input" name="email"/>
-						<div class="errordiv" id="email_label"></div>						
+						<input type='text' class="form-text-input" id="emailinput" name="emailinput"/>
+						<div class="errordiv" id="emailinput_label"></div>						
 					</div>
 					
 					<div class ="formdiv">
 						<p>Hasło</p>
-						<input type='password' class="form-text-input" id="pass-input" name="password1"/>
-						<div class="errordiv" id="password1_label"></div>						
+						<input type='password' class="form-text-input" id="passinput" name="passinput"/>
+						<div class="errordiv" id="passinput_label"></div>						
 					</div>
 										
 					<div class ="formdiv">
 						<p>Potwierdź hasło</p>
-						<input type='password' class="form-text-input" id="pass2-input" name="password2"/>
-						<div class="errordiv" id="password2_label"></div>
+						<input type='password' class="form-text-input" id="pass2input" name="pass2input"/>
+						<div class="errordiv" id="pass2input_label"></div>
 					</div>
 										
 					<div class ="formdiv">
 						<div class="formdivcolumn">
 							<p>Imię</p>
-							<input type='text' class="form-text-input-s" id="name-input" name="name"/>
-							<div class="errordiv" id="name_label"></div>
+							<input type='text' class="form-text-input-s" id="nameinput" name="nameinput"/>
+							<div class="errordiv" id="nameinput_label"></div>
 						</div>
 						<div class="formdivcolumn" id="lastname">
 							<p>Nazwisko</p>
-							<input type='text' class="form-text-input-s" id="lastname-input" name="lastname"/>
-							<div class="errordiv" id="lastname_label"></div>
+							<input type='text' class="form-text-input-s" id="lastnameinput" name="lastnameinput"/>
+							<div class="errordiv" id="lastnameinput_label"></div>
 						</div>
 					</div>
 					
@@ -100,14 +92,14 @@
 					
 					<div class ="formdiv">
 						<p>Miejscowość</p>
-						<input type='text' class="form-text-input" id="city-input" name="city"/>
-						<div class="errordiv" id="city_label"></div>
+						<input type='text' class="form-text-input" id="cityinput" name="cityinput"/>
+						<div class="errordiv" id="cityinput_label"></div>
 					</div>					
 					
 					<div class ="formdiv">
 						<p>Telefon</p>
-						<input type='text' class="form-text-input" id="phone-input" name="phone"/>
-						<div class="errordiv" id="phone_label"></div>
+						<input type='text' class="form-text-input" id="phoneinput" name="phoneinput"/>
+						<div class="errordiv" id="phoneinput_label"></div>
 					</div>
 										
 					<div class ="formdiv">
@@ -125,15 +117,15 @@
 </body>
 </html>
 <script type="text/javascript">
-		$('#email-input').watermark("Wpisz swój adres email");
-		$('#pass-input').watermark("Wpisz swoje hasło");
-		$('#pass2-input').watermark("Ponownie wpisz hasło");
-		$('#name-input').watermark("Wpisz swoje imię");
-		$('#lastname-input').watermark("Wpisz swoje nazwisko");
+		$('#emailinput').watermark("Wpisz swój adres email");
+		$('#passinput').watermark("Wpisz swoje hasło");
+		$('#pass2input').watermark("Ponownie wpisz hasło");
+		$('#nameinput').watermark("Wpisz swoje imię");
+		$('#lastnameinput').watermark("Wpisz swoje nazwisko");
 		$('#street').watermark("Ulica i nr domu / mieszkania");
 		$('#pcode').watermark("xx - xxx");
-		$('#city-input').watermark("Wpisz swoje miasto / miejscowość");
-		$('#phone-input').watermark("Wpisz swój numer telefonu");
+		$('#cityinput').watermark("Wpisz swoje miasto / miejscowość");
+		$('#phoneinput').watermark("Wpisz swój numer telefonu");
 		
 	jQuery.validator.addMethod("customEmail", function(value, element) {
         return this.optional(element) || value.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
@@ -164,7 +156,7 @@
 
 //^([0-9]{9})|(([0-9]{3}-){2}[0-9]{3})$
 jQuery.validator.addMethod("checkUser", function(value, element) {
-	var em = $('#email-input').val();
+	var em = $('#emailinput').val();
 	var user = null;
 	
 	$.ajax({
@@ -197,33 +189,33 @@ var validate = $(".regform").validate({
 	},
 	submitHandler: function(){
         $.post("controllers/addUser.php", 
-        { email: $("#email-input").val(), password1: $("#pass-input").val(), password2: $("#pass2-input").val(), 
-          name: $("#name-input").val(), lastname: $("#lastname-input").val(), pcode: $("#pcode").val(), 
-          street: $("#street").val(), city: $("#city-input").val(), phone: $("#phone-input").val() })
+        { email: $("#emailinput").val(), password1: $("#passinput").val(), password2: $("#pass2input").val(), 
+          name: $("#nameinput").val(), lastname: $("#lastnameinput").val(), pcode: $("#pcode").val(), 
+          street: $("#street").val(), city: $("#cityinput").val(), phone: $("#phoneinput").val() })
 		.done(function(data) {
 		alert("Konto zostało utworzone");
 		});
     },
 	rules: {
-		email: {
+		emailinput: {
 			required: true,
 			customEmail: true,
 			checkUser: true
 		},
-		password1: {
+		passinput: {
 			required: true,
 			minlength: 8,
 			passW: true
 		},
-		password2: {
+		pass2input: {
 			required: true,
-			equalTo: "#pass-input"
+			equalTo: "#passinput"
 		},
-		name: {
+		nameinput: {
 			required: true,
 			nameLastname: true		
 		},
-		lastname: {
+		lastnameinput: {
 			required: true,
 			nameLastname: true			
 		},
@@ -234,11 +226,11 @@ var validate = $(".regform").validate({
 			required: true,
 			Pcode: true
 		},
-		city: {
+		cityinput: {
 			required: true,
 			city: true			
 		},
-		phone: {
+		phoneinput: {
 			required: true,
 			phone: true,
 			minlength: 9	

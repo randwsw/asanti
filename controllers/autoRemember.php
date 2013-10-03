@@ -1,4 +1,5 @@
 <?php
+if(isset($_COOKIE['rememberme'])) {
 require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
 
 $config = HTMLPurifier_Config::createDefault();
@@ -33,4 +34,5 @@ if($em != null)
 else {
 }
 mysqli_close($conn);
+}
 ?>

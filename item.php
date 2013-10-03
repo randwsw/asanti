@@ -8,7 +8,7 @@
 	<!-- Include links ---------------------------------------------------------- -->
 	<?php include 'include/links.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-    <link rel="stylesheet" href="css/itemborders.css" />
+    <link rel="stylesheet" href="css/borders/itemborders.css" />
     
     
     
@@ -68,6 +68,7 @@ while($row1 = mysqli_fetch_array($result1))
 				$name = $row2['name'];
 				$description = $row2['description'];
 				$headPhotoId = $row2['headPhotoId'];
+				$active = $row2['active'];
 			}
 			// GET HEAD PHOTO ////////////////////////////////////
 			$result3 = mysqli_query($conn,"SELECT * FROM photo WHERE id = '$headPhotoId'");
@@ -119,6 +120,9 @@ while($row1 = mysqli_fetch_array($result1))
     		
     		
     	})
+    	
+    	var height = $( '#midcenterdiv' ).css( "height" );
+	 	$( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
     })
     
     </script>
@@ -229,9 +233,15 @@ while($row1 = mysqli_fetch_array($result1))
 					 	?>
 					 </div>
 					 <div id="cart">
+					 	<?php if($active==1){ ?>
 					 	<a class="item-cart" <?php echo("id='item_".$_GET["id"]."' ") ?>>
 					 		<img class="cart-image" src="img/cart-big-dark.png" />
 					 	</a>
+					 	<?php } else { ?>
+					 	<a class="no-item-cart">
+					 		<img class="cart-image" src="img/cart-big-dark.png" /><p>Produkt niedostępny</p>
+					 	</a>
+					 	<?php } ?>
 					 </div>
 					 <div id="questions">
 					 	<a href="shop.php">
@@ -265,7 +275,7 @@ while($row1 = mysqli_fetch_array($result1))
 							while($row7= mysqli_fetch_array($result7))
 							{
 								$photoUrl = $row7['photoUrl'];
-								echo('<a href="item.php?id=216"><div class="connectionBox">
+								echo('<a href="item.php?id='.$itemId.'"><div class="connectionBox">
 										<img src="' . $photoUrl . '" class="connectionImg"/><div class="connectionTitle">' . $itemName . '</div>
 								</div></a>');
 							}
@@ -391,6 +401,9 @@ var cookieArray = [];
  	$('#cart-count').html("0");
  }
 }
+$('.no-item-cart').click(function() {
+	alert("Ten produkt jest w tej chwili niedostępny")
+});
 
 $('.item-cart').click(function() {
 	var cookieArray = [];

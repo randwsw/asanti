@@ -5,17 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="js/jquery-cookie.js"></script>
-
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
-    <link rel="stylesheet" href="css/loginborders.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+	
+    <link rel="stylesheet" href="css/borders/loginborders.css" />
     
 </head>
 

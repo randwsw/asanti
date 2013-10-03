@@ -42,25 +42,25 @@
 	#midcenterdiv {
 		width: 1000px;
 		height: 720px;
-		background:  url(../img/pat2.png) repeat;
+		background:  url(../../img/pat2.png) repeat;
 	}
 	/*====================*/
 
 /* TEST */
 
 #topdiv {
-	background:  url(../img/borders/toplogin.png) top no-repeat;
+	background:  url(../../img/borders/toplogin.png) top no-repeat;
 	margin-left: 8px;
 }
 #botdiv {
-	background:  url(../img/borders/botlogin.png) top no-repeat;
+	background:  url(../../img/borders/botlogin.png) top no-repeat;
 	margin-left: 8px;
 }
 
 #midrightdiv {
-		background:  url(../img/borders/right.png) left repeat-y;
+		background:  url(../../img/borders/right.png) left repeat-y;
 }
 #midleftdiv {
-		background:  url(../img/borders/left.png) left repeat-y;
+		background:  url(../../img/borders/left.png) left repeat-y;
 }
 

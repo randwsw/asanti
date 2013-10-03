@@ -664,10 +664,13 @@ div#itemDescriptionContainer #cart{
 	width: 50px;
 	border-bottom: 1px solid transparent;
 }
+	div#itemDescriptionContainer #cart p{
+		font-size: 10pt;
+	}
 
-div#itemDescriptionContainer #cart:hover{
+/*div#itemDescriptionContainer #cart:hover{
 	border-bottom: 1px solid Black;
-}
+}*/
 
 div#itemDescriptionContainer #questions{
 	margin-top: 30px;
@@ -786,6 +789,35 @@ div#itemSizes .sizeBox .title{
   	margin-right: 2px;
 }
 
+div#itemDescriptionContainer #connections{
+	width: auto;
+	margin-left: 10px;
+}
+
+div.connectionBox{
+	width: 130px;
+	height: 220px;
+	/*background-color: Gray;*/
+	float: left;
+	margin-right: 5px;
+}
+
+img.connectionImg{
+	margin-left: 10px;
+	height: 150px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	/*border: 1px solid #C99C57;*/
+	
+}
+
+div.connectionBox .connectionTitle{
+	font-size: 10pt;
+	margin-top: 3px;
+	text-align: center;
+}
+
 /* --------------------------------------------- */
 /* FORM -------------------------------------- */
 .form-text-input {
@@ -900,8 +932,8 @@ div#itemSizes .sizeBox .title{
 	left: 50%;
 	margin-left: -530px;
 	width: 1100px;
-	top: 50%;
-	margin-top: -350px;
+	top: 0%;
+	margin-top: 80px;
 	height: 700px;
 	background: url(../img/needle2.png) no-repeat center;
 }
@@ -942,8 +974,8 @@ div#itemSizes .sizeBox .title{
 	left: 50%;
 	margin-left: -370px;
 	width: 740px;
-	top: 50%;
-	margin-top: -380px;
+	top: 0%;
+	margin-top: 80px;
 	height: 760px;
 	background: url(../img/needle2.png) no-repeat center;
 	
@@ -965,6 +997,16 @@ div#itemSizes .sizeBox .title{
 	}
 	
 	#phead a {
+		margin-top: 5px;
+		font-size: 10pt;
+	}
+	#phead #em {
+		margin-top: 5px;
+		font-size: 10pt;
+		float: left;
+		cursor:default;
+	}
+	#phead #or {
 		margin-top: 5px;
 		font-size: 10pt;
 		float: right;
@@ -1118,7 +1160,7 @@ div#itemSizes .sizeBox .title{
 	margin-bottom: 15px;
 	padding-bottom: 5px;
 	border-bottom: 1px solid gray;
-	width:750px;
+	width:700px;
 }
 
 #top-row-os {
@@ -1135,7 +1177,7 @@ div#itemSizes .sizeBox .title{
 	margin-bottom: 8px;
 	min-height: 20px;
 	padding-bottom: 4px;
-	width:750px;
+	width:700px;
 }
 
 #middle-row-os {
@@ -1163,15 +1205,28 @@ div#itemSizes .sizeBox .title{
 	float: right;
 	margin-right: 125px;
 }
-	#bot-row-os p {
+#bot-row-o {
+	margin: 0 auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-top: 5px;
+	height: 20px;
+	border-top: 1px solid gray;
+	width:700px;
+}
+#bot-row-o div {
+	float: right;
+}
+
+	#bot-row-os p, #bot-row-o p {
 		font-size: 10pt;
 		width: 145px;
 	}
-	#bot-row-os a {
+	#bot-row-os a, #bot-row-o a {
 		font-family: "OpenSansBold", Arial;
 		font-size: 8pt;
 	}
-
+/* ---------------------------------------------- */
 /* GALLERY -------------------------------------- */
 div#gallery{
 	margin-top: 270px;	

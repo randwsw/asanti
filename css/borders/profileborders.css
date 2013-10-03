@@ -44,25 +44,25 @@
 		width: 800px;
 		height: 720px;
 		/*background-color: #f6e9bc;*/
-		background:  url(../img/pat2.png) repeat;
+		background:  url(../../img/pat2.png) repeat;
 	}
 	/*====================*/
 
 /* TEST */
 
 #topdiv {
-	background:  url(../img/borders/topprofile.png) top no-repeat;
+	background:  url(../../img/borders/topprofile.png) top no-repeat;
 	margin-left: -1px;
 }
 #botdiv {
-	background:  url(../img/borders/botprofile.png) top no-repeat;
+	background:  url(../../img/borders/botprofile.png) top no-repeat;
 	margin-left: -1px;
 }
 
 #midrightdiv {
-		background:  url(../img/borders/right.png) left repeat-y;
+		background:  url(../../img/borders/right.png) left repeat-y;
 }
 #midleftdiv {
-		background:  url(../img/borders/left.png) left repeat-y;
+		background:  url(../../img/borders/left.png) left repeat-y;
 }
 

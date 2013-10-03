@@ -5,11 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
  
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery-cookie.js"></script>
+   <!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
     
     <!-- lightbox -------------------------------------->
     <script src="js/jquery-1.10.2.min.js"></script>
@@ -17,9 +15,7 @@
 	<link href="css/lightbox.css" rel="stylesheet" />
     <!-- -------------------------------------------- -->
     
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
-    <link rel="stylesheet" href="css/bigdiv.css" />
+    <link rel="stylesheet" href="css/borders/galleryborders.css" />
    
 </head>
  
@@ -114,7 +110,6 @@
 	    				} ?>
 	    			</div>
 	    			</div>
-				</div>
 				<div class="leftdiv" id="midleftdiv"></div>
 			</div>
 			<div class="rowdiv" id="botdiv"></div>
@@ -146,67 +141,36 @@ function resizeImg(){
 
         });
 }
-
-
-function checkCart(){
-                var count=0;
-                if (jQuery.cookie("cartItem")) {
-                var cookieval = $.cookie("cartItem");
-                cookieval+=",";
-                for (var i=0; i < cookieval.length; i++) {
-                        if(cookieval.charAt(i)!=',')
-                        {                              
-                        }
-                        else
-                        {
-                                count++;
-                                item="";
-                        }
-                }
-        }
-        else{
-                count=0;               
-        }
-        $('#cart-count').html(count);
+$.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
 }
-$(window).load(function() {
-       
-        $.post("controllers/autoRemember.php",
-       { email: $.cookie("rememberme")})
-                .done(function(data) {
-                }
-        );
-         
-       
-});
  
 $( document ).ready(function() {
+	resizeImg();
+     
+    var height = $( '#midcenterdiv' ).css( "height" );
+    height = height.substring(0,height.length-2);
+    var inth;
+	inth = parseInt(height);
+	if($.urlParam('action')==null) {
+		inth+=200;
+	} else {
+		inth+=50;
+		$("#container").css("margin-left", "50px");
+	}
 	
-		resizeImg();
-        	
-        checkCart();
-       
-        var height = $( '#midcenterdiv' ).css( "height" );
-         $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
-       
-        $(function() {                 
-            $(".menu-anim").lavaLamp({
-                fx: "backout",
-                speed: 700,
-            });
-           
-            $("#sub-menu-anim-b").lavaLamp({
-                fx: "backout",
-                speed: 700,
-            });
-           
-            $("#sub-menu-anim-g").lavaLamp({
-                fx: "backout",
-                speed: 700,
-            });
-        });    
+	height = inth.toString()+"px"; 
+    $( '#midrightdiv, #midleftdiv, #middiv, #midcenterdiv' ).css( "height", height );
+   
         
-        
+      // var height = $( '#container' ).css( "height" );
+	  // $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height+200 );
 });
  
 $('.imageContainer').mouseenter(function() {

@@ -7,6 +7,15 @@
 		if(isset($_GET['category'])) {
 		    //$cat = $_GET['category'];
 			$cat = $conn->real_escape_string($_GET['category']);
+			
+		} else if(isset($_GET['id'])) {
+			$aid = $_GET['id'];
+			$sql= mysqli_query($conn, "SELECT c.name, c.urlName AS un, c.parentId FROM category c , category_con cc WHERE cc.item_id = $aid AND cc.cat_id = c.id ") or die(mysql_error());
+			while($rec = mysqli_fetch_array($sql)) {
+				$pi = $rec['parentId'];
+				$un = $rec['un'];
+			}	
+			$cat = $un.'-'.$pi;
 		}
 		
 		$page = 1;
@@ -85,13 +94,20 @@
 
 <script type="text/javascript">
 
-	function getURLParameter(name) {
-	    return decodeURI(
-	        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-	    );
+	$.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
 	}
 	
-	var name = getURLParameter("category");
+	var name = $.urlParam("category");
+	if(name==null){
+		name = '<?php echo($cat); ?>';
+	}
 	
 	//if(name=="dla_dziewczynki")
 	if ( (name.indexOf("dla_dziewczynki") >= 0) || (name.indexOf("-4") >= 0) ) {

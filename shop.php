@@ -5,15 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery-cookie.js"></script>
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
-    <link rel="stylesheet" href="css/bigdiv.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+    <link rel="stylesheet" href="css/borders/storeborders.css" />
     
 </head>
 
@@ -27,10 +22,10 @@
 	<!-- Include header --------------------------------------------------------- -->
 	<?php include 'include/header.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-	
-	
 	<div class="bg">
 	</div> 
+	
+	
     <div class="container">
 	<!-- Include submenu -------------------------------------------------------- -->
 	<?php include 'include/submenu.php'; ?>
@@ -182,7 +177,7 @@
 			echo("<div class='product-info'>
 	     	<div class='imageContainer'>
 				<div class='imageOverlay' id='item_".$rec['id']."' >
-					<a href='item.php?id=".$rec['id']."&category=".$cat."' >
+					<a href='item.php?id=".$rec['id']."' >
 					<div class='eye'></div>
 					</a>
 					<!--<div class='cart' id='item_".$rec['id']."'></div>-->	 	    	

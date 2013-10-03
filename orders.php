@@ -5,15 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery-cookie.js"></script>
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
     
 </head>
 <body>
@@ -69,6 +63,17 @@ if(!session_id())
 		$result = mysqli_query($conn,"SELECT o.id AS oid, order_date, status, order_value FROM orders o, users u WHERE u.id = (SELECT id FROM users WHERE email = '$login') AND u.id = o.user_id;");
 		while($e = mysqli_fetch_array($result))
 		  {
+		  	switch ($e['status']) {
+			    case 0:
+			        $status='Niezapłacone';
+			        break;
+			    case 1:
+			        $status='Zapłacone';
+			        break;
+			    case 2:
+			        $status='Zakończone';
+			        break;
+			}
 				echo(
   				"<div class='product-row' id='middle-row-o'>
 					<div class='column-name'>
@@ -78,14 +83,29 @@ if(!session_id())
 						<p>".$e['order_date']."</p>
 					</div>
 					<div class='column-quantity'>
-						<p>".$e['status']."</p>
+						<p>".$status."</p>
 					</div>
 					<div class='column-price-all'>
 						<p>".$e['order_value']."</p>
 					</div>
 				</div>"
-	);
+		);
 		  }
+		 	 echo(
+  				"<div class='product-row' id='bot-row-o'>
+					<div class='column-name'>
+						<p></p>
+					</div>
+					<div class='column-price'>
+						<p></p>
+					</div>
+					<div class='column-quantity'>
+						<p><a href='profile.php'>wróć do profilu</a></p>
+					</div>
+					<div class='column-price-all'>
+						<p><a href='shop.php'>wróć do sklepu</a></p>
+					</div>
+				</div>");
 }else if(isset($_GET['id'])) {
 		$oid = $_GET['id'];
 		?>
@@ -140,7 +160,7 @@ if(!session_id())
 						<p>".$e['quantity']."</p>
 					</div>
 					<div class='column-price-all'>
-						<p>".$e['quantity']*$e['priceoc']."</p>
+						<p>".$prc = number_format($e['quantity']*$e['priceoc'], 2, '.', ',')."</p>
 					</div>
 				</div>");
 		  }
@@ -153,7 +173,7 @@ if(!session_id())
 				<p>Razem:</p>
 			</div>
 			<div class='column-price-all'>
-				<p id='complPrice'>".$sum."</p>
+				<p id='complPrice'>".$sum = number_format($sum, 2, '.', ',')."</p>
 			</div>
 		</div>");
 	}

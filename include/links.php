@@ -6,6 +6,8 @@
 <script type="text/javascript" src="js/galleriffic/jquery.galleriffic.js"></script>
 <script type="text/javascript" src="js/galleriffic/jquery.opacityrollover.js"></script>
 <script type="text/javascript" src="js/jquery-cookie.js"></script>
+<script type="text/javascript" src="js/jquery.watermark.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 
 <link rel="stylesheet" href="css/shopstyle.css" />
 <link rel="stylesheet" href="css/sliderstyle.css" />

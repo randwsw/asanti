@@ -1,10 +1,10 @@
 .bigdiv {
-	width: 530px;
+	width: 1100px;
 	/*background-color: #303030;*/
 }
 	/*========ROWS========*/
 	.bigdiv .rowdiv {
-		width: 530px;
+		width: 1100px;
 		
 	}
 	.bigdiv #topdiv, #botdiv {
@@ -20,38 +20,49 @@
 		float: right;
 	}
 	.rowdiv .leftdiv {
-		float: right;
+		float: left;
 	}
 	.rowdiv .centerdiv {
 		float: right;
 	}
+	/*======TOP-BOT========*/
+	/*#toprightdiv, #topleftdiv, #botrightdiv, #botleftdiv {
+		width: 100px;
+		
+	}
+	#topcenterdiv, #botcenterdiv {
+		width: 800px; 
+		height: 43px;
+	}*/
+	/*====================*/
 	/*========MID=========*/
 	 #midleftdiv {
-		width: 37px;		
+		width: 40px;
+		height: auto;		
 	}
 	#midrightdiv {
 		width: 42px;
 	}
 	#midcenterdiv {
-		width: 448px;
+		width: 1018px;
 		/*background-color: #f6e9bc;*/
-		background:  url(../img/pat2.png) repeat;
+		background:  url(../../img/pat2.png) repeat;
 	}
 	/*====================*/
 
 /* TEST */
 
 #topdiv {
-	background:  url(../img/borders/topitem.png) top no-repeat;
+	background:  url(../../img/borders/top.png) top no-repeat;
 }
 #botdiv {
-	background:  url(../img/borders/botitem.png) top no-repeat;
+	background:  url(../../img/borders/bot.png) top no-repeat;
 }
 
 #midrightdiv {
-		background:  url(../img/borders/right.png) left repeat-y;
+		background:  url(../../img/borders/right.png) left repeat-y;
 }
 #midleftdiv {
-		background:  url(../img/borders/left.png) left repeat-y;
+		background:  url(../../img/borders/left.png) left repeat-y;
 }
 

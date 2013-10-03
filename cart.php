@@ -5,15 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery-cookie.js"></script>
-    
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+
     
 </head>
 <body>
@@ -151,7 +146,7 @@
 				"<div class='product-row' id='middle-row'>
 				<input type='hidden' value='".$rec['id']."' name='iid[]'>			
 					<div class='column-name'>
-						<p><a href='item.php?id=".$rec['id']."&category=".$cat."'>".$rec['iname']."</a></p>
+						<p><a href='item.php?id=".$rec['id']."'>".$rec['iname']."</a></p>
 						<input type='hidden' value='".$rec['iname']."' name='name[]'>
 					</div>
 					<div class='column-size'>");
@@ -171,7 +166,7 @@
 						<input type='text' value='".$val->count."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
 					</div>
 					<div class='column-price-all'>
-						<p class='price-all' id=price-all-".$rec['id'].">".$rec['price']*$val->count."</p>
+						<p class='price-all' id=price-all-".$rec['id'].">".$prc = number_format($rec['price']*$val->count, 2, '.', ',')."</p>
 					</div>
 					<div class='column-remove' id='".$cookies[$count]."|'>
 						<a href=''><p>X</p></a>
@@ -196,7 +191,7 @@
 				<p>Razem do zapłaty:</p>
 			</div>
 			<div class="column-price-all">
-				<p id='complPrice'><?php echo($sum); ?></p>
+				<p id='complPrice'><?php echo($sum = number_format($sum, 2, '.', ',')); ?></p>
 			</div>
 			<div class="column-submit">
 				<p><a id='cartSubmit' onclick="$.cookie('cartItem', 'newcookie', { expires: 0, path: '/' });document.cartForm.submit();">Kup</a></a></p>

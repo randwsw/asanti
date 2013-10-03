@@ -5,15 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Asanti - sklep</title>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-  
-    <link rel="stylesheet" href="css/shopstyle.css" />
-    <link rel="stylesheet" href="css/sliderstyle.css" />
-    <link rel="stylesheet" href="css/profileborders.css" />
+	<!-- Include links ---------------------------------------------------------- -->
+	<?php include 'include/links.php'; ?>
+	<!-- ------------------------------------------------------------------------ -->
+	
+    <link rel="stylesheet" href="css/borders/profileborders.css" />
     
 </head>
 
@@ -91,7 +87,7 @@
 		<img src='img/nextlogo.png' id='log-logo'>
 					
 				<form method='POST' class='profileform' id='regform' >
-					<div id='phead'><h2>Użytkownik </h2><a>( ".$login." )</a></div>
+					<div id='phead'><a id='em'>( ".$login." )</a><a id='or' href='orders.php'>Moje zamówienia</a></div>
 					<br>
 														
 					<div class ='formdiv'>
@@ -174,7 +170,7 @@
 						</div>
 						<div class ='formdiv'>
 							<input class='form-button' type='submit' value='Aktualizuj' id='passButton'/>
-							<a onclick='history.back(-1)'><p id='pback'>&#171 wróć</p></a>
+							<a href='shop.php'><p id='pback'>&#171 wróć do sklepu</p></a>
 						</div>	
 					</form>
 				</div>
