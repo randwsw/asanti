@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,8 +29,8 @@
 		// alert(category + "  " + sort + "  " + direction);
 		$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getSets.php', 
-		    data: {category : category, sortBy : sortBy, direction : direction},
+		    url: 'controllers/connectionsController.php', 
+		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
 		    	alert("error");
@@ -83,8 +87,8 @@
 		
 		$.ajax({ 
 		    type: 'POST', 
-		    url: 'controllers/getItems.php', 
-		    data: {sets: "sets", itemId: itemId},
+		    url: 'controllers/itemController.php', 
+		    data: {action : "getAll", sets: "sets", itemId: itemId},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -140,8 +144,8 @@
 
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/addSet.php', 
-			    data: {itemId1: itemId1, itemId2: itemId2},
+			    url: 'controllers/connectionsController.php', 
+			    data: {action : "add", itemId1: itemId1, itemId2: itemId2},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -175,8 +179,8 @@
 			// alert(itemId1 + "  " + itemId2);
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/deleteSet.php', 
-			    data: {itemId1: itemId1, itemId2: itemId2},
+			    url: 'controllers/connectionsController.php', 
+			    data: {action : "delete", itemId1: itemId1, itemId2: itemId2},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -207,8 +211,8 @@
 			// alert(itemId2);
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/deleteAllSets.php', 
-			    data: {itemId2: itemId2},
+			    url: 'controllers/connectionsController.php', 
+			    data: {action : "deleteAll", itemId2: itemId2},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -425,7 +429,7 @@
 							<?php
 							
 							if(isset($_GET['action']) && $_GET['action'] == "add"){
-								echo('<table id="itemsTable"></table><a href="connections.php"><input type="button" class="backButton" value="Wróć" /></a>');
+								echo('<table id="itemsTable"></table><input type="button" name="goBack" onClick="history.go(-1);return true;" value="Wróć" />');
 							}		
 							?>
 							
@@ -487,7 +491,7 @@
 														<input type="button" class="addMore" value="Dodaj nowy" id="addMoreButton_' . $itemId . '"/>
 													</a>
 												</div>');
-										echo('</div></div><a href="connections.php"><input type="button" class="backButton" value="Wróć" /></a>');	
+										echo('</div></div><a href="connections.php"><input type="button" name="goBack" value="Wróć" /></a>');	
 												
 									mysqli_close($conn);
 									

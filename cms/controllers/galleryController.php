@@ -1,8 +1,16 @@
+
+
 <?php
 
+include '../include/checkLog.php';
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
+require_once '../../htmlpurifier/library/HTMLPurifier.auto.php';
+
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 
@@ -87,42 +95,35 @@ switch ($action) {
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
-        $title = $_POST['name'];
+        $title = $conn->real_escape_string($_POST['name']);
+		$title = $purifier->purify($title);
+
 	
-	
-	if (mysqli_connect_errno())
-	  {
-	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  }
-	
-	
-	
-	
-	$sql="INSERT INTO gallery (title)
-	VALUES
-	('$title')";
-	
-	if (!mysqli_query($conn,$sql))
-	  {
-		  die('Error: ' . mysqli_error($conn));
-		  mysqli_close($conn);
-	  }else
-	  {
-	  	// mysqli_close($conn);
-		if (mysqli_connect_errno())
-			  {
-			  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			  }
-			
-			$result = mysqli_query($conn,"SELECT id FROM gallery ORDER BY id DESC LIMIT 1 ");
-			while($row2 = mysqli_fetch_array($result))
-			  {
-					$lastId = $row2['id'];
-			  }
-			  
-		mysqli_close($conn);
+		$sql="INSERT INTO gallery (title)
+		VALUES
+		('$title')";
 		
-	  }
+		if (!mysqli_query($conn,$sql))
+		  {
+			  die('Error: ' . mysqli_error($conn));
+			  mysqli_close($conn);
+		  }else
+		  {
+		  	// mysqli_close($conn);
+			if (mysqli_connect_errno())
+				  {
+				  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				  }
+				
+				$result = mysqli_query($conn,"SELECT id FROM gallery ORDER BY id DESC LIMIT 1 ");
+				while($row2 = mysqli_fetch_array($result))
+				  {
+						$lastId = $row2['id'];
+				  }
+				  
+			mysqli_close($conn);
+			
+		  }
 	  
 	  
 	
@@ -170,6 +171,7 @@ switch ($action) {
 			if (!$upload) {
 				echo "FTP upload has encountered an error!";
 			   } else {
+			   	$name = $purifier->purify($name);
 			   		array_push($filesList, $name);
 			       	echo "Uploaded file with name $name to $ftp_server </br>";
 			   }
@@ -323,8 +325,10 @@ switch ($action) {
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
-			$id = $_POST['galleryId'];
+			$id = $conn->real_escape_string($_POST['galleryId']);
+			
 			$title = $_POST['name'];
+			$title = $purifier->purify($title);
 			
 			mysqli_query($conn,"UPDATE gallery SET title='$title' WHERE id='$id'");
 	
@@ -587,7 +591,9 @@ switch ($action) {
 				// ---------------------------------------------------------------------------------------------------------- //
 				// ---------------------------------------------------------------------------------------------------------- //
 				// ---------------------------------------------------------------------------------------------------------- //
-			        $name = $_POST['name'];
+			        $name = $conn->real_escape_string($_POST['name']);
+					$name = $purifier->purify($name);
+					
 					$id = $_POST['galleryId'];
 				
 					$lastOrderN = "";

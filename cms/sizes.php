@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!-- 
 	
 	Dodaj walidatory w jquery, żeby nie można było dodawać pustych rekordów
@@ -34,8 +38,8 @@
 						var val = $("input#size_" + sizeOf).val();
 						$.ajax({ 
 							type: 'POST', 
-							url: 'controllers/changeSizeController.php', 
-							data: {sizeOf : sizeOf, newSizeName: val, option : "sizeOf"},
+							url: 'controllers/sizeController.php', 
+							data: {action : "changeSize", sizeOf : sizeOf, newSizeName: val, option : "sizeOf"},
 										  
 							error: function (data) {
 							alert("porażka!");
@@ -87,8 +91,8 @@
 					var val = $("input#newSize_" + sizeOf).val();
 					$.ajax({ 
 						type: 'POST', 
-						url: 'controllers/addNewSizeController.php', 
-						data: {name : name, value : val, sizeOf : sizeOf},
+						url: 'controllers/sizeController.php', 
+						data: {action : "addValue", name : name, value : val, sizeOf : sizeOf},
 						 
 						error: function (data) {
 							// alert("porażka!");
@@ -110,8 +114,8 @@
 					id = id.substr(7,10);
 					$.ajax({ 
 						type: 'POST', 
-						url: 'controllers/deleteSize.php', 
-						data: {sizeId : id},
+						url: 'controllers/sizeController.php', 
+						data: {action : "delete", sizeId : id},
 						 
 						error: function (data) {
 							alert("porażka!");
@@ -160,6 +164,20 @@
 					<div id="container">
 						
 						<div id="editSize">
+							<form action="sizes.php"; method="POST" enctype="multipart/form-data">
+								<div id="addNew">
+									<div class="label">Dodaj nowy</div>
+									<div id="name">
+										<div class="title">Nazwa:</div>
+										<input type="text" name="name"/>
+									</div>
+									<div id="value">
+										<div class="title">Wartość:</div>
+										<input type="text" name="value"/>
+									</div>
+									<input type="submit" name="submit" value="Dodaj nowy" />
+								</div>
+							</form>	
 							<div id="confirmAlert">Zmieniono nazwę.</div>
 							<form action=""; method="POST" enctype="multipart/form-data">
 								
@@ -253,10 +271,9 @@
 										?>
 		
 			        			</div>
-
 							</form>
 							
-							
+						
 						</div>	
 					</div>			
 				</div>
@@ -297,12 +314,13 @@ if(isset($_POST["submit"])){
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$name = $_POST['name'];
+$value = $_POST['value'];
 
-$itemId = $_POST['passItemId'];
-$categoryId = $_POST['categoryToPost'];
-$itemName = $_POST['name'];
-$itemDescription = $_POST['description'];
-$itemPrice = $_POST['price'];
+$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+			$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+			$sizeOf =  str_replace($aWhat, $aOn, $name);
+
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
 // Check connection
@@ -311,17 +329,20 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-	echo("item id: " . $itemId . "   nazwa: " . $itemName . "   cena: " . $itemPrice . "  opis: " . $itemDescription);
+	$sql="INSERT INTO size (value, name, sizeOf)
+		VALUES
+		('$value','$name','$sizeOf')";
+		
+		if (!mysqli_query($conn,$sql))
+		  {
+			  die('Error: ' . mysqli_error($conn));
+			  mysqli_close($conn);
+		  }else
+		  {
+		  	mysqli_close($conn);
+		  }
 
-
-	mysqli_query($conn,'UPDATE item SET name = "' . $itemName . '", description = "' . $itemDescription . '", price = "' . $itemPrice . '" WHERE id = "' . $itemId . '"');
-	mysqli_query($conn,"UPDATE category_con SET cat_id = $categoryId WHERE item_id = $itemId");
-
-
-
-mysqli_close($conn);
-
-header("Location: editItem.php?itemId=" . $itemId);
+header("Location: sizes.php");
 
 }
 

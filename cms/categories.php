@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!-- 
 	
 	Dodaj walidatory w jquery, żeby nie można było dodawać pustych rekordów
@@ -36,8 +40,8 @@
 					// alert(val);
 							$.ajax({ 
 							    type: 'POST', 
-							    url: 'controllers/changeCategoryController.php', 
-							    data: {categoryId: id, categoryName: val},
+							    url: 'controllers/categoryController.php', 
+							    data: {action : "change", categoryId: id, categoryName: val},
 							  
 							    error: function (data) {
 							    	alert("porażka!");
@@ -46,7 +50,7 @@
 							    	// $("input#" + thisButtonId).attr("value", "Zmień");
 							    	// alert("sukces");
 							    	$("#confirmAlert").fadeIn("fast");
-							    	$("#confirmAlert").delay(600).fadeOut(800);
+							    	$("#confirmAlert").delay(800).fadeOut(800);
 							    	// $("#confirmAlert").css("visibility")
 								},
 							});
@@ -67,8 +71,8 @@
 					var parentId = id;
 					$.ajax({ 
 						type: 'POST', 
-						url: 'controllers/addNewCategory.php', 
-						data: {categoryName : val, parentId : parentId},
+						url: 'controllers/categoryController.php', 
+						data: {action : "add", categoryName : val, parentId : parentId},
 						 
 						error: function (data) {
 							// alert("porażka!");
@@ -91,8 +95,8 @@
 					
 					$.ajax({ 
 						type: 'POST', 
-						url: 'controllers/deleteCategory.php', 
-						data: {categoryId : id},
+						url: 'controllers/categoryController.php', 
+						data: {action : "delete", categoryId : id},
 						 
 						error: function (data) {
 							alert("porażka!");

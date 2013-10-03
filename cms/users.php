@@ -1,3 +1,7 @@
+<!-- Check login ------------------------------------------------------------ -->
+<?php include 'include/checkLog.php'; ?>	
+<!-- ------------------------------------------------------------------------ -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -138,6 +142,8 @@
 			    error: function (data) {
 			    },
 			    success: function (data) {
+			    	$("#confirmAlert").fadeIn("fast");
+					$("#confirmAlert").delay(800).fadeOut(800);
 				},
 			})
 		});
@@ -163,7 +169,9 @@
 			    error: function (data) {
 			    },
 			    success: function (data) {
-			    	alert("success");
+			    	$("#confirmAlert").fadeIn("fast");
+					$("#confirmAlert").delay(800).fadeOut(800);
+					$("input#newPw").val("");
 				},
 			})
 		});
@@ -266,6 +274,7 @@
 	
 	
 	$(document).ready(function(){
+		$("#confirmAlert").hide();
 		updatePw();
 		$("#progress").hide();
 		sort();
@@ -301,7 +310,7 @@
 				
 				<div id="container">
 					
-					<img src="../img/progress_indicator.gif" id="progress" />
+					<!-- <img src="../img/progress_indicator.gif" id="progress" /> -->
 					
 					<div id="users">
 						
@@ -321,7 +330,7 @@
 											</select>
 										</div>
 									</div>
-									
+									<div id="confirmAlert">Zmieniono status użytkownika</div>
 									<table id="usersTable"></table>');
 								}
 								
@@ -357,6 +366,7 @@
 									mysqli_close($conn);
 											
 									echo('<form action="users.php?action=edit&userId=' . $userId . '" method="POST" enctype="multipart/form-data">
+										<div id="confirmAlert">Zmieniono hasło</div>
 										<div class="label">Dane użytkownika:</div>
 										<div class="row">
 											<div class="title">Adres email:</div><input type="text" name="email" class="userInput" value="' . $email . '"/>
@@ -415,7 +425,8 @@
   									mysqli_query($conn,"UPDATE users SET email='$email', name='$name', lastName='$lastName' WHERE id='$userId'");
 									mysqli_query($conn,"UPDATE address SET pcode='$pcode', street='$street', city='$city' WHERE user_id='$userId'");
 									mysqli_close($conn);
-									header('Location: users.php?action=edit&userId=' . $userId);
+									// header('Location: users.php?action=edit&userId=' . $userId);
+									header('Location: users.php');
 								}
 							?>
 							

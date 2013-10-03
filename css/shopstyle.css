@@ -786,6 +786,37 @@ div#itemSizes .sizeBox .title{
   	margin-right: 2px;
 }
 
+
+div#itemDescriptionContainer #connections{
+	width: auto;
+	margin-left: 10px;
+}
+
+div.connectionBox{
+	width: 130px;
+	height: 220px;
+	/*background-color: Gray;*/
+	float: left;
+	margin-right: 5px;
+}
+
+img.connectionImg{
+	margin-left: 10px;
+	height: 150px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	/*border: 1px solid #C99C57;*/
+	
+}
+
+div.connectionBox .connectionTitle{
+	font-size: 10pt;
+	margin-top: 3px;
+	text-align: center;
+}
+
+
 /* --------------------------------------------- */
 /* FORM -------------------------------------- */
 .form-text-input {
@@ -900,8 +931,8 @@ div#itemSizes .sizeBox .title{
 	left: 50%;
 	margin-left: -530px;
 	width: 1100px;
-	top: 50%;
-	margin-top: -350px;
+	top: 0%;
+	margin-top: 80px;
 	height: 700px;
 	background: url(../img/needle2.png) no-repeat center;
 }
@@ -942,8 +973,8 @@ div#itemSizes .sizeBox .title{
 	left: 50%;
 	margin-left: -370px;
 	width: 740px;
-	top: 50%;
-	margin-top: -380px;
+	top: 0%;
+	margin-top: 80px;
 	height: 760px;
 	background: url(../img/needle2.png) no-repeat center;
 	
@@ -1188,6 +1219,7 @@ div#gallery #title{
 
 div#gallery #container{
 	margin-top: 20px;
+	margin-left: 100px;
 }
 
 div#gallery #container .box{
