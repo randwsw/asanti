@@ -1,4 +1,12 @@
 .bigdiv {
+	position: absolute;
+	left: 50%;
+	margin-left: -550px;
+	width: 1100px;
+	top: 50%;
+	margin-top: -200px;
+	height: 60px;
+	z-index: 2;
 }
 	/*========ROWS========*/
 	.bigdiv .rowdiv {
@@ -9,6 +17,7 @@
 		height: 43px;
 	}
 	.bigdiv #middiv {
+		height: 60px;
 	}
 	/*===================*/
 	/*====COLS-GENERAL===*/
@@ -23,14 +32,23 @@
 	}
 	/*========MID=========*/
 	 #midleftdiv {
-		width: 37px;	
+		width: 37px;
+		height: 60px;		
 	}
 	#midrightdiv {
 		width: 42px;
+		height: 60px;
 	}
 	#midcenterdiv {
 		width: 1000px;
+		height: 60px;
 		background:  url(../../img/pat2.png) repeat;
+	}
+	#midcenterdiv p{
+	font-family: "Gabriola";
+	font-size: 19pt;
+	color: #C99C57;
+	margin: 13px 0 0 20px;
 	}
 	/*====================*/
 

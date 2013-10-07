@@ -1,4 +1,4 @@
-
+<?php if(!session_id()) { session_start();} ?>
 <!-- <div class="menu"> -->
 	
 	        <div id="background">

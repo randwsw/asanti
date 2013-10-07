@@ -789,10 +789,7 @@ div#itemSizes .sizeBox .title{
   	margin-right: 2px;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 9478e3c0e8a6829c77a24063f57252e4b31d7a69
 div#itemDescriptionContainer #connections{
 	width: auto;
 	margin-left: 10px;
@@ -1247,7 +1244,6 @@ div#gallery #title{
 
 div#gallery #container{
 	margin-top: 20px;
-	margin-left: 100px;
 }
 
 div#gallery #container .box{

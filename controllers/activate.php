@@ -21,11 +21,11 @@ if (mysqli_connect_errno())
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
-mysqli_query($conn,"UPDATE users SET conf=1 WHERE id=(SELECT user_id FROM usr_activate WHERE user_key='$user_key');");
+mysqli_query($conn,"UPDATE users SET conf=1 WHERE id=(SELECT user_id FROM usr_activate WHERE user_key='$user_key');") or die(mysql_error()."update failed");;
 
-mysqli_query($conn,"DELETE FROM usr_activate WHERE user_key='$user_key'");
+mysqli_query($conn,"DELETE FROM usr_activate WHERE user_key='$user_key'") or die(mysql_error()."update failed");
 
 mysqli_close($conn);
-echo("Ok");
+ header( 'Location: active.php' ) ;
 ?>
 

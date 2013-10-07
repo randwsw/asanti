@@ -19,7 +19,6 @@ $result = mysqli_query($conn,"SELECT id, email, name, lastName FROM users WHERE 
 		  }
 if($em != null)	 
 {
-	session_start();
 	if(isset($_SESSION['login']))
   		unset($_SESSION['login']);
 	if(isset($_SESSION['name']))
