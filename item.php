@@ -53,6 +53,9 @@ if (mysqli_connect_errno())
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 
+						// ENCODING TO UTF8
+						$sql = "SET NAMES 'utf8'";
+						!mysqli_query($conn,$sql);	
 
 // CHECK FOR UNIQUE ITEM ////////////////////////////
 $result1 = mysqli_query($conn,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
@@ -188,7 +191,7 @@ while($row1 = mysqli_fetch_array($result1))
 					</div>
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
-					<h2 id="itemTitle"><?php echo("$name"); ?><h2>
+					<h2 id="itemTitle"><?php echo("$name"); ?></h2>
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					
 					

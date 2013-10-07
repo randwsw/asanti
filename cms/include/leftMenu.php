@@ -9,6 +9,7 @@
 <p class="title"><a href="connections.php">Powiązane</a></p>
 <p class="title"><a href="users.php">Użytkownicy</a></p>
 <p class="title"><a href="gallery.php">Galeria</a></p>
+<p class="title"><a href="promoted.php">Polecane</a></p>
 <a href="controllers/logOut.php">WYLOGUJ SIĘ</a>
 <!-- <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Dodaj przedmiot</a>
 <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Edytuj przedmiot</a>

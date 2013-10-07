@@ -44,73 +44,85 @@
 				<!-- Original texture used: http://subtlepatterns.com/wave-grind/ -->
 					<div class="rightdiv" id="midrightdiv"></div>
 					<div class="centerdiv" id="midcenterdiv">
-	    			<div id="title">Nasza Galeria</div>
-	    			<div id="container">
-	    				<?php if(!isset($_GET['action'])){ 
-	    				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-	    				
-						
-						if (mysqli_connect_errno())
+		    		<?php if(!isset($_GET['action'])){
+		    					
+							echo('<div id="title">Nasza Galeria</div>
+		    						<div id="container">'); 
+									
+		    				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		    				
+							
+							if (mysqli_connect_errno())
+								{
+							 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+							
+							
+							
+							$result1 = mysqli_query($conn,"SELECT g.id AS id, g.title AS title, gp.url AS url FROM gallery g, gallery_photos gp WHERE g.id = gp.gallery_id AND orderN = 1");
+							
+							while($row1 = mysqli_fetch_array($result1))
 							{
-						 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								echo('<a href="gallery.php?action=show&id=' . $row1['id'] . '">
+										<div class="box">
+			    							<img src="' . $row1['url'] . '" class="boxImg" />
+			    							<div class="title">' . $row1['title'] . '</div>
+			    						</div>
+			    					</a>');
 							}
-						
-						
-						
-						$result1 = mysqli_query($conn,"SELECT g.id AS id, g.title AS title, gp.url AS url FROM gallery g, gallery_photos gp WHERE g.id = gp.gallery_id AND orderN = 1");
-						
-						while($row1 = mysqli_fetch_array($result1))
-						{
-							echo('<a href="gallery.php?action=show&id=' . $row1['id'] . '">
-									<div class="box">
-		    							<img src="' . $row1['url'] . '" class="boxImg" />
-		    							<div class="title">' . $row1['title'] . '</div>
-		    						</div>
-		    					</a>');
-						}
+								
+							mysqli_close($conn);
+		    				} ?>
+		    				
+		    				
+		    				
+		    				
+		    				<?php if(isset($_GET['action']) && $_GET['action'] == "show"){
 							
-						mysqli_close($conn);
-	    				} ?>
-	    				
-	    				
-	    				
-	    				
-	    				<?php if(isset($_GET['action']) && $_GET['action'] == "show"){
-	    				
-						$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-	    				$id = $_GET['id'];
-						
-						if (mysqli_connect_errno())
+							$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		    				$id = $_GET['id'];
+							
+							if (mysqli_connect_errno())
+								{
+							 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								}
+							
+							$result = mysqli_query($conn,"SELECT g.title AS title FROM gallery g WHERE id = $id");
+							
+							while($row = mysqli_fetch_array($result))
 							{
-						 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								$gTitle = $row['title'];
+								echo('<div id="title">' . $gTitle . '</div>
+		    						<div id="container">'); 
+							}	
+							
+							$result1 = mysqli_query($conn,"SELECT gp.id AS id, gp.url AS url, g.title AS title FROM gallery_photos gp, gallery g WHERE gp.gallery_id = $id AND gp.gallery_id = g.id");
+							
+							while($row1 = mysqli_fetch_array($result1))
+							{
+								$id = $row1['id'];
+								$url = $row1['url'];
+								$title = $row1['title'];
+								
+								
+								
+								echo('<div class="outer"><div class="inner"><a href="' . $url . '" data-lightbox="' . $title . '" >
+										<img src="' . $url . '" class="galleryImg" id="' . $id . '"/>
+									</a></div></div>');
+					
+								// echo('<a href="gallery.php?action=show&id=' . $row1['id'] . '">
+										// <div class="box">
+			    							// <img src="' . $row1['url'] . '" class="boxImg" />
+			    							// <div class="title">' . $row1['title'] . '</div>
+			    						// </div>
+			    					// </a>');
 							}
-						
-						
-						
-						$result1 = mysqli_query($conn,"SELECT gp.id AS id, gp.url AS url, g.title AS title FROM gallery_photos gp, gallery g WHERE gp.gallery_id = $id AND gp.gallery_id = g.id");
-						
-						while($row1 = mysqli_fetch_array($result1))
-						{
-							$id = $row1['id'];
-							$url = $row1['url'];
-							$title = $row1['title'];
-							
-							echo('<div class="outer"><div class="inner"><a href="' . $url . '" data-lightbox="' . $title . '" >
-									<img src="' . $url . '" class="galleryImg" id="' . $id . '"/>
-								</a></div></div>');
-				
-							// echo('<a href="gallery.php?action=show&id=' . $row1['id'] . '">
-									// <div class="box">
-		    							// <img src="' . $row1['url'] . '" class="boxImg" />
-		    							// <div class="title">' . $row1['title'] . '</div>
-		    						// </div>
-		    					// </a>');
-						}
-							
-						mysqli_close($conn);	
-	    				
-	    					
-	    				} ?>
+								
+							mysqli_close($conn);	
+		    				
+		    				echo('<div id="buttons"><a href="gallery.php"><input type="button" name="goBack" value="Wróć" /></a></div>');
+		    					
+		    				} ?>
 	    			</div>
 	    			</div>
 				<div class="leftdiv" id="midleftdiv"></div>
