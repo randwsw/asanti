@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					<div class ="formdiv">
-						<p>Nie pamiętasz swojego hasła?</p> <a href="../asanti/login.php"><p>Kliknij tutaj.</p></a>
+						<p>Nie pamiętasz swojego hasła?</p> <a href="resetPassword.php"><p>Kliknij tutaj.</p></a>
 					</div>
 					
 					</form>

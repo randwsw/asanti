@@ -188,7 +188,7 @@ while($row1 = mysqli_fetch_array($result1))
 					</div>
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
-					<h2 id="itemTitle"><?php echo("$name"); ?><h2>
+					<h2 id="itemTitle"><?php echo("$name"); ?></h2>
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					
 					
@@ -249,7 +249,6 @@ while($row1 = mysqli_fetch_array($result1))
 					 		<div id="mark">? </div> Zadaj pytanie odnośnie przedmiotu.
 					 	</a>
 					 </div>
-					 <div>
 					 <?php
 					 	$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 						$id = $_GET['id'];
@@ -268,7 +267,7 @@ while($row1 = mysqli_fetch_array($result1))
 						$result6 = mysqli_query($conn3,"SELECT i.id AS itemId, i.name AS itemName FROM item i, item_conn ic WHERE (ic.item1_id = $id AND i.id = ic.item2_id) OR (ic.item2_id = $id AND i.id = ic.item1_id) GROUP BY itemName");
 						
 						echo('<div id="connections">
-								<div class="title">Przedmioty powiązane:</div>');
+								<div class = "Title">Przedmioty powiązane</div>');
 						while($row6= mysqli_fetch_array($result6))
 						{
 							$itemName = $row6['itemName'];
@@ -285,8 +284,6 @@ while($row1 = mysqli_fetch_array($result1))
 						echo('</div>');
 						mysqli_close($conn3);
 					 	?>
-					
-					</div>
 					</div>
 					</div>
 			<div class="leftdiv" id="midleftdiv">
@@ -508,7 +505,9 @@ $('.item-cart').click(function() {
 	var val= "";
 	for (var j = 0; j < cookieArray.length; j++) {
 		val += cookieArray[j]+"|";
+		alert(val);
 	}
+	
 	$.cookie("cartItem", val, { expires: 1, path: '/' });
 } else {
 	var eq = 0;

@@ -1,0 +1,86 @@
+.bigdiv {
+	position: absolute;
+	left: 50%;
+	margin-left: -550px;
+	width: 1100px;
+	top: 50%;
+	margin-top: -200px;
+	height: 85px;
+	z-index: 2;
+}
+	/*========ROWS========*/
+	.bigdiv .rowdiv {
+		width: 1100px;
+		
+	}
+	.bigdiv #topdiv, #botdiv {
+		height: 43px;
+	}
+	.bigdiv #middiv {
+		height: 85px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdiv .rightdiv {
+		float: right;
+	}
+	.rowdiv .leftdiv {
+		float: right;
+	}
+	.rowdiv .centerdiv {
+		float: right;
+	}
+	/*========MID=========*/
+	 #midleftdiv {
+		width: 37px;
+		height: 85px;		
+	}
+	#midrightdiv {
+		width: 42px;
+		height: 85px;
+	}
+	#midcenterdiv {
+		width: 1000px;
+		height: 85px;
+		background:  url(../../img/pat2.png) repeat;
+	}
+	#midcenterdiv p{
+	margin-top: -5px;
+	font-family: "Gabriola";
+	font-size: 19pt;
+	color: #C99C57;
+	}
+	#midcenterdiv .form-text-input, .form-button, .errordiv {
+		float: left;
+	}
+	
+	#midcenterdiv .form-button {
+		margin: 2px 0 0 5px;
+	}
+	#midcenterdiv .errordiv{
+		color: #633b07;
+		height:15px;
+		padding-top: 7px;
+		padding-left: 5px;
+		font-size: 11pt;
+	}
+	/*====================*/
+
+/* TEST */
+
+#topdiv {
+	background:  url(../../img/borders/toplogin.png) top no-repeat;
+	margin-left: 8px;
+}
+#botdiv {
+	background:  url(../../img/borders/botlogin.png) top no-repeat;
+	margin-left: 8px;
+}
+
+#midrightdiv {
+		background:  url(../../img/borders/right.png) left repeat-y;
+}
+#midleftdiv {
+		background:  url(../../img/borders/left.png) left repeat-y;
+}
+
