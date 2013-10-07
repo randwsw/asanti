@@ -41,9 +41,12 @@
 				<!-- Original texture used: http://subtlepatterns.com/wave-grind/ -->
 					<div class="rightdiv" id="midrightdiv"></div>
 					<div class="centerdiv" id="midcenterdiv">
-	    			<div id="title">Nasza Galeria</div>
-	    			<div id="container">
-	    				<?php if(!isset($_GET['action'])){ 
+	    			
+	    				<?php if(!isset($_GET['action'])){
+	    					
+						echo('<div id="title">Nasza Galeria</div>
+	    						<div id="container">'); 
+								
 	    				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 	    				
 						
@@ -73,7 +76,7 @@
 	    				
 	    				
 	    				<?php if(isset($_GET['action']) && $_GET['action'] == "show"){
-	    				
+						
 						$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 	    				$id = $_GET['id'];
 						
@@ -82,7 +85,14 @@
 						 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 							}
 						
+						$result = mysqli_query($conn,"SELECT g.title AS title FROM gallery g WHERE id = $id");
 						
+						while($row = mysqli_fetch_array($result))
+						{
+							$gTitle = $row['title'];
+							echo('<div id="title">' . $gTitle . '</div>
+	    						<div id="container">'); 
+						}	
 						
 						$result1 = mysqli_query($conn,"SELECT gp.id AS id, gp.url AS url, g.title AS title FROM gallery_photos gp, gallery g WHERE gp.gallery_id = $id AND gp.gallery_id = g.id");
 						
@@ -91,6 +101,8 @@
 							$id = $row1['id'];
 							$url = $row1['url'];
 							$title = $row1['title'];
+							
+							
 							
 							echo('<div class="outer"><div class="inner"><a href="' . $url . '" data-lightbox="' . $title . '" >
 									<img src="' . $url . '" class="galleryImg" id="' . $id . '"/>
@@ -106,6 +118,7 @@
 							
 						mysqli_close($conn);	
 	    				
+	    				echo('<a href="gallery.php"><input type="button" name="goBack" value="Wróć" /></a>');
 	    					
 	    				} ?>
 	    			</div>
@@ -158,11 +171,10 @@ $( document ).ready(function() {
     height = height.substring(0,height.length-2);
     var inth;
 	inth = parseInt(height);
-	if($.urlParam('action')==null) {
-		inth+=200;
+	if($.urlParam('action')==null) { 
 	} else {
 		inth+=50;
-		$("#container").css("margin-left", "50px");
+		$("#container").css("margin-left", "65px");
 	}
 	
 	height = inth.toString()+"px"; 

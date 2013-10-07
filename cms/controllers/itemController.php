@@ -1,6 +1,8 @@
-
-
 <?php
+
+if(!session_id()){
+	session_start();
+} 
 
 include '../include/checkLog.php';
 

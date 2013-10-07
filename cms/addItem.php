@@ -1,10 +1,11 @@
+<?php 
+	if(!session_id()){
+		session_start();
+	} 
+?>
 <!-- Check login ------------------------------------------------------------ -->
 <?php include 'include/checkLog.php'; ?>	
 <!-- ------------------------------------------------------------------------ -->
-
-<!-- 
-	automatyczne generowanie optionów w select dla rozmiarów
- -->
 
 <?php
 

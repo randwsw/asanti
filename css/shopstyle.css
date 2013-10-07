@@ -497,6 +497,16 @@ div .cart-div {
 	background: rgba(153,101,21,0.2);*/
 	/*#996515*/
 }
+
+div.recommended .title{
+	font-family: "Gabriola";
+	font-size: 24pt;
+	/*font-weight: bold;*/
+	margin-left: 10px;
+	margin-top: 10px;
+	color: #C99C57;
+}
+
 .itemMenu {
 	overflow: hidden;
 	width:1100px;
@@ -789,13 +799,18 @@ div#itemSizes .sizeBox .title{
   	margin-right: 2px;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 9478e3c0e8a6829c77a24063f57252e4b31d7a69
 div#itemDescriptionContainer #connections{
 	width: auto;
 	margin-left: 10px;
+}
+
+div#itemDescriptionContainer #connections .title{
+	width: 400px;
+	margin: 5px;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	font-size: 12pt;
 }
 
 div.connectionBox{
@@ -1232,6 +1247,15 @@ div.connectionBox .connectionTitle{
 	}
 /* ---------------------------------------------- */
 /* GALLERY -------------------------------------- */
+input[name="goBack"]{
+	background-color: rgba(153,101,21,0.5);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+	width: 50px;		
+}
+
 div#gallery{
 	margin-top: 270px;	
 }
@@ -1239,7 +1263,7 @@ div#gallery{
 div#gallery #title{
 	font-family: "Gabriola";
 	/*font-weight: bold;*/
-	font-size: 28pt;
+	font-size: 24pt;
 	padding-left: 10px;
 	padding-top: 10px;
 	color: #C99C57;
@@ -1247,7 +1271,6 @@ div#gallery #title{
 
 div#gallery #container{
 	margin-top: 20px;
-	margin-left: 100px;
 }
 
 div#gallery #container .box{

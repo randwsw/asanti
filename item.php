@@ -266,7 +266,8 @@ while($row1 = mysqli_fetch_array($result1))
 						// $result6 = mysqli_query($conn3,"SELECT i.name AS itemName, p.url AS photoUrl FROM item i, photo p WHERE i.headPhotoId = p.id AND ");
 						$result6 = mysqli_query($conn3,"SELECT i.id AS itemId, i.name AS itemName FROM item i, item_conn ic WHERE (ic.item1_id = $id AND i.id = ic.item2_id) OR (ic.item2_id = $id AND i.id = ic.item1_id) GROUP BY itemName");
 						
-						echo('<div id="connections">');
+						echo('<div id="connections">
+								<div class="title">Przedmioty powiązane:</div>');
 						while($row6= mysqli_fetch_array($result6))
 						{
 							$itemName = $row6['itemName'];

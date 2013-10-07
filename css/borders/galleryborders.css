@@ -17,7 +17,7 @@
 		height: 43px;
 	}
 	.bigdiv #middiv {
-		height: 720px;
+
 	}
 	/*===================*/
 	/*====COLS-GENERAL===*/
@@ -33,15 +33,14 @@
 	/*========MID=========*/
 	 #midleftdiv {
 		width: 37px;
-		height: 720px;		
+
 	}
 	#midrightdiv {
 		width: 42px;
-		height: 720px;
+
 	}
 	#midcenterdiv {
 		width: 1000px;
-		height: 720px;
 		background:  url(../../img/pat2.png) repeat;
 	}
 	/*====================*/
