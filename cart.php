@@ -241,11 +241,13 @@ $( document ).ready(function() {
 	var y = 0;
 	$( ".quantityTb" ).change(function() {
 		var res = $("#price-"+x).html()*$(this).attr("value");
+		var res2 = res.toFixed(2); 
 		var add = $("#price-"+x).html()*y;
 		var p1 = $(this).parent().attr("id");
-		var p2 = $("#"+p1).parent().find(".price-all").html(res);
+		var p2 = $("#"+p1).parent().find(".price-all").html(res2);
 		
 		var cp = $("#complPrice").html() - add + res;
+		var cp = cp.toFixed(2); 
 		$("#complPrice").html(cp);
 	});
 
