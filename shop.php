@@ -154,7 +154,7 @@
     <div class="recommended">
     <?php
     if($cat=='recommended')
-	echo("<div><p>Polecane</p></div>");
+	echo("<div class='title'>Polecamy</div>");
 	?>
 	<div class="products">
 		<?php

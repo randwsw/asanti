@@ -39,6 +39,7 @@
 </html>
 
 	<?php if(isset($_POST['submit'])){
+		ob_start();
 		require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
 
 		$config = HTMLPurifier_Config::createDefault();
@@ -84,20 +85,16 @@
 			}
 			$_SESSION['login']=$login;
 			$_SESSION['status']="adm";
-			// echo("zalogowano");
+
 			
-			header("Location: index.php");
-			// if($count == 0)
-			// {
-				// mysqli_query($conn,"INSERT INTO remember_me (user_id) VALUES ($id)");	
-			// }
+			
 			
 		}
 		else {
 			print("Zły login, hasło lub nieaktywne konto");
 		}
 		mysqli_close($conn);
-		// echo($_SESSION['login']);
-		// header("Location: index.php");
+		header("Location: index.php");
+		ob_end_flush();
 	}
 	?>

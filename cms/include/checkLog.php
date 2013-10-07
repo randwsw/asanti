@@ -1,10 +1,10 @@
 					
 					
 					<?php 
-					if(!session_id())
-					{
-					    session_start();
-					} 
+					// if(!session_id())
+					// {
+					    // session_start();
+					// } 
 					if(isset($_SESSION['login']) && $_SESSION['status'] == "adm") {
 
 						// $login = $_SESSION['login'];
