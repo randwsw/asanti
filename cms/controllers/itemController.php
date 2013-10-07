@@ -49,7 +49,15 @@ switch ($action) {
 			$sets = "";
 		}
 		
-		
+		if(isset($_POST['promoted'])){
+			if($_POST['promoted'] == "promoted"){
+				$promoted = " AND i.id NOT IN (SELECT r.item_id FROM recommended r)";
+			}else{
+				$promoted = "";
+			}
+		}else{
+			$promoted = "";
+		}
 		
 		
 		if(isset($_POST['id'])){
@@ -110,7 +118,7 @@ switch ($action) {
 											FROM item i, category c, category_con cc, photo ph
 											WHERE c.id = cc.cat_id
 											AND i.id = cc.item_id"
-											. $idFilter . $nameFilter . $categoryFilter . $sets .
+											. $idFilter . $nameFilter . $categoryFilter . $sets . $promoted .
 											" GROUP BY i.id"
 											. $sort);
 				

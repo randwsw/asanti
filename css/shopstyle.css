@@ -329,11 +329,12 @@ div .panel-div {
 	margin:0 auto;
 	margin-top: 10px;
 	padding-right: 185px;
+	font-family: "Gabriola"
 }
 div .panel-div > #profile {
 		float: right;
 		margin-top: 3px;
-		font-size: 10pt;
+		font-size: 14pt;
 }
 div .panel-div > #profile-icon {
 		float: right;
@@ -383,6 +384,7 @@ div .panel-div > #profile-icon {
 	margin-left: 17px;
 	margin-right: 17px;
 	margin-top: 17px;
+	font-family: "Gabriola";
 }
 .productImage {
 	position: absolute; 
@@ -405,11 +407,11 @@ div .panel-div > #profile-icon {
 	float: right;
 	margin-left: 10px;
 	color: #58300c;
-	font-size: 12pt;
+	font-size: 16pt;
 }
 .product-name p{
 	color: #C99C57;
-	font-size: 11pt;	
+	font-size: 16pt;	
 }
 
 .product-info p{
@@ -1267,6 +1269,10 @@ div#gallery #title{
 	padding-left: 10px;
 	padding-top: 10px;
 	color: #C99C57;
+}
+
+div#gallery #buttons{
+	width: 100px;	
 }
 
 div#gallery #container{

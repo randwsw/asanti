@@ -3,7 +3,7 @@
 	
 	        <div id="background">
 				<div class ="panel-div">
-					<a style='float: right'href="cms/index.php"><div>GO TO CMS</div></a>
+					<!-- <a style='float: right'href="cms/index.php"><div>GO TO CMS</div></a> -->
 		<?php
 			if(!session_id())
 			{

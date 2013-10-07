@@ -1459,3 +1459,160 @@ div#cmsLogin #box input[type="submit"]{
 	cursor: pointer;
 	height: 22px;
 }
+
+/* PROMOTED ITEMS ///////////////////////////////////// */
+div#promoted{
+	
+}
+
+div#rightContent #container #promoted #container{
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+div#promoted table#itemsTable tr.header td.options{
+	border: 2px solid White;
+	width: 120px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#itemsTable input.add {
+	/*background-color: rgba(50,64,168,0.8);*/
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+div#promoted table#promotedTable tr.header td.options{
+	border: 2px solid White;
+	width: 77px;
+	max-width: 77px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#promotedTable {
+	width: 1020px;
+	height: auto;
+	border-collapse:collapse;
+}
+
+div#promoted table#promotedTable tr.header {
+	background-color: rgba(153,101,21,0.4);
+	color: White;
+	cursor: pointer;
+}
+
+div#promoted table#promotedTable tr.header td.name{
+	width: 180px;
+	max-width: 180px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border: 2px solid White;
+}
+
+
+div#promoted table#promotedTable tr.header td.category{
+	border: 2px solid White;
+	width: 140px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#promotedTable tr.header td.connections{
+	width: 20px;
+	max-width: 50px;
+	border: 2px solid White;
+	/*width: 40px;*/
+	text-align: center;
+	font-weight: bold;
+	/*padding-left: 5px;
+	padding-right: 5px;*/
+}
+
+div#promoted table#promotedTable tr.odd{
+	background-color: rgba(153,101,21,0.0);
+}
+
+div#promoted table#promotedTable tr.odd:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+div#promoted table#promotedTable tr.even{
+	background-color: rgba(153,101,21,0.2);
+}
+
+div#promoted table#promotedTable tr.even:hover{
+	background-color: rgba(153,101,21,0.5);
+}
+
+div#promoted table#promotedTable td.name{
+	width: 180px;
+	max-width: 180px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#promotedTable td.price{
+	width: 40px;
+	text-align: right;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#promotedTable td.category{
+	width: 140px;
+	text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#promoted table#promotedTable td.connections{
+	width: 20px;
+	/*width: 40px;*/
+	text-align: center;
+	max-width: 50px;
+	/*padding-left: 5px;
+	padding-right: 5px;*/
+}
+
+div#promoted table#promotedTable td.options{
+	width: 77px;
+	max-width: 77px;
+}
+
+div#promoted input.addMore {
+	/*background-color: rgba(50,64,168,0.8);*/
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+div#promoted table#promotedTable input.edit {
+	/*background-color: rgba(50,64,168,0.8);*/
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+
+div#promoted table#promotedTable input.deleteAll {
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
