@@ -499,7 +499,6 @@ $('.item-cart').click(function() {
 	var val= "";
 	for (var j = 0; j < cookieArray.length; j++) {
 		val += cookieArray[j]+"|";
-		alert(val);
 	}
 	
 	$.cookie("cartItem", val, { expires: 1, path: '/' });
