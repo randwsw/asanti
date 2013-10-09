@@ -142,14 +142,14 @@ if(!session_id())
 			header('Location: shop.php');
 		}
 		$sum=0;
-		$result = mysqli_query($conn,"SELECT i.name, quantity, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
+		$result = mysqli_query($conn,"SELECT i.id AS iid, i.name, quantity, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
 		while($e = mysqli_fetch_array($result))
 		  {
 		  	$sum=$sum+($e['priceoc']*$e['quantity']);
 				echo("
 				<div class='product-row' id='middle-row-os'>
 					<div class='column-name'>
-						<p>".$e['name']."</p>
+						<p><a href='item.php?id=".$e['iid']."'>".$e['name']."</a></p>
 					</div>
 					<div class='column-size'>
 						<p>".$e['sizes']."</p>
