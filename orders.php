@@ -145,7 +145,7 @@ if(!session_id())
 		$result = mysqli_query($conn,"SELECT i.name, quantity, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
 		while($e = mysqli_fetch_array($result))
 		  {
-		  	$sum=$sum+$e['priceoc'];
+		  	$sum=$sum+($e['priceoc']*$e['quantity']);
 				echo("
 				<div class='product-row' id='middle-row-os'>
 					<div class='column-name'>
