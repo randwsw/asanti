@@ -93,7 +93,6 @@
 		</div>
 
 <script type="text/javascript">
-
 	$.urlParam = function(name){
     var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results==null){
@@ -104,13 +103,14 @@
     }
 	}
 	
-	var name = $.urlParam("category");
-	if(name==null){
-		name = '<?php echo($cat); ?>';
+	var namee = $.urlParam("category");
+	
+	if(namee==null){
+		namee = '<?php echo($cat); ?>';
 	}
 	
 	//if(name=="dla_dziewczynki")
-	if ( (name.indexOf("dla_dziewczynki") >= 0) || (name.indexOf("-4") >= 0) ) {
+	if ( (namee.indexOf("dla_dziewczynki") >= 0) || (namee.indexOf("-4") >= 0) ) {
 		$("#sub-menu-boy").css("display","none");
 		$("#sub-menu-girl").css("display","block");
 		$("#female").css("color","#C99C57");
@@ -118,7 +118,7 @@
 	}
 	
 	//if(name=="dla_chlopca")
-	if ( (name.indexOf("dla_chlopca") >= 0) || (name.indexOf("-5") >= 0) ) {
+	if ( (namee.indexOf("dla_chlopca") >= 0) || (namee.indexOf("-5") >= 0) ) {
 		$("#sub-menu-boy").css("display","block");
 		$("#sub-menu-girl").css("display","none");
 		$("#male").css("color","#C99C57");
