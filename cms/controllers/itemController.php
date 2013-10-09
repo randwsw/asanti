@@ -158,8 +158,7 @@ switch ($action) {
 			  mysqli_close($conn);
 		}else
 		{
-			$pom.="PHOTO DELETED______";
-
+			
 		}
 			
 			
@@ -175,8 +174,7 @@ switch ($action) {
 			  		mysqli_close($conn);
 			  	}else
 			  	{
-			  		$pom.="CATEGORY DELETED_____";
-					// mysqli_close($conn2);
+			  		
 			  	}
 			
 			
@@ -191,12 +189,44 @@ switch ($action) {
 			  		mysqli_close($conn);
 			  	}else
 			  	{
-			  		$pom.="SIZE DELETED_____";
-					// mysqli_close($conn3);
+			  		
 			  	}
 			
-			
-			
+		// DELETE RECOMMENDED CONNECTIONS	
+		
+		$sql5="DELETE FROM recommended
+					WHERE item_id = '$itemToDelete'";
+				if (!mysqli_query($conn,$sql5))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  		
+			  	}
+		
+		
+		// DELETE ITEM CONNECTIONS
+			$itemId2 = $itemToDelete;
+				
+				$result = mysqli_query($conn,"SELECT id FROM item_conn WHERE (item1_id = $itemId2 OR item2_id = $itemId2)");
+													
+				while($row = mysqli_fetch_array($result))
+					{
+						$id = $row['id'];
+						$sql="DELETE FROM item_conn
+						WHERE id = '$id'";
+						if (!mysqli_query($conn,$sql))
+						{
+							  die('Error: ' . mysqli_error($conn));
+							  mysqli_close($conn);
+						}else
+						{
+							echo("success");
+						}	
+					}
+		
+		
 		
 		// DELETE ITEM
 		
@@ -208,8 +238,7 @@ switch ($action) {
 			  		mysqli_close($conn);
 			  	}else
 			  	{
-			  		$pom.="ITEM DELETED_____";
-					// mysqli_close($conn4);
+			  		
 			  	}
 			
 			mysqli_close($conn);

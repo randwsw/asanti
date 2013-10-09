@@ -16,11 +16,6 @@
     
 <?php
 
-if(!session_id())
-	{
-	    session_start();
-	} 
-
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $itemId = $_GET['id'];
@@ -52,10 +47,6 @@ if (mysqli_connect_errno())
 	{
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-
-						// ENCODING TO UTF8
-						$sql = "SET NAMES 'utf8'";
-						!mysqli_query($conn,$sql);	
 
 // CHECK FOR UNIQUE ITEM ////////////////////////////
 $result1 = mysqli_query($conn,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
