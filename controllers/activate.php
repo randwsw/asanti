@@ -26,6 +26,6 @@ mysqli_query($conn,"UPDATE users SET conf=1 WHERE id=(SELECT user_id FROM usr_ac
 mysqli_query($conn,"DELETE FROM usr_activate WHERE user_key='$user_key'") or die(mysql_error()."update failed");
 
 mysqli_close($conn);
- header( 'Location: active.php' ) ;
+ header( 'Location: ../active.php' ) ;
 ?>
 
