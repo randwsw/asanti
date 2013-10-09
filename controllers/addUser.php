@@ -70,7 +70,7 @@ VALUES ($returnValue, '$activationKey')");
 
 $to = "$email";
 $subject = "Aktywacja konta";
-$message = "Kliknij w link, aby aktywować konto: http://www.serwer1309748.com.pl/asanti/controllers/activate.php?userkey=$activationKey";
+$message = "Kliknij w link, aby aktywować konto: http://www.serwer1309748.home.pl/asanti/controllers/activate.php?userkey=$activationKey";
 $from = "no-reply@asanti.com";
 $headers = "From:" . $from;
 mail($to,$subject,$message,$headers);
