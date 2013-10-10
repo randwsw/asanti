@@ -194,7 +194,8 @@ var validate = $(".regform").validate({
           name: $("#nameinput").val(), lastname: $("#lastnameinput").val(), pcode: $("#pcode").val(), 
           street: $("#street").val(), city: $("#cityinput").val(), phone: $("#phoneinput").val() })
 		.done(function(data) {
-		alert("Konto zostało utworzone");
+		// alert("Konto zostało utworzone")
+		window.location.href = "reged.php";;
 		});
     },
 	rules: {
@@ -238,23 +239,23 @@ var validate = $(".regform").validate({
 		}
 	},
 	 messages: {
-		email: {
+		emailinput: {
 			required: "Pole email jest puste !",
 			customEmail: "Zły format adresu email !",
 		},
-		password1: {
+		passinput: {
 			required: "Pole hasło jest puste !",
 			minlength: jQuery.format("Minimum {0} znaków !")
 		},
-		password2: {
+		pass2input: {
 			required: "Pole hasło jest puste !",
 			equalTo: "Podane hasła różnią się !"
 		},
-		name: {
+		nameinput: {
 			required: "Pole imię jest puste !",
 			nameLastname: "Nieprawidłowe imię !"
 		},
-		lastname: {
+		lastnameinput: {
 			required: "Pole nazwisko jest puste !",
 			nameLastname: "Nieprawidłowe nazwisko !"		
 		},
@@ -264,11 +265,11 @@ var validate = $(".regform").validate({
 		pcode: {
 			required: "Brak kodu !"
 		},
-		city: {
+		cityinput: {
 			required: "Pole miasto jest puste !",
 			city: "Od wielkiej litery, bez liczb i znaków spec. !"			
 		},
-		phone: {
+		phoneinput: {
 			required: "Pole telefon jest puste !",
 			number: "Wpisz prawidłowy numer (bez spacji) !",
 			minlength: jQuery.format("Minimum {0} znaków !")				
