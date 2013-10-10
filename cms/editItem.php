@@ -28,13 +28,18 @@ $itemPrice = "";
 $itemDescription = "";					
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 										
+	
+require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
+
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+	
 										
 if (mysqli_connect_errno())
 	{
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-										
-										
+																		
 										
 $result = mysqli_query($conn,"SELECT * FROM item WHERE id = $itemId");
 										
@@ -62,7 +67,7 @@ while($row2 = mysqli_fetch_array($result2))
 		// $photo->url = $row3['url'];
 		// array_push($photoList, $photo);
 	// }
-	
+
 mysqli_close($conn);
 ?>
 
@@ -438,7 +443,7 @@ mysqli_close($conn);
 								<div id="confirmAlert">Usunięto zdjęcie</div>
 								<div id="title">
 									<div class="label">Nazwa przedmiotu:</div>
-									<input class="nameInput" name="name" type="text" value="<?php echo($itemTitle); ?>"/>
+									<input class='nameInput' name='itemName' type='text' value='<?php echo($itemTitle); ?>'/>
 								</div>
 								
 								<div id="photos">
@@ -652,10 +657,21 @@ if(isset($_POST["submit"])){
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
+require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
+
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+
 $itemId = $_POST['passItemId'];
+
 $categoryId = $_POST['categoryToPost'];
-$itemName = $_POST['name'];
-$itemDescription = $_POST['description'];
+
+$itemName = $conn->real_escape_string($_POST['itemName']);
+// $itemName = $purifier->purify($itemName);
+
+$itemDescription = $conn->real_escape_string($_POST['description']);
+// $itemDescription = $purifier->purify($itemDescription);
+
 $itemPrice = $_POST['price'];
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 

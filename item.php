@@ -11,15 +11,14 @@
 	<!-- ------------------------------------------------------------------------ -->
     <link rel="stylesheet" href="css/borders/itemborders.css" />
     
-    
+    <!-- lightbox -------------------------------------->
+    <script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/lightbox-2.6.min.js"></script>
+	<link href="css/lightbox.css" rel="stylesheet" />
+    <!-- -------------------------------------------- -->
     
     
 <?php
-
-if(!session_id())
-	{
-	    session_start();
-	} 
 
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
@@ -52,10 +51,6 @@ if (mysqli_connect_errno())
 	{
  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-
-						// ENCODING TO UTF8
-						$sql = "SET NAMES 'utf8'";
-						!mysqli_query($conn,$sql);	
 
 // CHECK FOR UNIQUE ITEM ////////////////////////////
 $result1 = mysqli_query($conn,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
@@ -111,10 +106,38 @@ while($row1 = mysqli_fetch_array($result1))
     
 <script type="text/javascript">
     
+    function resizeImg(){
+	$("div.photoThumbnails img").each(function(){
+			if ($(this).attr("complete")) {
+				var width = $(this).width();
+		        var height = $(this).height();
+		    } else {
+		        $(this).load(function(){
+		            var width = $(this).width();
+		        	var height = $(this).height();
+		        	// alert("width: " + width + ";height: " + height);
+		        	if(width > height){
+				    	$(this).removeClass();
+				    	$(this).addClass("galleryImgW");
+				    }else{
+				    	$(this).removeClass();
+				    	$(this).addClass("galleryImgH");
+				    }
+		        });
+		    }
+
+        });
+}
+    
+    
     $(document).ready(function(){
-    	$(".photoThumb").on("click", function(){
+    	resizeImg();
+    	$('.photoThumbnails a').bind('click', function() {
+		   return false;
+		});
+    	$(".photoThumbnails img").on("click", function(){
     		var url = $(this).attr("src");
-   			$(".photoThumb").css("opacity", "1.0");
+   			$(".photoThumbnails img").css("opacity", "1.0");
     		$("#itemBigPhotoImage").stop()
 	        .fadeOut(400, function() {
 	            $("#itemBigPhotoImage").attr('src', url);
@@ -160,25 +183,33 @@ while($row1 = mysqli_fetch_array($result1))
 			<div id="itemPhotoContainer">
 				<div id="itemBigPhoto">
 					<span class='helper'></span>
-					<img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' />
+					<a href="<?php echo($photosList[0]); ?>" data-lightbox="itemImg" ><img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' /></a>
 				</div>		
 				<div class="photoThumbnails">
-						<ul class="thumbs noscript">
+						<!-- <ul class="thumbs noscript"> -->
 								
 							<?php
-								foreach($photosList as $photo)
-								{
-									echo("<li>
-													
-													<div class='frame'><span class='helper'></span>
-														<img src='$photo' class='photoThumb'/>
-												</div>
-													
-										</li>");
+								// foreach($photosList as $photo)
+								// {
+									// echo("<li>
+// 													
+													// <div class='frame'><span class='helper'></span>
+														// <img src='$photo' class='photoThumb'/>
+												// </div>
+// 													
+										// </li>");
+								// }
+							?>
+							
+							<?php 
+								foreach($photosList as $photo){
+									echo('<div class="outer"><div class="inner">
+										<a href="' . $photo . '" data-lightbox="itemImg"><img src="' . $photo . '" class="galleryImg" id="' . $photo . '"/></a>
+									</div></div>');
 								}
 							?>
 							
-						</ul>
+						<!-- </ul> -->
 					</div>
 					<!-- End Gallery Html Containers -->
 					<div style="clear: both;"></div>
@@ -272,7 +303,7 @@ while($row1 = mysqli_fetch_array($result1))
 						$result6 = mysqli_query($conn3,"SELECT i.id AS itemId, i.name AS itemName FROM item i, item_conn ic WHERE (ic.item1_id = $id AND i.id = ic.item2_id) OR (ic.item2_id = $id AND i.id = ic.item1_id) GROUP BY itemName");
 						
 						echo('<div id="connections">
-								<div class = "Title">Przedmioty powiązane</div>');
+								<div class = "Title">Przedmioty powiązane:</div>');
 						while($row6= mysqli_fetch_array($result6))
 						{
 							$itemName = $row6['itemName'];
