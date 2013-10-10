@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="css/borders/itemborders.css" />
     
     <!-- lightbox -------------------------------------->
-    <script src="js/jquery-1.10.2.min.js"></script>
 	<script src="js/lightbox-2.6.min.js"></script>
 	<link href="css/lightbox.css" rel="stylesheet" />
     <!-- -------------------------------------------- -->
@@ -64,7 +63,7 @@ while($row1 = mysqli_fetch_array($result1))
 	
 		while($row2 = mysqli_fetch_array($result2))
 			{
-				$name = $row2['name'];
+				$itemName = $row2['name'];
 				$description = $row2['description'];
 				$headPhotoId = $row2['headPhotoId'];
 				$active = $row2['active'];
@@ -106,7 +105,7 @@ while($row1 = mysqli_fetch_array($result1))
     
 <script type="text/javascript">
     
-    function resizeImg(){
+     function resizeImg(){
 	$("div.photoThumbnails img").each(function(){
 			if ($(this).attr("complete")) {
 				var width = $(this).width();
@@ -127,11 +126,26 @@ while($row1 = mysqli_fetch_array($result1))
 		    }
 
         });
-}
+	}
+	
+	function showQuestionForm(){
+		$("div#questions").click(function(){
+			$("div#questionForm").css("visibility", "visible");
+		})
+	}
+    
+    function questionCancel(){
+    	$('input[name="cancel"]').click(function(){
+    		$("div#questionForm").css("visibility", "hidden");
+    	})
+    }
+
     
     
     $(document).ready(function(){
     	resizeImg();
+    	showQuestionForm();
+    	questionCancel();
     	$('.photoThumbnails a').bind('click', function() {
 		   return false;
 		});
@@ -151,6 +165,7 @@ while($row1 = mysqli_fetch_array($result1))
     	var height = $( '#midcenterdiv' ).css( "height" );
 	 	$( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
     })
+
     
     </script>
     
@@ -224,7 +239,7 @@ while($row1 = mysqli_fetch_array($result1))
 					</div>
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
-					<h2 id="itemTitle"><?php echo("$name"); ?></h2>
+					<h2 id="itemTitle"><?php echo("$itemName"); ?></h2>
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					
 					
@@ -272,7 +287,7 @@ while($row1 = mysqli_fetch_array($result1))
 					 <div id="cart">
 					 	<?php if($active==1){ ?>
 					 	<a class="item-cart" <?php echo("id='item_".$_GET["id"]."' ") ?>>
-					 		<img class="cart-image" src="img/cart-big-dark.png" />
+					 		<img class="cart-image" src="img/cart-big-dark.png" /><p>dodaj do koszyka</p>
 					 	</a>
 					 	<?php } else { ?>
 					 	<a class="no-item-cart">
@@ -281,9 +296,38 @@ while($row1 = mysqli_fetch_array($result1))
 					 	<?php } ?>
 					 </div>
 					 <div id="questions">
-					 	<a href="shop.php">
 					 		<div id="mark">? </div> Zadaj pytanie odnośnie przedmiotu.
-					 	</a>
+					 </div>
+					 
+					 <?php
+					 	if(!isset($_SESSION['login'])){
+					 		echo('<div id="questionForm" style="height: 200px;">');
+					 		}else{
+					 			echo('<div id="questionForm" style="height: 170px;">');
+					 		}
+					 ?>
+					 
+					 	<div id="container">
+					 		<?php
+					 			if(!isset($_SESSION['login'])){
+					 		?>
+					 		<div class="row">
+					 			<p>Twój adres email: </p>
+					 			<input type="text" name="email"/>
+					 		</div>
+					 		<?php } ?>
+					 		<div class="row">
+					 			<p>Temat: </p>
+					 			<input type="text" name="title" value='Pytanie: <?php echo($itemName); ?>'/>
+					 		</div>
+					 		<div class="row2">
+					 			<p>Treść: </p>
+					 			<textarea name="Text1" cols="40" rows="5" ></textarea>
+					 		</div>
+					 		<div class="row">
+					 			<input type="button" name="send" value="Wyślij" /><input type="button" name="cancel" value="Anuluj" />
+					 		</div>
+					 	</div>
 					 </div>
 					 <?php
 					 	$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");

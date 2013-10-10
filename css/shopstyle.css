@@ -708,30 +708,117 @@ div#itemDescriptionContainer #container{
 	margin-bottom: 20px;
 }
 
-div#itemDescriptionContainer #cart{
-	width: 50px;
+ div#itemDescriptionContainer #cart{
+	width: 160px;
 	border-bottom: 1px solid transparent;
 }
-	div#itemDescriptionContainer #cart p{
-		font-size: 10pt;
-	}
 
-/*div#itemDescriptionContainer #cart:hover{
-	border-bottom: 1px solid Black;
-}*/
+div#itemDescriptionContainer #cart:hover{
+	border-bottom: 1px solid #58300c;	
+}
 
-div#itemDescriptionContainer #questions{
-	margin-top: 30px;
+div#itemDescriptionContainer #cart p{
+	font-family: "Gabriola";
+	font-weight: bold;
+	color: #58300c;
+	font-size: 14pt;
+	position: absolute;
+	margin-top: -25px;
+	margin-left: 40px;
+}
+
+div#itemDescriptionContainer #cart .title{
+	width: 200px;
+}
+
+ div#itemDescriptionContainer #questions{
+	color: #58300c;
+	margin-top: 20px;
 	font-size: 9pt;
-	font-weight: normal;
+	font-family: "OpenSansRegular", Arial;
+	cursor: pointer;
 }
 
 div#itemDescriptionContainer #questions #mark{
-	font-size: 14pt;
+	font-size: 13pt;
 	font-weight: bold;
 	float: left;
 	padding-right: 2px;
 	margin-top: -3px;
+}
+
+div#itemDescriptionContainer #questionForm{
+	margin-top: 10px;
+	width: 420px;
+	height: 200px;
+	background-color: rgba(255,255,255,0.8);
+	border: 1px solid Gray;
+	position: absolute;
+	visibility: hidden;
+}
+
+div#itemDescriptionContainer #questionForm #container{
+	margin: 0px;
+	padding: 5px;
+}
+
+div#itemDescriptionContainer #questionForm #container .row{
+	height: 26px;
+}
+
+div#itemDescriptionContainer #questionForm #container .row2{
+}
+
+div#itemDescriptionContainer #questionForm #container p{
+	font-family: "OpenSansRegular", Arial;
+	font-size: 10pt;
+	float: left;
+	padding-top: 5px;
+}
+
+div#itemDescriptionContainer #questionForm input[type="text"]{
+	margin-left: 5px;
+	padding-left: 3px;
+	height: 16px;
+}
+
+div#itemDescriptionContainer #questionForm input[name="email"]{
+	width: 290px;
+}
+
+div#itemDescriptionContainer #questionForm input[name="title"]{
+	width: 351px;
+}
+
+div#itemDescriptionContainer #questionForm textarea{
+	margin-left: 6px;
+	margin-top: 2px;
+	width: 356px;
+	height: 100px;
+	resize: none;
+	padding-left: 3px;
+}
+
+div#itemDescriptionContainer #questionForm input[type="button"]{
+	margin-top: 6px;
+	background-color: White;
+	border: 1px solid gray;
+	background: #FFFFFF;
+	width: 80px;
+	height: 20px;
+	cursor: pointer;
+}
+
+
+div#itemDescriptionContainer #questionForm input[type="button"]:hover{
+	border: 1px solid gray;
+	background: #2d2d2d;
+	color:#FFFFFF;
+}
+
+div#itemDescriptionContainer #questionForm input[name="send"]{
+	margin-left: 236px;
+	margin-right: 5px;
 }
 
 #itemTitle {
@@ -752,6 +839,7 @@ div#itemDescriptionContainer #questions #mark{
 #itemSizes{
 	float: left;
 	font-size: 9pt;
+	width: 500px;
 }
 
 div#itemSizes #title{
