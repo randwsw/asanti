@@ -1,23 +1,23 @@
 .bigdiv {
 	position: absolute;
 	left: 50%;
-	margin-left: -550px;
-	width: 1100px;
+	margin-left: -225px;
+	width: 550px;
 	top: 50%;
 	margin-top: -200px;
-	height: 60px;
+	height: 90px;
 	z-index: 2;
 }
 	/*========ROWS========*/
 	.bigdiv .rowdiv {
-		width: 1100px;
+		width: 550px;
 		
 	}
 	.bigdiv #topdiv, #botdiv {
 		height: 43px;
 	}
 	.bigdiv #middiv {
-		height: 60px;
+		height: 90px;
 	}
 	/*===================*/
 	/*====COLS-GENERAL===*/
@@ -33,27 +33,34 @@
 	/*========MID=========*/
 	 #midleftdiv {
 		width: 37px;
-		height: 60px;		
+		height: 90px;		
 	}
 	#midrightdiv {
 		width: 42px;
-		height: 60px;
+		height: 90px;
 	}
 	#midcenterdiv {
-		width: 1000px;
-		height: 60px;
+		width: 449px;
+		height: 90px;
 		background:  url(../../img/pat2.png) repeat;
 	}
 	#midcenterdiv p{
-	font-family: "Gabriola";
-	font-size: 19pt;
-	color: #C99C57;
-	margin: 13px 0 0 20px;
+		font-family: "Gabriola";
+		font-size: 19pt;
+		color: #C99C57;
+	}
+	#midcenterdiv #main{
+		margin: 13px 0 15px 80px;
 	}
 	#ret {
 		float: right;
+		margin: 13px 20px 0 20px;
 	}
-		#ret a{
+	#ret2 {
+		float: left;
+		margin: 13px 20px 0 20px;
+	}
+		#ret a, #ret2 a{
 			color: gray;
 		}
 	/*====================*/
@@ -61,12 +68,12 @@
 /* TEST */
 
 #topdiv {
-	background:  url(../../img/borders/toplogin.png) top no-repeat;
-	margin-left: 8px;
+	background:  url(../../img/borders/topcart.png) top no-repeat;
+	margin-left: 9px;
 }
 #botdiv {
-	background:  url(../../img/borders/botlogin.png) top no-repeat;
-	margin-left: 8px;
+	background:  url(../../img/borders/botcart.png) top no-repeat;
+	margin-left: 9px;
 }
 
 #midrightdiv {

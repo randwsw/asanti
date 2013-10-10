@@ -144,6 +144,8 @@ while($row1 = mysqli_fetch_array($result1))
 	<!-- ------------------------------------------------------------------------ -->
 	<div class="bg">
 		</div>
+	<div class="bg" id="bg2">
+		</div>
 	    <div class="container">
 	    	
 		<!-- Include header --------------------------------------------------------- -->
@@ -299,6 +301,25 @@ while($row1 = mysqli_fetch_array($result1))
 			</div>
 			</div>
 		 </div>
+<div class="big2div" id="addcart">
+		<div class="row2div" id="top2div">
+		</div>
+		<div class="row2div" id="mid2div">
+			<div class="right2div" id="midright2div">
+				
+			</div>
+			<div class="center2div" id="midcenter2div">
+				<p id="main">Produkt został dodany do koszyka.</p>
+				<p id="ret2"><a href='cart.php'>idź do koszyka</a></p>
+				<p id="ret"><a>powrót</a></p>
+			</div>
+			<div class="left2div" id="midleft2div">
+				
+			</div>
+		</div>
+		<div class="row2div" id="bot2div">
+		</div>
+	</div>
 </body>      
 </html>
 <script type="text/javascript">
@@ -517,7 +538,7 @@ $('.item-cart').click(function() {
 	var names = [];
 	var values = [];
 	var count = 0;
-	var ic = 1;
+	var ic = 1
 
 	var word=id.toString();
 	$('.title').each(function(){
@@ -535,11 +556,17 @@ $('.item-cart').click(function() {
 	word+="ic="+ic+"|";
 	$.cookie("cartItem", word, { expires: 1, path: '/' });
 }
-alert("Produkt został dodany do koszyka");
+$(".big2div").css("display", "block");
+$("#bg2").css("display", "block");
+
 var count = $('#cart-count').html();
 count=parseInt(count) + 1;
 $('#cart-count').html(count);
 	
+});
+$("#bg2, #ret").click(function(){
+	$("#bg2").css("display", "none");
+	$(".big2div").css("display", "none");
 });
 </script>
 

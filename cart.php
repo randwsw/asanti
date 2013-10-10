@@ -275,7 +275,6 @@ $('.column-remove').click(function() {
 	
 	if (newcookie.length > 0) {
 		$.cookie("cartItem", newcookie, { expires: 1, path: '/' });
-		alert("Produkt zostanie usunięty z koszyka");
 	}
 	//)
 	//checkCart();

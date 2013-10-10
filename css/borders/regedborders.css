@@ -5,7 +5,7 @@
 	width: 1100px;
 	top: 50%;
 	margin-top: -200px;
-	height: 60px;
+	height: 80px;
 	z-index: 2;
 }
 	/*========ROWS========*/
@@ -17,7 +17,7 @@
 		height: 43px;
 	}
 	.bigdiv #middiv {
-		height: 60px;
+		height: 80px;
 	}
 	/*===================*/
 	/*====COLS-GENERAL===*/
@@ -33,15 +33,15 @@
 	/*========MID=========*/
 	 #midleftdiv {
 		width: 37px;
-		height: 60px;		
+		height: 80px;		
 	}
 	#midrightdiv {
 		width: 42px;
-		height: 60px;
+		height: 80px;
 	}
 	#midcenterdiv {
 		width: 1000px;
-		height: 60px;
+		height: 80px;
 		background:  url(../../img/pat2.png) repeat;
 	}
 	#midcenterdiv p{
@@ -53,7 +53,10 @@
 	#ret {
 		float: right;
 	}
-		#ret a{
+	#ret2 {
+		float: left;
+	}
+		#ret a, #ret2 a{
 			color: gray;
 		}
 	/*====================*/
