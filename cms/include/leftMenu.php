@@ -8,6 +8,7 @@
 <p class="title"><a href="users.php">Użytkownicy</a></p>
 <p class="title"><a href="gallery.php">Galeria</a></p>
 <p class="title"><a href="promoted.php">Polecane</a></p>
+<p class="title"><a href="discounts.php">Rabaty</a></p>
 <p class="title"><a href="promoted.php">Strony</a></p>
 <ul class="navigation">
 	<li><a href="about.php">O nas</a></li>

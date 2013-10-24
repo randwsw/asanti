@@ -1622,3 +1622,63 @@ div#promoted table#promotedTable input.deleteAll {
 	cursor: pointer;
 	height: 22px;
 }
+
+/* //////////////////////////////////////////////////// */
+/* DISCOUNTS ////////////////////////////////////////// */
+div#discounts{
+	
+}
+
+div#discounts table{
+	width: 480px;
+	height: auto;
+	border-collapse:collapse;
+	margin-top: 20px;		
+}
+
+div#discounts table tr.head{
+	background-color: rgba(153,101,21,0.4);
+	color: White;
+	cursor: pointer;	
+}
+
+div#discounts table tr.head td#count{
+	width: 130px;
+	max-width: 180px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border: 2px solid White;	
+}
+
+div#discounts table tr.head td#disc{
+	border: 2px solid White;
+	width: 130px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#discounts table tr.head td#options{
+	width: 120px;
+	max-width: 50px;
+	border: 2px solid White;
+	/*width: 40px;*/
+	text-align: center;
+	font-weight: bold;	
+}
+
+div#discounts table input[type="text"]{
+	width: 130px;	
+	text-align: center;
+}
+
+div#discounts input[name="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+/* //////////////////////////////////////////////////// */
