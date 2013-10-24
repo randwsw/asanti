@@ -87,13 +87,13 @@ a {
 	height: 100%;
 	/*background-color: rgba(247,235,208,0.8); */ 
 	/*background-color: rgba(247,239,222,0.8); */
-	background-color: rgba(199,199,199,0.8);
+	background-color: rgba(220,220,220,0.8);
 	position: fixed;
 	z-index: 1;
 }
 #bg2{
 	display: none;
-	background-color: rgba(247,239,222,0.8); 
+	background-color: rgba(255,247,222,0.8); 
 	z-index: 3;
 }
 .container{
@@ -229,7 +229,7 @@ div .menu-div{
 	/*width: 610px;*/
 	height: 50px;
 	margin-top: 30px;
-	float:right;
+	float:left;
 	display:none;
 	
 }
@@ -259,7 +259,7 @@ div .menu-div{
 	
 	.gender-picker .gdiv{
 	height: 23px;
-	float:right;
+	float:left;
 	cursor: pointer;
 	margin-left:15px;
 	color: #58300c;
@@ -382,7 +382,10 @@ div .panel-div > #profile-icon {
 	border: 1px solid #C99C57;
 }
 
+
+
 .product-info{
+	position: relative;
 	width:	220px;
 	height: 380px;
 	display: block;
@@ -392,6 +395,68 @@ div .panel-div > #profile-icon {
 	margin-top: 17px;
 	font-family: "Gabriola";
 }
+	.product-info .imageConBig {
+		position: absolute;
+		/*display: none;*/
+		width:	320px;
+		height: 400px;
+		z-index: 10;
+		background-color: white;
+		position: relative;
+		border-radius: 4px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		border: 1px solid red;
+		opacity: 0.5;
+	}
+	
+	.imageConBig .productImageBig {
+		position: absolute; 
+		width: 320px;
+		height: 400px;
+	}
+	
+	.product-info:hover .imageConBig {
+		display: block;
+	}
+		.product-info > div#topleft{
+			top: -350px;
+			left: -15px;
+		}
+		.product-info > div#topright{
+			top: -350px;
+			left: -100px;
+		}
+		.product-info > div#botright{
+			top: -448px;
+			left: -98px;
+		}
+		.product-info > div#botleft{
+			top: -398px;
+			left: -15px;
+		}
+		.product-info > div#top{
+			top: -350px;
+			left: -50px;
+		}
+		.product-info > div#left{
+			top: -350px;
+			left: -15px;
+		}
+		.product-info > div#right{
+			top: -350px;
+			left: -83px;
+		}
+		.product-info > div#bot{
+			top: -398px;
+			left: -50px;
+		}
+		.product-info > div#middle{
+			top: -350px;
+			left: -50px;
+		}
+	
 .productImage {
 	position: absolute; 
 	max-width: 220px;
@@ -459,7 +524,7 @@ div .panel-div > #cart {
 div .cart-div {
 	height: 42px;
 	/*margin-top: 10px;*/
-	float: left;
+	float: right;
 	cursor: pointer;
 }
 	div .cart-div:hover {
@@ -588,7 +653,7 @@ div.recommended .title{
 
 #itemPhotoContainer {
 	width: 510px;
-	float: left;
+	float: right;
 	
 }
 
@@ -696,7 +761,7 @@ ul.thumbs img {
 
 div#itemDescriptionContainer {
 	float: left;
-	margin-left: 50px;
+	/*margin-left: 50px;*/
 	width: 530px;
 	/*background-color: rgba(255,255,255,0.5);
 	border: 1px solid Gray;*/
@@ -834,7 +899,6 @@ div#itemDescriptionContainer #questionForm input[name="send"]{
 	margin-top: 30px;
 	font-size: 10pt;
 	font-family: "OpenSansRegular", Arial;
-		/*font-family: "Gabriola";*/
 	line-height: 140%;
 }
 

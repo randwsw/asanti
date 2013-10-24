@@ -37,14 +37,14 @@
 	/*====================*/
 	/*========MID=========*/
 	 #midleftdiv {
-		width: 40px;
+		width: 37px;
 		height: auto;		
 	}
 	#midrightdiv {
 		width: 42px;
 	}
 	#midcenterdiv {
-		width: 1018px;
+		width: 1021px;
 		/*background-color: #f6e9bc;*/
 		background:  url(../../img/pat2.png) repeat;
 	}
