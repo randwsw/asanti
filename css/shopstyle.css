@@ -1271,7 +1271,7 @@ div.connectionBox .connectionTitle{
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-top: 5px;
-	height: 20px;
+	height: 35px;
 	border-top: 1px solid gray;
 	float: right;
 	margin-right: 50px;
@@ -1284,6 +1284,7 @@ div.connectionBox .connectionTitle{
 		font-family: "OpenSansBold", Arial;
 		font-size: 8pt;
 	}
+
 	#cartSubmit {
 		cursor: pointer;
 	}
@@ -1344,6 +1345,19 @@ div.connectionBox .connectionTitle{
 .column-price-all{
 	width: 150px;
 }
+
+
+		#complPrice{
+			width: 105px;
+			float: left;
+		}
+		 #disc{
+		 	margin-top: 3px;
+		 	padding-top: 3px;
+			width: 45px;
+			float: left;
+			color: green;
+		}
 .column-remove, .column-submit{
 	width: 150px;
 }

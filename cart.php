@@ -130,8 +130,9 @@
 				echo "Failed to connect to MySQL: " . mysqli_connect_error();
 			}
 			
-		  	 //echo("SELECT i.name AS iname, value, i.id FROM item i, price pr WHERE ".$querypart.";");
+		  	
 		  	 $count = 0;
+			 $globalcount = 0;
 			foreach ($cartItems as $val) {
 				
 			$querypart = "i.id = ".$val->id;
@@ -143,6 +144,7 @@
 			while($rec = mysqli_fetch_array($sql)) {
 				$cat = $rec['urlName']."-".$rec['parentId'];
 				$sum+= $rec['price']*$val->count;
+				$globalcount += $val->count;
 				echo(
 				"<div class='product-row' id='middle-row'>
 				<input type='hidden' value='".$rec['id']."' name='iid[]'>			
@@ -167,7 +169,7 @@
 						<input type='text' value='".$val->count."' id='quantity".$rec['id']."' class='quantityTb' name='quantity[]'/>
 					</div>
 					<div class='column-price-all'>
-						<p class='price-all' id=price-all-".$rec['id'].">".$prc = number_format($rec['price']*$val->count, 2, '.', ',')."</p>
+						<p class='price-all' id=price-all-".$rec['id'].">".$prc = number_format($rec['price']*$val->count, 2, '.', '')."</p>
 					</div>
 					<div class='column-remove' id='".$cookies[$count]."|'>
 						<a href=''><p>X</p></a>
@@ -177,12 +179,31 @@
 			}
 			$count++;
 		  }
-		  mysqli_close($conn);	 
+		  $sql= mysqli_query($conn, "SELECT value, item_count FROM discount WHERE active = 0;");
+		  $ex = 0;
+		  $ct = 0;
+		  $dc= 0;
+		while($rec = mysqli_fetch_array($sql)) {
+			$dc = $rec['value'];
+			$ct = $rec['item_count'];
+			$ex = 1;
+		}
+		$sum = number_format($sum, 2, '.','');
+		if($ex==1){
+			if($globalcount>=$ct) {
+				$sum=$sum-($sum*$dc/100);
+				$sum = number_format($sum, 2, '.', '');
+			} 
+		}				
+		
+		mysqli_close($conn);	
         }
 		else
 			{
 				echo("<div id='emptyCart'><p>Nie dodano jeszcze żadnego produktu</p></div>");
 			}
+			
+		
 		?>
 		<div class="product-row" id="bot-row">
 			<div class="column-submit">
@@ -191,8 +212,22 @@
 			<div class="column-name">
 				<p>Razem do zapłaty:</p>
 			</div>
-			<div class="column-price-all">
-				<p id='complPrice'><?php echo($sum = number_format($sum, 2, '.', ',')); ?></p>
+				<div class="column-price-all">
+					<p id='complPrice'>
+						<?php
+						
+						
+						echo($sum);
+						
+						  
+						?>
+					</p>
+					<p id='disc'>
+						<?php if($ex==1){
+							echo("(-".$dc."%)");
+						}
+						?>
+					</p>
 			</div>
 			<div class="column-submit">
 				<p><a id='cartSubmit' onclick="$.cookie('cartItem', 'newcookie', { expires: 0, path: '/' });document.cartForm.submit();">Kup</a></a></p>
@@ -246,9 +281,36 @@ $( document ).ready(function() {
 		var p1 = $(this).parent().attr("id");
 		var p2 = $("#"+p1).parent().find(".price-all").html(res2);
 		
-		var cp = $("#complPrice").html() - add + res;
-		var cp = cp.toFixed(2); 
-		$("#complPrice").html(cp);
+		var totalcount = 0;
+		var totalprice = 0;
+		
+		$(".quantityTb").each(function() {
+			var v = $(this).attr("value");
+			totalcount += parseInt(v);
+		});
+		
+		$(".price-all").each(function() {
+			var v = $(this).html();
+			totalprice += parseInt(v);
+		});
+		
+		var spr = 1;
+		
+		if(spr = <?php echo($ex); ?>) {
+			if(totalcount>= <?php echo($ct); ?>)
+			{
+				 totalprice=totalprice-(totalprice*<?php echo($dc); ?>/100);
+				  $("#disc").html('(-<?php echo($dc); ?>)');		 
+			} else {
+				$("#disc").html('');
+			}
+		}
+		
+		
+		totalprice = totalprice.toFixed(2); 
+		// var cp = $("#complPrice").html() - add + res;
+		// var cp = cp.toFixed(2); 
+		$("#complPrice").html(totalprice);
 	});
 
 	$( ".quantityTb" ).focus(function() {
