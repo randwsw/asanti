@@ -35,7 +35,7 @@
 
 	<?php
 	
-	$itemsPerPage = 8;
+	$itemsPerPage = 12;
 	
 	 echo ('<style type="text/css">
         #page_'.$page.' {
