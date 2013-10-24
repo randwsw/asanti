@@ -116,28 +116,28 @@
 		}
 		
 		echo("<div class='itemMenu'>");
-		//echo("<div class='sortBy'><a>Sortuj: </a><a href='shop.php?category=".$cat."&page=$page&order=az' >alfabetycznie, </a><a href='shop.php?category=".$cat."&page=$page&order=pa' >po cenie</a></div>");
+		//echo("<div class='sortBy'><a>Sortuj: </a><a href='index.php?category=".$cat."&page=$page&order=az' >alfabetycznie, </a><a href='index.php?category=".$cat."&page=$page&order=pa' >po cenie</a></div>");
 		echo("<div class='sortBy'>
 		<a>Sortuj: $ordername</a>	    
 	    <ul>
-	    	<li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
-	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
-	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
-	        <li><a class='ele' href='shop.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
+	    	<li><a class='ele' href='index.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
+	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
+	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
+	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
 	    </ul> 
 		</div>");
 
 		echo("<div class='pages'>"); 
 		if($page>1)
-		echo("<a href='shop.php?category=".$cat."&page=$prevpage&order=$order'>&#171</a> ");
+		echo("<a href='index.php?category=".$cat."&page=$prevpage&order=$order'>&#171</a> ");
 			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
 				if(($i>0)&&($i<=$pages))
 				{
-				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i&order=$order'>".$i."</a> ");
+				echo("<a id='page_$i' href='index.php?category=".$cat."&page=$i&order=$order'>".$i."</a> ");
 				}
 			}
 		if($page<$pages)
-		echo("<a href='shop.php?category=".$cat."&page=$nextpage&order=$order'>&#187</a> ");
+		echo("<a href='index.php?category=".$cat."&page=$nextpage&order=$order'>&#187</a> ");
 		echo("</div>");
 		echo("</div>");
 	?>
@@ -248,15 +248,15 @@
 echo("<div class='itemMenu'>");
 		echo("<div class='pages'>"); 
 		if($page>1)
-		echo("<a href='shop.php?category=".$cat."&page=$prevpage'>&#171</a> ");
+		echo("<a href='index.php?category=".$cat."&page=$prevpage'>&#171</a> ");
 			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
 				if(($i>0)&&($i<=$pages))
 				{
-				echo("<a id='page_$i' href='shop.php?category=".$cat."&page=$i'>".$i."</a> ");
+				echo("<a id='page_$i' href='index.php?category=".$cat."&page=$i'>".$i."</a> ");
 				}
 			}
 		if($page<$pages)
-		echo("<a href='shop.php?category=".$cat."&page=$nextpage'>&#187</a> ");
+		echo("<a href='index.php?category=".$cat."&page=$nextpage'>&#187</a> ");
 		echo("</div>");
 		echo("</div>");	 
 ?>

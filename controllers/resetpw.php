@@ -1,7 +1,7 @@
 <?php
 if(!session_id()) { session_start();} 
  if(isset($_SESSION['login'])){
-	header('location: shop.php');
+	header('location: index.php');
 }
 
 require_once '../htmlpurifier/library/HTMLPurifier.auto.php';

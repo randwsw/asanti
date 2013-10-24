@@ -260,7 +260,7 @@
 	
 	<div id="siteContainer">
 		
-		<a href="../shop.php"><div>GO TO SHOP</div></a>
+		<a href="../index.php"><div>GO TO SHOP</div></a>
 		
 		<div id="header">
 			<div id="title">ASANTI CMS</div>

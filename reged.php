@@ -24,7 +24,7 @@
 			</div>
 			<div class="centerdiv" id="midcenterdiv">
 				<p>Twoje konto zostało założone. Należy je aktywować za pomocą linka wysłanego na podany przy rejestracji adres email.</p>
-				<p id="ret"><a href='shop.php'>powrót do sklepu</a></p>
+				<p id="ret"><a href='index.php'>powrót do sklepu</a></p>
 			</div>
 			<div class="leftdiv" id="midleftdiv">
 				
@@ -37,7 +37,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	setTimeout(function() {
-  		window.location.href = "shop.php";
+  		window.location.href = "index.php";
 	}, 5000);
 });
 

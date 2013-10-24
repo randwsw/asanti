@@ -36,7 +36,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	setTimeout(function() {
-  		window.location.href = "shop.php";
+  		window.location.href = "index.php";
 	}, 5000);
 });
 

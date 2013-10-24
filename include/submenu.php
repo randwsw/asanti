@@ -56,7 +56,7 @@
 					else :
 		        	echo("<li class='other'>");
 		        	endif;               
-					echo("<a href='shop.php?category=".$rec['urlName']."-4'><div class='menu-div'>".$rec['name']."</div></a></li>");
+					echo("<a href='index.php?category=".$rec['urlName']."-4'><div class='menu-div'>".$rec['name']."</div></a></li>");
 					}		
 				?>
 					
@@ -75,7 +75,7 @@
 					else :
 		        	echo("<li class='other'>");
 		        	endif;               
-					echo("<a href='shop.php?category=".$rec['urlName']."-5'><div class='menu-div'>".$rec['name']."</div></a></li>");
+					echo("<a href='index.php?category=".$rec['urlName']."-5'><div class='menu-div'>".$rec['name']."</div></a></li>");
 					}
 				
 				mysqli_close($conn);
@@ -126,9 +126,9 @@
 	}
 
 	$("#female").click(function(){
-		window.location.href = "shop.php?category=dla_dziewczynki";
+		window.location.href = "index.php?category=dla_dziewczynki";
 	});
 	$("#male").click(function(){
-		window.location.href = "shop.php?category=dla_chlopca";
+		window.location.href = "index.php?category=dla_chlopca";
 	});
 </script>

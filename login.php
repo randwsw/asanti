@@ -101,7 +101,7 @@
 					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
 				</div>
 				<div class ="formdiv" id="backdiv">
-					<a href="shop.php"><p id="pback">&#171 wróć do sklepu</p></a>
+					<a href="index.php"><p id="pback">&#171 wróć do sklepu</p></a>
 				</div>
 			</div>
 		</div>
@@ -161,7 +161,7 @@ var validate = $(".logform").validate({
 					window.location.href = "cart.php";		
 				}
 				else {
-					window.location.href = "shop.php";		
+					window.location.href = "index.php";		
 				}		
 			}
 		});

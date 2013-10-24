@@ -38,18 +38,18 @@
 	<p><a href = "about.php" class="n-item">O Nas</a></p>
 	<p><a href = "gallery.php" class="n-item">Galeria</a></p>
 	<p><a href = "promo.php" class="n-item">Promocje</a></p>
-	<p><a href = "shop.php" class="n-item">Sklep</a></p>
+	<p><a href = "index.php" class="n-item">Sklep</a></p>
 </div>
 <!-- <ul class="menu-anim">               
 	                    <li class="other"><a href="contact.html"><div class="menu-div">KONTAKT</div></a></li>                                        
 	                    <li class="other"><a href="about.html"><div class="menu-div">O NAS</div></a></li>
-	                    <li class="current"><a href="shop.php"><div class="menu-div">SKLEP</div></a></li>                 
+	                    <li class="current"><a href="index.php"><div class="menu-div">SKLEP</div></a></li>                 
 			</ul>   -->  
 			</div>   
 			<!-- <ul class="menu-anim">               
 	                    <li class="other"><a href="contact.html"><div class="menu-div">KONTAKT</div></a></li>                                        
 	                    <li class="other"><a href="about.html"><div class="menu-div">O NAS</div></a></li>
-	                    <li class="current"><a href="shop.php"><div class="menu-div">SKLEP</div></a></li>                 
+	                    <li class="current"><a href="index.php"><div class="menu-div">SKLEP</div></a></li>                 
 			</ul>   -->         
 <!-- </div> -->
 <script type="text/javascript">
@@ -57,11 +57,11 @@ $("#logoutButton").click(function(){
         $.post("controllers/logoutUser.php")
 		.done(function(data) {
 				$.cookie("rememberme", "", { expires: 0, path: '/' });
-				window.location.href = "shop.php";
+				window.location.href = "index.php";
 		});
 });
 
 $("#asanti").click(function(){
-	window.location.href = "shop.php";
+	window.location.href = "index.php";
 });
 </script>

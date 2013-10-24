@@ -21,7 +21,7 @@ if(!session_id())
 	    session_start();
 	}
 	if(!isset($_SESSION['login'])) {
-		header('Location: shop.php');
+		header('Location: index.php');
 	}else {
 		
 		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
@@ -104,7 +104,7 @@ if(!session_id())
 						<p><a href='profile.php'>wróć do profilu</a></p>
 					</div>
 					<div class='column-price-all'>
-						<p><a href='shop.php'>wróć do sklepu</a></p>
+						<p><a href='index.php'>wróć do sklepu</a></p>
 					</div>
 				</div>");
 }else if(isset($_GET['id'])) {
@@ -139,7 +139,7 @@ if(!session_id())
 				$user_id = $e['user_id'];
 		  }
 		if($user_id == null) {
-			header('Location: shop.php');
+			header('Location: index.php');
 		}
 		$sum=0;
 		$result = mysqli_query($conn,"SELECT i.id AS iid, i.name, quantity, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");

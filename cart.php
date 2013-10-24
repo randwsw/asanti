@@ -186,7 +186,7 @@
 		?>
 		<div class="product-row" id="bot-row">
 			<div class="column-submit">
-				<p><a href="shop.php">wróć do sklepu</a></a></p>
+				<p><a href="index.php">wróć do sklepu</a></a></p>
 			</div>
 			<div class="column-name">
 				<p>Razem do zapłaty:</p>

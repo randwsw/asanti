@@ -1,6 +1,6 @@
 <?php if(!session_id()) { session_start();} ?>
 <?php if(isset($_SESSION['login'])){
-	header('location: shop.php');
+	header('location: index.php');
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -36,7 +36,7 @@
 						<div class="errordiv" id="loginInput_label"></div>
 				</div>
 				<div class ='formdiv'>
-							<a href='shop.php'><p id='pback'>&#171 wróć do sklepu</p></a>
+							<a href='index.php'><p id='pback'>&#171 wróć do sklepu</p></a>
 				</div>
 				
 			</div>

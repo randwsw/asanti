@@ -171,7 +171,7 @@
 						</div>
 						<div class ='formdiv'>
 							<input class='form-button' type='submit' value='Aktualizuj' id='passButton'/>
-							<a href='shop.php'><p id='pback'>&#171 wróć do sklepu</p></a>
+							<a href='index.php'><p id='pback'>&#171 wróć do sklepu</p></a>
 						</div>	
 					</form>
 				</div>
@@ -413,7 +413,7 @@ var validate3 = $(".passform").validate({
         { pass1: $("#pass-input").val(), pass2: $("#pass2-input").val()})
 		.done(function(data) {
 			alert("Hasło zostało pomyślnie zauktualizowane, zaloguj się ponownie")
-			window.location.href = "shop.php";
+			window.location.href = "index.php";
 		});
     },
 	rules: {
