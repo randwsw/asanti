@@ -347,10 +347,10 @@ $( document ).ready(function() {
 	 $( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
 	
 	$(function() {			
-	    $(".menu-anim").lavaLamp({
-	        fx: "backout",
-	        speed: 700,
-	    });
+	    // $(".menu-anim").lavaLamp({
+	        // fx: "backout",
+	        // speed: 700,
+	    // });
 	    
 	    $("#sub-menu-anim-b").lavaLamp({
 	        fx: "backout",
@@ -380,41 +380,41 @@ $( document ).ready(function() {
         // document.cookie = name + "=" + escape(value) + ((expire==null)?"" : ("; expires=" + expire.toGMTString()))
 // }
 // 
-$('.cart').click(function() {
-	
-	var cookieArray = [];
-	if (jQuery.cookie("cartItem")) {
-		var cookieval = $.cookie("cartItem");
-		cookieval+=",";
-		var item="";		
-		for (var i=0; i < cookieval.length; i++) {
-			if(cookieval.charAt(i)!=',')
-			{
-				item += cookieval.charAt(i);
-			}
-			else
-			{
-				cookieArray.push(item);
-				item="";
-			}
-		}
-	}
-	else{		
-	}
-	if(jQuery.inArray($(this).attr('id'), cookieArray)!=-1)	{
-			var id = jQuery.inArray($(this).attr('id'), cookieArray);
-			//alert(id);
-			// cookieArray[id]+="#2#"
-		}
-	else {
-		// cookieArray.push($(this).attr('id'));
-	}
-	
-	cookieArray.push($(this).attr('id'));	
-	$.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
-	alert("Produkt został dodany do koszyka");
-	checkCart();
-});
+// $('.cart').click(function() {
+// 	
+	// var cookieArray = [];
+	// if (jQuery.cookie("cartItem")) {
+		// var cookieval = $.cookie("cartItem");
+		// cookieval+=",";
+		// var item="";		
+		// for (var i=0; i < cookieval.length; i++) {
+			// if(cookieval.charAt(i)!=',')
+			// {
+				// item += cookieval.charAt(i);
+			// }
+			// else
+			// {
+				// cookieArray.push(item);
+				// item="";
+			// }
+		// }
+	// }
+	// else{		
+	// }
+	// if(jQuery.inArray($(this).attr('id'), cookieArray)!=-1)	{
+			// var id = jQuery.inArray($(this).attr('id'), cookieArray);
+			// //alert(id);
+			// // cookieArray[id]+="#2#"
+		// }
+	// else {
+		// // cookieArray.push($(this).attr('id'));
+	// }
+// 	
+	// cookieArray.push($(this).attr('id'));	
+	// $.cookie("cartItem", cookieArray, { expires: 1, path: '/' });
+	// alert("Produkt został dodany do koszyka");
+	// checkCart();
+// });
 
 
 </script>
