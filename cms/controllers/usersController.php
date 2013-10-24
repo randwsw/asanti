@@ -28,93 +28,158 @@ if (mysqli_connect_errno())
 		  }
 
 
+$action = $_POST['action'];
 
+switch ($action) {
+	
+	case "getAll":
+	// ---------------------------------------------------------------------------------------------------------- //
+	// GET ALL USERS -------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
 
-
-
-
-
-if(isset($_POST['sets'])){
-	if($_POST['sets'] == "sets"){
-		$itemId = $_POST['itemId'];
-		$sets = " AND i.id != $itemId AND i.id NOT IN (SELECT ic.item2_id FROM item_conn ic WHERE ic.item1_id = $itemId)
-										AND i.id NOT IN (SELECT ic.item1_id FROM item_conn ic WHERE ic.item2_id = $itemId)";
-	}else{
-		$sets = "";
-	}
-}else{
-	$sets = "";
-}
-
-
-
-
-if(isset($_POST['id'])){
-	$idFilter = " AND i.id = '" . $_POST['id'] . "'";
-}else{$idFilter = "";}
-
-
-
-
-if(isset($_POST['name'])){
-	$nameFilter = " AND i.name = '" . $_POST['name'] . "'";
-}else{$nameFilter = "";}
-
-
-
-
-
-
-
-
-
-
-if(isset($_POST['action']) && $_POST['action'] == "getUsers"){
-
-	if(isset($_POST['sortBy'])){
-		$sortBy = $_POST['sortBy'];
-		$direction = $_POST['direction'];
-		if($sortBy == null || $direction == null){
-			$sort = " ORDER BY email ASC";
+		if(isset($_POST['sortBy'])){
+			$sortBy = $_POST['sortBy'];
+			$direction = $_POST['direction'];
+			if($sortBy == null || $direction == null){
+				$sort = " ORDER BY email ASC";
+			}else{
+				$sort = " ORDER BY $sortBy $direction";
+			}
 		}else{
-			$sort = " ORDER BY $sortBy $direction";
-		}
-	}else{
-		$sort = " ORDER BY email ASC";
-	}		
-	
-	$result = mysqli_query($conn,"SELECT u.id AS id, u.email AS email, u.name AS name, u.lastName AS lastName, u.password AS password, u.active AS active,
-									 a.pcode AS pcode, a.street AS street, a.city AS city 
-								FROM users u, address a
-								WHERE u.id = a.user_id 
-								GROUP BY u.id"
-								 . $sort);
+			$sort = " ORDER BY email ASC";
+		}		
 		
-		while($e=mysqli_fetch_assoc($result))
-              $output[]=$e;
-           print(json_encode($output));
-	mysqli_close($conn);
-}
+		$result = mysqli_query($conn,"SELECT u.id AS id, u.email AS email, u.name AS name, u.lastName AS lastName, u.password AS password, u.active AS active,
+										 a.pcode AS pcode, a.street AS street, a.city AS city 
+									FROM users u, address a
+									WHERE u.id = a.user_id 
+									GROUP BY u.id"
+									 . $sort);
+			
+			while($e=mysqli_fetch_assoc($result))
+	              $output[]=$e;
+	           print(json_encode($output));
+		mysqli_close($conn);
+	break;
+
+
+
+	
+	case "deleteUser":
+	// ---------------------------------------------------------------------------------------------------------- //
+	// DELETE USER ---------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+		$userId = $_POST['userId'];
 		
-
-if(isset($_POST['action']) && $_POST['action'] == "changeActive"){
+		  		$sql="DELETE FROM address
+						WHERE user_id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				$sql="DELETE FROM orders
+						WHERE user_id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				$sql="DELETE FROM phone
+						WHERE user_id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				$sql="DELETE FROM remember_me
+						WHERE user_id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				$sql="DELETE FROM usr_activate
+						WHERE user_id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				$sql="DELETE FROM users
+						WHERE id = '$userId'";
+				if (!mysqli_query($conn,$sql))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  	}
+				
+				
+				mysqli_close($conn);
+	break;
 	
-	$userId = $_POST['userId'];
-	$active = $_POST['active'];
 	
-	mysqli_query($conn,"UPDATE users SET active=$active WHERE id='$userId'");
+	
+	
+	
+	case "changeActive":
+	// ---------------------------------------------------------------------------------------------------------- //
+	// CHANGE ACTIVE -------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	
+		$userId = $_POST['userId'];
+		$active = $_POST['active'];
+		
+		mysqli_query($conn,"UPDATE users SET active=$active WHERE id='$userId'");
+	
+		mysqli_close($conn);
+	break;
 
-	mysqli_close($conn);
+
+	
+	
+	case "changePw":
+	// ---------------------------------------------------------------------------------------------------------- //
+	// CHANGE USER PASSWORD ------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+		$userId = $_POST['userId'];
+		$newPw = $_POST['newPW'];
+		
+		mysqli_query($conn,"UPDATE users SET password='$newPw' WHERE id='$userId'");
+	
+		mysqli_close($conn);
+	break;
 }
 
-
-if(isset($_PSOT['action']) && $_POST['action'] == "changePw"){
-	$userId = $_POST['userId'];
-	$newPw = $_POST['newPW'];
-	
-	mysqli_query($conn,"UPDATE users SET password='$newPw' WHERE id='$userId'");
-
-	mysqli_close($conn);
-}
 
 ?>

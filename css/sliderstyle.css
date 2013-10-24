@@ -53,7 +53,7 @@
     line-height: 120px;
     color: rgba(255,255,255, 0.8);
 }
-.cb-slideshow li:nth-child(1) span { background-image: url(../img/6.jpg) }
+.cb-slideshow li:nth-child(1) span { background-image: url(../img/kidz.jpg) }
 /*.cb-slideshow li:nth-child(1) span { background-image: url(../img/dziecko_diabel.jpg) }*/
 .cb-slideshow li:nth-child(2) span {
     background-image: url(../img/5.jpg);

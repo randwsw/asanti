@@ -195,40 +195,7 @@ while($row1 = mysqli_fetch_array($result1))
 		
 		
 		<div id="itemContainer">
-			<div id="itemPhotoContainer">
-				<div id="itemBigPhoto">
-					<span class='helper'></span>
-					<a href="<?php echo($photosList[0]); ?>" data-lightbox="itemImg" ><img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' /></a>
-				</div>		
-				<div class="photoThumbnails">
-						<!-- <ul class="thumbs noscript"> -->
-								
-							<?php
-								// foreach($photosList as $photo)
-								// {
-									// echo("<li>
-// 													
-													// <div class='frame'><span class='helper'></span>
-														// <img src='$photo' class='photoThumb'/>
-												// </div>
-// 													
-										// </li>");
-								// }
-							?>
-							
-							<?php 
-								foreach($photosList as $photo){
-									echo('<div class="outer"><div class="inner">
-										<a href="' . $photo . '" data-lightbox="itemImg"><img src="' . $photo . '" class="galleryImg" id="' . $photo . '"/></a>
-									</div></div>');
-								}
-							?>
-							
-						<!-- </ul> -->
-					</div>
-					<!-- End Gallery Html Containers -->
-					<div style="clear: both;"></div>
-			</div>			
+						
 			<div id="itemDescriptionContainer">
 				<div class="bigdiv">
 				<div class="rowdiv" id="topdiv">
@@ -373,6 +340,40 @@ while($row1 = mysqli_fetch_array($result1))
 		<div class="rowdiv" id="botdiv">
 		</div>
 	</div> 
+	<div id="itemPhotoContainer">
+				<div id="itemBigPhoto">
+					<span class='helper'></span>
+					<a href="<?php echo($photosList[0]); ?>" data-lightbox="itemImg" ><img src='<?php echo($photosList[0]); ?>' id='itemBigPhotoImage' /></a>
+				</div>		
+				<div class="photoThumbnails">
+						<!-- <ul class="thumbs noscript"> -->
+								
+							<?php
+								// foreach($photosList as $photo)
+								// {
+									// echo("<li>
+// 													
+													// <div class='frame'><span class='helper'></span>
+														// <img src='$photo' class='photoThumb'/>
+												// </div>
+// 													
+										// </li>");
+								// }
+							?>
+							
+							<?php 
+								foreach($photosList as $photo){
+									echo('<div class="outer"><div class="inner">
+										<a href="' . $photo . '" data-lightbox="itemImg"><img src="' . $photo . '" class="galleryImg" id="' . $photo . '"/></a>
+									</div></div>');
+								}
+							?>
+							
+						<!-- </ul> -->
+					</div>
+					<!-- End Gallery Html Containers -->
+					<div style="clear: both;"></div>
+			</div>
 			</div>
 			</div>
 		 </div>

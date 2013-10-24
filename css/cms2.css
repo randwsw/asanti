@@ -66,18 +66,22 @@ div#leftMenu .title {
 	padding-left: 5px;
 }
 
-div#leftMenu ul#navigation {
+div#leftMenu .title:hover{
+	font-weight: bold;	
+}
+
+div#leftMenu ul.navigation {
 	margin-top: -12px;
 	list-style-type: none;
 }
 
-div#leftMenu ul#navigation li {
+div#leftMenu ul.navigation li {
 	cursor: pointer;
 	font-size: 10pt;
 	margin-left: -15px;
 }
 
-div#leftMenu ul#navigation li:hover {
+div#leftMenu ul.navigation li:hover {
 	font-weight: bold;
 }
 

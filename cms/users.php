@@ -34,12 +34,13 @@
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/usersController.php', 
-		    data: {action: "getUsers", category : category, sortBy : sortBy, direction : direction},
+		    data: {action: "getAll", sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
-		    	// alert("error");
+		    	alert("error");
 		    },
 		    success: function (data) { 
+		    	
 		    	$("#usersTable").html("<tr class='header'><td class='email'>Adres email</td>"
 		    	+ "<td class='name'>Imię</td>"
 		    	+ "<td class='lastName'>Nazwisko</td>"
@@ -77,7 +78,7 @@
 
 		    	})
 		    	editButton();
-		    	deleteItem();
+		    	deleteUser();
 		    	changeActiveUser();
 		    	// filter();
 		    	sort();
@@ -93,17 +94,18 @@
 		})
 	}
 	
-	function deleteItem(){
+	function deleteUser(){
 		$("input.delete").click(function(){
-			if(!window.confirm("Na pewno chcesz usunąć ten przedmiot?")){
+			alert("ASD");
+			if(!window.confirm("Na pewno chcesz usunąć tego użytkownika?")){
 	            return false;
 	        }else{
-			var itemId = $(this).attr("id");
-			itemId = itemId.substr(12,5);
+			var userId = $(this).attr("id");
+			userId = userId.substr(12,5);
 			$.ajax({ 
 			    type: 'POST', 
-			    url: 'controllers/deleteItemController.php', 
-			    data: {itemToDelete: itemId},
+			    url: 'controllers/usersController.php', 
+			    data: {action : "deleteUser", userId: userId},
 			    timeout: 50000,
 			    beforeSend: function(){
 			    	$("#progress").show();
@@ -115,8 +117,8 @@
 			    	alert("ajaxError");
 			    },
 			    success: function (data) {
-			    	$("#itemsTable").html("");
-			    	getItems();
+			    	$("#usersTable").html("");
+			    	getUsers();
 				},
 			})
 		}
