@@ -27,10 +27,10 @@
     		<div class="gender-picker">
     			<div class="gdiv" id="female">
 	    			<p class="genderp">dla dziewczynki</p>
-					<img src="img/girl.png" alt="Smiley face">
+					<!-- <img src="img/girl.png" alt="Smiley face"> -->
 				</div>
 				<div class="gdiv" id="male">
-					<img src="img/boy.png" alt="Smiley face">
+					<!-- <img src="img/boy.png" alt="Smiley face"> -->
 					<p class="genderp">dla chłopca</p>
 				</div>
     		</div> 

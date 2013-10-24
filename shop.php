@@ -162,6 +162,7 @@
 
 		$min = $itemsPerPage*($page-1);
 		$max = $min+4;
+		$icount = 0;
 		
 		if($cat!='recommended')
 		{
@@ -172,26 +173,58 @@
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
+			$icount++;
 			if($cat=='recommended') {
 				$cat=$rec['urlName']."-".$rec['parentId'];
 			}
-			echo("<div class='product-info'>
+			echo("<div class='product-info'>");
+			
+			echo("
 	     	<div class='imageContainer'>
-				<div class='imageOverlay' id='item_".$rec['id']."' >
+				<!--<div class='imageOverlay' id='item_".$rec['id']."' >
 					<a href='item.php?id=".$rec['id']."' >
-					<div class='eye'></div>
+						<div class='eye'></div>
 					</a>
-					<!--<div class='cart' id='item_".$rec['id']."'></div>-->	 	    	
-		    	</div>		    	
+					<div class='cart' id='item_".$rec['id']."'></div>	 	    	
+		    	</div>	-->	    	
 		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
 		    </div>
+		    
 		    <div class='product-price'>
 	 			<p>".$rec['price']."zł</p>
 	 		</div>
 		    <div class='product-name'>
 	 			<p>".$rec['iname']."</p>
-	 		</div> 
-	    </div>");
+	 		</div>");
+			
+			if($icount==1){
+				echo("<div class='imageConBig' id='topleft'>");
+			} else if($icount==4){
+				echo("<div class='imageConBig' id='topright'>");
+			} else if($icount%4==1 && $icount+4>$itemsPerPage){
+				echo("<div class='imageConBig' id='botleft'>");
+			} else if($icount==$itemsPerPage){
+				echo("<div class='imageConBig' id='botright'>");
+			} else if($icount<4){
+				echo("<div class='imageConBig' id='top'>");
+			}
+			else if($icount+4>$itemsPerPage){
+				echo("<div class='imageConBig' id='bot'>");
+			}
+			else if($icount%4==1){
+				echo("<div class='imageConBig' id='left'>");
+			}
+			else if($icount%4==0){
+				echo("<div class='imageConBig' id='right'>");
+			}  
+			else {
+				echo("<div class='imageConBig' id='middle'>");
+			}
+			echo("
+				<a href='item.php?id=".$rec['id']."' ><img class='productImageBig' src='".$rec['url']."' alt='Smiley face' ></a>
+		    	</div>
+		    </div>");
+			
 		  	
 		} 
 		
@@ -331,17 +364,17 @@ $( document ).ready(function() {
 	});	
 });
 
-$('.imageContainer').mouseenter(function() {
-   $(this).children('.imageOverlay').fadeIn(100, function() {
-   		$(this).children('.imageOverlay').stop();
-   });
-});
-
-$('.imageContainer').mouseleave(function() {
-	$(this).children('.imageOverlay').fadeOut(100, function() {
-		$(this).stop();
-});
-});
+// $('.imageContainer').mouseenter(function() {
+   // $(this).children('.imageOverlay').fadeIn(100, function() {
+   		// $(this).children('.imageOverlay').stop();
+   // });
+// });
+// 
+// $('.imageContainer').mouseleave(function() {
+	// $(this).children('.imageOverlay').fadeOut(100, function() {
+		// $(this).stop();
+// });
+// });
 
 // function setCookie(name, value, expire) {
         // document.cookie = name + "=" + escape(value) + ((expire==null)?"" : ("; expires=" + expire.toGMTString()))
