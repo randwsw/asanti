@@ -10,8 +10,8 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    $targ_w = 220;
-    $targ_h = 300;
+    $targ_w = 300;
+    $targ_h = 409;
     $jpeg_quality = 90;
   
   	$id = $_POST['passItemId'];
@@ -302,7 +302,7 @@ mysqli_close($conn);
   
                 	$('#cropbox').Jcrop({
                    		aspectRatio: 22 / 30,
-                   		minSize: [220, 300],
+                   		minSize: [300, 409],
                     	onSelect: updateCoords
                 	});
   

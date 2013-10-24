@@ -283,6 +283,8 @@ div#editItem #photos #headPhoto img.headPhoto{
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid black;
+	width: 220px;
+	height: 300px;
 }
 
 div#editItem #photos #headPhoto #overlay{
