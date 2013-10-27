@@ -60,43 +60,40 @@
 			});
 		}
 		
-		function changeActiveDiscount(){
-		var active;
-		$(".squaredOneCheckbox").change(function(){
-			if($(this).is(':checked')){
-				active = 1;
-			}else{
-				active = 0;
-			}
-			var discId = $(this).attr("id");
-			discId = discId.substr(10,5);
-			$.ajax({ 
-			    type: 'POST', 
-			    url: 'controllers/discountController.php', 
-			    data: {action: "changeActive", discId: discId, active: active},
-			    beforeSend: function(){
-			    	// $("#progress").show();
-			    },
-			    complete: function(){
-			    	// $("#progress").hide();
-			    },
-			    error: function (data) {
-			    },
-			    success: function (data) {
-			    	$("#confirmAlert").fadeIn("fast");
-					$("#confirmAlert").delay(800).fadeOut(800);
-				},
-			})
-		});
-			
-			
-	}
+		function changeLogin(){
+			$("input[name='changeLogin']").click(function(){
+				if($("input[name='newLogin']").val() != $("input[name='repLogin']").val()){
+					alert("Wpisane loginy nie zgadzają się!");
+				}
+				else{
+					var newLog = $("input[name='newLogin']").val();
+					$.ajax({ 
+					    type: 'POST', 
+					    url: 'controllers/settingsController.php', 
+					    data: {action: "changeLog", newLog : newLog},
+					    beforeSend: function(){
+					    	// $("#progress").show();
+					    },
+					    complete: function(){
+					    	// $("#progress").hide();
+					    },
+					    error: function (data) {
+					    	alert("error");
+					    },
+					    success: function (data) {
+					    	window.location.replace("controllers/logOut.php");
+						},
+					});
+				}
+				
+			});
+		}
 		
 		
 		$(document).ready(function(){
 			$("#confirmAlert").hide();
 			changePassword();
-			
+			changeLogin();
 		});
 		
 		</script>

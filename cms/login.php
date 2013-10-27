@@ -83,7 +83,7 @@
 		  		unset($_SESSION['login']);
 				unset($_SESSION['status']);
 			}
-			$_SESSION['login']=$login;
+			$_SESSION['log']=$login;
 			$_SESSION['status']="adm";
 
 			
