@@ -1,0 +1,79 @@
+.bigdiv {
+	width: 1100px;
+	height: 600px;
+	margin: 0 auto;
+	z-index: 4;
+	position: absolute;
+	left: 50%;
+	margin-left: -550px;
+	margin-top: 220px;
+	/*background-color: red;*/
+}
+	/*========ROWS========*/
+	.bigdiv .rowdiv {
+		width: 1100px;
+		
+	}
+	.bigdiv #topdiv, #botdiv {
+		height: 43px;
+		/*background-color: #707070;*/
+	}
+	.bigdiv #middiv {
+		height: 514px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdiv .rightdiv {
+		float: right;
+	}
+	.rowdiv .leftdiv {
+		float: left;
+	}
+	.rowdiv .centerdiv {
+		float: right;
+		height: 514px;
+	}
+	/*======TOP-BOT========*/
+	/*#toprightdiv, #topleftdiv, #botrightdiv, #botleftdiv {
+		width: 100px;
+		
+	}
+	#topcenterdiv, #botcenterdiv {
+		width: 800px; 
+		height: 43px;
+	}*/
+	/*====================*/
+	/*========MID=========*/
+	 #midleftdiv {
+		width: 37px;
+		height: 514px;	
+	}
+	#midrightdiv {
+		width: 42px;
+		height: 514px;
+	}
+	#midcenterdiv {
+		width: 1021px;
+		height: 514px;
+
+		/*background-color: #f6e9bc;*/
+		background:  url(../../img/pat2.png) repeat;
+	}
+	/*====================*/
+
+/* TEST */
+
+#topdiv {
+	background:  url(../../img/borders/top.png) top no-repeat;
+}
+#botdiv {
+	background:  url(../../img/borders/bot.png) top no-repeat;
+}
+
+#midrightdiv {
+		background:  url(../../img/borders/right.png) left repeat-y;
+}
+#midleftdiv {
+		background:  url(../../img/borders/left.png) left repeat-y;
+}
+

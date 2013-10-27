@@ -99,19 +99,19 @@
 		switch ($order) {
 		    case "az":
 		        $ordername = 'Alfabetycznie: a - z';
-		        $orderdb='i.name ASC, price ASC';
+		        $orderdb='iname ASC, price ASC';
 		        break;
 		    case "za":
 		        $ordername = 'Alfabetycznie: z - a';
-		        $orderdb='i.name DESC, price ASC';
+		        $orderdb='iname DESC, price ASC';
 		        break;
 		    case "pa":
 		        $ordername = 'Cena: od najmniejszej';
-		        $orderdb='price ASC, i.name ASC';
+		        $orderdb='price ASC, iname ASC';
 		        break;
 			case "pd":
 		        $ordername = 'Cena: od największej';
-				$orderdb='price DESC, i.name ASC';
+				$orderdb='price DESC, iname ASC';
 		        break;
 		}
 		
@@ -163,18 +163,39 @@
 		$min = $itemsPerPage*($page-1);
 		$max = $min+4;
 		$icount = 0;
+		$recarray = array();
+		
+		$sql= mysqli_query($conn, "SELECT item_id, price FROM recommended r, rec_price rp WHERE r.id = rp.rec_id");
+		while($rec = mysqli_fetch_array($sql)) {
+			$recarray[$rec["item_id"]] = $rec["price"];
+		}
 		
 		if($cat!='recommended')
 		{
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
-			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
+			$sql= mysqli_query($conn, "SELECT a.price, a.id, a.url, a.urlName, a.parentId, a.iname, it.price AS itprice FROM
+(SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price 
+FROM item i, photo ph, category c, category_con cc, recommended r, rec_price rp 
+WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id=c.id AND r.item_id = i.id AND rp.rec_id = r.id 
+UNION ALL
+SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, i.price AS price 
+FROM item i, photo ph, category c, category_con cc
+WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id=c.id AND i.id NOT IN (SELECT item_id FROM recommended) ) a, item it
+WHERE it.id=a.id
+ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
 		}else {
-			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, url, i.id, c.urlName AS urlName, c.parentId AS parentId FROM category c, category_con cc, item i, photo ph, recommended r WHERE i.id = cc.item_id AND c.id = cc.cat_id AND i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());		
+			$sql= mysqli_query($conn, 
+			"SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price, i.price AS iprice 
+			 FROM rec_price rp, category c, category_con cc, item i, photo ph, recommended r 
+			 WHERE i.id = cc.item_id AND c.id = cc.cat_id AND i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id AND r.id = rp.rec_id
+			 ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());	
+			 
+			 		
 		}
 		
 		while($rec = mysqli_fetch_array($sql)) {
 			$icount++;
 			if($cat=='recommended') {
+				
 				$cat=$rec['urlName']."-".$rec['parentId'];
 			}
 			echo("<div class='product-info'>");
@@ -190,40 +211,57 @@
 		     	<img class='productImage' src='".$rec['url']."' alt='Smiley face' >
 		    </div>
 		    
-		    <div class='product-price'>
-	 			<p>".$rec['price']."zł</p>
-	 		</div>
 		    <div class='product-name'>
 	 			<p>".$rec['iname']."</p>
-	 		</div>");
+	 		</div>
+		    <div class='product-price'>");
+			   if(isset($recarray[$rec['id']])){
+			   	if(isset($rec['itprice'])) {
+			   		echo("
+			   		<p><strike>".$rec['itprice']."zł</strike></p>
+		 			<p class='promo'>".$recarray[$rec['id']]."zł</p>");
+			   	} else {
+			   		echo("
+			   		<p><strike>".$rec['iprice']."zł</strike></p>
+		 			<p class='promo'>".$recarray[$rec['id']]."zł</p>");
+			   	}
+			   		
+			   } else {
+			   		echo("<p>".$rec['price']."zł</p>
+					<p class='promo'></p>");
+			   }
+	 			
+	 		echo("</div>
+	 		");
 			
 			if($icount==1){
-				echo("<div class='imageConBig' id='topleft'>");
+				echo("<div class='imageConBig' id='topleft' ");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			} else if($icount==4){
-				echo("<div class='imageConBig' id='topright'>");
+				echo("<div class='imageConBig' id='topright'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			} else if($icount%4==1 && $icount+4>$itemsPerPage){
-				echo("<div class='imageConBig' id='botleft'>");
+				echo("<div class='imageConBig' id='botleft'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			} else if($icount==$itemsPerPage){
-				echo("<div class='imageConBig' id='botright'>");
+				echo("<div class='imageConBig' id='botright'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			} else if($icount<4){
-				echo("<div class='imageConBig' id='top'>");
+				echo("<div class='imageConBig' id='top'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			}
 			else if($icount+4>$itemsPerPage){
-				echo("<div class='imageConBig' id='bot'>");
+				echo("<div class='imageConBig' id='bot'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			}
 			else if($icount%4==1){
-				echo("<div class='imageConBig' id='left'>");
+				echo("<div class='imageConBig' id='left'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			}
 			else if($icount%4==0){
-				echo("<div class='imageConBig' id='right'>");
+				echo("<div class='imageConBig' id='right'");?>onclick="window.location.href='item.php?id=<?php echo($rec["id"]); ?>'" style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			}  
 			else {
-				echo("<div class='imageConBig' id='middle'>");
+				echo("<div class='imageConBig' id='middle'");?>style="background:url('<?php echo($rec['url']); ?>') no-repeat " <?php echo(">");
 			}
 			echo("
-				<a href='item.php?id=".$rec['id']."' ><img class='productImageBig' src='".$rec['url']."' alt='Smiley face' ></a>
+				
 		    	</div>
-		    </div>");
+		    ");
+		    echo("</div>");
 			
 		  	
 		} 
