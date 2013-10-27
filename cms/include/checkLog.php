@@ -5,7 +5,7 @@
 					// {
 					    // session_start();
 					// } 
-					if(isset($_SESSION['login']) && $_SESSION['status'] == "adm") {
+					if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
 						// $login = $_SESSION['login'];
 // 						
