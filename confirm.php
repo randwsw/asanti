@@ -9,6 +9,7 @@ $quantity = $_POST['quantity'];
 $iid = $_POST['iid'];
 $sizes = $_POST['sizes'];
 $sum=0;
+$disc = $_POST['dischid'];
 
 if(!session_id())
 	{
@@ -17,7 +18,7 @@ if(!session_id())
 	if(!isset($_SESSION['login'])) {
 		header('Location: login.php?cr=1');
 	}else {
-		
+		setcookie("cartItem", "", time()-3600, '/');
 		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
 
 		$config = HTMLPurifier_Config::createDefault();
@@ -47,8 +48,8 @@ $result = mysqli_query($conn,"SELECT u.id FROM users u WHERE email = '$login'");
 				  }
 		$date = date('d-m-Y H:i:s');
 		
-mysqli_query($conn,"INSERT INTO orders (user_id, order_date, status, order_value)
-		VALUES ('$uid', '$date', 0, $sum)");
+mysqli_query($conn,"INSERT INTO orders (user_id, order_date, status, order_value, disc)
+		VALUES ('$uid', '$date', 0, $sum, $disc)");
 $oid= mysqli_insert_id($conn);
 		
 foreach( $name as $key => $n ) {		

@@ -382,7 +382,9 @@ div .panel-div > #profile-icon {
 	border-radius: 4px;
 	border: 1px solid #C99C57;
 }
-
+.imageContainer:hover ~ .imageConBig {
+		display: block;
+}
 
 
 .product-info{
@@ -411,48 +413,49 @@ div .panel-div > #profile-icon {
 	}
 	
 	.imageConBig .productImageBig {
-		position: absolute; 
+		margin-top:-48px;
+		padding: 0;
 		width: 300px;
 		height: 409px;
 	}
 	
-	.product-info:hover .imageConBig {
+	.imageConBig:hover {
 		display: block;
 	}
 		.product-info > div#topleft{
-			top: -369px;
+			top: -335px;
 			left: -15px;
 		}
 		.product-info > div#topright{
-			top: -369px;
+			top: -335px;
 			left: -65px;
 		}
 		.product-info > div#botright{
-			top: -400px;
+			top: -358px;
 			left: -65px;
 		}
 		.product-info > div#botleft{
-			top: -400px;
+			top: -358px;
 			left: -15px;
 		}
 		.product-info > div#top{
-			top: -369px;
+			top: -335px;
 			left: -40px;
 		}
 		.product-info > div#left{
-			top: -385px;
+			top: -355px;
 			left: -15px;
 		}
 		.product-info > div#right{
-			top: -385px;
+			top: -355px;
 			left: -65px;
 		}
 		.product-info > div#bot{
-			top: -400px;
+			top: -358px;
 			left: -40px;
 		}
 		.product-info > div#middle{
-			top: -385px;
+			top: -355px;
 			left: -40px;
 		}
 	
@@ -469,16 +472,26 @@ div .panel-div > #profile-icon {
 	display: none;
 	position: absolute;
 }
-.product-price , .product-name {
+.product-name {
 	margin-top: 10px;
+	overflow: hidden;
+	float: left;
 	/*margin-bottom: 10px;*/
+}
+.product-price {
+	margin-top: 10px;
+	overflow: hidden;
+	float: right;
 } 
 .product-price p {
-	float: right;
+	/*float: right;*/
 	margin-left: 10px;
 	color: #58300c;
 	font-size: 16pt;
 }
+	.product-price .promo {
+		height: 21px;
+	}
 .product-name p{
 	
 	color: #C99C57;
@@ -1430,7 +1443,7 @@ div.connectionBox .connectionTitle{
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-top: 5px;
-	height: 20px;
+	height: 40px;
 	border-top: 1px solid gray;
 	float: right;
 	margin-right: 125px;

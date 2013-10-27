@@ -137,8 +137,20 @@
 				
 			$querypart = "i.id = ".$val->id;
 			   			
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, i.price, i.id, urlName, parentId, rp.price AS rprice 
+										FROM item i, category c, category_con cc, recommended r, rec_price rp 
+										WHERE (".$querypart.") AND i.id=cc.item_id AND c.id=cc.cat_id AND i.id=r.item_id AND r.id=rp.rec_id;");
+
+			if( mysqli_num_rows($sql) > 0) {
+			$sql= mysqli_query($conn, "SELECT i.name AS iname, i.id, urlName, parentId, rp.price AS price 
+										FROM item i, category c, category_con cc, recommended r, rec_price rp 
+										WHERE (".$querypart.") AND i.id=cc.item_id AND c.id=cc.cat_id AND i.id=r.item_id AND r.id=rp.rec_id;");
+			}
+			else
+			{
 			$sql= mysqli_query($conn, "SELECT i.name AS iname, price, i.id, urlName, parentId FROM item i, category c, category_con cc WHERE (".$querypart.")AND i.id=cc.item_id AND c.id=cc.cat_id;");
-			
+
+			}
 			
 			echo("<form method='POST' action='confirm.php' name='cartForm'>");
 			while($rec = mysqli_fetch_array($sql)) {
@@ -170,6 +182,7 @@
 					</div>
 					<div class='column-price-all'>
 						<p class='price-all' id=price-all-".$rec['id'].">".$prc = number_format($rec['price']*$val->count, 2, '.', '')."</p>
+						
 					</div>
 					<div class='column-remove' id='".$cookies[$count]."|'>
 						<a href=''><p>X</p></a>
@@ -179,7 +192,7 @@
 			}
 			$count++;
 		  }
-		  $sql= mysqli_query($conn, "SELECT value, item_count FROM discount WHERE active = 0;");
+		  $sql= mysqli_query($conn, "SELECT value, item_count FROM discount WHERE active = 1;");
 		  $ex = 0;
 		  $ct = 0;
 		  $dc= 0;
@@ -214,25 +227,22 @@
 			</div>
 				<div class="column-price-all">
 					<p id='complPrice'>
-						<?php
-						
-						
+						<?php					
 						echo($sum);
-						
-						  
-						?>
+	  					?>
 					</p>
 					<p id='disc'>
-						<?php if($ex==1){
+						<?php if($globalcount>=$ct) {
 							echo("(-".$dc."%)");
 						}
 						?>
 					</p>
 			</div>
 			<div class="column-submit">
-				<p><a id='cartSubmit' onclick="$.cookie('cartItem', 'newcookie', { expires: 0, path: '/' });document.cartForm.submit();">Kup</a></a></p>
+				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
 			</div>
 		</div>
+		<input id='discounthid' type='hidden' name='dischid' value='<?php if($globalcount>=$ct) echo($dc); else echo("0"); ?>'/>
 		</form>
 	</div>
 </body>
@@ -300,9 +310,11 @@ $( document ).ready(function() {
 			if(totalcount>= <?php echo($ct); ?>)
 			{
 				 totalprice=totalprice-(totalprice*<?php echo($dc); ?>/100);
-				  $("#disc").html('(-<?php echo($dc); ?>)');		 
+				  $("#disc").html('(-<?php echo($dc); ?>%)');
+				  $("#discounthid").attr('value', '<?php echo($dc);?>');			 
 			} else {
 				$("#disc").html('');
+				$("#discounthid").attr('value', '0');			 
 			}
 		}
 		
