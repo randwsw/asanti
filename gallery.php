@@ -32,11 +32,7 @@
         <div class="bg">
         </div>
     <div class="container">
-        <!-- Include submenu -------------------------------------------------------- -->
-        <!-- <?php include 'include/submenu.php'; ?> -->
-        <!-- ------------------------------------------------------------------------ -->
        
- 
 		<div id="gallery">
 			<div class="bigdiv">
 				<div class="rowdiv" id="topdiv"></div>
