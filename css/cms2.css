@@ -1535,6 +1535,15 @@ div#promoted table#promotedTable tr.header td.category{
 	padding-right: 5px;
 }
 
+div#promoted table#promotedTable tr.header td.price{
+	border: 2px solid White;
+	width: 50px;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 div#promoted table#promotedTable tr.header td.connections{
 	width: 20px;
 	max-width: 50px;
@@ -1570,7 +1579,6 @@ div#promoted table#promotedTable td.name{
 }
 
 div#promoted table#promotedTable td.price{
-	width: 40px;
 	text-align: right;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -1623,6 +1631,20 @@ div#promoted table#promotedTable input.deleteAll {
 	height: 22px;
 }
 
+div#promoted table#promotedTable td.price input[type="button"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+	margin-left: 10px;
+}
+
+div#promoted table#promotedTable td.price input[type="text"]{
+	width: 50px;
+	text-align: center;
+		
+}
 /* //////////////////////////////////////////////////// */
 /* DISCOUNTS ////////////////////////////////////////// */
 div#discounts{
@@ -1675,6 +1697,27 @@ div#discounts table input[type="text"]{
 }
 
 div#discounts input[name="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+/* //////////////////////////////////////////////////// */
+/* SETTINGS//////////////////////////////////////////// */
+div#settings{
+
+}
+
+div#settings #newPw{
+	width: 200px	
+}
+
+div#settings #newLog{
+	width: 200px;	
+}
+
+div#settings input[type="button"]{
 	background-color: #49a05e;
 	color: rgba(255,255,255,0.8);
 	border: none;

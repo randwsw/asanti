@@ -38,11 +38,12 @@
 		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	$("#promotedTable").html("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
 		    	+ "<td class='category'>Kategoria</td>"
+		    	+ "<td class='price'>Cena</td>"
 		    	+ "<td class='options'>Opcje</td>");
 
 		    	var j = 0;
@@ -63,6 +64,7 @@
 		    		$("#promotedTable").append(
 		    			"<tr class='" + trClass + "'><td class='name' id='nameTd" + row.itemId + "'>" + row.itemName 
 		    			+ "</td><td class='category' id='categoryTd" + row.itemId + "'>" + row.categoryName
+		    			+ "</td><td class='price' id='priceTd" + row.itemId + "'><input type='text' id='recPrice_" + row.recId + "'value='" + row.recPrice + "' /> zł <input type='button' class='changePrice' id='recPrice_" + row.recId + "' value='Zmień cenę' />"
 		    			+ "</td><td class='options'>"
 		    			+ "<input type='button' class='deleteAll' value='Usuń' id='deleteButton_" + row.itemId + "'/>"
 						+ "</td></tr>"
@@ -73,7 +75,7 @@
 		    	deletePromoted();
 		    	filter();
 		    	sort();
-		    	// sort();
+		    	changePrice();
 			},
 		})
 	}
@@ -87,7 +89,7 @@
 		    data: {action : "getAll", promoted : "promoted"},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	$("#itemsTable").append("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
@@ -142,10 +144,40 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	window.location.replace("promoted.php");
+				},
+			})
+			
+			
+		})
+	}
+	
+	function changePrice(){
+		$("input.changePrice").click(function(){
+			
+			var recId = $(this).attr("id").substr(9,5);
+			var price = $("input[type='text']#recPrice_" + recId).val();
+
+			$.ajax({ 
+			    type: 'POST', 
+			    url: 'controllers/promotedController.php', 
+			    data: {action : "changePrice", recId : recId, price : price},
+			    timeout: 50000,
+			    beforeSend: function(){
+			    	$("#progress").show();
+			    },
+			    complete: function(){
+			    	$("#progress").hide();
+			    },
+			    error: function (data) {
+			    	// alert("ajaxError");
+			    },
+			    success: function (data) {
+			    	$("#confirmAlert").fadeIn("fast");
+					$("#confirmAlert").delay(800).fadeOut(800);
 				},
 			})
 			
@@ -174,7 +206,7 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	window.location.replace("promoted.php");
@@ -267,7 +299,7 @@
 	
 	$(document).ready(function(){
 		$("#progress").hide();
-		
+		$("#confirmAlert").hide();
 		sort();
 		getPromoted();
 		setSelects();
@@ -275,7 +307,6 @@
 		getItems();
 		deleteSet();
 		addMore();
-		
 	})
 	</script>
 </head>
@@ -304,11 +335,12 @@
 				
 				<div id="container">
 					
-					<img src="../img/progress_indicator.gif" id="progress" />
+					<!-- <img src="../img/progress_indicator.gif" id="progress" /> -->
 					
 					<div id="promoted">
 						
 						<div id="container">
+							<div id="confirmAlert">Zmieniono cenę.</div>
 							<?php
 							if((!isset($_GET['action'])) || ($_GET['action'] != "add") && ($_GET['action'] != "edit")){
 								echo('<div id="filters">

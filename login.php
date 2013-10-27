@@ -87,7 +87,7 @@
 				<div class ="formdiv">
 					<p>Nie masz konta? Kliknij poniżej.</p>
 				</div>
-				<div class ="formdiv">
+				<!-- <div class ="formdiv">
 					<ul>
 			            <li>&#187 Costam1</li>
 			            <li>&#187 Costam2</li>
@@ -95,7 +95,7 @@
 			            <li>&#187 Costam4</li>
 			            <li>&#187 Costam5</li>
 			        </ul>
-			    </div>
+			    </div> -->
 			    <br>	
 				<div class ="formdiv">
 					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>

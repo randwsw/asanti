@@ -89,12 +89,14 @@ switch ($action) {
 		// //////////////////////////////////////////////////////////////////////////////////////////////////// //
 		
 		
-		$result = mysqli_query($conn,"SELECT i.id AS itemId, i.name AS itemName, i.description AS itemDescription, 
-										i.active AS itemActive, ph.url AS headPhotoUrl, i.price AS itemPrice, 
+		$result = mysqli_query($conn,"SELECT i.id AS itemId, i.name AS itemName,  
+										i.active AS itemActive, ph.url AS headPhotoUrl, i.price AS itemPrice, rp.price AS recPrice, r.id AS recId, 
 										c.name AS categoryName, c.urlName AS categoryUrlName, (SELECT COUNT(id) FROM item_conn ic WHERE i.id = ic.item1_id OR i.id = ic.item2_id) AS connections
-									FROM item i, category c, category_con cc, photo ph
+									FROM item i, category c, category_con cc, photo ph, rec_price rp, recommended r
 									WHERE c.id = cc.cat_id
-									AND i.id = cc.item_id"
+									AND i.id = cc.item_id
+									AND r.id = rp.rec_id
+									AND r.item_id = i.id"
 									. $idFilter . $nameFilter . $categoryFilter . $promoted .
 									" GROUP BY i.id"
 									. $sort);
@@ -117,6 +119,12 @@ switch ($action) {
 		// ---------------------------------------------------------------------------------------------------------- //
 			$itemId2 = $_POST['itemId2'];
 			
+			$result = mysqli_query($conn,"SELECT i.price AS itemPrice FROM item i WHERE i.id = $itemId2");
+			while($row = mysqli_fetch_array($result))
+			{
+				$price = $row['itemPrice'];
+			}
+			
 			$sql="INSERT INTO recommended (item_id)
 			VALUES
 			('$itemId2')";
@@ -127,8 +135,25 @@ switch ($action) {
 				mysqli_close($conn);
 			}else
 			{
-				mysqli_close($conn);
 			}
+			
+			$result2 = mysqli_query($conn,"SELECT r.id AS recId FROM recommended r ORDER BY r.id DESC LIMIT 1");
+			while($row2 = mysqli_fetch_array($result2))
+			{
+				$recId = $row2['recId'];
+			}
+			$sql2="INSERT INTO rec_price (rec_id, price)
+			VALUES
+			('$recId', '$price')";
+			
+			if (!mysqli_query($conn,$sql2))
+			{
+				die('Error: ' . mysqli_error($conn));
+				mysqli_close($conn);
+			}else
+			{
+			}
+			mysqli_close($conn);
 			break;
 			  
 			  
@@ -142,19 +167,50 @@ switch ($action) {
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
 			$itemId2 = $_POST['itemId2'];
-			
-					$sql="DELETE FROM recommended
-					WHERE item_id = '$itemId2'";
+					
+					$result = mysqli_query($conn,"SELECT r.id AS recId FROM recommended r WHERE r.item_id = $itemId2");
+					while($row = mysqli_fetch_array($result))
+					{
+						$recId = $row['recId'];
+					}
+					
+					$sql="DELETE FROM rec_price
+					WHERE rec_id = '$recId'";
 					if (!mysqli_query($conn,$sql))
 					{
 						  die('Error: ' . mysqli_error($conn));
 						  mysqli_close($conn);
 					}else
 					{
-						echo("success");
-					}	
-				
+					}		
+					
+					$sql="DELETE FROM recommended
+					WHERE id = '$recId'";
+					if (!mysqli_query($conn,$sql))
+					{
+						  die('Error: ' . mysqli_error($conn));
+						  mysqli_close($conn);
+					}else
+					{
+					}
+
+			mysqli_close($conn);
+			break;
 			
+			
+			
+			
+			
+		case "changePrice":
+		// ---------------------------------------------------------------------------------------------------------- //
+		// CHANGE PROMOTED ITEM PRICE ------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+			$recId = $_POST['recId'];
+			$price = $_POST['price'];
+			
+			mysqli_query($conn,'UPDATE rec_price SET price = "' . $price . '" WHERE rec_id = "' . $recId . '"');
 			mysqli_close($conn);
 			break;
 }

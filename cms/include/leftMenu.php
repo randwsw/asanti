@@ -15,6 +15,7 @@
 	<li><a href="about.php">Płatności</a></li>
 	<li><a href="about.php">Tło</a></li>
 </ul>
+<p class="title"><a href="settings.php">Ustawienia</a></p>
 <p class="title"><a href="controllers/logOut.php">WYLOGUJ SIĘ</a></p>
 <!-- <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Dodaj przedmiot</a>
 <a href="addItem.php" class="navigation" id="dodajPrzedmiot">Edytuj przedmiot</a>
