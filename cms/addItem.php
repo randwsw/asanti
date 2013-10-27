@@ -179,7 +179,7 @@ if(!isset($_POST["submit"])){?>
 		
 		<a href="../index.php"><div>GO TO SHOP</div></a>
 		
-		<div id="header"><div id="title">ASANTI CMS</div><div id="subtitle">Dodaj przedmiot</div></div>
+		<div id="header"><div id="title">ASANTI CMS</div><div id="subTitle">Dodaj przedmiot</div></div>
 		
 		<div id="container">
 			

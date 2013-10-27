@@ -264,7 +264,7 @@
 		
 		<div id="header">
 			<div id="title">ASANTI CMS</div>
-			<div id="subtitle">
+			<div id="subTitle">
 				<?php if(isset($_GET['action']) && $_GET['action'] == "add"){ ?>
 					Utwórz nową galerię 
 				<?php } ?>

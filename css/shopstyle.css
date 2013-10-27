@@ -1107,6 +1107,7 @@ div.connectionBox .connectionTitle{
 	width: 100px;
 	height: 28px;
 	background: #FFFFFF;
+	cursor: pointer;
 }
 	.form-button:hover {
 		border: 1px solid gray;

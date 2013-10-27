@@ -192,7 +192,11 @@
 			}
 			$count++;
 		  }
+<<<<<<< HEAD
 		  $sql= mysqli_query($conn, "SELECT value, item_count FROM discount WHERE active = 1;");
+=======
+		  $sql= mysqli_query($conn, "SELECT value, item_count FROM discount WHERE active = 1111;");
+>>>>>>> a0c28d62d4c831c31562ae025c7ea281c74c41ca
 		  $ex = 0;
 		  $ct = 0;
 		  $dc= 0;
