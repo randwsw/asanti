@@ -1,0 +1,76 @@
+.bigdivf {
+	width: 1100px;
+	height: 80px;
+    margin: 0 auto;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    z-index: 3;
+    position: relative;
+}
+	/*========ROWS========*/
+	.bigdivf .rowdivf {
+		width: 1100px;
+		
+	}
+	.bigdivf #topdivf, #botdivf {
+		height: 43px;
+	}
+	.bigdivf #middivf {
+		height: 40px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdivf .rightdivf {
+		float: right;
+	}
+	.rowdivf .leftdivf {
+		float: right;
+	}
+	.rowdivf .centerdivf {
+		float: right;
+	}
+	/*========MID=========*/
+	 #midleftdivf {
+		width: 37px;
+		height: 40px;		
+	}
+	#midrightdivf {
+		width: 42px;
+		height: 40px;
+	}
+	#midcenterdivf {
+		width: 1021px;
+		height: 40px;
+		background:  url(../../img/pat2.png) repeat;
+	}
+	#midcenterdivf #wrapper{
+		width: 800px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	#midcenterdivf #wrapper p{
+	font-family: "Gabriola";
+	font-size: 19pt;
+	color: #C99C57;
+	margin: 10px 50px 0 50px;
+	float: right;
+	}
+	/*====================*/
+
+/* TEST */
+
+#topdivf {
+	background:  url(../../img/borders/top.png) top no-repeat;
+}
+#botdivf {
+	background:  url(../../img/borders/bot.png) top no-repeat;
+
+}
+
+#midrightdivf {
+		background:  url(../../img/borders/right.png) left repeat-y;
+}
+#midleftdivf {
+		background:  url(../../img/borders/left.png) left repeat-y;
+}
+

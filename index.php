@@ -218,11 +218,11 @@ ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
 			   if(isset($recarray[$rec['id']])){
 			   	if(isset($rec['itprice'])) {
 			   		echo("
-			   		<p><strike>".$rec['itprice']."zł</strike></p>
+			   		<p><strike id='pstrike'>".$rec['itprice']."zł</strike></p>
 		 			<p class='promo'>".$recarray[$rec['id']]."zł</p>");
 			   	} else {
 			   		echo("
-			   		<p><strike>".$rec['iprice']."zł</strike></p>
+			   		<p><strike id='pstrike'>".$rec['iprice']."zł</strike></p>
 		 			<p class='promo'>".$recarray[$rec['id']]."zł</p>");
 			   	}
 			   		
@@ -298,7 +298,8 @@ echo("<div class='itemMenu'>");
 		echo("</div>");
 		echo("</div>");	 
 ?>
-     </div> 
+     </div>
+     <?php include 'include/footer.php'; ?> 
 </body>      
 </html>
 <script type="text/javascript">

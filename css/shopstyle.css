@@ -410,6 +410,7 @@ div .panel-div > #profile-icon {
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 		border: 3px solid #C99C57;
+		cursor: pointer;
 	}
 	
 	.imageConBig .productImageBig {
@@ -485,10 +486,12 @@ div .panel-div > #profile-icon {
 } 
 .product-price p {
 	/*float: right;*/
+	overflow:hidden;
 	margin-left: 10px;
 	color: #58300c;
 	font-size: 16pt;
 }
+
 	.product-price .promo {
 		height: 21px;
 	}
