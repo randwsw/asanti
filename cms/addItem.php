@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <?php
 
@@ -66,7 +68,30 @@ if(!isset($_POST["submit"])){?>
 </script>
   
 <script type="text/javascript">
-
+		
+		function addItem(){
+			$('input[name="submit"]').click(function(){
+				var name = $('input[name="name"]').val();
+				var description = $('input[name="description"]').val();
+				var category = $('input[name="category"]').val();
+				var price = $('input[name="price"]').val();
+				$.ajax({ 
+					type: 'POST', 
+					url: 'controllers/sizeController.php', 
+					data: {action : "addItem", name : name, desctiption : description, category : category, price : price},
+						 
+					error: function (data) {
+						// alert("porażka!");
+					},
+					success: function (data) {
+						// alert("success");
+					// alert(data);
+					},
+				});
+			});
+		}
+		
+		
 		function showPreview(){
 			var inputLocalFont = document.getElementById("image-input");
 			inputLocalFont.addEventListener("change",previewImages,false);
@@ -120,7 +145,7 @@ if(!isset($_POST["submit"])){?>
 		    url: 'controllers/categoryController.php', 
 		    data: {action : "getCategories", parentId: parentId},
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	var selectId;
@@ -196,7 +221,7 @@ if(!isset($_POST["submit"])){?>
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
 					
 					<div id="newItem">
-						<form action="addItem.php"; method="POST" enctype="multipart/form-data">
+						<form action="pickHeadPhoto.php"; method="POST" enctype="multipart/form-data">
 							
 							<div id="name">
 								

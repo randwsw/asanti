@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <?php
 
@@ -132,13 +134,14 @@
 					</div>
 					
 					
-					<form action="addPhotos.php"; method="POST" enctype="multipart/form-data">
+					<form action="editItem.php?itemId=<?php echo($itemId); ?>"; method="POST" enctype="multipart/form-data">
 						
 						
 						<div id="addPhotos">
 							
 							<div id="container">
 								<input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" />
+								<input type="hidden" id="photosAdded" name="photosAdded" value="photosAdded" />
 								<div class="label">Dodaj nowe zdjęcia:</div>
 								<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
 								<div class="preview-area"></div>
@@ -178,105 +181,105 @@
 </html>
 
 <?php }
-else 
-{
-			
-			
-// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$itemId = $_POST["passItemId"];
-$lastOrderN = "";
-// //////////////////////////////////////////////////////////////////////////////////////////////////// //
-
-	
-	
-	set_time_limit(300);//for uploading big files
-	
-	$paths="asanti/img/items/" . $itemId;
-
-	$ftp_server="serwer1309748.home.pl";
-
-	$ftp_user_name="serwer1309748";
-
-	$ftp_user_pass="9!c3Q9";
-
-	$filesList = array();
-
-
-
-	// set up a connection to ftp server
-	$conn_id = ftp_connect($ftp_server);
-	
-	// login with username and password
-	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-
-	// check connection and login result
-	if ((!$conn_id) || (!$login_result)) {
-		echo "FTP connection has encountered an error!";
-		echo "Attempted to connect to $ftp_server for user $ftp_user_name....";
-		exit;
-	   	} else {
-	       	echo "Connected to $ftp_server, for user $ftp_user_name".".....";
-	   	}
-   
-   
-	ftp_mkdir($conn_id, $paths);
-
-	for($i=0; $i<count($_FILES['userfile']['name']); $i++){
-		
-		$filep=$_FILES['userfile']['tmp_name'][$i];
-		$name=$_FILES['userfile']['name'][$i];	
-		
-		$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
-	
-		// check the upload status
-		if (!$upload) {
-			echo "FTP upload has encountered an error!";
-		   } else {
-		   		array_push($filesList, $name);
-		       	echo "Uploaded file with name $name to $ftp_server </br>";
-		   }
-	}
-	// close the FTP connection
-	ftp_close($conn_id);	
-	
-	
-	// Add files to SQL ///////////////////////////////////////////////////////////////////
-	
-	
-	if (mysqli_connect_errno())
-	{
- 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
-	
-	
-	$result = mysqli_query($conn,"SELECT MAX(orderN) AS orderN FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
-										
-	while($row = mysqli_fetch_array($result))
-		{
-			$lastOrderN = $row["orderN"];
-		}
-	
-	// TO FIX!!!!!!!!!!!!!!!! ////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////
-	
-	$i=$lastOrderN + 1;
-
-	foreach($filesList as $file){
-		$sql = ("INSERT INTO photo (name, item_id, url, orderN) 
-			VALUES ('" .  $file . "', '" . $itemId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $itemId	 . "/" . $file . "', '$i')");
-			$i++;
-	if (!mysqli_query($conn,$sql))
-  	{
-  		die('Error: ' . mysqli_error($conn));
-  	} else {
-  		// echo $i . " record added </br>";
-		// $i++;
-  	}
-	
-	}
-	
-	header("Location: editItem.php?itemId=" . $itemId);
-}
-?>
+// else 
+// {
+// 			
+// 			
+// // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+// $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+// $itemId = $_POST["passItemId"];
+// $lastOrderN = "";
+// // //////////////////////////////////////////////////////////////////////////////////////////////////// //
+// 
+// 	
+// 	
+	// set_time_limit(300);//for uploading big files
+// 	
+	// $paths="asanti/img/items/" . $itemId;
+// 
+	// $ftp_server="serwer1309748.home.pl";
+// 
+	// $ftp_user_name="serwer1309748";
+// 
+	// $ftp_user_pass="9!c3Q9";
+// 
+	// $filesList = array();
+// 
+// 
+// 
+	// // set up a connection to ftp server
+	// $conn_id = ftp_connect($ftp_server);
+// 	
+	// // login with username and password
+	// $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+// 
+	// // check connection and login result
+	// if ((!$conn_id) || (!$login_result)) {
+		// echo "FTP connection has encountered an error!";
+		// echo "Attempted to connect to $ftp_server for user $ftp_user_name....";
+		// exit;
+	   	// } else {
+	       	// echo "Connected to $ftp_server, for user $ftp_user_name".".....";
+	   	// }
+//    
+//    
+	// ftp_mkdir($conn_id, $paths);
+// 
+	// for($i=0; $i<count($_FILES['userfile']['name']); $i++){
+// 		
+		// $filep=$_FILES['userfile']['tmp_name'][$i];
+		// $name=$_FILES['userfile']['name'][$i];	
+// 		
+		// $upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
+// 	
+		// // check the upload status
+		// if (!$upload) {
+			// echo "FTP upload has encountered an error!";
+		   // } else {
+		   		// array_push($filesList, $name);
+		       	// echo "Uploaded file with name $name to $ftp_server </br>";
+		   // }
+	// }
+	// // close the FTP connection
+	// ftp_close($conn_id);	
+// 	
+// 	
+	// // Add files to SQL ///////////////////////////////////////////////////////////////////
+// 	
+// 	
+	// if (mysqli_connect_errno())
+	// {
+ 		// echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	// }
+// 	
+// 	
+	// $result = mysqli_query($conn,"SELECT MAX(orderN) AS orderN FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
+// 										
+	// while($row = mysqli_fetch_array($result))
+		// {
+			// $lastOrderN = $row["orderN"];
+		// }
+// 	
+	// // TO FIX!!!!!!!!!!!!!!!! ////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////
+	// ///////////////////////////////////////////////////////////////
+// 	
+	// $i=$lastOrderN + 1;
+// 
+	// foreach($filesList as $file){
+		// $sql = ("INSERT INTO photo (name, item_id, url, orderN) 
+			// VALUES ('" .  $file . "', '" . $itemId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $itemId	 . "/" . $file . "', '$i')");
+			// $i++;
+	// if (!mysqli_query($conn,$sql))
+  	// {
+  		// die('Error: ' . mysqli_error($conn));
+  	// } else {
+  		// // echo $i . " record added </br>";
+		// // $i++;
+  	// }
+// 	
+	// }
+// 	
+	// header("Location: editItem.php?itemId=" . $itemId);
+// }
+// ?>

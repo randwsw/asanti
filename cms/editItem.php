@@ -1,16 +1,125 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!--
 	Typ rozmiaru po załądowaniu strony powinien być ustawiony od razu na taki jaki ma dany przedmiot
 	automatyczne generowanie optionów dla selecta rozmiarów
 -->
+
+
+<?php
+if ($_POST['photosAdded'] == "photosAdded"){
+	error_reporting(0);
+	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+	if (mysqli_connect_errno())
+	{
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+		$itemId = $_POST["passItemId"];
+			$lastOrderN = "";
+				
+				set_time_limit(300);//for uploading big files
+				
+				$paths="asanti/img/items/" . $itemId;
+			
+				$ftp_server="serwer1309748.home.pl";
+			
+				$ftp_user_name="serwer1309748";
+			
+				$ftp_user_pass="9!c3Q9";
+			
+				$filesList = array();
+			
+			
+			
+				// set up a connection to ftp server
+				$conn_id = ftp_connect($ftp_server);
+				
+				// login with username and password
+				$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+			
+				// check connection and login result
+				if ((!$conn_id) || (!$login_result)) {
+					// echo "FTP connection has encountered an error!";
+					// echo "Attempted to connect to $ftp_server for user $ftp_user_name....";
+					exit;
+				   	} else {
+				       	// echo "Connected to $ftp_server, for user $ftp_user_name".".....";
+				   	}
+			   
+			   
+				ftp_mkdir($conn_id, $paths);
+			
+				for($i=0; $i<count($_FILES['userfile']['name']); $i++){
+					
+					$filep=$_FILES['userfile']['tmp_name'][$i];
+					$name=$_FILES['userfile']['name'][$i];	
+					
+					$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
+				
+					// check the upload status
+					if (!$upload) {
+						// echo "FTP upload has encountered an error!";
+					   } else {
+					   		array_push($filesList, $name);
+					       	// echo "Uploaded file with name $name to $ftp_server </br>";
+					   }
+				}
+				// close the FTP connection
+				ftp_close($conn_id);	
+				
+				
+				// Add files to SQL ///////////////////////////////////////////////////////////////////
+				
+				
+				if (mysqli_connect_errno())
+				{
+			 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+				
+				
+				$result11 = mysqli_query($conn,"SELECT MAX(orderN) AS orderN FROM photo WHERE item_id = $itemId AND isHEadPhoto = '0'");
+													
+				while($row = mysqli_fetch_array($result11))
+					{
+						$lastOrderN = $row["orderN"];
+					}
+				
+				// TO FIX!!!!!!!!!!!!!!!! ////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////
+				///////////////////////////////////////////////////////////////
+				
+				$i=$lastOrderN + 1;
+			
+				foreach($filesList as $file){
+					$sql = ("INSERT INTO photo (name, item_id, url, orderN) 
+						VALUES ('" .  $file . "', '" . $itemId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $itemId	 . "/" . $file . "', '$i')");
+						$i++;
+				if (!mysqli_query($conn,$sql))
+			  	{
+			  		die('Error: ' . mysqli_error($conn));
+			  	} else {
+			  		// echo $i . " record added </br>";
+					// $i++;
+			  	}
+				
+				}
+}
+?>
+
+
+
+
+
+
 
 <?php
 
@@ -26,7 +135,7 @@ $headPhotoUrl = "";
 $itemTitle = "";	
 $itemPrice = "";
 $itemDescription = "";					
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 										
 	
 require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
@@ -41,7 +150,7 @@ if (mysqli_connect_errno())
 	}
 																		
 										
-$result = mysqli_query($conn,"SELECT * FROM item WHERE id = $itemId");
+$result = mysqli_query($conn2,"SELECT * FROM item WHERE id = $itemId");
 										
 while($row1 = mysqli_fetch_array($result))
 	{
@@ -50,7 +159,7 @@ while($row1 = mysqli_fetch_array($result))
 		$itemPrice = $row1['price'];
 	}
 
-$result2 = mysqli_query($conn,"SELECT * FROM photo WHERE id = (SELECT headPhotoId FROM item WHERE id = $itemId)");
+$result2 = mysqli_query($conn2,"SELECT * FROM photo WHERE id = (SELECT headPhotoId FROM item WHERE id = $itemId)");
 
 while($row2 = mysqli_fetch_array($result2))
 	{
@@ -68,7 +177,7 @@ while($row2 = mysqli_fetch_array($result2))
 		// array_push($photoList, $photo);
 	// }
 
-mysqli_close($conn);
+// mysqli_close($conn);
 ?>
 
 
@@ -151,7 +260,7 @@ mysqli_close($conn);
 				    data: {action : "delete", photoId: photoId, itemId : itemId},
 				  
 				    error: function (data) {
-				    	alert("porażka!");
+				    	// alert("porażka!");
 				    },
 				    success: function (data) {
 				    	getPhotos();
@@ -176,7 +285,7 @@ mysqli_close($conn);
 			    data: {action : "changeOrder", photoId: photoId, itemId: itemId, direction: direction},
 			  
 			    error: function (data) {
-			    	alert("porażka!");
+			    	// alert("porażka!");
 			    },
 			    success: function (data) {
 			    	// alert("sukces!");
@@ -198,7 +307,7 @@ mysqli_close($conn);
 			    data: {action : "changeOrder", photoId: photoId, itemId: itemId, direction: direction},
 			  
 			    error: function (data) {
-			    	alert("porażka!");
+			    	// alert("porażka!");
 			    },
 			    success: function (data) {
 			    	// alert("sukces!");
@@ -217,7 +326,7 @@ mysqli_close($conn);
 			    data: {action : "getAll", itemId: itemId},
 			  
 			    error: function (data) {
-			    	alert("porażka!");
+			    	// alert("porażka!");
 			    },
 			    success: function (data) {
 			    	$(".thumbs").html(data);
@@ -439,7 +548,7 @@ mysqli_close($conn);
 						
 						<div id="editItem">
 							
-							<form action=""; method="POST" enctype="multipart/form-data">
+							<form action="pass.php"; method="POST" enctype="multipart/form-data">
 								<div id="confirmAlert">Usunięto zdjęcie</div>
 								<div id="title">
 									<div class="label">Nazwa przedmiotu:</div>
@@ -652,48 +761,7 @@ mysqli_close($conn);
 
 
 
-if(isset($_POST["submit"])){
 
-// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-
-require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
-
-$config = HTMLPurifier_Config::createDefault();
-$purifier = new HTMLPurifier($config);
-
-$itemId = $_POST['passItemId'];
-
-$categoryId = $_POST['categoryToPost'];
-
-$itemName = $conn->real_escape_string($_POST['itemName']);
-// $itemName = $purifier->purify($itemName);
-
-$itemDescription = $conn->real_escape_string($_POST['description']);
-// $itemDescription = $purifier->purify($itemDescription);
-
-$itemPrice = $_POST['price'];
-// //////////////////////////////////////////////////////////////////////////////////////////////////// //
-
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-	echo("item id: " . $itemId . "   nazwa: " . $itemName . "   cena: " . $itemPrice . "  opis: " . $itemDescription);
-
-
-	mysqli_query($conn,'UPDATE item SET name = "' . $itemName . '", description = "' . $itemDescription . '", price = "' . $itemPrice . '" WHERE id = "' . $itemId . '"');
-	mysqli_query($conn,"UPDATE category_con SET cat_id = $categoryId WHERE item_id = $itemId");
-
-
-
-mysqli_close($conn);
-
-header("Location: editItem.php?itemId=" . $itemId);
-
-}
 
 
 

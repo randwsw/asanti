@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!-- 
 	
@@ -47,7 +49,7 @@
 							data: {action : "changeSize", sizeOf : sizeOf, newSizeName: val, option : "sizeOf"},
 										  
 							error: function (data) {
-							alert("porażka!");
+							// alert("porażka!");
 							},
 							success: function (data) {
 								// $("input#" + thisButtonId).attr("value", "Zmień");
@@ -68,7 +70,7 @@
 								data: {id : id, value: val, option : "id"},
 											  
 								error: function (data) {
-								alert("porażka!");
+								// alert("porażka!");
 								},
 								success: function (data) {
 									// $("input#" + thisButtonId).attr("value", "Zmień");
@@ -87,7 +89,7 @@
 		
 		
 			
-		function addSize(){
+		function addNewValue(){
 			$("input.add").each(function(){
 				$(this).click(function(){
 					
@@ -123,23 +125,40 @@
 						data: {action : "delete", sizeId : id},
 						 
 						error: function (data) {
-							alert("porażka!");
+							// alert("porażka!");
 						},
 						success: function (data) {
 							window.location.replace("sizes.php");
-							
 						},
 					});
 				})
 			})
 		}
 		
-		
+		function addNewSize(){
+			$('input[name="addNew"]').click(function(){
+				var name = $('input[name="name"]').val();
+				var value = $('input[name="value"]').val();
+				$.ajax({ 
+						type: 'POST', 
+						url: 'controllers/sizeController.php', 
+						data: {action : "addSize", name : name, value : value},
+						 
+						error: function (data) {
+							// alert("porażka!");
+						},
+						success: function (data) {
+							window.location.replace("sizes.php");
+						},
+					});
+			});
+		}
 		
 		$( document ).ready(function() {
 			editSizeOfPool();
-			addSize();
 			deleteSize();
+			addNewValue();
+			addNewSize();
 			$("#confirmAlert").hide();
 		});
 	</script>
@@ -180,7 +199,7 @@
 										<div class="title">Wartość:</div>
 										<input type="text" name="value"/>
 									</div>
-									<input type="submit" name="submit" value="Dodaj nowy" />
+									<input type="button" name="addNew" value="Dodaj nowy" />
 								</div>
 							</form>	
 							<div id="confirmAlert">Zmieniono nazwę.</div>
@@ -287,70 +306,7 @@
 			<?php include 'include/footer.php'; ?>
 			<!-- ------------------------------------------------------------------------ -->
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 	</body>
 </html>
 
-
-<?php 
-
-
-
-if(isset($_POST["submit"])){
-
-// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-$name = $_POST['name'];
-$value = $_POST['value'];
-
-$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
-			$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
-			$sizeOf =  str_replace($aWhat, $aOn, $name);
-
-// //////////////////////////////////////////////////////////////////////////////////////////////////// //
-
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-	$sql="INSERT INTO size (value, name, sizeOf)
-		VALUES
-		('$value','$name','$sizeOf')";
-		
-		if (!mysqli_query($conn,$sql))
-		  {
-			  die('Error: ' . mysqli_error($conn));
-			  mysqli_close($conn);
-		  }else
-		  {
-		  	mysqli_close($conn);
-		  }
-
-header("Location: sizes.php");
-
-}
-
-
-
-?>

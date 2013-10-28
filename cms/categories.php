@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!-- 
 	
@@ -49,7 +51,7 @@
 							    data: {action : "change", categoryId: id, categoryName: val},
 							  
 							    error: function (data) {
-							    	alert("porażka!");
+							    	// alert("porażka!");
 							    },
 							    success: function (data) {
 							    	// $("input#" + thisButtonId).attr("value", "Zmień");
@@ -104,7 +106,7 @@
 						data: {action : "delete", categoryId : id},
 						 
 						error: function (data) {
-							alert("porażka!");
+							// alert("porażka!");
 						},
 						success: function (data) {
 							if(data == "success"){

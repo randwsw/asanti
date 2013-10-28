@@ -7,13 +7,38 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	
 	<link rel="stylesheet" href="../css/cms2.css" type="text/css" />
-	
-<?php
-	// if(isset($_SESSION['login'])){
-		// header("Location: index.php");
-	// }
-?>
-	
+		
+	<script type="text/javascript">
+		
+		function login(){
+			$('input[name="loginButton"]').click(function(){
+				var login = $("input[name='login']").val();
+				var password1 = $("input[name='password1']").val();;
+				$.ajax({ 
+					type: 'POST', 
+					url: 'controllers/loginController.php', 
+					data: {action: "login", login : login, password1 : password1},
+						 
+					error: function (data) {
+						// alert("porażka!");					},
+					success: function (data) {
+						if(data == 1){
+							window.location.replace("index.php");
+						}else{
+							if(data != 1){
+								window.location.replace("login.php");
+							}
+						}
+					},
+				});
+			});
+		}
+		
+		$(document).ready(function(){
+			login();
+		})
+		
+	</script>
 </head>
 
 <body>
@@ -29,7 +54,7 @@
 					<div class="title">Hasło:</div>
 					<input type="password" name="password1" />
 				</div>
-				<input type="submit" value="Zaloguj się" name="submit" />
+				<input type="button" value="Zaloguj się" name="loginButton" />
 			</div>
 		</form>
 	</div>

@@ -876,7 +876,7 @@ div#editSize #addNew input[type = text]{
 	width: 240px;
 }
 
-div#editSize #addNew input[type = submit]{
+div#editSize #addNew input[name="addNew"]{
 	background-color: #49a05e;
 	color: rgba(255,255,255,0.8);
 	border: none;
@@ -1160,7 +1160,7 @@ table#usersTable tr.header td.lastName{
 
 table#usersTable tr.header td.address{
 	border: 2px solid White;
-	width: 200px;
+	width: 190px;
 	text-align: left;
 	font-weight: bold;
 	padding-left: 5px;
@@ -1169,7 +1169,7 @@ table#usersTable tr.header td.address{
 
 table#usersTable tr.header td.options{
 	border: 2px solid White;
-	width: 80px;
+	width: 90px;
 	text-align: right;
 	font-weight: bold;
 	padding-left: 5px;
@@ -1455,7 +1455,7 @@ div#cmsLogin #box input{
 	width: 180px;
 }
 
-div#cmsLogin #box input[type="submit"]{
+div#cmsLogin #box input[name="loginButton"]{
 	margin-top: 10px;
 	margin-left: 90px;
 	width: 186px;	

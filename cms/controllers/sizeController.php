@@ -1,10 +1,13 @@
-<?php
-
+<?php 
 if(!session_id()){
 	session_start();
 } 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
-include '../include/checkLog.php';
+}else{
+	header("Location: login.php");					
+}
+
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -118,7 +121,18 @@ switch ($action) {
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
 			$sizeId = $_POST['sizeId'];
-	
+			
+			$sql2="DELETE FROM size_item
+					WHERE sizeId = '$sizeId'";
+			
+			if (!mysqli_query($conn,$sql2))
+			{
+		  		die('Error: ' . mysqli_error($conn));
+		  		mysqli_close($conn);
+		  	}else
+		  	{
+		  	}
+			
 	  		$sql="DELETE FROM size
 					WHERE id = '$sizeId'";
 			if (!mysqli_query($conn,$sql))
@@ -127,9 +141,10 @@ switch ($action) {
 		  		mysqli_close($conn);
 		  	}else
 		  	{
-		  		echo("success");
-				mysqli_close($conn);
 		  	}
+			
+			
+			mysqli_close($conn);
 			break;
 		
 		
@@ -205,6 +220,38 @@ switch ($action) {
 			}
 			
 			mysqli_close($conn);
+			break;
+			
+			
+			
+			
+			
+		case "addSize":
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ADD NEW SIZE TYPE ---------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+			$name = $_POST['name'];
+			$value = $_POST['value'];
+			
+			$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+						$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+						$sizeOf =  str_replace($aWhat, $aOn, $name);
+			
+			
+				$sql="INSERT INTO size (value, name, sizeOf)
+					VALUES
+					('$value','$name','$sizeOf')";
+					
+					if (!mysqli_query($conn,$sql))
+					  {
+						  die('Error: ' . mysqli_error($conn));
+						  mysqli_close($conn);
+					  }else
+					  {
+					  	mysqli_close($conn);
+					  }
 			break;
 }
 ?>

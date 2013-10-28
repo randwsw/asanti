@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -37,7 +39,7 @@
 		    data: {action: "getAll", sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	
@@ -96,7 +98,6 @@
 	
 	function deleteUser(){
 		$("input.delete").click(function(){
-			alert("ASD");
 			if(!window.confirm("Na pewno chcesz usunąć tego użytkownika?")){
 	            return false;
 	        }else{
@@ -114,7 +115,7 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	$("#usersTable").html("");
@@ -160,9 +161,9 @@
 	
 	
 	function updatePw(){
-		var userId = $("input#userId").val();
-		var newPw = $("input#newPw").val();
 		$("input#updatePw").on("click", function(){
+			var userId = $("input#userId").val();
+			var newPw = $("input#newPw").val();
 			$.ajax({ 
 			    type: 'POST', 
 			    url: 'controllers/usersController.php', 
@@ -268,7 +269,34 @@
 	
 	
 	
-	
+	function updateUser(){
+		$("input#update").on("click", function(){
+			var userId = $("input#userId").val();
+			var email = $('input[name="email"]').val();
+			var name = $('input[name="name"]').val();
+			var lastName = $('input[name="lastName"]').val();
+			var pcode = $('input[name="pcode"]').val();
+			var street = $('input[name="street"]').val();
+			var city = $('input[name="city"]').val();
+			$.ajax({ 
+			    type: 'POST', 
+			    url: 'controllers/usersController.php', 
+			    data: {action: "update", userId: userId, email : email, name : name, lastName : lastName, pcode : pcode, street : street, city : city},
+			    beforeSend: function(){
+			    	// $("#progress").show();
+			    },
+			    complete: function(){
+			    	// $("#progress").hide();
+			    },
+			    error: function (data) {
+			    },
+			    success: function (data) {
+			    	window.location.replace("users.php?action=edit&userId=" + userId);
+				},
+			})
+		});
+		
+	}
 	
 	
 	
@@ -283,6 +311,7 @@
 	$(document).ready(function(){
 		$("#confirmAlert").hide();
 		updatePw();
+		updateUser();
 		$("#progress").hide();
 		sort();
 		getUsers();
@@ -394,7 +423,7 @@
 											<div class="title">Miasto:</div><input type="text" name="city" class="userInput" value="' . $city . '"/>
 										</div>
 										<div class="row">
-											<input type="submit" value="Uaktualnij" id="update" name="submit" />
+											<input type="button" value="Uaktualnij" id="update" name="update" />
 										</div>
 										<input type="hidden" name="userId" id="userId" value="' . $userId . '" />
 										</form>
@@ -408,34 +437,6 @@
 								}
 							?>
 							
-							<?php
-								if(isset($_POST['submit'])){
-									// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-									$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-									$userId = $_POST['userId'];
-									$email = $_POST['email'];
-									$name = $_POST['name'];
-									$lastName = $_POST['lastName'];
-									$pcode = $_POST['pcode'];
-									$street = $_POST['street'];
-									$city = $_POST['city'];
-									// //////////////////////////////////////////////////////////////////////////////////////////////////// //
-									
-									$sql = "SET NAMES 'utf8'";
-									!mysqli_query($conn,$sql);
-									
-									
-									if (mysqli_connect_errno())
-											  {
-											  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-											  }
-  									mysqli_query($conn,"UPDATE users SET email='$email', name='$name', lastName='$lastName' WHERE id='$userId'");
-									mysqli_query($conn,"UPDATE address SET pcode='$pcode', street='$street', city='$city' WHERE user_id='$userId'");
-									mysqli_close($conn);
-									// header('Location: users.php?action=edit&userId=' . $userId);
-									header('Location: users.php');
-								}
-							?>
 							
 						</div>
 						

@@ -1,10 +1,13 @@
-<?php
-
+<?php 
 if(!session_id()){
 	session_start();
 } 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
-include '../include/checkLog.php';
+}else{
+	header("Location: login.php");					
+}
+
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -173,12 +176,55 @@ switch ($action) {
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 		$userId = $_POST['userId'];
-		$newPw = $_POST['newPW'];
+		$newPw = $_POST['newPw'];
 		
 		mysqli_query($conn,"UPDATE users SET password='$newPw' WHERE id='$userId'");
 	
 		mysqli_close($conn);
 	break;
+	
+	
+	
+	
+	
+	case "update":
+	// ---------------------------------------------------------------------------------------------------------- //
+	// UPDATE USER'S INFO --------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------------------------------------------- //
+		$userId = $conn->real_escape_string($_POST['userId']);
+		
+		$email = $conn->real_escape_string($_POST['email']);
+		$email = $purifier->purify($email);
+		
+		$name = $conn->real_escape_string($_POST['name']);
+		$name = $purifier->purify($name);
+		
+		$lastName = $conn->real_escape_string($_POST['lastName']);
+		$lastName = $purifier->purify($lastName);
+		
+		$pcode = $conn->real_escape_string($_POST['pcode']);
+		
+		$street = $conn->real_escape_string($_POST['street']);
+		$street = $purifier->purify($street);
+		
+		$city = $conn->real_escape_string($_POST['city']);
+		$city = $purifier->purify($city);
+									
+		$sql = "SET NAMES 'utf8'";
+		!mysqli_query($conn,$sql);
+									
+									
+		if (mysqli_connect_errno())
+		{
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+  		mysqli_query($conn,"UPDATE users SET email='$email', name='$name', lastName='$lastName' WHERE id='$userId'");
+		mysqli_query($conn,"UPDATE address SET pcode='$pcode', street='$street', city='$city' WHERE user_id='$userId'");
+		mysqli_close($conn);
+
+		break;
 }
 
 

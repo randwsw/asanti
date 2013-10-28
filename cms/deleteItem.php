@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <?php
 
@@ -29,7 +31,7 @@ if(!isset($_POST["submit"])){?>
 		    data: {},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	$.each(data,function(i,row){
