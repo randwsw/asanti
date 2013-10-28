@@ -1,15 +1,15 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
-?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
-<!-- 
-	automatyczne generowanie optionów w select dla rozmiarów
- -->
+}else{
+	header("Location: login.php");					
+}
+?>
+
+
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -124,7 +124,7 @@
 			    	
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	$("#galleriesTable").html("");
@@ -219,7 +219,7 @@
 			    data: {action : "getPhotos", id : id},
 			  
 			    error: function (data) {
-			    	alert("porażka!");
+			    	// alert("porażka!");
 			    },
 			    success: function (data) {
 			    	$(".thumbs").html(data);
@@ -304,7 +304,7 @@
 						?>
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
 					<div id="newGallery">
-						<form action="controllers/galleryController.php"; method="POST" enctype="multipart/form-data">
+						<form action="controllers/addGPhotos.php"; method="POST" enctype="multipart/form-data">
 							
 							<div id="name">
 								

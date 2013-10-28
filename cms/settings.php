@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!-- 
 	automatyczne generowanie optionów w select dla rozmiarów
@@ -49,7 +51,7 @@
 					    	// $("#progress").hide();
 					    },
 					    error: function (data) {
-					    	alert("error");
+					    	// alert("error");
 					    },
 					    success: function (data) {
 					    	window.location.replace("controllers/logOut.php");
@@ -78,7 +80,7 @@
 					    	// $("#progress").hide();
 					    },
 					    error: function (data) {
-					    	alert("error");
+					    	// alert("error");
 					    },
 					    success: function (data) {
 					    	window.location.replace("controllers/logOut.php");

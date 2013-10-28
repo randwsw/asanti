@@ -1,11 +1,13 @@
 <?php 
-	if(!session_id()){
-		session_start();
-	} 
+if(!session_id()){
+	session_start();
+} 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
+
+}else{
+	header("Location: login.php");					
+}
 ?>
-<!-- Check login ------------------------------------------------------------ -->
-<?php include 'include/checkLog.php'; ?>	
-<!-- ------------------------------------------------------------------------ -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,7 +40,7 @@
 		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
 		    dataType: 'json',
 		    error: function (data) {
-		    	alert("error");
+		    	// alert("error");
 		    },
 		    success: function (data) { 
 		    	$("#setsTable").html("<tr class='header'><td class='name'>Nazwa przedmiotu</td>"
@@ -159,7 +161,7 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	window.location.replace("connections.php?action=edit&itemId=" + itemId1);
@@ -194,7 +196,7 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	window.location.replace("connections.php?action=edit&itemId=" + itemId1);
@@ -226,7 +228,7 @@
 			    	$("#progress").hide();
 			    },
 			    error: function (data) {
-			    	alert("ajaxError");
+			    	// alert("ajaxError");
 			    },
 			    success: function (data) {
 			    	window.location.replace("connections.php");

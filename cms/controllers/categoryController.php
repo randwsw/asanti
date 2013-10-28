@@ -1,10 +1,12 @@
-<?php
-
+<?php 
 if(!session_id()){
 	session_start();
 } 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
-include '../include/checkLog.php';
+}else{
+	header("Location: login.php");					
+}
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -190,7 +192,7 @@ switch ($action) {
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
 		// ---------------------------------------------------------------------------------------------------------- //
-		$name = $conn->real_escape_string($_POST['name']);
+		$name = $conn->real_escape_string($_POST['categoryName']);
 		$name = $purifier->purify($name);
 		
 		$parentId = $conn->real_escape_string($_POST['parentId']);

@@ -1,10 +1,13 @@
-<?php
-
+<?php 
 if(!session_id()){
 	session_start();
 } 
+if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 
-include '../include/checkLog.php';
+}else{
+	header("Location: login.php");					
+}
+
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
@@ -602,7 +605,7 @@ switch ($action) {
 					// //////////////////////////////////////////////////////////////////////////////////////////////////// //
 					
 						
-						
+						header("Location: ../gallery.php?action=edit&id=$id");
 						set_time_limit(300);//for uploading big files
 						
 						$paths="asanti/img/gallery/" . $id;
@@ -691,7 +694,7 @@ switch ($action) {
 						}
 						
 
-						header("Location: ../gallery.php?action=edit&id=$id");
+						
 				        break;
 }
 ?>
