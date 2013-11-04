@@ -67,6 +67,7 @@ while($row1 = mysqli_fetch_array($result1))
 				$description = $row2['description'];
 				$headPhotoId = $row2['headPhotoId'];
 				$active = $row2['active'];
+				$price = $row2['price'];
 			}
 			// GET HEAD PHOTO ////////////////////////////////////
 			$result3 = mysqli_query($conn,"SELECT * FROM photo WHERE id = '$headPhotoId'");
@@ -100,6 +101,22 @@ while($row1 = mysqli_fetch_array($result1))
 	}
 }
 
+$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
+if (mysqli_connect_errno())
+	{
+ 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+	
+$res = mysqli_query($conn,"SELECT rp.price FROM recommended r, rec_price rp WHERE item_id = '$itemId' AND r.id = rp.rec_id;");
+
+$newprice = null;
+if(mysqli_num_rows($res) > 0) {
+	while($row3 = mysqli_fetch_array($res))
+			{
+				$newprice = $row3['price'];
+			}
+}
 
 ?>
     
@@ -222,6 +239,9 @@ while($row1 = mysqli_fetch_array($result1))
 										<a href="' . $photo . '" data-lightbox="itemImg"><img src="' . $photo . '" class="galleryImg" id="' . $photo . '"/></a>
 									</div></div>');
 								}
+								
+								
+								
 							?>
 							
 						<!-- </ul> -->
@@ -239,7 +259,11 @@ while($row1 = mysqli_fetch_array($result1))
 					</div>
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
-					<h2 id="itemTitle"><?php echo("$itemName"); ?></h2>
+					<?php if($newprice != null) { ?>
+						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="ppricepromo"><strike><?php echo($price); ?></strike>zł</p><p class="ppricenewpromo"><?php echo($newprice); ?>zł</p></h2>
+					<?php } else {?>
+						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="pprice"><?php echo($price); ?>zł</p><p class="ppricenew"><?php echo($newprice); ?>zł</p></h2>
+					<?php } ?>
 					
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					

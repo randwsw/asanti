@@ -910,7 +910,20 @@ div#itemDescriptionContainer #questionForm input[name="send"]{
 	padding-left: 8px;
 	color: #383838;
 }
-
+.pprice {
+	float: right;
+	margin-right: 15px;
+}
+.ppricepromo {
+	float: right;
+	font-size: 10pt;
+	margin-right: 15px;
+}
+.ppricenewpromo {
+	float: right;
+	margin-top: 20px;
+	margin-right: -47px;
+}
 #itemDescription {
 	color: #383838;
 	margin-top: 30px;
