@@ -135,7 +135,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 						<div id="confirmAlert">Zmieniono rabat</div>
 						<table id="discounts">
 							<tr class="head">
-								<td id="count">Liczba przedmiotów w zamówieniu</td>
+								<td id="count">Kwota zamówienia</td>
 								<td id="disc">Zniżka w %</td>
 								<td id="options">Aktywny</td>
 							</tr>
@@ -158,7 +158,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 										while($row = mysqli_fetch_array($result))
 											{
 												$id = $row['id'];
-												$itemCount = $row['item_count'];
+												$itemValue = $row['items_value'];
 												$value = $row['value'];
 												$active = $row['active'];
 												if($active == 1){
@@ -169,7 +169,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 												}
 												echo("<tr class='cont'>
 														<td>
-															<input type='text' id='count_" . $id . "' name='count' value='" . $itemCount . "'/>
+															<input type='text' id='count_" . $id . "' name='count' value='" . $itemValue . "'/>
 														</td>
 														<td>
 															<input type='text' id='disc_" . $id . "' name='disc' value='" . $value . "'/>
