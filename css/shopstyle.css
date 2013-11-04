@@ -589,6 +589,16 @@ div .cart-div {
 	background: rgba(153,101,21,0.2);*/
 	/*#996515*/
 }
+	.recommended .pdiscount {
+		padding: 5px 5px 5px 20px;
+		font-family: "Gabriola", "OpenSansRegular", Arial;
+		font-size: 18pt;
+	}
+		.recommended .pdiscount a{
+			/*font-weight: bold;*/
+			cursor: auto; 
+			color: #C99C57;	
+		}
 #more a{
 	float: right;
 	padding: 5px 5px 5px 5px;
