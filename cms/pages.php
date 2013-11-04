@@ -40,21 +40,21 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 			width: 1000,
 			resize: false,
 			plugins: [
-                "advlist autolink lists link image"
+                "advlist autolink lists link image textcolor"
             ],
-			toolbar: "newdocument | bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo redo | removeformat | subscript | superscript",
+			toolbar: "newdocument | bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | forecolor | bullist | numlist | outdent | indent | blockquote | undo redo | removeformat | subscript | superscript",
 			content_css: '../css/fonts.css,../css/content.css',
 			// font_size : "8pt,10pt,12pt,14pt,16pt,18pt,20pt,24pt,32pt,36pt",
-			font_formats: "Andale Mono=andale mono,times;"+
+			font_formats: "OpenSans=OpenSansRegular;"+
+			"Gabriola=Gabriola;"+
+			"Andale Mono=andale mono,times;"+
 	        "Arial=arial,helvetica,sans-serif;"+
 	        "Arial Black=arial black,avant garde;"+
 	        "Book Antiqua=book antiqua,palatino;"+
 	        "Courier New=courier new,courier;"+
-	        "Gabriola=Gabriola;"+
 	        "Georgia=georgia,palatino;"+
 	        "Helvetica=helvetica;"+
 	        "Impact=impact,chicago;"+
-	        "OpenSans=OpenSansRegular;"+
 	        "Tahoma=tahoma,arial,helvetica,sans-serif;"+
 	        "Terminal=terminal,monaco;"+
 	        "Times New Roman=times new roman,times;"+

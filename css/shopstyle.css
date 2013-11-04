@@ -28,6 +28,8 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
+strong {font-weight: bold;}
+
 h2 {
 	font-family: "OpenSansRegular", Arial;
 	font-size: 16pt;
@@ -414,7 +416,7 @@ div .panel-div > #profile-icon {
 	}
 	
 	.imageConBig .productImageBig {
-		margin-top:-48px;
+		margin-top:-28px;
 		padding: 0;
 		width: 300px;
 		height: 409px;
@@ -1689,3 +1691,30 @@ div#gallery #container .box .title{
 	font-size: 18pt;
 	color: #C99C57;
 }*/
+
+/* ABOUT PAGE CONTENT /////////////////////////////////////// */
+div#aboutContent{
+	font-family: "OpenSansRegular";
+}
+div#aboutContent #title{
+	font-family: "Gabriola";
+	font-size: 24pt;
+	/*font-weight: bold;*/
+	margin-left: 10px;
+	margin-top: 10px;
+	color: #C99C57;
+}
+/* ////////////////////////////////////////////////////////// */
+/* PAYMENTS PAGE CONTENT //////////////////////////////////// */
+div#paymentsContent{
+	font-family: "OpenSansRegular";
+}
+div#paymentsContent #title{
+	font-family: "Gabriola";
+	font-size: 24pt;
+	/*font-weight: bold;*/
+	margin-left: 10px;
+	margin-top: 10px;
+	color: #C99C57;
+}
+/* ////////////////////////////////////////////////////////// */
