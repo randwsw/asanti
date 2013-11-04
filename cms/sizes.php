@@ -253,7 +253,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 											
 										foreach($sizeOfList as $sizeOf){
 											$sizeList = array();
-											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name'");
+											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name' ORDER BY value ASC");
 																					
 											while($row = mysqli_fetch_array($result))
 												{

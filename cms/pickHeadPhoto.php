@@ -127,7 +127,29 @@ if(!empty($category)) {
 }			
 			
 
-			
+// ADD COLOR
+
+if(!empty($_POST['pickColor'])) {
+    foreach($_POST['pickColor'] as $check2) {
+    	if (mysqli_connect_errno())
+	  	{
+	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  	}
+		
+		
+		$sql5="INSERT INTO colors_conn (color_id, item_id)
+			VALUES
+			('$check2','$lastId')";
+		if (!mysqli_query($conn,$sql5))
+		{
+	  		die('Error: ' . mysqli_error($conn));
+	  		// mysqli_close($conn3);
+	  	}else
+	  	{
+			// mysqli_close($conn3);
+	  	}
+	}
+}				
 		
 	
 	set_time_limit(300);//for uploading big files
@@ -162,10 +184,18 @@ if(!empty($category)) {
    
 	ftp_mkdir($conn_id, $paths);
 
-	for($i=0; $i<count($_FILES['userfile']['name']); $i++){
-		
-		$filep=$_FILES['userfile']['tmp_name'][$i];
-		$name=$_FILES['userfile']['name'][$i];	
+		$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+		$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+				
+				
+				
+		for($i=0; $i<count($_FILES['userfile']['name']); $i++){
+					
+			$filep2=$_FILES['userfile']['tmp_name'][$i];
+			$filep =  str_replace($aWhat, $aOn, $filep2);
+					
+			$name2=$_FILES['userfile']['name'][$i];	
+			$name =  str_replace($aWhat, $aOn, $name2);
 		
 		$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
 	

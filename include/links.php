@@ -10,7 +10,8 @@
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 
 <link rel="stylesheet" href="css/shopstyle.css" />
-<link rel="stylesheet" href="css/sliderstyle.css" />
+<!-- <link rel="stylesheet" href="css/sliderstyle.css" /> -->
+<link rel='stylesheet' type='text/css' href='css/backanim.php' />
 <!-- <link rel="stylesheet" href="css/galleriffic.css" type="text/css" />    -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

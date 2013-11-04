@@ -623,7 +623,7 @@ div#newItem #name{
 
 div#newItem #description{
 	width: 700px;
-	height: 400px;
+	height: 600px;
 	resize: none;
 }
 
@@ -657,6 +657,11 @@ div#newItem #size select#options {
 div#newItem #size #sizes {
 	width: 100px;
 	/*float: left;*/
+}
+
+div#newItem #colors{
+	width: 1010px;
+	float: left;
 }
 
 div#newItem #category{
@@ -1657,7 +1662,7 @@ div#discounts{
 }
 
 div#discounts table{
-	width: 480px;
+	width: 500px;
 	height: auto;
 	border-collapse:collapse;
 	margin-top: 20px;		
@@ -1670,7 +1675,7 @@ div#discounts table tr.head{
 }
 
 div#discounts table tr.head td#count{
-	width: 130px;
+	width: 80px;
 	max-width: 180px;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -1680,7 +1685,7 @@ div#discounts table tr.head td#count{
 
 div#discounts table tr.head td#disc{
 	border: 2px solid White;
-	width: 130px;
+	width: 80px;
 	text-align: center;
 	font-weight: bold;
 	padding-left: 5px;
@@ -1688,7 +1693,7 @@ div#discounts table tr.head td#disc{
 }
 
 div#discounts table tr.head td#options{
-	width: 120px;
+	width: 100px;
 	max-width: 50px;
 	border: 2px solid White;
 	/*width: 40px;*/
@@ -1730,3 +1735,51 @@ div#settings input[type="button"]{
 	height: 22px;	
 }
 /* //////////////////////////////////////////////////// */
+/* SETTINGS//////////////////////////////////////////// */
+div#editColors{
+
+}
+
+div#editColors #colors .croW{
+	width: 100%;
+	height: 30px;	
+}
+
+div#editColors #colors input[type="text"]{
+	width: 200px;
+	height: 25px;
+	padding-left: 5px;	
+}
+
+div#editColors #colors input.cChange{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;		
+}
+
+div#editColors #colors input.cDel{
+	background-color: rgba(191,21,21,0.8);
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+
+div#editColors input[name="addNew"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;
+}
+/* //////////////////////////////////////////////////// */
+/* PAGES ////////////////////////////////////////////// */
+div#pages input[name="saveChanges"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;			
+}

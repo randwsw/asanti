@@ -1,6 +1,6 @@
 /* line 7, ../sass/lightbox.sass */
 body:after {
-  content: url(../img/close.png) url(../img/lightbox/loading.gif) url(../img/lightbox/prev.png) url(../img/lightbox/next.png);
+  content: url(../img/close.png) url(../img/lightbox/loading.gif) url(../img/prev.png) url(../img/lightbox/next.png);
   display: none;
 }
 

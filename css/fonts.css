@@ -1,0 +1,15 @@
+/*------------------FONTS-----------------------*/
+@font-face {
+    font-family: "Scriptina";
+    src:  url(../css/fonts/SCRIPTIN.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSansRegular";
+    src:  url(../css/fonts/OpenSans-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "OpenSansBold";
+    src:  url(../css/fonts/OpenSans-Bold.ttf) format("truetype");
+}
+
+/*----------------------------------------------*/

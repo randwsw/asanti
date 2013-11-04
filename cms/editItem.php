@@ -58,10 +58,18 @@ if ($_POST['photosAdded'] == "photosAdded"){
 			   
 				ftp_mkdir($conn_id, $paths);
 			
+				$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+				$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+				
+				
+				
 				for($i=0; $i<count($_FILES['userfile']['name']); $i++){
 					
-					$filep=$_FILES['userfile']['tmp_name'][$i];
-					$name=$_FILES['userfile']['name'][$i];	
+					$filep2=$_FILES['userfile']['tmp_name'][$i];
+					$filep =  str_replace($aWhat, $aOn, $filep2);
+					
+					$name2=$_FILES['userfile']['name'][$i];	
+					$name =  str_replace($aWhat, $aOn, $name2);
 					
 					$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
 				
@@ -419,6 +427,36 @@ while($row2 = mysqli_fetch_array($result2))
 			});		
 		}
 		
+		function changeColor(){
+			var itemId = $("#passItemId").val();
+			var active;
+			$(".colorCheckbox").change(function(){
+				if($(this).is(':checked')){
+					active = 1;
+				}else{
+					active = 0;
+				}
+				var colorId = $(this).attr("id");		
+				$.ajax({ 
+				    type: 'POST', 
+				    url: 'controllers/colorController.php', 
+				    data: {action : "changeItemColor", itemId: itemId, colorId : colorId, active: active},
+				    beforeSend: function(){
+				    	// $("#progress").show();
+				    },
+				    complete: function(){
+				    	// $("#progress").hide();
+				    },
+				    error: function (data) {
+				    	// alert(active + "error");
+				    },
+				    success: function (data) {
+				    	// alert(active + "success");
+					},
+				})
+			});		
+		}
+		
 		function getItemCategory(){
 			var itemId = $("#passItemId").val();
 			$.ajax({ 
@@ -518,6 +556,7 @@ while($row2 = mysqli_fetch_array($result2))
 			// categoriesOnChange();
 			getItemSizes();
 			changeSize();
+			changeColor();
 			getItemCategory();
 		});
 	</script>
@@ -683,7 +722,7 @@ while($row2 = mysqli_fetch_array($result2))
 											unset($sizeList);
 										}
 										
-										mysqli_close($conn);
+										// mysqli_close($conn);
 										
 										
 										?>
@@ -702,7 +741,39 @@ while($row2 = mysqli_fetch_array($result2))
 			        				</div>
 			        				
 			        			</div>
-		        			
+		        				
+		        				
+		        				<div id="colors">
+		        				<div class="label">Wybierz kolor</div>
+		        				<?php
+										
+										$result2 = mysqli_query($conn,"SELECT name, id FROM colors ORDER BY name ASC");
+																					
+										while($row2 = mysqli_fetch_array($result2))
+											{
+												$name = $row2['name'];
+												$id = $row2['id'];
+												
+												$result3 = mysqli_query($conn,"SELECT COUNT(*) AS ex FROM colors_conn WHERE item_id = $itemId AND color_id = $id");
+												while($row3 = mysqli_fetch_array($result3))
+													{
+														$ex = $row3['ex'];
+														if($ex == 1){
+															echo("<input type='checkbox' class='colorCheckbox' name='pickColor[]' id='$id' checked /> $name </br>");
+														}else{
+															if($ex == 0){
+																echo("<input type='checkbox' class='colorCheckbox' name='pickColor[]' id='$id' /> $name </br>");
+															}
+														}
+													}
+											}
+										
+										mysqli_close($conn);
+		        				
+		        				?>
+		        				
+		        			</div>
+		        				
 		        			
 			        			<div id="category">
 			        				

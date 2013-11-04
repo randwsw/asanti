@@ -83,10 +83,18 @@ $title = $conn->real_escape_string($_POST['name']);
 	   
 		ftp_mkdir($conn_id, $paths);
 	
+		$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+		$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+				
+				
+				
 		for($i=0; $i<count($_FILES['userfile']['name']); $i++){
-			
-			$filep=$_FILES['userfile']['tmp_name'][$i];
-			$name=$_FILES['userfile']['name'][$i];	
+					
+			$filep2=$_FILES['userfile']['tmp_name'][$i];
+			$filep =  str_replace($aWhat, $aOn, $filep2);
+					
+			$name2=$_FILES['userfile']['name'][$i];	
+			$name =  str_replace($aWhat, $aOn, $name2);
 			
 			$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
 		
