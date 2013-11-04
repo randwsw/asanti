@@ -434,7 +434,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 										
 										include 'controllers/getItemsCount.php';
 										
-										$itemsPerPage = 8;
+										$itemsPerPage = 16;
 											for ($i = 1; $i <= $count; $i++) {
 											    if($i%$itemsPerPage==0){
 											    	$pages++;

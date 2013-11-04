@@ -44,7 +44,7 @@ switch ($action) {
 									
 	if(isset($_POST['page'])) {	$page =$_POST['page'];	} 
 									
-	$itemsPerPage = 8;
+	$itemsPerPage = 16;
 	$min = $itemsPerPage*($page-1);
 	
 	
