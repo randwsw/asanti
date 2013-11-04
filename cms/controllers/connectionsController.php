@@ -41,6 +41,13 @@ switch ($action) {
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 		$sets = " AND i.id IN (SELECT item1_id FROM item_conn) OR i.id IN (SELECT item2_id FROM item_conn)";
+		
+		$page = 1;
+									
+		if(isset($_POST['page'])) {	$page =$_POST['page'];	} 
+										
+		$itemsPerPage = 8;
+		$min = $itemsPerPage*($page-1);
 
 		if(isset($_POST['id'])){
 			$idFilter = " AND i.id = '" . $_POST['id'] . "'";
@@ -100,7 +107,7 @@ switch ($action) {
 									AND i.id = cc.item_id"
 									. $idFilter . $nameFilter . $categoryFilter . //$sets .
 									" GROUP BY i.id"
-									. $sort);
+									. $sort ." LIMIT $min, $itemsPerPage");
 				
 		while($e=mysqli_fetch_assoc($result))
 			$output[]=$e;

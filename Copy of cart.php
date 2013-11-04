@@ -30,9 +30,6 @@
 			<div class="column-size">
 				<p>Rozmiary</p>
 			</div>
-			<div class="column-color">
-				<p>Kolor</p>
-			</div>
 			<div class="column-price">
 				<p>Cena za sztukę</p>
 			</div>
@@ -54,7 +51,6 @@
 		    public $sizes = array();
 		    public $count = "";
 			public $id = 0;
-			public $color = "";
 			function addSize($sizeItem)
 			{
 			    array_push($this->sizes, $sizeItem);
@@ -109,21 +105,17 @@
 					{	
 						$text_to_get = substr($cookieval, $start_pos+1, $end_pos-($start_pos+2));
 						$citem->addSize($text_to_get);
-						// echo("TEXT TO GET: ".$text_to_get);
-						// echo("<br>");
+						//echo("TEXT TO GET: ".$text_to_get);
+						//echo("<br>");
 						 $cookieval = substr($cookieval, $end_pos);
-						 // echo($cookieval."<br>");
+						 //echo($cookieval."<br>");
 						 $cookievalArray = str_split($cookieval);
 					}
 					if (array_search(']', $cookievalArray)==null) {
 					    $i++;
 					}
 				}
-				
-				 $end_pos =  array_search(')', $cookievalArray)-1; 
-				 $citem->color = substr($cookieval, 1, $end_pos);
-				 $cookieval = substr($cookieval, $end_pos+5);
-				$citem->count = $cookieval;
+				$citem->count = substr($cookieval, 3, $end_pos-3);
 				array_push($cartItems, $citem);
 				}
 // 				
@@ -181,10 +173,6 @@
 					}
 					echo("<input type='hidden' value='".$s_."' name='sizes[]'>");						
 					echo("</div>
-					<div class='column-color'>
-						<p>".$val->color."</p>
-						<input type='hidden' value='".$val->color."' name='color[]'>
-					</div>
 					<div class='column-price' id=pc".$count.">
 						<p id=price-".$rec['id'].">".$rec['price']."</p>
 						<input type='hidden' value='".$rec['price']."' name='price[]'>
@@ -265,7 +253,11 @@
 	  					?>
 					</p>
 					<p id='disc'>
-						<?php if($check==1) { if($dval!=0){ echo("(-".$dval."%)");} else {echo("");}}
+						<?php if($check==1) {
+							if($dval!=0){
+								echo("(-".$dval."%)");
+							}
+						}
 						?>
 					</p>
 			</div>
@@ -273,7 +265,7 @@
 				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
 			</div>
 		</div>
-		<input id='discounthid' type='hidden' name='dischid' value='<?php if($check==1) { if($dval!=0){ echo($dval);} else {echo("0");}} ?>'/>
+		<input id='discounthid' type='hidden' name='dischid' value='<?php if($globalcount>=$ct) echo($dc); else echo("0"); ?>'/>
 		</form>
 	</div>
 </body>

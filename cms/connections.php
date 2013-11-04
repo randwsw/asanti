@@ -33,11 +33,15 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 		var category = getURLParameter("category");
 		var sortBy = getURLParameter("sortBy");
 		var direction = getURLParameter("direction");
+		
+		if(category=='all'){
+			category=null;
+		}
 		// alert(category + "  " + sort + "  " + direction);
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/connectionsController.php', 
-		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
+		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction, page : <?php $page = 1; if(isset($_GET['page'])) {$page =$_GET['page'];} echo($page);  ?>},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -90,6 +94,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 		    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
 		    return results[1] || 0;
 		}
+		
 		var itemId = $.urlParam('itemId');
 		
 		$.ajax({ 
@@ -413,8 +418,50 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 											<option value="DESC_categoryName">Kategorii z-a</option>
 											<option value="ASC__connections">Powiązań rosnąco</option>
 											<option value="DESC_connections">Powiązań malejąco</option>
-										</select>
-									</div>
+										</select>');
+										$pages=1;
+										if(isset($_GET['sortBy'])){
+											$sortby=$_GET['sortBy'];
+										} else {
+											$sortby=null;
+										}
+										
+										if(isset($_GET['direction'])){
+											$direction=$_GET['direction'];
+										} else {
+											$direction=null;
+										}
+										
+										include 'controllers/getItemsCount.php';
+										
+										$itemsPerPage = 8;
+											for ($i = 1; $i <= $count; $i++) {
+											    if($i%$itemsPerPage==0){
+											    	$pages++;
+											    }
+											}
+											$nextpage = $page+1;
+											$prevpage = $page+-1;
+											if(($page==1)||($page==$pages)){
+												$edge = 2;
+											} else if(($page==2)||($page==$pages-1)){
+												$edge = 2;
+											} else {
+												$edge = 0;
+											}
+											echo("<div class='pages'>"); 
+										if($page>1)
+											echo("<a href='connections.php?page=$prevpage'&category=$ct&sortBy=$sortby&direction=$direction>&#171</a> ");
+												for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
+													if(($i>0)&&($i<=$pages))
+													{
+													echo("<a id='page_$i' href='connections.php?page=$i&category=$ct&sortBy=$sortby&direction=$direction'>".$i."</a> ");
+													}
+												}
+											if($page<$pages)
+											echo("<a href='connections.php?page=$nextpage&category=$ct&sortBy=$sortby&direction=$direction'>&#187</a> ");
+										echo("</div>"); 
+									echo('</div>
 								</div>');
 							}
 							?>

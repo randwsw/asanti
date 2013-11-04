@@ -123,6 +123,9 @@ if(!session_id())
 			<div class='column-size'>
 				<p>Rozmiary</p>
 			</div>
+			<div class='column-color'>
+				<p>Kolor</p>
+			</div>
 			<div class="column-price">
 				<p>Cena</p>
 			</div>
@@ -145,7 +148,7 @@ if(!session_id())
 			header('Location: index.php');
 		}
 		$sum=0;
-		$result = mysqli_query($conn,"SELECT i.id AS iid, i.name, quantity, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
+		$result = mysqli_query($conn,"SELECT i.id AS iid, i.name, quantity, color, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
 		while($e = mysqli_fetch_array($result))
 		  {
 		  	$sum=$sum+($e['priceoc']*$e['quantity']);
@@ -156,6 +159,9 @@ if(!session_id())
 					</div>
 					<div class='column-size'>
 						<p>".$e['sizes']."</p>
+					</div>
+					<div class='column-color'>
+						<p>".$e['color']."</p>
 					</div>
 					<div class='column-price'>
 						<p>".$e['priceoc']."</p>

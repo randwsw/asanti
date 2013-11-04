@@ -40,6 +40,14 @@ switch ($action) {
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
+	$page = 1;
+									
+	if(isset($_POST['page'])) {	$page =$_POST['page'];	} 
+									
+	$itemsPerPage = 8;
+	$min = $itemsPerPage*($page-1);
+	
+	
 		if(isset($_POST['sets'])){
 			if($_POST['sets'] == "sets"){
 				$itemId = $_POST['itemId'];
@@ -123,7 +131,8 @@ switch ($action) {
 											AND i.id = cc.item_id"
 											. $idFilter . $nameFilter . $categoryFilter . $sets . $promoted .
 											" GROUP BY i.id"
-											. $sort);
+											. $sort." LIMIT $min, $itemsPerPage");
+											
 				
 				while($e=mysqli_fetch_assoc($result))
 		              $output[]=$e;

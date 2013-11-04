@@ -20,7 +20,8 @@
 					data: {action: "login", login : login, password1 : password1},
 						 
 					error: function (data) {
-						// alert("porażka!");					},
+						// alert("porażka!");					
+						},
 					success: function (data) {
 						if(data == 1){
 							window.location.replace("index.php");

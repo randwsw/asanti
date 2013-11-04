@@ -10,6 +10,7 @@ $iid = $_POST['iid'];
 $sizes = $_POST['sizes'];
 $sum=0;
 $disc = $_POST['dischid'];
+$color = $_POST['color'];
 
 if(!session_id())
 	{
@@ -53,8 +54,8 @@ mysqli_query($conn,"INSERT INTO orders (user_id, order_date, status, order_value
 $oid= mysqli_insert_id($conn);
 		
 foreach( $name as $key => $n ) {		
-		if (!mysqli_query($conn, "INSERT INTO orders_con (order_id, item_id, quantity, price, sizes)
-		VALUES ('$oid', $iid[$key] ,$quantity[$key] , $price[$key], '$sizes[$key]')")) {
+		if (!mysqli_query($conn, "INSERT INTO orders_con (order_id, item_id, quantity, price, sizes, color)
+		VALUES ('$oid', $iid[$key] ,$quantity[$key] , $price[$key], '$sizes[$key]', '$color[$key]')")) {
     		printf("Errormessage: %s\n", mysqli_error($conn));
 		}
 }

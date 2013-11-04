@@ -529,13 +529,13 @@ div .cart {
 		cursor: pointer;
 	}
 
-div .panel-div > #cart {
+/*div .panel-div > #cart {
 		background: url(../img/cart-big-dark.png) no-repeat center;
 		width: 40px;
 		height: 40px;
 		float: left;
 
-}
+}*/
 div .cart-div {
 	height: 42px;
 	/*margin-top: 10px;*/
@@ -664,6 +664,8 @@ div.recommended .title{
 
 #itemContainer {
 	margin-top: 50px;
+	width: 1100px;
+	overflow: hidden;
 }
 
 #itemPhotoContainer {
@@ -917,14 +919,23 @@ div#itemDescriptionContainer #questionForm input[name="send"]{
 	line-height: 140%;
 }
 
-#itemSizes{
-	float: left;
+#itemSizes, #itemColors{
+	/*float: left;*/
 	font-size: 9pt;
 	width: 500px;
+	overflow: hidden;
+}
+
+#itemColors{
+	margin-bottom: 10px;
 }
 
 div#itemSizes #title{
-	margin-top: 40px;
+	margin-top: 30px;
+	margin-bottom: 6px;
+}
+
+div#itemColors #title{
 	margin-bottom: 6px;
 }
 
@@ -1005,6 +1016,63 @@ div#itemSizes .sizeBox .title{
 	height: 26px;
   	overflow: hidden;
   	margin-right: 2px;
+}
+
+/*BIG*/
+.styled-select-big select{
+	width:200px;
+	height: 22px;
+    padding:2px;
+     background: #f8f8f8;
+    color:#888;
+    border: 1px solid #888;
+    /*border:none;*/
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:18px}
+}
+
+.styled-select-big label {position:relative}
+.styled-select-big label:after {
+    content:'>';
+    font:13px "Consolas", monospace;
+    font-weight: bold;
+    color:#aaa;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:6px; top:-2px;
+    padding:2px;
+    border-bottom:1px solid #888;
+    position:absolute;
+    pointer-events:none;
+}
+.styled-select-big label:before {
+    content:'';
+    right:6px; top:-2px;
+    width:26px; height:18px;
+    background:#f8f8f8;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
+
+.styled-select-big {
+	float: left;
+  	width: 200px;
+	height: 26px;
+  	overflow: hidden;
+  	/*margin-right: 2px;*/
 }
 
 
@@ -1281,7 +1349,7 @@ div.connectionBox .connectionTitle{
 }
 	#top-row p {
 		font-size: 10pt;
-		width: 145px;
+		/*width: 100px;*/
 	}
 
 #bot-row {
@@ -1330,7 +1398,7 @@ div.connectionBox .connectionTitle{
 	#middle-row input[type="text"] {
 		height:10px;
 		width: 20px;
-		margin-left: 63px;
+		margin-left: 37px;
 		text-align: center;
 	}
 #emptyCart {
@@ -1349,18 +1417,24 @@ div.connectionBox .connectionTitle{
 .column-name{
 	width: 250px;
 }
+	.column-name p {
+		width: 150px;
+	}
 .column-size{
 	width: 150px;
 }
+.column-color{
+	width: 100px;
+}
 .column-price{
-	width: 150px;
+	width: 100px;
 }
 .column-quantity{
-	width: 150px;
+	width: 100px;
 }
 
 .column-price-all{
-	width: 150px;
+	width: 148px;
 }
 
 
@@ -1415,8 +1489,12 @@ div.connectionBox .connectionTitle{
 }
 	#top-row-o p, #top-row-os  p {
 			font-size: 10pt;
-			width: 145px;
+			
 		}
+
+	#top-row-o .column-price, #top-row-o .column-quantity {
+		width: 150px;
+	}
 		
 #middle-row-o, #middle-row-os {
 	margin: 0 auto;
@@ -1426,6 +1504,10 @@ div.connectionBox .connectionTitle{
 	padding-bottom: 4px;
 	width:700px;
 }
+
+	#middle-row-o .column-price, #middle-row-o .column-quantity {
+		width: 150px;
+	}
 
 #middle-row-os {
 	width: 850px;
@@ -1461,6 +1543,9 @@ div.connectionBox .connectionTitle{
 	border-top: 1px solid gray;
 	width:700px;
 }
+	#bot-row-o .column-price, #bot-row-o .column-quantity {
+			width: 150px;
+	}
 #bot-row-o div {
 	float: right;
 }

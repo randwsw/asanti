@@ -240,7 +240,6 @@ while($row1 = mysqli_fetch_array($result1))
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
 					<h2 id="itemTitle"><?php echo("$itemName"); ?></h2>
-					
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					
 					
@@ -525,12 +524,7 @@ var cookieArray = [];
 		}
 		
 	}
-	var start_pos =  cookieval.indexOf('(')+1;
-	var end_pos =  cookieval.indexOf(')',start_pos);
-	var c = cookieval.substring(start_pos,end_pos);
-	cookieval =  cookieval.substring(end_pos+1);
 	ric =  cookieval;
-	
 	ric = ric.substring(3);
 	icint += parseInt(ric);
 	 $('#cart-count').html(icint);
@@ -539,7 +533,6 @@ var cookieArray = [];
  	$('#cart-count').html("0");
  }
 }
-
 $('.no-item-cart').click(function() {
 	alert("Ten produkt jest w tej chwili niedostępny")
 });
@@ -599,19 +592,10 @@ $('.item-cart').click(function() {
 		}
 		
 	}
-	var start_pos =  cookieval.indexOf('(')+1;
-	var end_pos =  cookieval.indexOf(')',start_pos);
-	var c = cookieval.substring(start_pos,end_pos);
-	cookieval =  cookieval.substring(end_pos+1);
 	ric =  cookieval;
-	
+	// alert(rid+sizes+ric);
 	}
-	 // alert("rid: "+rid);
-	  // alert("sizes[0]: "+sizes[0]);
-	  // alert("sizes[1]: "+sizes[1]);
-	  // alert("sizes[2]: "+sizes[2]);
-	  // alert("color: "+c);
-	   // alert("ric: "+ric);
+	
 	/*====WRITE====*/
 	var eq = 0;
 	var id = $(this).attr("id");
@@ -633,9 +617,6 @@ $('.item-cart').click(function() {
 	for (var i = 0; i < count; i++) {
 		word+="["+names[i]+values[i]+"]"
 	}
-	var color = $('.color-sel').val();
-	word+="("+color+")"
-
 	var eq = 0;
 	for (var j = 0; j < cookieArray.length; j++) {
 		var cv = cookieArray[j];
@@ -658,7 +639,7 @@ $('.item-cart').click(function() {
 	for (var j = 0; j < cookieArray.length; j++) {
 		val += cookieArray[j]+"|";
 	}
-	// alert(val);
+	
 	$.cookie("cartItem", val, { expires: 1, path: '/' });
 } else {
 	var eq = 0;
@@ -681,10 +662,7 @@ $('.item-cart').click(function() {
 	for (var i = 0; i < count; i++) {
 		word+="["+names[i]+values[i]+"]"
 	}
-	var color = $('.color-sel').val();
-	word+="("+color+")"
 	word+="ic="+ic+"|";
-	// alert(word);
 	$.cookie("cartItem", word, { expires: 1, path: '/' });
 }
 $(".big2div").css("display", "block");
