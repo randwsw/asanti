@@ -32,11 +32,15 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 		var category = getURLParameter("category");
 		var sortBy = getURLParameter("sortBy");
 		var direction = getURLParameter("direction");
-		// alert(category);
+		
+		if(category=='all'){
+			category=null;
+		}
+		
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/usersController.php', 
-		    data: {action: "getAll", sortBy : sortBy, direction : direction},
+		    data: {action: "getAll", sortBy : sortBy, direction : direction, page : <?php $page = 1; if(isset($_GET['page'])) {$page =$_GET['page'];} echo($page);  ?>},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -363,8 +367,50 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 												<option value="DESC_name">Imię z-a</option>
 												<option value="ASC__lastName">Nazwisko a-z</option>
 												<option value="DESC_lastName">Nazwisko z-a</option>
-											</select>
-										</div>
+											</select>');
+											$pages=1;
+											if(isset($_GET['sortBy'])){
+												$sortby=$_GET['sortBy'];
+											} else {
+												$sortby=null;
+											}
+											
+											if(isset($_GET['direction'])){
+												$direction=$_GET['direction'];
+											} else {
+												$direction=null;
+											}
+											
+											include 'controllers/getItemsCount.php';
+											
+											$itemsPerPage = 8;
+												for ($i = 1; $i <= $count; $i++) {
+												    if($i%$itemsPerPage==0){
+												    	$pages++;
+												    }
+												}
+												$nextpage = $page+1;
+												$prevpage = $page+-1;
+												if(($page==1)||($page==$pages)){
+													$edge = 2;
+												} else if(($page==2)||($page==$pages-1)){
+													$edge = 2;
+												} else {
+													$edge = 0;
+												}
+												echo("<div class='pages'>"); 
+											if($page>1)
+												echo("<a href='users.php?page=$prevpage'&sortBy=$sortby&direction=$direction>&#171</a> ");
+													for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
+														if(($i>0)&&($i<=$pages))
+														{
+														echo("<a id='page_$i' href='users.php?page=$i&sortBy=$sortby&direction=$direction'>".$i."</a> ");
+														}
+													}
+												if($page<$pages)
+												echo("<a href='users.php?page=$nextpage&&sortBy=$sortby&direction=$direction'>&#187</a> ");
+											echo("</div>"); 
+										echo('</div>
 									</div>
 									<div id="confirmAlert">Zmieniono status użytkownika</div>
 									<table id="usersTable"></table>');

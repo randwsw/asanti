@@ -32,11 +32,15 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 		var category = getURLParameter("category");
 		var sortBy = getURLParameter("sortBy");
 		var direction = getURLParameter("direction");
-		// alert(category);
+		if(category=='all'){
+			category=null;
+		}
+	
+		// alert(category+" "+sortBy+" "+direction);
 		$.ajax({ 
 		    type: 'POST', 
 		    url: 'controllers/itemController.php', 
-		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction},
+		    data: {action : "getAll", category : category, sortBy : sortBy, direction : direction, page : <?php $page = 1; if(isset($_GET['page'])) {$page =$_GET['page'];} echo($page);  ?>},
 		    dataType: 'json',
 		    error: function (data) {
 		    	// alert("error");
@@ -192,6 +196,10 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 	function sort(){
 		$("select#sort").on("change", function(){
 			var direction = $(this).find("option:selected").attr('value');
+			var page = getURLParameter("page");
+			if(page==null){
+				page=1;
+			}
 			if(direction.substr(0,4) == "ASC_"){
 				direction = "ASC";
 			}else{
@@ -202,9 +210,9 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 			var sortBy = $(this).find("option:selected").attr('value').substr(5,20);
 			var category = getURLParameter("category");
 			if(category != null){
-				window.location.replace("items.php?category=" + category + "&sortBy=" + sortBy + "&direction=" + direction);
+				window.location.replace("items.php?category=" + category + "&sortBy=" + sortBy + "&direction=" + direction+"&page="+page);
 			}else{
-				window.location.replace("items.php?sortBy=" + sortBy + "&direction=" + direction);
+				window.location.replace("items.php?sortBy=" + sortBy + "&direction=" + direction+"&page="+page);
 			}
 		})
 	}
@@ -328,6 +336,51 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 										<option value="ASC__connections">Powiązań rosnąco</option>
 										<option value="DESC_connections">Powiązań malejąco</option>
 									</select>
+									<?php
+									
+									$pages=1;
+									if(isset($_GET['sortBy'])){
+										$sortby=$_GET['sortBy'];
+									} else {
+										$sortby=null;
+									}
+									
+									if(isset($_GET['direction'])){
+										$direction=$_GET['direction'];
+									} else {
+										$direction=null;
+									}
+									
+									include 'controllers/getItemsCount.php';
+									
+									$itemsPerPage = 8;
+										for ($i = 1; $i <= $count; $i++) {
+										    if($i%$itemsPerPage==0){
+										    	$pages++;
+										    }
+										}
+										$nextpage = $page+1;
+										$prevpage = $page+-1;
+										if(($page==1)||($page==$pages)){
+											$edge = 2;
+										} else if(($page==2)||($page==$pages-1)){
+											$edge = 2;
+										} else {
+											$edge = 0;
+										}
+										echo("<div class='pages'>"); 
+									if($page>1)
+										echo("<a href='items.php?page=$prevpage'&category=$ct&sortBy=$sortby&direction=$direction>&#171</a> ");
+											for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
+												if(($i>0)&&($i<=$pages))
+												{
+												echo("<a id='page_$i' href='items.php?page=$i&category=$ct&sortBy=$sortby&direction=$direction'>".$i."</a> ");
+												}
+											}
+										if($page<$pages)
+										echo("<a href='items.php?page=$nextpage&category=$ct&sortBy=$sortby&direction=$direction'>&#187</a> ");
+									echo("</div>"); 
+									?>
 								</div>
 							</div>
 							

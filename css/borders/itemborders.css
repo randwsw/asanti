@@ -63,7 +63,7 @@
 	width: 550px;
 	top: 50%;
 	margin-top: -100px;
-	height: 100px;
+	height: 140px;
 	z-index: 4;
 	display:none;
 }
@@ -101,7 +101,7 @@
 	#midcenter2div {
 		width: 449px;
 		height: 100px;
-		background:  url(../../img/pat2.png) repeat;
+		background:  url(../../img/pat/pat2.png) repeat;
 	}
 	#midcenter2div p{
 		font-family: "Gabriola";

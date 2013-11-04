@@ -16,6 +16,11 @@ body div#siteContainer {
 	/*background-color: Gray;*/
 }
 
+.pages {
+		overflow:hidden;
+		float:right;
+	}
+
 div#siteContainer #header {
 	height: 40px;
 	padding-top: 10px;
