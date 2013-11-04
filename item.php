@@ -262,7 +262,7 @@ if(mysqli_num_rows($res) > 0) {
 					<?php if($newprice != null) { ?>
 						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="ppricepromo"><strike><?php echo($price); ?></strike>zł</p><p class="ppricenewpromo"><?php echo($newprice); ?>zł</p></h2>
 					<?php } else {?>
-						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="pprice"><?php echo($price); ?>zł</p><p class="ppricenew"><?php echo($newprice); ?>zł</p></h2>
+						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="pprice"><?php echo($price); ?>zł</p></h2>
 					<?php } ?>
 					
 					<div id="itemDescription"><?php echo("$description"); ?></div>
