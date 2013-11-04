@@ -34,7 +34,31 @@
 				
 			</div>
 			<div class="centerdiv" id="midcenterdiv">
-   
+				<div id="aboutContent">
+					<div id="title">O nas</div>
+	   			<?php
+	   			
+	   			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+							
+				if (mysqli_connect_errno())
+					{
+						echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					}
+							
+				// ENCODING TO UTF8
+				$sql = "SET NAMES 'utf8'";
+				!mysqli_query($conn,$sql);	
+	
+				$result = mysqli_query($conn,"SELECT content FROM pages WHERE name = 'about'");
+							
+				while($row= mysqli_fetch_array($result))
+					{
+						echo($row['content']);
+					}
+				mysqli_close($conn);
+	   			
+	   			?>
+	   			</div>
 			</div>
 			<div class="leftdiv" id="midleftdiv">
 				

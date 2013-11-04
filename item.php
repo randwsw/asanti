@@ -272,7 +272,7 @@ while($row1 = mysqli_fetch_array($result1))
 						foreach($sizeNames as $s){
 							echo("<div class='sizeBox'><div class='title'>" . ucfirst($s) . ":</div><div class='styled-select'><label><select class='size-sel'>");
 							
-							$result6 = mysqli_query($conn2, "SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId AND s.name = '$s'");
+							$result6 = mysqli_query($conn2, "SELECT s.value AS value FROM size s, size_item si WHERE si.itemId = '$itemId' AND s.id = si.sizeId AND s.name = '$s' ORDER BY s.value ASC");
 							
 							while($row6= mysqli_fetch_array($result6))
 							{
