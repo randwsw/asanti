@@ -544,6 +544,7 @@ div .cart-div {
 	/*margin-top: 10px;*/
 	float: right;
 	cursor: pointer;
+	border-bottom: 1px solid rgba(255,255,255,0);
 }
 	div .cart-div:hover {
 		border-bottom: 1px solid black;

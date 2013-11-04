@@ -60,15 +60,10 @@
 		$newcat = $lol[0];
 		 //echo($newcat);
 		// echo($cat);
-		
-		if($cat!='recommended')
-		{		
+	
 			$sql2= mysqli_query($conn, "SELECT count(*) AS count FROM item i, photo ph, category c, category_con cc WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category 
 			WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id =c.id;") or die(mysql_error());
-		}
-		else {
-			$sql2= mysqli_query($conn, "SELECT count(*) AS count FROM item i, photo ph, recommended r WHERE i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id;") or die(mysql_error());	
-		}
+
 		
 		while($rec2 = mysqli_fetch_array($sql2)) {
 			$count =  $rec2['count'];
@@ -120,24 +115,24 @@
 		echo("<div class='sortBy'>
 		<a>Sortuj: $ordername</a>	    
 	    <ul>
-	    	<li><a class='ele' href='index.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
-	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
-	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
-	        <li><a class='ele' href='index.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
+	    	<li><a class='ele' href='store.php?category=".$cat."&page=$page&order=az'>Alfabetycznie: a - z</a></li>
+	        <li><a class='ele' href='store.php?category=".$cat."&page=$page&order=za'>Alfabetycznie: z - a</a></li>
+	        <li><a class='ele' href='store.php?category=".$cat."&page=$page&order=pa'>Cena: od najmniejszej</a></li>
+	        <li><a class='ele' href='store.php?category=".$cat."&page=$page&order=pd'>Cena: od największej</a></li>	        
 	    </ul> 
 		</div>");
 
 		echo("<div class='pages'>"); 
 		if($page>1)
-		echo("<a href='index.php?category=".$cat."&page=$prevpage&order=$order'>&#171</a> ");
+		echo("<a href='store.php?category=".$cat."&page=$prevpage&order=$order'>&#171</a> ");
 			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
 				if(($i>0)&&($i<=$pages))
 				{
-				echo("<a id='page_$i' href='index.php?category=".$cat."&page=$i&order=$order'>".$i."</a> ");
+				echo("<a id='page_$i' href='store.php?category=".$cat."&page=$i&order=$order'>".$i."</a> ");
 				}
 			}
 		if($page<$pages)
-		echo("<a href='index.php?category=".$cat."&page=$nextpage&order=$order'>&#187</a> ");
+		echo("<a href='store.php?category=".$cat."&page=$nextpage&order=$order'>&#187</a> ");
 		echo("</div>");
 		echo("</div>");
 	?>
@@ -152,10 +147,6 @@
 			</div>
 			<div class="centerdiv" id="midcenterdiv">
     <div class="recommended">
-    <?php
-    if($cat=='recommended')
-	echo("<div class='title'>Polecamy</div>");
-	?>
 	<div class="products">
 		<?php
 		
@@ -170,8 +161,6 @@
 			$recarray[$rec["item_id"]] = $rec["price"];
 		}
 		
-		if($cat!='recommended')
-		{
 			$sql= mysqli_query($conn, "SELECT a.price, a.id, a.url, a.urlName, a.parentId, a.iname, it.price AS itprice FROM
 (SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price 
 FROM item i, photo ph, category c, category_con cc, recommended r, rec_price rp 
@@ -182,22 +171,10 @@ FROM item i, photo ph, category c, category_con cc
 WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id=c.id AND i.id NOT IN (SELECT item_id FROM recommended) ) a, item it
 WHERE it.id=a.id
 ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
-		}else {
-			$sql= mysqli_query($conn, 
-			"SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price, i.price AS iprice 
-			 FROM rec_price rp, category c, category_con cc, item i, photo ph, recommended r 
-			 WHERE i.id = cc.item_id AND c.id = cc.cat_id AND i.headPhotoId = ph.id AND i.active = 1 AND i.id = r.item_id AND r.id = rp.rec_id
-			 ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());	
-			 
-			 		
-		}
+		
 		
 		while($rec = mysqli_fetch_array($sql)) {
 			$icount++;
-			if($cat=='recommended') {
-				
-				$cat=$rec['urlName']."-".$rec['parentId'];
-			}
 			echo("<div class='product-info'>");
 			
 			echo("
@@ -286,15 +263,15 @@ ORDER BY $orderdb limit $min, $itemsPerPage;") or die(mysql_error());
 echo("<div class='itemMenu'>");
 		echo("<div class='pages'>"); 
 		if($page>1)
-		echo("<a href='index.php?category=".$cat."&page=$prevpage'>&#171</a> ");
+		echo("<a href='store.php?category=".$cat."&page=$prevpage'>&#171</a> ");
 			for ($i = $page-(2+$edge); $i <= $page+(2+$edge); $i++) {
 				if(($i>0)&&($i<=$pages))
 				{
-				echo("<a id='page_$i' href='index.php?category=".$cat."&page=$i'>".$i."</a> ");
+				echo("<a id='page_$i' href='store.php?category=".$cat."&page=$i'>".$i."</a> ");
 				}
 			}
 		if($page<$pages)
-		echo("<a href='index.php?category=".$cat."&page=$nextpage'>&#187</a> ");
+		echo("<a href='store.php?category=".$cat."&page=$nextpage'>&#187</a> ");
 		echo("</div>");
 		echo("</div>");	 
 ?>
@@ -358,10 +335,15 @@ var cookieArray = [];
 		}
 		
 	}
+	var start_pos =  cookieval.indexOf('(')+1;
+	var end_pos =  cookieval.indexOf(')',start_pos);
+	var c = cookieval.substring(start_pos,end_pos);
+	cookieval =  cookieval.substring(end_pos+1);
 	ric =  cookieval;
+	
 	ric = ric.substring(3);
 	icint += parseInt(ric);
-	$('#cart-count').html(icint);
+	 $('#cart-count').html(icint);
 	}
  } else {
  	$('#cart-count').html("0");

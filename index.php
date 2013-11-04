@@ -62,13 +62,13 @@
 		}
 	
 	
-	$result = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '1'");
+	$result = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '4'");
 	while($row = mysqli_fetch_array($result))
 	{
 		$girls = $row['urlName'];
 	}
 	
-	$result2 = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '2'");
+	$result2 = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '5'");
 	while($row2 = mysqli_fetch_array($result2))
 	{
 		$boys = $row2['urlName'];
