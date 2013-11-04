@@ -371,6 +371,7 @@ div .panel-div > #profile-icon {
 	min-width: 1000px;*/
 	overflow: hidden;
 	padding-top: 20px;
+	padding-bottom: 10px;
 }
 .imageContainer {
 	width:	220px;
@@ -588,6 +589,12 @@ div .cart-div {
 	background: rgba(153,101,21,0.2);*/
 	/*#996515*/
 }
+#more a{
+	float: right;
+	padding: 5px 5px 5px 5px;
+	font-family: "Gabriola", "OpenSansRegular", Arial;
+	font-size: 22pt;
+}
 
 div.recommended .title{
 	font-family: "Gabriola";
@@ -596,6 +603,11 @@ div.recommended .title{
 	margin-left: 10px;
 	margin-top: 10px;
 	color: #C99C57;
+}
+.welcome {
+	margin-top: 250px;
+	height: 500px;
+	background-color: red;
 }
 
 .itemMenu {

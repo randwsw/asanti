@@ -1,0 +1,64 @@
+.bigdivm {
+	width: 1100px;
+	height: 500px;
+    margin: 0 auto;
+    margin-top: 250px;
+    margin-bottom: 20px;
+    z-index: 3;
+    position: relative;
+}
+	/*========ROWS========*/
+	.bigdivm .rowdivm {
+		width: 1100px;	
+	}
+	.bigdivm #topdivm, #botdivm {
+		height: 43px;
+	}
+	.bigdivm #middivm {
+		height: 400px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.rowdivm .rightdivm {
+		float: right;
+	}
+	.rowdivm .leftdivm {
+		float: right;
+	}
+	.rowdivm .centerdivm {
+		float: right;
+	}
+	/*========MID=========*/
+	 #midleftdivm {
+		width: 37px;
+		height: 400px;		
+	}
+	#midrightdivm {
+		width: 42px;
+		height: 400px;
+	}
+	#midcenterdivm {
+		width: 1021px;
+		height: 400px;
+		background:  url(../../img/pat/pat2.png) repeat;
+	}
+	
+	/*====================*/
+
+/* TEST */
+
+#topdivm {
+	background:  url(../../img/borders/top.png) top no-repeat;
+}
+#botdivm {
+	background:  url(../../img/borders/bot.png) top no-repeat;
+
+}
+
+#midrightdivm {
+		background:  url(../../img/borders/right.png) left repeat-y;
+}
+#midleftdivm {
+		background:  url(../../img/borders/left.png) left repeat-y;
+}
+
