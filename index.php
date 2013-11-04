@@ -53,6 +53,27 @@
 	
     <div class="container">
 	
+	<?php
+	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+
+	if (mysqli_connect_errno())
+		{
+	 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
+	
+	
+	$result = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '1'");
+	while($row = mysqli_fetch_array($result))
+	{
+		$girls = $row['urlName'];
+	}
+	
+	$result2 = mysqli_query($conn,"SELECT urlName FROM category WHERE id = '2'");
+	while($row2 = mysqli_fetch_array($result2))
+	{
+		$boys = $row2['urlName'];
+	}
+	?>
 	
 
 	
@@ -65,7 +86,18 @@
 				
 			</div>
 			<div class="centerdivm" id="midcenterdivm">
-		
+				<div id="welcome">
+					<div id="title">
+						<h>Witamy w sklepie Asanti for kids</h>
+					</div>
+					<div id="subTitle">
+						<p>Zapraszamy do zakupów!</p>
+					</div>
+					<div id="pickMenu">
+						<a href="store.php?category=<?php echo $girls; ?>"><div id="p1"></div></a>
+						<a href="store.php?category=<?php echo $boys; ?>"><div id="p2"></div></a>
+					</div>
+				</div>
 			</div>
 			<div class="leftdivm" id="midleftdivm">
 				

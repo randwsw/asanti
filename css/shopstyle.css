@@ -1730,3 +1730,43 @@ div#paymentsContent #title{
 	color: #C99C57;
 }
 /* ////////////////////////////////////////////////////////// */
+/* INDEX PAGE /////////////////////////////////////////////// */
+div#welcome #title{
+	width: 1000px;
+	margin-top: 40px;
+}
+div#welcome #title h{
+	font-family: "Gabriola";
+	font-size: 24pt;
+	margin-left: 350px;
+	color: #58300c;
+}
+div#welcome #subTitle p{
+	font-family: "Gabriola";
+	font-size: 18pt;
+	margin-left: 410px;
+	color: #58300c;
+}
+
+div#welcome #pickMenu{
+	width: 1000px;
+	height: 300px;
+	/*background-color: Red;*/
+	margin-left: 10px;
+}
+
+div#welcome #pickMenu #p2{
+	width: 350px;
+	height: 250px;
+	background: url("../img/picker22.png") no-repeat;
+	margin-left: 500px;
+}
+
+div#welcome #pickMenu #p1{
+	width: 350px;
+	height: 250px;
+	background: url("../img/picker11.png") no-repeat;
+	position: absolute;
+	margin-left: 150px;
+}
+/* ////////////////////////////////////////////////////////// */
