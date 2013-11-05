@@ -12,9 +12,9 @@
 			if(!isset($_SESSION['login'])) {
 			echo("<div class='sub-panel-div' id='profile' >
 				<p>Witaj.&#160</p> 
-				<a href='../asanti/login.php'> <p class='p-profile' id='p-login'>Zaloguj się</p></a>
+				<a href='login.php'> <p class='p-profile' id='p-login'>Zaloguj się</p></a>
 				<p>&#160lub&#160</p> 
-				<a href='../asanti/register.php'><p class='p-profile' id='p-register'>załóż konto.</p></a>
+				<a href='register.php'><p class='p-profile' id='p-register'>załóż konto.</p></a>
 			</div>
 			<div class='sub-panel-div' id='profile-icon' ></div>
 			");
