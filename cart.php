@@ -252,9 +252,9 @@
 		
 		?>
 		<div class="product-row" id="bot-row">
-			<div class="column-submit">
+			<!-- <div class="column-submit">
 				<p><a href="index.php">wróć do sklepu</a></a></p>
-			</div>
+			</div> -->
 			<div class="column-name">
 				<p>Razem do zapłaty:</p>
 			</div>
@@ -270,10 +270,69 @@
 					</p>
 			</div>
 			<div class="column-submit">
-				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
+				<p></p>
 			</div>
 		</div>
 		<input id='discounthid' type='hidden' name='dischid' value='<?php if($check==1) { if($dval!=0){ echo($dval);} else {echo("0");}} ?>'/>
+		<div class="product-row" id="bot-row">
+			<div class="column-name">
+				<p>Wybierz rodzaj przesyłki:</p>
+			</div>
+			<div class="column-name">
+				<?php
+					// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
+					$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+					// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+							
+					// Check connection
+					if (mysqli_connect_errno())
+					{
+						echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					}
+						echo("
+						<div class='styled-select-shipping'>
+							<label>
+							<select class='ship-sel'>");
+
+							$sql2 = mysqli_query($conn2, "SELECT name, value FROM shipping WHERE active = 1 ORDER BY value");
+							
+
+							$firstval = 0;
+							$i = 0;
+							while($row2= mysqli_fetch_array($sql2))
+							{
+								if($i==0) {
+									$firstval = $row2['value'];
+									$i=1;
+								}
+								$value = $row2['value'];
+								$name = $row2['name'];
+								echo("<option value='$value'>$name - $value zł</option>");
+								
+							}
+							echo("<label>
+							</select>
+						</div>");
+						mysqli_close($conn2);	
+					
+				?>
+			</div>
+			<div class="column-name">
+				<p>Razem z przesyłką:</p>
+			</div>
+			<div class="column-price-all">
+				<p id="pricefinal">
+					
+					<?php 
+						$nsum = number_format($sum+$firstval, 2, '.','');
+						echo($nsum); 
+					?>
+				</p>
+			</div>
+			<div class="column-submit">
+				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
+			</div>
+		</div>
 		</form>
 	</div>
 </body>
@@ -367,17 +426,36 @@ $( document ).ready(function() {
 			$("#disc").html("");
 			v = 0;
 		}
-		totalprice = totalprice.toFixed(2); 
 		
+		
+		var shipping =$('.ship-sel').find(":selected").attr("value");
+		 
+		var shipint = parseInt(shipping);
+		var pricefinal = totalprice+shipint;
+		totalprice = totalprice.toFixed(2); 
+		pricefinal = pricefinal.toFixed(2); 
 		
 		$("#discounthid").attr('value', v);			 
 		$("#complPrice").html(totalprice);
+		
+		
+		$("#pricefinal").html(pricefinal);
 	});
 
 	$( ".quantityTb" ).focus(function() {
 		x = $(this).attr("id");
 		y = $(this).attr("value");
 		x = x.substring(8);
+	});
+	
+	$( ".ship-sel" ).change(function() {
+		var shipping =$('.ship-sel').find(":selected").attr("value");
+		var shipint = parseInt(shipping);
+		var cprice = $("#complPrice").html();
+		var cpriceint = parseInt(cprice);
+		var pricefinal = shipint+cpriceint;
+		pricefinal = pricefinal.toFixed(2); 
+		$("#pricefinal").html(pricefinal);
 	});
 	
 });

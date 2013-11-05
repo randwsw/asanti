@@ -26,7 +26,8 @@
 	<?php
     	// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
+		// //////////////////////////////////////////////////////////////////////////////////////////////////// //
+			
 		
 		$cat = 'recommended';
 		if(isset($_GET['category'])) {
@@ -47,6 +48,7 @@
 		if(isset($_GET['page'])) {
 			$page = $conn->real_escape_string($_GET['page']);
 		}
+		mysqli_close($conn);
 	?>
 	<div class="bg">
 	</div> 
@@ -55,6 +57,7 @@
 	
 	<?php
 	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+	mysqli_set_charset($conn, "utf8");
 
 	if (mysqli_connect_errno())
 		{
@@ -118,10 +121,9 @@
 			</div>
 			<div class="centerdiv" id="midcenterdiv">
     <div class="recommended">
-    <?php
-    if($cat=='recommended')
-	echo("<div class='title'><a href='promo.php'>Polecamy<a></div>");
-	?>
+
+	<div class='title'><a href='promo.php'>Polecamy<a></div>
+
 	<div class="products">
 		<?php
 		
@@ -133,19 +135,6 @@
 			$recarray[$rec["item_id"]] = $rec["price"];
 		}
 		
-		if($cat!='recommended')
-		{
-			$sql= mysqli_query($conn, "SELECT a.price, a.id, a.url, a.urlName, a.parentId, a.iname, it.price AS itprice FROM
-(SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price 
-FROM item i, photo ph, category c, category_con cc, recommended r, rec_price rp 
-WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id=c.id AND r.item_id = i.id AND rp.rec_id = r.id 
-UNION ALL
-SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, i.price AS price 
-FROM item i, photo ph, category c, category_con cc
-WHERE i.headPhotoId = ph.id AND i.active = 1 AND ( c.urlName ='$newcat' OR c.parentId = (SELECT id FROM category WHERE urlName='$newcat') ) AND cc.item_id = i.id AND cc.cat_id=c.id AND i.id NOT IN (SELECT item_id FROM recommended) ) a, item it
-WHERE it.id=a.id
-ORDER BY price ASC, iname ASC limit 0, 4;") or die(mysql_error());
-		}else {
 			$sql= mysqli_query($conn, 
 			"SELECT i.name AS iname, url, i.id, c.urlName AS urlName, c.parentId AS parentId, rp.price AS price, i.price AS iprice 
 			 FROM rec_price rp, category c, category_con cc, item i, photo ph, recommended r 
@@ -153,14 +142,12 @@ ORDER BY price ASC, iname ASC limit 0, 4;") or die(mysql_error());
 			 ORDER BY price ASC, iname ASC limit 0, 4;") or die(mysql_error());	
 			 
 			 		
-		}
+	
 		
 		while($rec = mysqli_fetch_array($sql)) {
 			$icount++;
-			if($cat=='recommended') {
-				
-				$cat=$rec['urlName']."-".$rec['parentId'];
-			}
+			$cat=$rec['urlName']."-".$rec['parentId'];
+			
 			echo("<div class='product-info'>");
 			
 			echo("

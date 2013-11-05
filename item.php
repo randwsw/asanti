@@ -25,6 +25,7 @@ $itemId = $_GET['id'];
 $photosList = array();
 $sizeList = array();
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+mysqli_set_charset($conn, "utf8");
 
 
 
@@ -53,6 +54,7 @@ if (mysqli_connect_errno())
 
 // CHECK FOR UNIQUE ITEM ////////////////////////////
 $result1 = mysqli_query($conn,"SELECT COUNT(*) AS count FROM item WHERE id = '$itemId'");
+mysqli_set_charset($conn, "utf8");
 while($row1 = mysqli_fetch_array($result1))
 {
 	if($row1['count'] != 1){
@@ -102,6 +104,7 @@ while($row1 = mysqli_fetch_array($result1))
 }
 
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+mysqli_set_charset($conn, "utf8");
 
 if (mysqli_connect_errno())
 	{
@@ -259,11 +262,18 @@ if(mysqli_num_rows($res) > 0) {
 					</div>
 					<div class="centerdiv" id="midcenterdiv">
 				<div id="container">
-					<?php if($newprice != null) { ?>
-						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="ppricepromo"><strike><?php echo($price); ?></strike>zł</p><p class="ppricenewpromo"><?php echo($newprice); ?>zł</p></h2>
-					<?php } else {?>
-						<h2 id="itemTitle"><?php echo("$itemName"); ?><p class="pprice"><?php echo($price); ?>zł</p></h2>
-					<?php } ?>
+					<div class='desctop'>
+						<div class='desctopleft'>
+							<h2 id="itemTitle"><?php echo("$itemName"); ?></h2>
+						</div>
+						<div class='desctopright'>
+							<?php if($newprice != null) { ?>
+								<p class="ppricepromo"><strike><?php echo($price); ?></strike>zł</p><p class="ppricenewpromo"><?php echo($newprice); ?>zł</p>
+							<?php } else {?>
+								<p class="pprice"><?php echo($price); ?>zł</p>
+							<?php } ?>
+						</div>
+					</div>
 					
 					<div id="itemDescription"><?php echo("$description"); ?></div>
 					
@@ -271,16 +281,13 @@ if(mysqli_num_rows($res) > 0) {
 					<div id="itemSizes"><div id="title">Dostępne rozmiary:</div>
 						<?php
 						$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+						mysqli_set_charset($conn2, "utf8");
+						
 						
 						if (mysqli_connect_errno())
 						{
 					 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 						}
-						
-						// ENCODING TO UTF8
-						$sql = "SET NAMES 'utf8'";
-						!mysqli_query($conn2,$sql);	
-						
 						
 						
 						$sizeNames = array();
@@ -316,6 +323,7 @@ if(mysqli_num_rows($res) > 0) {
 							 	<select class='color-sel'>
 							 		<?php
 							 		$conncolor=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+									mysqli_set_charset($conncolor, "utf8");
 						
 									if (mysqli_connect_errno())
 									{
@@ -386,6 +394,7 @@ if(mysqli_num_rows($res) > 0) {
 					 </div>
 					 <?php
 					 	$conn3=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+						mysqli_set_charset($conn3, "utf8");
 						$id = $_GET['id'];
 						
 						
@@ -404,7 +413,7 @@ if(mysqli_num_rows($res) > 0) {
 						echo('<div id="connections">');
 						
 						if(mysqli_num_rows($result6) > 0){
-						echo('<div class = "Title">Przedmioty powiązane:</div>');
+						echo('<div class = "Title">Do kompletu proponujemy:</div>');
 						}
 								
 						while($row6= mysqli_fetch_array($result6))

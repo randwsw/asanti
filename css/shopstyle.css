@@ -480,12 +480,14 @@ div .panel-div > #profile-icon {
 	margin-top: 10px;
 	overflow: hidden;
 	float: left;
+	width: 150px;
 	/*margin-bottom: 10px;*/
 }
 .product-price {
 	margin-top: 10px;
 	overflow: hidden;
 	float: right;
+	width: 70px;
 } 
 .product-price p {
 	/*float: right;*/
@@ -929,6 +931,20 @@ div#itemDescriptionContainer #questionForm input[name="send"]{
 	margin-right: 5px;
 }
 
+.desctop {
+	width: 430px;
+	min-height: 25px;
+	font-family: "OpenSansRegular", "OpenSansBold", Arial;
+	font-weight: normal;
+}
+.desctopleft {
+	float: left;
+	width: 330px;
+}
+.desctopright {
+	float: right;
+	width: 100px;
+}
 #itemTitle {
 	font-size: 13pt;
 	border-left: 3px solid #C99C57;
@@ -940,14 +956,17 @@ div#itemDescriptionContainer #questionForm input[name="send"]{
 	margin-right: 15px;
 }
 .ppricepromo {
-	float: right;
+	/*float: right;*/
 	font-size: 10pt;
 	margin-right: 15px;
+	text-align: right;
 }
 .ppricenewpromo {
-	float: right;
-	margin-top: 20px;
-	margin-right: -47px;
+	text-align: right;
+	margin-right: 15px;
+	/*float: right;*/
+	/*margin-top: 20px;
+	margin-right: -47px;*/
 }
 #itemDescription {
 	color: #383838;
@@ -1108,6 +1127,66 @@ div#itemSizes .sizeBox .title{
 .styled-select-big {
 	float: left;
   	width: 200px;
+	height: 26px;
+  	overflow: hidden;
+  	/*margin-right: 2px;*/
+}
+
+/*shipping select*/
+
+.styled-select-shipping select{
+	/*width:270px;*/
+	height: 22px;
+    padding:2px;
+     background: #f8f8f8;
+    color:#888;
+    border: 1px solid #888;
+    /*border:none;*/
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+   	font-family: "OpenSansRegular", Arial;
+
+}
+
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:18px}
+}
+
+.styled-select-shipping label {position:relative}
+.styled-select-shipping label:after {
+    content:'>';
+    font:13px "Consolas", monospace;
+    font-weight: bold;
+    color:#aaa;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:6px; top:-2px;
+    padding:2px;
+    border-bottom:1px solid #888;
+    position:absolute;
+    pointer-events:none;
+}
+.styled-select-shipping label:before {
+    content:'';
+    right:6px; top: 2px;
+    width:20px; height:18px;
+    background:#f8f8f8;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
+
+.styled-select-shipping {
+	float: left;
+  	/*width: 270px;*/
 	height: 26px;
   	overflow: hidden;
   	/*margin-right: 2px;*/
