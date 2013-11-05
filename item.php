@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
 <title>Asanti - sklep</title>
 
 	<!-- Include links ---------------------------------------------------------- -->
@@ -403,9 +403,9 @@ if(mysqli_num_rows($res) > 0) {
 					 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 						}
 						
-						// ENCODING TO UTF8
-						$sql = "SET NAMES 'utf8'";
-						!mysqli_query($conn3,$sql);	
+						// // ENCODING TO UTF8
+						// $sql = "SET NAMES 'utf8'";
+						// !mysqli_query($conn3,$sql);	
 						
 						// $result6 = mysqli_query($conn3,"SELECT i.name AS itemName, p.url AS photoUrl FROM item i, photo p WHERE i.headPhotoId = p.id AND ");
 						$result6 = mysqli_query($conn3,"SELECT i.id AS itemId, i.name AS itemName FROM item i, item_conn ic WHERE (ic.item1_id = $id AND i.id = ic.item2_id) OR (ic.item2_id = $id AND i.id = ic.item1_id) GROUP BY itemName");

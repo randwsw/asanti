@@ -65,7 +65,7 @@ switch ($action) {
 		$count = $_POST['count'];
 		$disc = $_POST['disc'];
 		
-		mysqli_query($conn,"UPDATE discount SET item_count = '$count', value = '$disc' WHERE id='$discId'");
+		mysqli_query($conn,"UPDATE discount SET items_value = '$count', value = '$disc' WHERE id='$discId'");
 	
 		mysqli_close($conn);
 }

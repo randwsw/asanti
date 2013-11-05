@@ -37,7 +37,8 @@ $price = $purifier->purify($price);
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////// //
 
-
+$sql = "SET NAMES 'utf8'";
+!mysqli_query($conn,$sql);
 
 // CREATE ITEM
 if (mysqli_connect_errno())

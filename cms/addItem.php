@@ -292,7 +292,7 @@ if(!isset($_POST["submit"])){?>
 											
 										foreach($sizeOfList as $sizeOf){
 											$sizeList = array();
-											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name'");
+											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name' ORDER BY value");
 																					
 											while($row = mysqli_fetch_array($result))
 												{

@@ -203,6 +203,23 @@ switch ($action) {
 			  	{
 			  		
 			  	}
+		
+		
+		
+		// DELETE COLOR ITEM CONNECTIONS
+		
+		$sql3="DELETE FROM color_conn
+					WHERE item_id = '$itemToDelete'";
+				if (!mysqli_query($conn,$sql3))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  		
+			  	}
+		
+		
 			
 		// DELETE RECOMMENDED CONNECTIONS	
 		

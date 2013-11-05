@@ -145,7 +145,9 @@ $itemPrice = "";
 $itemDescription = "";					
 $conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 										
-	
+$sql = "SET NAMES 'utf8'";
+!mysqli_query($conn2,$sql);
+
 require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
 
 $config = HTMLPurifier_Config::createDefault();
@@ -648,6 +650,10 @@ while($row2 = mysqli_fetch_array($result2))
 
 		
 										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");										
+										
+										$sql = "SET NAMES 'utf8'";
+										!mysqli_query($conn,$sql);
+										
 										class size {
 											public $id;
 											public $value;
@@ -663,8 +669,8 @@ while($row2 = mysqli_fetch_array($result2))
 										$sizeOfList = array();
 																				
 										// ENCODING TO UTF8
-										$sql = "SET NAMES 'utf8'";
-										!mysqli_query($conn,$sql);		
+										// $sql = "SET NAMES 'utf8'";
+										// !mysqli_query($conn,$sql);		
 																				
 										if (mysqli_connect_errno())
 											{
@@ -687,7 +693,7 @@ while($row2 = mysqli_fetch_array($result2))
 											
 										foreach($sizeOfList as $sizeOf){
 											$sizeList = array();
-											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name'");
+											$result = mysqli_query($conn,"SELECT * FROM size WHERE name = '$sizeOf->name' ORDER BY value");
 																					
 											while($row = mysqli_fetch_array($result))
 												{
