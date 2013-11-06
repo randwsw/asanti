@@ -371,6 +371,7 @@ if(mysqli_num_rows($res) > 0) {
 					 ?>
 					 
 					 	<div id="container">
+					 		<form method="POST" action="controllers/sendQuestion.php">
 					 		<?php
 					 			if(!isset($_SESSION['login'])){
 					 		?>
@@ -388,8 +389,9 @@ if(mysqli_num_rows($res) > 0) {
 					 			<textarea name="Text1" cols="40" rows="5" ></textarea>
 					 		</div>
 					 		<div class="row">
-					 			<input type="button" name="send" value="Wyślij" /><input type="button" name="cancel" value="Anuluj" />
+					 			<input type="submit" name="send" value="Wyślij" /><input type="button" name="cancel" value="Anuluj" />
 					 		</div>
+					 		</form>
 					 	</div>
 					 </div>
 					 <?php

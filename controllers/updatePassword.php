@@ -2,6 +2,8 @@
 
 require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
 
+$u = $_SESSION['login'];
+
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 
@@ -31,6 +33,12 @@ if (mysqli_connect_errno())
 	}
 
 mysqli_query($conn,"UPDATE users SET password = '$pass1' WHERE email='$email';");
+
+$result = mysqli_query( $conn,"SELECT * FROM remember_me WHERE user_id =(SELECT id FROM users WHERE email = '$u')" );
+
+if( mysqli_num_rows($result) > 0) {
+	$result = mysqli_query($conn,"DELETE FROM remember_me WHERE user_id = (SELECT id FROM users WHERE email = '$u')");
+}
 
 if(isset($_SESSION['login']))
   unset($_SESSION['login']);

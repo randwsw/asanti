@@ -44,7 +44,7 @@ if(!session_id())
 		if(!isset($_GET['id'])) { 
 		?>
 		<br/>
-		<img src='img/forkids2.png' id='log-logo'>
+		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
 		<br/>
 		<h2>Zamówienia</h2>
 		<div class="product-row" id="top-row-o">

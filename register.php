@@ -42,7 +42,7 @@
 	<!-- ------------------------------------------------------------------------ -->
 	
 		<div class="register-div">
-			<img src="img/nextlogo.png" id="log-logo">
+		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
 					
 				<form method="POST" class="regform" id="regform" >
 					<h2>Rejestracja</h2>
@@ -113,7 +113,8 @@
 			</div>
 			<!-- <div class = "needle">
 				 <img src="img/needle.png" alt="Smiley face" height="593" width="495"> 
-			</div>	 -->					
+			</div>	 -->
+							
 	</div>
 </body>
 </html>

@@ -18,8 +18,8 @@
 	<!-- Include background animation ------------------------------------------- -->
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
-	<div class="bg">
-	</div> 
+	<div class="bg"></div> 
+	<div class="bg" id="bg2"></div>
 	<div class="bigdiv">
 		<div class="rowdiv" id="topdiv">
 		</div>
@@ -42,7 +42,7 @@
 	<!-- Include background animation ------------------------------------------- -->
 	<!-- <?php include 'include/backanim.php'; ?> -->
 	<!-- ------------------------------------------------------------------------ -->
-	<img src="img/nextlogo.png" id="log-logo">
+		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
 		<div class="logreg-div">
 			
 			<div class="log-div">
@@ -106,6 +106,24 @@
 			</div>
 		</div>
 	</div>
+	<div class="big2div" id="addcart">
+				<div class="row2div" id="top2div">
+				</div>
+				<div class="row2div" id="mid2div">
+					<div class="right2div" id="midright2div">
+						
+					</div>
+					<div class="center2div" id="midcenter2div">
+						<p id="main">Nieprawidłowy login, hasło lub nieaktywne konto.</p>
+						<p id="ret"><a>powrót</a></p>
+					</div>
+					<div class="left2div" id="midleft2div">
+						
+					</div>
+				</div>
+				<div class="row2div" id="bot2div">
+				</div>
+			</div>	
 </body>
 </html>
 <script type="text/javascript">
@@ -148,7 +166,8 @@ var validate = $(".logform").validate({
 		.done(function(data) {
 			if(data!='')
 			{
-				alert(data);
+				$(".big2div").css("display", "block");
+				$("#bg2").css("display", "block");
 			}else {
 				if ($('#rememberMe').prop('checked') == true) {
 					$.cookie("rememberme", $("#loginInput").val(), { expires: 365, path: '/' });
@@ -185,5 +204,9 @@ var validate = $(".logform").validate({
 			minlength: jQuery.format("Minimum {0} znaków !")
 		}
 	}
+});
+$("#bg2, #ret").click(function(){
+	$("#bg2").css("display", "none");
+	$(".big2div").css("display", "none");
 });
 </script>

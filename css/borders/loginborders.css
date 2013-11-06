@@ -64,3 +64,84 @@
 		background:  url(../../img/borders/left.png) left repeat-y;
 }
 
+.big2div {
+	position: fixed;
+	left: 50%;
+	margin-left: -225px;
+	width: 550px;
+	top: 50%;
+	margin-top: -100px;
+	height: 140px;
+	z-index: 4;
+	display:none;
+}
+	/*========ROWS========*/
+	.big2div .row2div {
+		width: 550px;
+		
+	}
+	.big2div #top2div, #bot2div {
+		height: 43px;
+	}
+	.big2div #mid2div {
+		height: 100px;
+	}
+	/*===================*/
+	/*====COLS-GENERAL===*/
+	.row2div .right2div {
+		float: right;
+	}
+	.row2div .left2div {
+		float: right;
+	}
+	.row2div .center2div {
+		float: right;
+	}
+	/*========MID=========*/
+	 #midleft2div {
+		width: 37px;
+		height: 100px;		
+	}
+	#midright2div {
+		width: 42px;
+		height: 100px;
+	}
+	#midcenter2div {
+		width: 449px;
+		height: 100px;
+		background:  url(../../img/pat/pat2.png) repeat;
+	}
+	#midcenter2div p{
+		font-family: "Gabriola";
+		font-size: 19pt;
+		color: #C99C57;
+	}
+	#midcenter2div #main{
+		margin: 30px 0 0 30px;
+	}
+	#ret {
+		float: right;
+		margin: 13px 20px 0 20px;
+	}
+		#ret a{
+			color: gray;
+		}
+	/*====================*/
+
+/* TEST */
+
+#top2div {
+	background:  url(../../img/borders/topcart.png) top no-repeat;
+	margin-left: 9px;
+}
+#bot2div {
+	background:  url(../../img/borders/botcart.png) top no-repeat;
+	margin-left: 9px;
+}
+
+#midright2div {
+		background:  url(../../img/borders/right.png) left repeat-y;
+}
+#midleft2div {
+		background:  url(../../img/borders/left.png) left repeat-y;
+}

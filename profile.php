@@ -1,4 +1,9 @@
 <?php if(!session_id()) { session_start();} ?>
+<?php
+	if(!isset($_SESSION['login'])) {
+		header("Location: index.php");
+	} 
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +24,8 @@
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<div class="bg">
-	</div> 
+	</div>
+	<div class="bg" id="bg2"></div> 
 	<div class="bigdiv">
 		<div class="rowdiv" id="topdiv">
 		</div>
@@ -86,8 +92,9 @@
 	<div class='regfiller'>
 		
 		<div class='updateleftCol'>
-		<img src='img/nextlogo.png' id='log-logo'>
-					
+		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
+		
+	
 				<form method='POST' class='profileform' id='regform' >
 					<div id='phead'><a id='em'>( ".$login." )</a><a id='or' href='orders.php'>Moje zamówienia</a></div>
 					<br>
@@ -163,6 +170,41 @@
 	</div>
 	");
 	?>
+	<div class="big2div" id="addcart">
+				<div class="row2div" id="top2div">
+				</div>
+				<div class="row2div" id="mid2div">
+					<div class="right2div" id="midright2div">
+						
+					</div>
+					<div class="center2div" id="midcenter2div">
+						<p id="main">Hasło zostało pomyślnie zauktualizowane. Za chwilę zostaniesz wylogowany/a. Zaloguj się ponownie.</p>
+					</div>
+					<div class="left2div" id="midleft2div">
+						
+					</div>
+				</div>
+				<div class="row2div" id="bot2div">
+				</div>
+	</div>
+	<div class="big2div" id="updateuser">
+				<div class="row2div" id="top2div">
+				</div>
+				<div class="row2div" id="mid2div">
+					<div class="right2div" id="midright2div">
+						
+					</div>
+					<div class="center2div" id="midcenter2div">
+						<p id="main">Dane zostały pomyślnie zaktualizowane.</p>
+						<p id="ret"><a>powrót</a></p>
+					</div>
+					<div class="left2div" id="midleft2div">
+						
+					</div>
+				</div>
+				<div class="row2div" id="bot2div">
+				</div>
+	</div>	
 </body>
 </html>
 <script type="text/javascript">
@@ -249,8 +291,8 @@ var validate = $(".profileform").validate({
         { name: $("#name-input").val(), lastname: $("#lastname-input").val(), pcode: $("#pcode").val(), 
           street: $("#street").val(), city: $("#city-input").val(), phone: $("#phone-input").val() })
 		.done(function(data) {
-			alert("Dane użytkownika zostały pomyślnie zaktualizowane")
-			window.location.href = "profile.php";
+			$("#updateuser").css("display", "block");
+			$("#bg2").css("display", "block");
 		});
     },
 	rules: {
@@ -396,8 +438,10 @@ var validate3 = $(".passform").validate({
         $.post("controllers/updatePassword.php", 
         { pass1: $("#pass-input").val(), pass2: $("#pass2-input").val()})
 		.done(function(data) {
-			alert("Hasło zostało pomyślnie zauktualizowane, zaloguj się ponownie")
-			window.location.href = "index.php";
+			$("#addcart").css("display", "block");
+			$("#bg2").css("display", "block");
+			$.cookie("rememberme", "", { expires: 0, path: '/' });
+			setTimeout(function() {window.location.href = "index.php";}, 5000);
 		});
     },
 	rules: {
@@ -421,5 +465,9 @@ var validate3 = $(".passform").validate({
 			equalTo: "Podane hasła różnią się !"
 		}
 	}
+});
+$("#bg2, #ret").click(function(){
+	$("#bg2").css("display", "none");
+	$(".big2div").css("display", "none");
 });
 </script>

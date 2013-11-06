@@ -1353,7 +1353,7 @@ div.connectionBox .connectionTitle{
 }
 
 .logfiller {
-	z-index: 3;
+	z-index: 2;
 	position: absolute;
 	left: 50%;
 	margin-left: -530px;
@@ -1395,7 +1395,7 @@ div.connectionBox .connectionTitle{
 }
 
 .regfiller {
-	z-index:3;
+	z-index:2;
 	position: absolute;
 	left: 50%;
 	margin-left: -370px;
