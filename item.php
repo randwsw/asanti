@@ -150,13 +150,25 @@ if(mysqli_num_rows($res) > 0) {
 	
 	function showQuestionForm(){
 		$("div#questions").click(function(){
-			$("div#questionForm").css("visibility", "visible");
+			if( $('div#questionForm').css("visibility")=="hidden" ) {
+				$("div#questionForm").css("visibility", "visible");
+			} else {
+				$("div#questionForm").css("visibility", "hidden");
+				
+				$(".qmail").attr("value", "");
+				$("#qsub").attr("value", "Pytanie: <?php echo($itemName); ?>");
+				$("#qtext").attr("value", "");
+			}
+			
 		})
 	}
     
     function questionCancel(){
     	$('input[name="cancel"]').click(function(){
     		$("div#questionForm").css("visibility", "hidden");
+    		$(".qmail").attr("value", "");
+			$("#qsub").attr("value", "Pytanie: <?php echo($itemName); ?>");
+			$("#qtext").attr("value", "");
     	})
     }
 
@@ -379,19 +391,21 @@ if(mysqli_num_rows($res) > 0) {
 					 		?>
 					 		<div class="row">
 					 			<p>Twój adres email: </p>
-					 			<input type="text" name="email"/>
+					 			<input class='qmail' type="text" name="email"/>
 					 		</div>
-					 		<?php } ?>
+					 		<?php } else {
+					 			echo("<input class='qmail' type='hidden' name='email' value='".$_SESSION['login']."'/>");
+					 		}?>
 					 		<div class="row">
 					 			<p>Temat: </p>
-					 			<input type="text" name="title" value='Pytanie: <?php echo($itemName); ?>'/>
+					 			<input id='qsub' type="text" name="title" value='Pytanie: <?php echo($itemName); ?>'/>
 					 		</div>
 					 		<div class="row2">
 					 			<p>Treść: </p>
-					 			<textarea name="Text1" cols="40" rows="5" ></textarea>
+					 			<textarea  id='qtext' name="Text1" cols="40" rows="5" ></textarea>
 					 		</div>
 					 		<div class="row">
-					 			<input type="submit" name="send" value="Wyślij" /><input type="button" name="cancel" value="Anuluj" />
+					 			<input type="button"  id='qbutton' name="send" value="Wyślij" /><input type="button" name="cancel" value="Anuluj" />
 					 		</div>
 					 		</form>
 					 	</div>
@@ -458,6 +472,24 @@ if(mysqli_num_rows($res) > 0) {
 			<div class="center2div" id="midcenter2div">
 				<p id="main">Produkt został dodany do koszyka.</p>
 				<p id="ret2"><a href='cart.php'>idź do koszyka</a></p>
+				<p id="ret"><a>powrót</a></p>
+			</div>
+			<div class="left2div" id="midleft2div">
+				
+			</div>
+		</div>
+		<div class="row2div" id="bot2div">
+		</div>
+	</div>
+	<div class="big2div" id="sendmsg">
+		<div class="row2div" id="top2div">
+		</div>
+		<div class="row2div" id="mid2div">
+			<div class="right2div" id="midright2div">
+				
+			</div>
+			<div class="center2div" id="midcenter2div">
+				<p id="main2">Wiadomość została wysłana.</p>
 				<p id="ret"><a>powrót</a></p>
 			</div>
 			<div class="left2div" id="midleft2div">
@@ -724,7 +756,7 @@ $('.item-cart').click(function() {
 	// alert(word);
 	$.cookie("cartItem", word, { expires: 1, path: '/' });
 }
-$(".big2div").css("display", "block");
+$("#addcart").css("display", "block");
 $("#bg2").css("display", "block");
 
 var count = $('#cart-count').html();
@@ -736,5 +768,20 @@ $("#bg2, #ret").click(function(){
 	$("#bg2").css("display", "none");
 	$(".big2div").css("display", "none");
 });
+
+$("#qbutton").click(function(){
+	$.post("controllers/sendQuestion.php", 
+        {email: $(".qmail").attr("value"), subject: $("#qsub").attr("value"), message: $("#qtext").attr("value")})
+		.done(function(data) {
+			$(".qmail").attr("value", "");
+			$("#qsub").attr("value", "Pytanie: <?php echo($itemName); ?>");
+			$("#qtext").attr("value", "");
+			$("div#questionForm").css("visibility", "hidden");
+			
+			$("#sendmsg").css("display", "block");
+			$("#bg2").css("display", "block");
+		});
+});
+
 </script>
 

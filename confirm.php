@@ -21,6 +21,7 @@ if(!session_id())
 	if(!isset($_SESSION['login'])) {
 		header('Location: login.php?cr=1');
 	}else {
+		header('Location: orders.php');
 		setcookie("cartItem", "", time()-3600, '/');
 		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
 
@@ -65,6 +66,6 @@ foreach( $name as $key => $n ) {
 		}
 }
 
-header('Location: orders.php?id='.$oid.'');
+
 }
 ?>

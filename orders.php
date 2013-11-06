@@ -118,7 +118,7 @@ if(!session_id())
 		$oid = $_GET['id'];
 		?>
 		<br/>
-		<img src='img/forkids2.png' id='log-logo'>
+		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
 		<br/>
 		<h2>Zamówienie numer:<?php echo(" ".$oid); ?></h2>
 		<div class="product-row" id="top-row-os">

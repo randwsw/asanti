@@ -26,7 +26,12 @@ $to = "$email";
 $subject = "Reset hasła";
 $message = "Hasło dla tego adresu email zostało zresetowane. Nowe hasło: '".$newpw."'. Zmiany hasła można dokonać w profilu użytkownika.";
 $from = "no-reply@asanti.com";
+$headerFields = array(
+    "From: {$from}",
+    "MIME-Version: 1.0",
+    "Content-Type: text/html;charset=utf-8"
+	);
 $headers = "From:" . $from;
-mail($to,$subject,$message,$headers);
-echo($message);
+mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',$message, implode("\r\n", $headerFields));
+
 ?>

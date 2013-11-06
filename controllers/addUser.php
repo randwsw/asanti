@@ -70,11 +70,17 @@ mysqli_query($conn,"INSERT INTO usr_activate (user_id, user_key)
 VALUES ($returnValue, '$activationKey')");
 
 $to = "$email";
+
+$from = "no-reply@asanti.com";
+$headerFields = array(
+    "From: {$from}",
+    "MIME-Version: 1.0",
+    "Content-Type: text/html;charset=utf-8"
+	);
 $subject = "Aktywacja konta";
 $message = "Kliknij w link, aby aktywować konto: http://www.serwer1309748.home.pl/asanti/controllers/activate.php?userkey=$activationKey";
-$from = "no-reply@asanti.com";
 $headers = "From:" . $from;
-mail($to,$subject,$message,$headers);
+mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',$message, implode("\r\n", $headerFields));
 //echo "Mail Sent.";
 //echo($activationKey);
 //echo($message);

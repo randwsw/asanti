@@ -98,7 +98,7 @@
 			    </div> -->
 			    <br>	
 				<div class ="formdiv">
-					<a href="../asanti/register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
+					<a href="register.php"><input class="form-button" type="button" value="Utwórz konto" /></a>
 				</div>
 				<div class ="formdiv" id="backdiv">
 					<a href="index.php"><p id="pback">&#171 wróć do sklepu</p></a>

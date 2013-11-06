@@ -855,6 +855,7 @@ div#itemDescriptionContainer #cart .title{
 	font-size: 9pt;
 	font-family: "OpenSansRegular", Arial;
 	cursor: pointer;
+	width: 250px;
 }
 
 div#itemDescriptionContainer #questions #mark{
