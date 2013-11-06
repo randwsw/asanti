@@ -6,6 +6,7 @@ $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+mysqli_set_charset($conn, "utf8");
 
 $name = $conn->real_escape_string($_POST['name']);
 $name= $purifier->purify($name);
@@ -41,6 +42,7 @@ if (mysqli_connect_errno())
 	}
 
 mysqli_query($conn,"UPDATE users SET name='$name', lastname='$lastname' WHERE email = '$email'");
+
 
 $result = mysqli_query($conn,"SELECT id FROM users WHERE email = '$email'");
 		while($e = mysqli_fetch_array($result))

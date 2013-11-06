@@ -105,7 +105,7 @@
 										
 					<div class ="formdiv">
 						<input class="form-button" type="submit" value="Zarejestruj się" id="regButton"/>
-						<a onclick="history.back(-1)"><p id="pback">&#171 wróć do sklepu</p></a>
+						<a onclick="history.back(-1)"><p id="pback">&#171 wróć</p></a>
 					</div>
 					
 				</form>

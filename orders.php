@@ -30,6 +30,7 @@ if(!session_id())
 		$purifier = new HTMLPurifier($config);
 		
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		mysqli_set_charset($conn, "utf8");
 		
 		$login = $conn->real_escape_string($_SESSION['login']);
 		$login= $purifier->purify($login);
@@ -61,7 +62,7 @@ if(!session_id())
 			</div>
 		</div>
 		<?php
-		$result = mysqli_query($conn,"SELECT o.id AS oid, order_date, status, order_value, disc  FROM orders o, users u WHERE u.id = (SELECT id FROM users WHERE email = '$login') AND u.id = o.user_id;");
+		$result = mysqli_query($conn,"SELECT o.id AS oid, order_date, status, order_value, disc, shipping_value FROM orders o, users u WHERE u.id = (SELECT id FROM users WHERE email = '$login') AND u.id = o.user_id;");
 		while($e = mysqli_fetch_array($result))
 		  {
 		  	switch ($e['status']) {
@@ -75,8 +76,12 @@ if(!session_id())
 			        $status='Zakończone';
 			        break;
 			}
+			$sv = $e['shipping_value'];
+			$sv = number_format($sv, 2, '.', '');
 			$ov = $e['order_value']*(1-($e['disc']/100));
 			$ov = number_format($ov, 2, '.', '');
+			$ovsv = $ov+$sv;
+			$ovsv = number_format($ovsv, 2, '.', '');
 				echo(
   				"<div class='product-row' id='middle-row-o'>
 					<div class='column-name'>
@@ -89,7 +94,7 @@ if(!session_id())
 						<p>".$status."</p>
 					</div>
 					<div class='column-price-all'>
-						<p>".$ov."</p>
+						<p>".$ovsv."</p>
 					</div>
 				</div>"
 		);
@@ -138,11 +143,13 @@ if(!session_id())
 		</div>
 		<?php
 		$user_id = null;
-		$result = mysqli_query($conn,"SELECT user_id, disc FROM orders WHERE id = $oid AND user_id = (SELECT id FROM users WHERE email = '$login') GROUP BY user_id;");
+		$result = mysqli_query($conn,"SELECT user_id, disc, shipping_value, shipping_name FROM orders WHERE id = $oid AND user_id = (SELECT id FROM users WHERE email = '$login') GROUP BY user_id;");
 		while($e = mysqli_fetch_array($result))
 		  {
 				$user_id = $e['user_id'];
 				$disc = $e['disc'];
+				$sv = $e['shipping_value'];
+				$sn = $e['shipping_name'];
 		  }
 		if($user_id == null) {
 			header('Location: index.php');
@@ -174,13 +181,11 @@ if(!session_id())
 					</div>
 				</div>");
 		  }
+		  
 		$sum = $sum*(1-($disc/100));
 		$sum = number_format($sum, 2, '.', '');
 		 echo("
 		  <div class='product-row' id='bot-row-os'>
-			<div class='column-price'>
-				<p><a href='orders.php'>wróć do zamówień</a></a></p>
-			</div>
 			<div class='column-quantity'>
 				<p>Razem:</p>
 			</div>
@@ -190,6 +195,24 @@ if(!session_id())
 					echo("<p id='disc'>(-".$disc."%)</p>");
 				}
 			echo("</div>
+		</div>");
+		echo("
+		  <div class='product-row' id='bot-row-oss'>
+		  	<div class='column-price-all'>
+				<p><a href='orders.php'>wróć do zamówień</a></a></p>
+			</div>
+			<div class='column-quantity'>
+				<p>Przesyłka:</p>
+			</div>
+			<div class='column-shipping'>
+				<p id='pshipping'>".$sn." - ".$sv." zł</p>
+			</div>
+			<div class='column-quantity'>
+				<p>Razem:</p>
+			</div>
+			<div class='column-price-all'>
+				<p id='complPrice'>".(number_format($sum+$sv, 2, '.', ''))."</p>
+			</div>	
 		</div>");
 	}
 }

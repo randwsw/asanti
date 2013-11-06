@@ -66,6 +66,13 @@
 		</div>
 		<div class="rowdiv" id="botdiv">
 		</div>
-	</div> 
+	</div>
+	<?php include 'include/footer.php'; ?> 
 </body>
 </html>
+<script>
+	$(document).ready(function(){
+		var height = $( '#midcenterdiv' ).css( "height" );
+	 	$( '#midrightdiv, #midleftdiv, #middiv' ).css( "height", height );
+	});
+</script>

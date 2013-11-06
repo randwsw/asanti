@@ -47,6 +47,8 @@
 		    						<div id="container">'); 
 									
 		    				$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+							mysqli_set_charset($conn, "utf8");
+							
 		    				
 							
 							if (mysqli_connect_errno())
@@ -77,6 +79,7 @@
 		    				<?php if(isset($_GET['action']) && $_GET['action'] == "show"){
 							
 							$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+							mysqli_set_charset($conn, "utf8");
 		    				$id = $_GET['id'];
 							
 							if (mysqli_connect_errno())
@@ -127,6 +130,7 @@
 			<div class="rowdiv" id="botdiv"></div>
 		</div>
 	</div>
+	<?php include 'include/footer.php'; ?> 
 </body>      
 </html>
 <script type="text/javascript">
