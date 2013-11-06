@@ -208,9 +208,9 @@ switch ($action) {
 		
 		// DELETE COLOR ITEM CONNECTIONS
 		
-		$sql3="DELETE FROM color_conn
+		$sql14="DELETE FROM colors_conn
 					WHERE item_id = '$itemToDelete'";
-				if (!mysqli_query($conn,$sql3))
+				if (!mysqli_query($conn,$sql14))
 				{
 			  		die('Error: ' . mysqli_error($conn));
 			  		mysqli_close($conn);
@@ -219,13 +219,24 @@ switch ($action) {
 			  		
 			  	}
 		
-		
+		// DELETE RECOMMENDED PRICE	
 			
+		$sql15="DELETE FROM rec_price
+					WHERE rec_id = (SELECT id FROM recommended WHERE item_id = '$itemToDelete')";
+				if (!mysqli_query($conn,$sql15))
+				{
+			  		die('Error: ' . mysqli_error($conn));
+			  		mysqli_close($conn);
+			  	}else
+			  	{
+			  		
+			  	}
+				
 		// DELETE RECOMMENDED CONNECTIONS	
 		
-		$sql5="DELETE FROM recommended
-					WHERE item_id = '$itemToDelete'";
-				if (!mysqli_query($conn,$sql5))
+		$sql16="DELETE FROM recommended
+					WHERE item_id = $itemToDelete";
+				if (!mysqli_query($conn,$sql16))
 				{
 			  		die('Error: ' . mysqli_error($conn));
 			  		mysqli_close($conn);
@@ -278,6 +289,8 @@ switch ($action) {
 			
 			$paths="/asanti/img/items/" . $itemToDelete;
 		
+			$paths2="/asanti/img/items/" . $itemToDelete . "/head";
+			
 			$ftp_server="serwer1309748.home.pl";
 		
 			$ftp_user_name="serwer1309748";
@@ -304,6 +317,15 @@ switch ($action) {
 			   	}
 		   
 		   
+			ftp_chdir($conn_id, $paths2);
+			$files2 = ftp_nlist($conn_id, ".");
+			foreach ($files2 as $file2)
+			{
+			    ftp_delete($conn_id, $file2);
+			}    
+				ftp_rmdir($conn_id, $paths2);
+			
+			
 			
 		
 			ftp_chdir($conn_id, $paths);
