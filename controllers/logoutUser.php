@@ -11,6 +11,7 @@ $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+mysqli_set_charset($conn, "utf8");
 
 $result = mysqli_query( $conn,"SELECT * FROM remember_me WHERE user_id =(SELECT id FROM users WHERE email = '$u')" );
 

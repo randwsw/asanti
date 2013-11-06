@@ -6,6 +6,7 @@ $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 
 $conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+mysqli_set_charset($conn, "utf8");
 
 $email = $conn->real_escape_string($_COOKIE['rememberme']);
 $email= $purifier->purify($email);

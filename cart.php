@@ -22,7 +22,7 @@
 	<?php include 'include/backanim.php'; ?>
 	<!-- ------------------------------------------------------------------------ -->
 	<div class ="container">
-	<div class="cart-fill"></div>
+	<div class="cart-fill">
 		<div class="product-row" id="top-row">
 			<div class="column-name">
 				<p>Nazwa produktu</p>
@@ -65,7 +65,8 @@
 		$querypart = "";
 		
 		
-		$sum=0; 
+		$sum=0;
+		$check = 0; 
 		if(isset($_COOKIE['cartItem']))
         {
 				$cookies = array();
@@ -130,6 +131,7 @@
 			
 			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 			$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+			mysqli_set_charset($conn, "utf8");
 			// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
 					
 			// Check connection
@@ -275,13 +277,14 @@
 		</div>
 		<input id='discounthid' type='hidden' name='dischid' value='<?php if($check==1) { if($dval!=0){ echo($dval);} else {echo("0");}} ?>'/>
 		<div class="product-row" id="bot-row">
-			<div class="column-name">
-				<p>Wybierz rodzaj przesyłki:</p>
+			<div class="column-fill">
+				<p>Rodzaj przesyłki:</p>
 			</div>
 			<div class="column-name">
 				<?php
 					// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 					$conn2=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+					mysqli_set_charset($conn2, "utf8");
 					// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
 							
 					// Check connection
@@ -298,11 +301,13 @@
 							
 
 							$firstval = 0;
+							$firstnameval = "";
 							$i = 0;
 							while($row2= mysqli_fetch_array($sql2))
 							{
 								if($i==0) {
 									$firstval = $row2['value'];
+									$firstnameval = $row2['name'];
 									$i=1;
 								}
 								$value = $row2['value'];
@@ -328,13 +333,26 @@
 						echo($nsum); 
 					?>
 				</p>
+				<input id='shippinghid' type='hidden' name='shippinghid' value='<?php echo($firstval); ?>'/>
+				<input id='shippnamehid' type='hidden' name='shippnamehid' value='<?php echo($firstnameval); ?>'/>
 			</div>
 			<div class="column-submit">
 				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
 			</div>
 		</div>
 		</form>
+		<div class="product-row" id="bot-row" style="border: 0px">
+			<div class='column-price-all' style="height: inherit">
+					<p style="margin-top: 10px;"><a href='index.php'>wróć do sklepu</a></p>
+			</div>
+			<div class='column-price-all'  style="height: inherit">
+					<p style="margin-top: 10px;"><a onclick="history.back(-1)">wróć</a></p>
+			</div>
+		</div>
+		</div>
 	</div>
+	 <?php include 'include/footer.php'; ?> 
+
 </body>
 </html>
 <script type="text/javascript">
@@ -450,12 +468,22 @@ $( document ).ready(function() {
 	
 	$( ".ship-sel" ).change(function() {
 		var shipping =$('.ship-sel').find(":selected").attr("value");
-		var shipint = parseInt(shipping);
+		
+		$("#shippinghid").attr("value",shipping);
+		var shipfloat = parseFloat(shipping);
+		
 		var cprice = $("#complPrice").html();
-		var cpriceint = parseInt(cprice);
-		var pricefinal = shipint+cpriceint;
+		var cpricefloat = parseFloat(cprice);
+		
+		var pricefinal = shipfloat+cpricefloat;
 		pricefinal = pricefinal.toFixed(2); 
 		$("#pricefinal").html(pricefinal);
+		
+		var shippname = $('.ship-sel').find(":selected").html();
+
+		shippname = shippname.substr(0, shippname.indexOf('-'));
+		$("#shippnamehid").attr("value",shippname);
+		
 	});
 	
 });

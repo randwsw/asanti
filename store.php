@@ -45,6 +45,8 @@
 		);
 			// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 		$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+		mysqli_set_charset($conn, "utf8");
+		
 		// //////////////////////////////////////////////////////////////////////////////////////////////////// //	
 		
 		
@@ -149,7 +151,7 @@
     	<?php
 		
 		$sql= mysqli_query($conn, "SELECT value, items_value FROM discount WHERE active = 1 ORDER BY items_value ASC") or die(mysql_error());
-		mysqli_set_charset($conn, "utf8");
+		
 		if(mysqli_num_rows($sql)>0) {
 			echo("<div class='title'>Rabaty:</div>");	
 			while($rec = mysqli_fetch_array($sql)) {
