@@ -6,6 +6,7 @@
 <p class="title"><a href="sizes.php">Rozmiary</a></p>
 <p class="title"><a href="colors.php">Kolory</a></p>
 <p class="title"><a href="connections.php">Powiązane</a></p>
+<p class="title"><a href="shipping.php">Dostawa</a></p>
 <p class="title"><a href="users.php">Użytkownicy</a></p>
 <p class="title"><a href="gallery.php">Galeria</a></p>
 <p class="title"><a href="promoted.php">Polecane</a></p>
