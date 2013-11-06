@@ -171,10 +171,12 @@ if(mysqli_num_rows($res) > 0) {
 		});
     	$(".photoThumbnails img").on("click", function(){
     		var url = $(this).attr("src");
+    		
    			$(".photoThumbnails img").css("opacity", "1.0");
     		$("#itemBigPhotoImage").stop()
 	        .fadeOut(400, function() {
-	            $("#itemBigPhotoImage").attr('src', url);
+	            $(this).attr('src', url);
+	            $(this).parent().attr("href", url);
 	        })
 	        .fadeIn(400);
     		$(this).css("opacity", "0.4");
