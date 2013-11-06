@@ -718,6 +718,24 @@ div#confirmAlert{
 	/*visibility: hidden;*/
 }
 
+div#confirmAlert2{
+	width: 200px;
+	height: 50px;
+	background: #cbb189;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -25px;
+	opacity: 0.9;
+	font-size: 14pt;
+	color: White;
+	text-align: center;
+	padding-top: 15px;
+	z-index: 100;
+	/*visibility: hidden;*/
+}
+
 div#editCategories #category .box{
 	width: 450px;
 	/*background-color: Red;*/

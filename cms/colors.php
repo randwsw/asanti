@@ -53,8 +53,8 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 						success: function (data) {
 							// $("input#" + thisButtonId).attr("value", "Zmień");
 							// alert(data);
-							// $("#confirmAlert").fadeIn("fast");
-							// $("#confirmAlert").delay(600).fadeOut(800);
+							$("#confirmAlert").fadeIn("fast");
+							$("#confirmAlert").delay(600).fadeOut(800);
 							// $("#confirmAlert").css("visibility");
 							// window.location.replace("sizes.php");
 						},
@@ -148,7 +148,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 									<input type="button" name="addNew" value="Dodaj nowy" />
 								</div>
 							</form>	
-							<div id="confirmAlert">Zmieniono nazwę.</div>
+							<div id="confirmAlert">Zmieniono kolor</div>
 							<form action=""; method="POST" enctype="multipart/form-data">
 								
 							

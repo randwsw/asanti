@@ -146,7 +146,7 @@ switch ($action) {
 		$filesList = array();
 	
 	
-	
+		
 		// set up a connection to ftp server
 		$conn_id = ftp_connect($ftp_server);
 		
@@ -162,24 +162,115 @@ switch ($action) {
 		       	echo "Connected to $ftp_server, for user $ftp_user_name".".....";
 		   	}
 	   
-	   
+	   	$aWhat = array('Ą', 'Ę', 'Ó', 'Ś', 'Ć', 'Ń', 'Ź', 'Ż', 'Ł', 'ą', 'ę', 'ó', 'ś', 'ć', 'ń', 'ź', 'ż', 'ł', ',', ' ');
+		$aOn =    array('A', 'E', 'O', 'S', 'C', 'N', 'Z', 'Z', 'L', 'a', 'e', 'o', 's', 'c', 'n', 'z', 'z', 'l', '', '_');
+		
 		ftp_mkdir($conn_id, $paths);
 	
 		for($i=0; $i<count($_FILES['userfile']['name']); $i++){
 			
-			$filep=$_FILES['userfile']['tmp_name'][$i];
-			$name=$_FILES['userfile']['name'][$i];	
+			$filep2=$_FILES['userfile']['tmp_name'][$i];
+			$filep =  str_replace($aWhat, $aOn, $filep2);
+					
+			$name2=$_FILES['userfile']['name'][$i];	
+			$name =  str_replace($aWhat, $aOn, $name2);
+			
+			array_push($filesList, $name);
 			
 			$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
-		
+			
+			chdir("../../img/gallery/" . $lastId . "/");
+			foreach(glob($name) as $filename) {
+				echo $filename . "</br>";
+							    
+				list($width, $height) = getimagesize($filename);
+				echo("Current width: " . $width . "  Current height: " . $height . "</br>");
+								
+				$maxWidth = 900;
+				$maxHeight = 900;
+								
+				if($width > $maxWidth){
+					if($width > $height){
+						$currentAspect = $height/$width;
+						$newwidth = $maxWidth;
+						$newheight = $newwidth * $currentAspect;
+					}
+					if($width < $height){
+						$currentAspect = $width/$height;
+						$newheight = $maxHeight;
+						$newwidth = $newheight * $currentAspect;
+					}
+					if($width == $height){
+						$newwidth = $maxWidth;
+						$newheight = $maxHeight;
+					}
+				}else{
+									
+				if($height > $maxHeight){
+					if($width > $height){
+						$currentAspect = $height/$width;
+						$newwidth = $maxWidth;
+						$newheight = $newwidth * $currentAspect;
+					}
+					if($width < $height){
+						$currentAspect = $width/$height;
+						$newheight = $maxHeight;
+						$newwidth = $newheight * $currentAspect;
+					}
+					if($width == $height){
+						$newwidth = $maxWidth;
+						$newheight = $maxHeight;
+					}
+				}	
+				else{
+									
+				if($width <= $maxWidth && $height <= $maxHeight){
+					$newwidth = $width;
+					$newheight = $height;
+				}
+				}
+				}
+								
+				echo "Current aspect ratio: " . $currentAspect . "</br>";
+				echo "New width: " . $newwidth . "   New height: " . $newheight . "</br></br>";
+								
+								
+				// Load
+				$thumb = imagecreatetruecolor($newwidth, $newheight);
+				$source = imagecreatefromjpeg($filename);
+				echo($filename);
+								
+				// Resize
+				imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+								
+				// Output
+				ob_start();
+				imagejpeg($thumb);
+				$img = ob_get_clean(); 
+								
+				// Allows overwriting of existing files on the remote FTP server
+				$stream_options = array('ftp' => array('overwrite' => true));
+								
+				// Creates a stream context resource with the defined options
+				$stream_context = stream_context_create($stream_options);
+							
+							
+				$fp = fopen("ftp://" . $ftp_user_name . ":" . $ftp_user_pass . "@" . $ftp_server . "/" . $paths . "/" . $filename, "w", 0, $stream_context);
+				fwrite($fp, $img);						
+			}			
+			
+			
+			
+			
+			
 			// check the upload status
-			if (!$upload) {
-				echo "FTP upload has encountered an error!";
-			   } else {
-			   	$name = $purifier->purify($name);
-			   		array_push($filesList, $name);
-			       	echo "Uploaded file with name $name to $ftp_server </br>";
-			   }
+			// if (!$upload) {
+				// echo "FTP upload has encountered an error!";
+			   // } else {
+			   	// $name = $purifier->purify($name);
+			   		// array_push($filesList, $name);
+			       	// echo "Uploaded file with name $name to $ftp_server </br>";
+			   // }
 		}
 		// close the FTP connection
 		ftp_close($conn_id);	
@@ -604,71 +695,9 @@ switch ($action) {
 					$lastOrderN = "";
 					// //////////////////////////////////////////////////////////////////////////////////////////////////// //
 					
-					
-					
-					
-					
-					
-					
-					
-					
-// 					
-// 					
-					// function resize($width, $height){
-  // /* Get original image x y*/
-  // list($w, $h) = getimagesize($_FILES['image']['tmp_name']);
-  // /* calculate new image size with ratio */
-  // $ratio = max($width/$w, $height/$h);
-  // $h = ceil($height / $ratio);
-  // $x = ($w - $width / $ratio) / 2;
-  // $w = ceil($width / $ratio);
-  // /* new file name */
-  // $path = 'uploads/'.$width.'x'.$height.'_'.$_FILES['image']['name'];
-  // /* read binary data from image file */
-  // $imgString = file_get_contents($_FILES['image']['tmp_name']);
-  // /* create image from string */
-  // $image = imagecreatefromstring($imgString);
-  // $tmp = imagecreatetruecolor($width, $height);
-  // imagecopyresampled($tmp, $image,
-    // 0, 0,
-    // $x, 0,
-    // $width, $height,
-    // $w, $h);
-  // /* Save image */
-  // switch ($_FILES['image']['type']) {
-    // case 'image/jpeg':
-      // imagejpeg($tmp, $path, 100);
-      // break;
-    // case 'image/png':
-      // imagepng($tmp, $path, 0);
-      // break;
-    // case 'image/gif':
-      // imagegif($tmp, $path);
-      // break;
-    // default:
-      // exit;
-      // break;
-  // }
-  // return $path;
-  // /* cleanup memory */
-  // imagedestroy($image);
-  // imagedestroy($tmp);
-// }
-// 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
 						
-						// header("Location: ../gallery.php?action=edit&id=$id");
+						header("Location: ../gallery.php?action=edit&id=$id");
 						set_time_limit(300);//for uploading big files
 						
 						$paths="asanti/img/gallery/" . $id;
@@ -701,64 +730,107 @@ switch ($action) {
 					   
 						ftp_mkdir($conn_id, $paths);
 					
-						$width = 150;
-						$height = 150;
 						
 						for($i=0; $i<count($_FILES['userfile']['name']); $i++){
 							
-							// $filep=$_FILES['userfile']['tmp_name'][$i];
-							
-							
-							
-							
-							
-							
-							
-							
-							$imgString = file_get_contents("cukrzyca.jpg");
-							  /* create image from string */
-							  $image = imagecreatefromstring($imgString);
-							  $tmp = imagecreatetruecolor($width, $height);
-							  imagecopyresampled($tmp, $image,
-							    0, 0,
-							    0, 0, 0, 0,
-							    $width, $height);
-							  /* Save image */
-							  switch ($_FILES['image']['type']) {
-							    case 'image/jpeg':
-							      imagejpeg($tmp, $paths, 100);
-							      break;
-							    case 'image/png':
-							      imagepng($tmp, $paths, 0);
-							      break;
-							    case 'image/gif':
-							      imagegif($tmp, $paths);
-							      break;
-							    default:
-							      exit;
-							      break;
-							  }
-							
-							
-							
-							
-							
-							
-							
+							$filep=$_FILES['userfile']['tmp_name'][$i];
 							$name=$_FILES['userfile']['name'][$i];	
 							
 							$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
-						
+							
+							array_push($filesList, $name);
 							// check the upload status
-							if (!$upload) {
-								echo "FTP upload has encountered an error!";
-							   } else {
-							   		array_push($filesList, $name);
-							       	echo "Uploaded file with name $name to $ftp_server </br>";
-							   }
+							// if (!$upload) {
+								// echo "FTP upload has encountered an error!";
+							   // } else {
+							   		// array_push($filesList, $name);
+							       	// echo "Uploaded file with name $name to $ftp_server </br>";
+							   // }
+						
+							chdir("../../img/gallery/" . $id . "/");
+							foreach(glob($name) as $filename) {
+							    echo $filename . "</br>";
+							    
+								list($width, $height) = getimagesize($filename);
+								echo("Current width: " . $width . "  Current height: " . $height . "</br>");
+								
+								$maxWidth = 900;
+								$maxHeight = 900;
+								
+								if($width > $maxWidth){
+									if($width > $height){
+										$currentAspect = $height/$width;
+										$newwidth = $maxWidth;
+										$newheight = $newwidth * $currentAspect;
+									}
+									if($width < $height){
+										$currentAspect = $width/$height;
+										$newheight = $maxHeight;
+										$newwidth = $newheight * $currentAspect;
+									}
+									if($width == $height){
+										$newwidth = $maxWidth;
+										$newheight = $maxHeight;
+									}
+								}else{
+									
+								if($height > $maxHeight){
+									if($width > $height){
+										$currentAspect = $height/$width;
+										$newwidth = $maxWidth;
+										$newheight = $newwidth * $currentAspect;
+									}
+									if($width < $height){
+										$currentAspect = $width/$height;
+										$newheight = $maxHeight;
+										$newwidth = $newheight * $currentAspect;
+									}
+									if($width == $height){
+										$newwidth = $maxWidth;
+										$newheight = $maxHeight;
+									}
+								}	
+								else{
+									
+								if($width <= $maxWidth && $height <= $maxHeight){
+									$newwidth = $width;
+									$newheight = $height;
+								}
+								}
+								}
+								
+								echo "Current aspect ratio: " . $currentAspect . "</br>";
+								echo "New width: " . $newwidth . "   New height: " . $newheight . "</br></br>";
+								
+								// $percent = 0.5;
+								// $newwidth = $width * $percent;
+								// $newheight = $height * $percent;
+								
+								// Load
+								$thumb = imagecreatetruecolor($newwidth, $newheight);
+								$source = imagecreatefromjpeg($filename);
+								echo($filename);
+								
+								// Resize
+								imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+								
+								// Output
+								ob_start();
+				   			 	imagejpeg($thumb);
+							 	$img = ob_get_clean(); 
+								
+								// Allows overwriting of existing files on the remote FTP server
+								$stream_options = array('ftp' => array('overwrite' => true));
+								
+								// Creates a stream context resource with the defined options
+								$stream_context = stream_context_create($stream_options);
+							
+							
+								$fp = fopen("ftp://" . $ftp_user_name . ":" . $ftp_user_pass . "@" . $ftp_server . "/" . $paths . "/" . $filename, "w", 0, $stream_context);
+								fwrite($fp, $img);						
+							}
 						}
-						// close the FTP connection
-						ftp_close($conn_id);	
+						
 						
 						
 						// Add files to SQL ///////////////////////////////////////////////////////////////////
@@ -782,7 +854,7 @@ switch ($action) {
 						///////////////////////////////////////////////////////////////
 						
 						$i=$lastOrderN + 1;
-					
+						
 						foreach($filesList as $file){
 							$sql = ("INSERT INTO gallery_photos (name, gallery_id, url, orderN) 
 								VALUES ('" .  $file . "', '" . $id . "', 'http://serwer1309748.home.pl/asanti/img/gallery/" . $id	 . "/" . $file . "', '$i')");
@@ -791,13 +863,14 @@ switch ($action) {
 					  	{
 					  		die('Error: ' . mysqli_error($conn));
 					  	} else {
-					  		// echo $i . " record added </br>";
-							// $i++;
+					  		echo $i . " record added </br>";
+							$i++;
 					  	}
 						
 						}
 						
-
+						// close the FTP connection
+						ftp_close($conn_id);	
 						
 				        break;
 }

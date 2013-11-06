@@ -295,7 +295,9 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 			    error: function (data) {
 			    },
 			    success: function (data) {
-			    	window.location.replace("users.php?action=edit&userId=" + userId);
+			    	$("#confirmAlert2").fadeIn("fast");
+					$("#confirmAlert2").delay(800).fadeOut(800);
+			    	// window.location.replace("users.php?action=edit&userId=" + userId);
 				},
 			})
 		});
@@ -314,6 +316,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 	
 	$(document).ready(function(){
 		$("#confirmAlert").hide();
+		$("#confirmAlert2").hide();
 		updatePw();
 		updateUser();
 		$("#progress").hide();
@@ -449,6 +452,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 											
 									echo('<form action="users.php?action=edit&userId=' . $userId . '" method="POST" enctype="multipart/form-data">
 										<div id="confirmAlert">Zmieniono hasło</div>
+										<div id="confirmAlert2">Zmieniono dane użytkownika</div>
 										<div class="label">Dane użytkownika:</div>
 										<div class="row">
 											<div class="title">Adres email:</div><input type="text" name="email" class="userInput" value="' . $email . '"/>

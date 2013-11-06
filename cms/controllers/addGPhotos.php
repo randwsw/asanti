@@ -96,16 +96,89 @@ $title = $conn->real_escape_string($_POST['name']);
 			$name2=$_FILES['userfile']['name'][$i];	
 			$name =  str_replace($aWhat, $aOn, $name2);
 			
+			array_push($filesList, $name);
+			
 			$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
-		
-			// check the upload status
-			if (!$upload) {
-				echo "FTP upload has encountered an error!";
-			   } else {
-			   	$name = $purifier->purify($name);
-			   		array_push($filesList, $name);
-			       	echo "Uploaded file with name $name to $ftp_server </br>";
-			   }
+			
+			chdir("../../img/gallery/" . $lastId . "/");
+			foreach(glob($name) as $filename) {
+				echo $filename . "</br>";
+							    
+				list($width, $height) = getimagesize($filename);
+				echo("Current width: " . $width . "  Current height: " . $height . "</br>");
+								
+				$maxWidth = 900;
+				$maxHeight = 900;
+								
+				if($width > $maxWidth){
+					if($width > $height){
+						$currentAspect = $height/$width;
+						$newwidth = $maxWidth;
+						$newheight = $newwidth * $currentAspect;
+					}
+					if($width < $height){
+						$currentAspect = $width/$height;
+						$newheight = $maxHeight;
+						$newwidth = $newheight * $currentAspect;
+					}
+					if($width == $height){
+						$newwidth = $maxWidth;
+						$newheight = $maxHeight;
+					}
+				}else{
+									
+				if($height > $maxHeight){
+					if($width > $height){
+						$currentAspect = $height/$width;
+						$newwidth = $maxWidth;
+						$newheight = $newwidth * $currentAspect;
+					}
+					if($width < $height){
+						$currentAspect = $width/$height;
+						$newheight = $maxHeight;
+						$newwidth = $newheight * $currentAspect;
+					}
+					if($width == $height){
+						$newwidth = $maxWidth;
+						$newheight = $maxHeight;
+					}
+				}	
+				else{
+									
+				if($width <= $maxWidth && $height <= $maxHeight){
+					$newwidth = $width;
+					$newheight = $height;
+				}
+				}
+				}
+								
+				echo "Current aspect ratio: " . $currentAspect . "</br>";
+				echo "New width: " . $newwidth . "   New height: " . $newheight . "</br></br>";
+								
+								
+				// Load
+				$thumb = imagecreatetruecolor($newwidth, $newheight);
+				$source = imagecreatefromjpeg($filename);
+				echo($filename);
+								
+				// Resize
+				imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+								
+				// Output
+				ob_start();
+				imagejpeg($thumb);
+				$img = ob_get_clean(); 
+								
+				// Allows overwriting of existing files on the remote FTP server
+				$stream_options = array('ftp' => array('overwrite' => true));
+								
+				// Creates a stream context resource with the defined options
+				$stream_context = stream_context_create($stream_options);
+							
+							
+				$fp = fopen("ftp://" . $ftp_user_name . ":" . $ftp_user_pass . "@" . $ftp_server . "/" . $paths . "/" . $filename, "w", 0, $stream_context);
+				fwrite($fp, $img);
+			}
 		}
 		// close the FTP connection
 		ftp_close($conn_id);	

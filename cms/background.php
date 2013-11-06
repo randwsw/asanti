@@ -193,7 +193,7 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 						</form>
 					<div id="thumbnails">
 						
-						<div class="label">Zdjęcia w tle:</div>
+						<div class="label">Zdjęcia w tle:  (Rotacja pierwszych 4 zdjęć)</div>
 						
 						<div id="container">
 							
