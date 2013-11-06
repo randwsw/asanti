@@ -210,7 +210,7 @@ if(!isset($_POST["submit"])){?>
 					<input type="button" onclick="history.go(-1)" value="Powrót" />
 					
 					<div id="newItem">
-						<form action="pickHeadPhoto.php"; method="POST" enctype="multipart/form-data">
+						<form action="controllers/itemController.php"; method="POST" enctype="multipart/form-data">
 							
 							<div id="name">
 								
@@ -375,7 +375,7 @@ if(!isset($_POST["submit"])){?>
 								
 							</div>
 							
-							
+							<input type="hidden" name="action" value="addItem" />
 							<input type="submit" name="submit" value="Dalej" />
 							
 						</form>
@@ -409,199 +409,6 @@ if(!isset($_POST["submit"])){?>
 <?php }
 else 
 {
-			
-			
-// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
 
-require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
-
-$config = HTMLPurifier_Config::createDefault();
-$purifier = new HTMLPurifier($config);
-
-$name = $conn->real_escape_string($_POST['name']);
-$name = $purifier->purify($name);
-
-$description = $conn->real_escape_string($_POST['description']);
-// $description = $purifier->purify($desciption);
-
-$headPhotoId = 0;
-
-$category = $conn->real_escape_string($_POST['categoryToPost']);
-$category = $purifier->purify($category);
-
-$price = $conn->real_escape_string($_POST['price']);
-$price = $purifier->purify($price);
-
-
-// //////////////////////////////////////////////////////////////////////////////////////////////////// //
-
-
-
-// CREATE ITEM
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-
-
-
-$sql="INSERT INTO item (name, description, headPhotoId, price)
-VALUES
-('$name','$description','$headPhotoId', '$price')";
-
-if (!mysqli_query($conn,$sql))
-  {
-	  die('Error: ' . mysqli_error($conn));
-	  mysqli_close($conn);
-  }else
-  {
-  	// mysqli_close($conn);
-	if (mysqli_connect_errno())
-		  {
-		  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		  }
-		
-		$result = mysqli_query($conn,"SELECT id FROM item ORDER BY id DESC LIMIT 1 ");
-		while($row2 = mysqli_fetch_array($result))
-		  {
-				$lastId = $row2['id'];
-		  }
-	
-  }
-  
-  
-  
-  
-// ADD SIZE_ITEM
-
-if(!empty($_POST['pickSize'])) {
-    foreach($_POST['pickSize'] as $check) {
-    	
-		if (mysqli_connect_errno())
-	  	{
-	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  	}
-		
-		
-		$sql2="INSERT INTO size_item (sizeId, itemId)
-			VALUES
-			('$check','$lastId')";
-		if (!mysqli_query($conn,$sql2))
-		{
-	  		die('Error: ' . mysqli_error($conn));
-	  		// mysqli_close($conn3);
-	  	}else
-	  	{
-			// mysqli_close($conn3);
-	  	}
-	}
-}
-
-  
-  
-    		
-// ADD CATEGORY
-
-if(!empty($category)) {
-    
-		if (mysqli_connect_errno())
-	  	{
-	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	  	}
-		
-		
-		$sql3="INSERT INTO category_con (item_id, cat_id)
-			VALUES
-			('$lastId','$category')";
-		if (!mysqli_query($conn,$sql3))
-		{
-	  		die('Error: ' . mysqli_error($conn));
-	  		// mysqli_close($conn3);
-	  	}else
-	  	{
-			// mysqli_close($conn3);
-	  	}
-}			
-			
-
-
-		
-	
-	set_time_limit(300);//for uploading big files
-	
-	$paths="asanti/img/items/" . $lastId;
-
-	$ftp_server="serwer1309748.home.pl";
-
-	$ftp_user_name="serwer1309748";
-
-	$ftp_user_pass="9!c3Q9";
-
-	$filesList = array();
-
-
-
-	// set up a connection to ftp server
-	$conn_id = ftp_connect($ftp_server);
-	
-	// login with username and password
-	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-
-	// check connection and login result
-	if ((!$conn_id) || (!$login_result)) {
-		echo "FTP connection has encountered an error!";
-		echo "Attempted to connect to $ftp_server for user $ftp_user_name....";
-		exit;
-	   	} else {
-	       	echo "Connected to $ftp_server, for user $ftp_user_name".".....";
-	   	}
-   
-   
-	ftp_mkdir($conn_id, $paths);
-
-	for($i=0; $i<count($_FILES['userfile']['name']); $i++){
-		
-		$filep=$_FILES['userfile']['tmp_name'][$i];
-		$name=$_FILES['userfile']['name'][$i];	
-		
-		$upload = ftp_put($conn_id, $paths.'/'.$name, $filep, FTP_BINARY);
-	
-		// check the upload status
-		if (!$upload) {
-			echo "FTP upload has encountered an error!";
-		   } else {
-		   		array_push($filesList, $name);
-		       	echo "Uploaded file with name $name to $ftp_server </br>";
-		   }
-	}
-	// close the FTP connection
-	ftp_close($conn_id);	
-	
-	
-	// Add files to SQL ///////////////////////////////////////////////////////////////////
-	
-	
-	if (mysqli_connect_errno())
-	{
- 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
-	$i="1";
-	foreach($filesList as $file){
-		$sql = ("INSERT INTO photo (name, item_id, url, orderN) 
-			VALUES ('" . $file . "', '" . $lastId . "', 'http://serwer1309748.home.pl/asanti/img/items/" . $lastId . "/" . $file . "', '$i')");
-			$i++;
-	if (!mysqli_query($conn,$sql))
-  	{
-  		die('Error: ' . mysqli_error($conn));
-  	} else {
-  		// echo $i . " record added </br>";
-		// $i++;
-  	}
-	
-	}
-	mysqli_close($conn);
-	header("Location: pickHeadPhoto.php?itemId=" . $lastId);
 }
 ?>

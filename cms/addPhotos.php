@@ -134,14 +134,14 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 					</div>
 					
 					
-					<form action="editItem.php?itemId=<?php echo($itemId); ?>"; method="POST" enctype="multipart/form-data">
+					<form action="controllers/photosController.php"; method="POST" enctype="multipart/form-data">
 						
 						
 						<div id="addPhotos">
 							
 							<div id="container">
 								<input type="hidden" id="passItemId" name="passItemId" value="<?php echo($itemId); ?>" />
-								<input type="hidden" id="photosAdded" name="photosAdded" value="photosAdded" />
+								<input type="hidden" name="action" value="addMore" />
 								<div class="label">Dodaj nowe zdjęcia:</div>
 								<input name="userfile[]" id="image-input" type="file" multiple="multiple" accept="image/*">
 								<div class="preview-area"></div>
