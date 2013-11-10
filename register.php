@@ -78,7 +78,7 @@
 					</div>
 					
 					
-					<div class ="formdiv">
+					<!-- <div class ="formdiv">
 						<div class="formdivcolumn" id="divstreet">
 							<p>Ulica</p>
 							<input type='text' class="form-text-input" id="street" name="street"/>
@@ -89,12 +89,36 @@
 							<input type='text' class="form-text-input" id="pcode" name="pcode"/>
 							<div class="errordiv" id="pcode_label"></div>
 						</div>
+					</div> -->
+					<div class ="formdiv">
+						<div class="formdivcolumn" id="divstrt">
+							<p>Ulica</p>
+							<input type='text' class="form-text-input" name="street" id="street"/>
+							<div class="errordiv" id="street_label"></div>				
+						</div>
+						<div class="formdivcolumn" id="divnbr2">
+							<p>Nr domu</p>
+							<input type='text' class="form-text-input" id="pnrh" name="pnrh"/>
+							<div class="errordiv" id="pnrh_label"></div>
+						</div>
+						<div class="formdivcolumn" id="divnbr1">
+							<p>Nr mieszk.</p>
+							<input type='text' class="form-text-input" id="pnra" name="pnra"/>
+							<div class="errordiv" id="pnra_label"></div>
+						</div>				
 					</div>
 					
 					<div class ="formdiv">
-						<p>Miejscowość</p>
-						<input type='text' class="form-text-input" id="cityinput" name="cityinput"/>
-						<div class="errordiv" id="cityinput_label"></div>
+						<div class="formdivcolumn" id="citydiv">
+							<p>Miejscowość</p>
+							<input type='text' class="form-text-input" id="cityinput" name="cityinput"/>
+							<div class="errordiv" id="cityinput_label"></div>
+						</div>
+						<div class="formdivcolumn" id="divpcode">
+							<p>Kod poczt.</p>
+							<input type='text' class="form-text-input" id="pcode" name="pcode"/>
+							<div class="errordiv" id="pcode_label"></div>
+						</div>
 					</div>					
 					
 					<div class ="formdiv">
@@ -124,14 +148,21 @@
 		$('#pass2input').watermark("Ponownie wpisz hasło");
 		$('#nameinput').watermark("Wpisz swoje imię");
 		$('#lastnameinput').watermark("Wpisz swoje nazwisko");
-		$('#street').watermark("Ulica i nr domu / mieszkania");
+		$('#street').watermark("Wpisz nazwę ulicy");
 		$('#pcode').watermark("xx - xxx");
-		$('#cityinput').watermark("Wpisz swoje miasto / miejscowość");
+		$('#pnrh').watermark("np. 7a");
+		$('#pnra').watermark("np. 13");
+		$('#cityinput').watermark("Wpisz swoje miasto");
 		$('#phoneinput').watermark("Wpisz swój numer telefonu");
 		
 	jQuery.validator.addMethod("customEmail", function(value, element) {
         return this.optional(element) || value.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
     }, "Zły format adresu email!")
+       
+    jQuery.validator.addMethod("numalph", function(value, element) {
+        return this.optional(element) || value.match(/^[a-zA-Z0-9]+$/);
+    }, "Cyfry i Num. !")
+    
     
     jQuery.validator.addMethod("Pcode", function(value, element) {
         return this.optional(element) || value.match(/^[0-9]{2}\-[0-9]{3}$/);
@@ -193,9 +224,9 @@ var validate = $(".regform").validate({
         $.post("controllers/addUser.php", 
         { email: $("#emailinput").val(), password1: $("#passinput").val(), password2: $("#pass2input").val(), 
           name: $("#nameinput").val(), lastname: $("#lastnameinput").val(), pcode: $("#pcode").val(), 
-          street: $("#street").val(), city: $("#cityinput").val(), phone: $("#phoneinput").val() })
+          street: $("#street").val(), city: $("#cityinput").val(), phone: $("#phoneinput").val(), pnrh: $("#pnrh").val(), pnra: $("#pnra").val() })
 		.done(function(data) {
-		// alert("Konto zostało utworzone")
+		 //alert(data);
 		window.location.href = "reged.php";;
 		});
     },
@@ -223,7 +254,8 @@ var validate = $(".regform").validate({
 			nameLastname: true			
 		},
 		street: {
-			required: true
+			required: true,
+			city: true
 		},
 		pcode: {
 			required: true,
@@ -237,6 +269,13 @@ var validate = $(".regform").validate({
 			required: true,
 			phone: true,
 			minlength: 9	
+		},
+		pnra: {
+			number: true
+		},
+		pnrh: {
+			required: true,
+			numalph: true
 		}
 	},
 	 messages: {
@@ -261,7 +300,8 @@ var validate = $(".regform").validate({
 			nameLastname: "Nieprawidłowe nazwisko !"		
 		},
 		street: {
-			required: "Pole ulica jest puste !"
+			required: "Pole ulica jest puste !",
+			city: "Wielkiej literą. Tylko litery."			
 		},
 		pcode: {
 			required: "Brak kodu !"
@@ -274,6 +314,15 @@ var validate = $(".regform").validate({
 			required: "Pole telefon jest puste !",
 			number: "Wpisz prawidłowy numer (bez spacji) !",
 			minlength: jQuery.format("Minimum {0} znaków !")				
+		},
+		pnra: {
+			required: "Puste pole !",
+			number: "Tylko cyfry !"
+		},
+		pnrh: {
+			required: "Puste pole !",
+			numalph: "Bez zn.spec. !"
+			
 		}
 	}
 });

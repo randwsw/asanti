@@ -26,6 +26,15 @@ $city= $purifier->purify($city);
 $phone = $conn->real_escape_string($_POST['phone']);
 $phone= $purifier->purify($phone);
 
+$pnra= $conn->real_escape_string($_POST['pnra']);
+$pnra= $purifier->purify($pnra);
+
+$pnrh = $conn->real_escape_string($_POST['pnrh']);
+$pnrh= $purifier->purify($pnrh);
+if($pnra=='') {
+	$pnra = 0;
+}
+
 if(!session_id())
 	session_start();
 	
@@ -52,7 +61,7 @@ $result = mysqli_query($conn,"SELECT id FROM users WHERE email = '$email'");
 
 mysqli_query($conn,"UPDATE phone SET pValue='$phone' WHERE user_id = '$returnValue'");
 
-mysqli_query($conn,"UPDATE address SET pcode='$pcode', street='$street', city='$city' WHERE user_id = '$returnValue'");
+mysqli_query($conn,"UPDATE address SET pcode='$pcode', street='$street', city='$city', hnum='$pnrh', anum=$pnra WHERE user_id = '$returnValue'");
 if(isset($_SESSION['name']))
   $_SESSION['name']= $name;
 if(isset($_SESSION['lastname']))

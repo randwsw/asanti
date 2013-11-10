@@ -25,7 +25,7 @@
 	<!-- ------------------------------------------------------------------------ -->
 	<div class="bg">
 	</div>
-	<div class="bg" id="bg2"></div> 
+	<div class="bg" id="bg2"></div>  
 	<div class="bigdiv">
 		<div class="rowdiv" id="topdiv">
 		</div>
@@ -72,7 +72,7 @@
 		
 		
 		
-		$result = mysqli_query($conn,"SELECT pValue, email, password, name, lastname, pcode, street, city FROM users u, address a, phone p WHERE email = '$login' AND p.user_id = u.id AND a.user_id = u.id");
+		$result = mysqli_query($conn,"SELECT pValue, email, password, name, lastname, pcode, street, city, hnum, anum FROM users u, address a, phone p WHERE email = '$login' AND p.user_id = u.id AND a.user_id = u.id");
 				while($e = mysqli_fetch_array($result))
 				  {
 						$phone = $e['pValue'];
@@ -82,11 +82,15 @@
 						$street = $e['street'];
 						$city = $e['city'];
 						$password = $e['password'];
+						$hnum = $e['hnum'];
+						$anum = $e['anum'];
 				  }
 		// echo($name." ".$lastname);
 		mysqli_close($conn);
 	} 
-
+	if($anum==0) {
+		$anum='';
+	}
 	
 	echo("
 	<div class='regfiller'>
@@ -114,22 +118,34 @@
 					
 					
 					<div class ='formdiv'>
-						<div class='formdivcolumn' id='divstreet'>
+						<div class='formdivcolumn' id='divstrt'>
 							<p>Ulica</p>
-							<input type='text' class='form-text-input' id='street' name='street' value='".$street."'/>
-							<div class='errordiv' id='street_label'></div>
+							<input type='text' class='form-text-input' name='street' id='street' value='".$street."'/>
+							<div class='errordiv' id='street_label'></div>				
+						</div>
+						<div class='formdivcolumn' id='divnbr2'>
+							<p>Nr domu</p>
+							<input type='text' class='form-text-input' id='pnrh' name='pnrh' value='".$hnum."'/>
+							<div class='errordiv' id='pnrh_label'></div>
+						</div>
+						<div class='formdivcolumn' id='divnbr1'>
+							<p>Nr mieszk.</p>
+							<input type='text' class='form-text-input' id='pnra' name='pnra' value='".$anum."'/>
+							<div class='errordiv' id='pnra_label'></div>
+						</div>				
+					</div>
+					
+					<div class ='formdiv'>
+						<div class='formdivcolumn' id='citydiv'>
+							<p>Miejscowość</p>
+							<input type='text' class='form-text-input' id='cityinput' name='cityinput' value='".$city."'/>
+							<div class='errordiv' id='cityinput_label'></div>
 						</div>
 						<div class='formdivcolumn' id='divpcode'>
 							<p>Kod poczt.</p>
 							<input type='text' class='form-text-input' id='pcode' name='pcode' value='".$pcode."'/>
 							<div class='errordiv' id='pcode_label'></div>
 						</div>
-					</div>
-					
-					<div class ='formdiv'>
-						<p>Miejscowość</p>
-						<input type='text' class='form-text-input' id='city-input' name='city' value='".$city."'/>
-						<div class='errordiv' id='city_label'></div>
 					</div>					
 					
 					<div class ='formdiv'>
@@ -220,10 +236,12 @@ $( document ).ready(function() {
 		$('#pass2-input').watermark("Ponownie wpisz hasło");
 		$('#name-input').watermark("Wpisz swoje imię");
 		$('#lastname-input').watermark("Wpisz swoje nazwisko");
-		$('#street').watermark("Ulica i nr domu / mieszkania");
+		$('#street').watermark("Wpisz nazwę ulicy");
 		$('#pcode').watermark("xx - xxx");
-		$('#city-input').watermark("Wpisz swoje miasto / miejscowość");
+		$('#cityinput').watermark("Wpisz swoje miasto");
 		$('#phone-input').watermark("Wpisz swój numer telefonu");
+		$('#pnrh').watermark("np. 7a");
+		$('#pnra').watermark("np. 13");
 		
 	jQuery.validator.addMethod("customEmail", function(value, element) {
         return this.optional(element) || value.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
@@ -251,6 +269,10 @@ $( document ).ready(function() {
     jQuery.validator.addMethod("phone", function(value, element) {
         return this.optional(element) || value.match(/^([0-9]{9})|(([0-9]{3} ){2}[0-9]{3})|(([0-9]{2} )[0-9]{7})$/);
     }, "Tylko cyfry (9) i/lub znak spacji !")
+    
+    jQuery.validator.addMethod("numalph", function(value, element) {
+        return this.optional(element) || value.match(/^[a-zA-Z0-9]+$/);
+    }, "Cyfry i Num. !")
 
 //^([0-9]{9})|(([0-9]{3}-){2}[0-9]{3})$
 jQuery.validator.addMethod("checkUser", function(value, element) {
@@ -289,7 +311,7 @@ var validate = $(".profileform").validate({
 	submitHandler: function(){
         $.post("controllers/updateUser.php", 
         { name: $("#name-input").val(), lastname: $("#lastname-input").val(), pcode: $("#pcode").val(), 
-          street: $("#street").val(), city: $("#city-input").val(), phone: $("#phone-input").val() })
+          street: $("#street").val(), city: $("#cityinput").val(), phone: $("#phone-input").val(), pnrh: $("#pnrh").val(), pnra: $("#pnra").val() })
 		.done(function(data) {
 			$("#updateuser").css("display", "block");
 			$("#bg2").css("display", "block");
@@ -333,6 +355,13 @@ var validate = $(".profileform").validate({
 			required: true,
 			phone: true,
 			minlength: 9	
+		},
+		pnra: {
+			number: true
+		},
+		pnrh: {
+			required: true,
+			numalph: true
 		}
 	},
 	 messages: {
@@ -370,6 +399,15 @@ var validate = $(".profileform").validate({
 			required: "Pole telefon jest puste !",
 			number: "Wpisz prawidłowy numer (bez spacji) !",
 			minlength: jQuery.format("Minimum {0} znaków !")				
+		},
+		pnra: {
+			required: "Puste pole !",
+			number: "Tylko cyfry !"
+		},
+		pnrh: {
+			required: "Puste pole !",
+			numalph: "Bez zn.spec. !"
+			
 		}
 	}
 });

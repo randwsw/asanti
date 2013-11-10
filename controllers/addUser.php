@@ -35,6 +35,15 @@ $city= $purifier->purify($city);
 $phone = $conn->real_escape_string($_POST['phone']);
 $phone= $purifier->purify($phone);
 
+$pnra= $conn->real_escape_string($_POST['pnra']);
+$pnra= $purifier->purify($pnra);
+
+$pnrh = $conn->real_escape_string($_POST['pnrh']);
+$pnrh= $purifier->purify($pnrh);
+if($pnra=='') {
+	$pnra = 0;
+}
+
 
 
 echo("$email $password1 $phone $street $pcode $city");
@@ -60,8 +69,8 @@ $result = mysqli_query($conn,"SELECT id FROM users WHERE email = '$email'");
 mysqli_query($conn,"INSERT INTO phone (pValue, user_id)
 VALUES ('$phone', $returnValue)");
 
-mysqli_query($conn,"INSERT INTO address (pcode, street, city, user_id)
-VALUES ('$pcode', '$street', '$city', $returnValue)");
+mysqli_query($conn,"INSERT INTO address (pcode, street, city, user_id, hnum, anum)
+VALUES ('$pcode', '$street', '$city', $returnValue, '$pnrh', $pnra)");
 
 //Aktywacja
 $activationKey = md5(time().date("Y:m:d"));
@@ -87,6 +96,8 @@ mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',$message, implode("\r\n", $he
 
 
 mysqli_close($conn);
-
+echo("<br>");
+echo("INSERT INTO address (pcode, street, city, user_id, hnum, anum)
+VALUES ('$pcode', '$street', '$city', $returnValue, '$pnrh', $pnra)");
 
 ?>

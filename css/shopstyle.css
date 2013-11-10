@@ -1368,17 +1368,39 @@ div.connectionBox .connectionTitle{
 
 /* --------------------------------------------- */
 /* --REGISTER----------------------------------- */
-#street, #divstreet {
+/*#street, #divstreet {
 	width: 195px;
-}
+}*/
 
 #divpcode {
 	width: 70px;
 	float: right;
 }
 
+#divstrt {
+	width: 142px;
+	float: left;
+}
+#divnbr1, #divnbr2{
+	width: 70px;
+	float: left;
+}
+#divnbr2{
+	margin-left: 20px;
+	margin-right: 8px;
+}
+
 #pcode {
 	width: 58px;
+}
+#street {
+	width: 142px;
+}
+#pnra, #pnrh {
+	width: 60px;
+}
+#citydiv, #cityinput {
+	width: 195px;
 }
 
 .register-div {

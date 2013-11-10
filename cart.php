@@ -162,7 +162,7 @@
 
 			}
 			
-			echo("<form method='POST' action='confirm.php' name='cartForm'>");
+			echo("<form method='POST' action='payu/confirm.php' name='cartForm'>");
 			while($rec = mysqli_fetch_array($sql)) {
 				$cat = $rec['urlName']."-".$rec['parentId'];
 				$sum+= $rec['price']*$val->count;
