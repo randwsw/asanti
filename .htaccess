@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^wildeast\.pl
+RewriteRule ^(.*)$ http://www.wildeast.pl$1 [R=permanent,L]

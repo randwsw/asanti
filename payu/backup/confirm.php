@@ -11,8 +11,8 @@ $sizes = $_POST['sizes'];
 $sum=0;
 $disc = $_POST['dischid'];
 $color = $_POST['color'];
-// $shipp = $_POST['shippinghid'];
-// $shippnamehid = $_POST['shippnamehid'];
+$shipp = $_POST['shippinghid'];
+$shippnamehid = $_POST['shippnamehid'];
 
 if(!session_id())
 	{
@@ -22,7 +22,7 @@ if(!session_id())
 		header('Location: ../login.php?cr=1');
 	}else {
 		// header('Location: ../orders.php');
-		setcookie("cartItem", "", time()-3600, '/');
+		// setcookie("cartItem", "", time()-3600, '/');
 		require_once '../htmlpurifier/library/HTMLPurifier.auto.php';
 
 		$config = HTMLPurifier_Config::createDefault();
@@ -58,18 +58,31 @@ $result = mysqli_query($conn,"SELECT u.id FROM users u WHERE email = '$login'");
 		$date = date('d-m-Y H:i:s');
 
 		
-mysqli_query($conn,"INSERT INTO orders (user_id, order_date, status, order_value, disc, shipping_value, shipping_name)
-		VALUES ('$uid', '$date', 0, $sum, $disc, 0, 'ndst')");
-$oid= mysqli_insert_id($conn);
-		
-foreach( $name as $key => $n ) {		
-		if (!mysqli_query($conn, "INSERT INTO orders_con (order_id, item_id, quantity, price, sizes, color)
-		VALUES ('$oid', $iid[$key] ,$quantity[$key] , $price[$key], '$sizes[$key]', '$color[$key]')")) {
-    		printf("Errormessage: %s\n", mysqli_error($conn));
-			
-		}
-}
 
+		$sessionstring = $uid;
+		// while(strlen($sessionstring)<7) {
+			// $sessionstring="0".$sessionstring;
+		// }
+		$sessionstring=$sessionstring."U";
+		
+		$result = mysqli_query($conn,"SELECT count(*) as count FROM orders WHERE user_id=$uid");
+				while($e = mysqli_fetch_array($result))
+				  {
+						$count = $e['count'];
+				  }
+		echo($count."<br>");
+		$orderidstring = ($count+1);
+		// while(strlen($orderidstring)<7) {
+			// $orderidstring="0".$orderidstring;
+		// }
+		$sessionstring.=$orderidstring;
+		$sessionstring.="U";
+		// $sessionstring.= date("Ymd"); //:Y:m:d	
+		$p1 = hash_hmac('adler32',  date("H:i:s"), 'asanti');
+		$p2 = hash_hmac('adler32',  date("Ymd"), 'asanti');
+		$sessionstring.=$p1.$p2;
+		// $activationKey = md5(time().date("Y:m:d"));
+		echo($sessionstring."<br>");
 /*PAYU*/
 		include_once("sdk/openpayu.php");
 		include_once("config.php");
@@ -77,7 +90,7 @@ foreach( $name as $key => $n ) {
 		$directory = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
 		$myUrl = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] .$directory;
 		
-		$_SESSION['sessionId'] = md5($date.$uid);
+		$_SESSION['sessionId'] = $sessionstring;
 		
 		// $shippingCost = array(
 		    // 'CountryCode' => 'PL',
@@ -116,23 +129,40 @@ foreach( $name as $key => $n ) {
 			array_push($shippingCost['ShippingCostList'],$shipprray);
 		}
 
-
-$result = mysqli_query($conn,"SELECT i.id AS iid, i.name, quantity, color, oc.price AS priceoc, oc.sizes FROM orders_con oc, item i WHERE item_id = i.id AND order_id=$oid;");
 /*PAYU - ITEMS*/
 $itemarray = array();
-while($e = mysqli_fetch_array($result))
-		  {
-		  	$item = array(
-			    'Quantity' => $e['quantity'],
+// while($e = mysqli_fetch_array($result))
+		  // {
+		  	// $item = array(
+			    // 'Quantity' => $e['quantity'],
+			    // 'Product' => array (
+			        // 'Name' => $e['name'].". Kolor: ".$e['color'],
+			        // 'UnitPrice' => array (
+			            // 'Gross' => ($e['priceoc']*100), 'Net' => 0, 'Tax' => 0, 'TaxRate' => '0', 'CurrencyCode' => 'PLN'
+			        // )
+			    // )
+			// );
+			// array_push($itemarray, $item);
+// }
+
+
+foreach( $name as $key => $n ) {
+	$tempid = $iid[$key];
+	$result = mysqli_query($conn,"SELECT name FROM item WHERE id=$tempid;");	
+	while($e = mysqli_fetch_array($result)) {
+		$name = $e['name'];
+	}	
+	$item = array(
+			    'Quantity' => $quantity[$key],
 			    'Product' => array (
-			        'Name' => $e['name'].". Kolor: ".$e['color'],
+			        'Name' => $name.". Kolor: ".$color[$key],
 			        'UnitPrice' => array (
-			            'Gross' => ($e['priceoc']*100), 'Net' => 0, 'Tax' => 0, 'TaxRate' => '0', 'CurrencyCode' => 'PLN'
+			            'Gross' => ($price[$key]*100), 'Net' => 0, 'Tax' => 0, 'TaxRate' => '0', 'CurrencyCode' => 'PLN'
 			        )
 			    )
 			);
-			array_push($itemarray, $item);
-		  }
+			array_push($itemarray, $item);	
+}
 
 $ov = $sum*(1-($disc/100));
 
@@ -155,7 +185,7 @@ $order = array (
     'SessionId' => $_SESSION['sessionId'],
     'OrderUrl' => 'http://www.wildeast.pl/orders.php', // is url where customer will see in myaccount, and will be able to use to back to shop.
     'OrderCreateDate' => date("c"),
-    'OrderDescription' => 'Oplata za zamowienie nr: '.$oid ,
+    'OrderDescription' => 'Oplata za zamowienie nr: ' ,
     'MerchantAuthorizationKey' => OpenPayU_Configuration::getPosAuthKey(),
     'OrderType' => 'MATERIAL', // options: MATERIAL or VIRTUAL
     'ShoppingCart' => $shoppingCart
@@ -175,7 +205,7 @@ $OCReq = array (
     )
 );
 
-
+// echo($myUrl . '/OrderNotifyRequest.php');
 $login = $conn->real_escape_string($_SESSION['login']);
 $login = $purifier->purify($login);
 
@@ -203,6 +233,7 @@ $customer = array(
     'FirstName' => $name,
     'LastName' => $lastname,
     'Phone' => $phone,
+    'CustomerId' => 'asd',
     'Language' => 'pl_PL',
     /* Shipping address*/
     'Shipping' => array(
@@ -230,29 +261,76 @@ $customer = array(
 );
 
 
+
 if(!empty($customer))
     $OCReq['Customer'] = $customer;
 
 
 // send message OrderCreateRequest, $result->response = OrderCreateResponse message
 $result = OpenPayU_Order::create($OCReq);
-if ($result->getSuccess()) {
-    $result = OpenPayU_OAuth::accessTokenByClientCredentials();
-	
-	$ses = $_SESSION['sessionId'];
-	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-	mysqli_set_charset($conn, "utf8");
-	
-	if (mysqli_connect_errno())
-	{
- 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
 
-	mysqli_query($conn,"INSERT INTO payu_conn (sesid, order_id, user_id)
-	VALUES ('$ses', $oid, $uid)");
-	
-	mysqli_close($conn);
-	echo(OpenPayu_Configuration::getSummaryUrl()."?sessionId=".$_SESSION['sessionId']."&oauth_token=".$result->getAccessToken());
-}
 }
 ?>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Create Example</title>
+    <link rel="stylesheet" href="layout/css/bootstrap.min.css">
+    <link rel="stylesheet" href="layout/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>Order create Example</h1>
+    </div>
+<?php
+if ($result->getSuccess()) {
+
+    echo '<h4>Debug console</h4><pre>';
+    OpenPayU_Order::printOutputConsole();
+    echo '</pre>';
+
+    $result = OpenPayU_OAuth::accessTokenByClientCredentials();
+?>
+<form method="GET" action="<?php echo OpenPayU_Configuration::getAuthUrl(); ?>">
+    <fieldset>
+        <legend>Process with user authentication</legend>
+        <p>During this process, you will be asked to login before moving on to the summary.</p>
+        <input type="hidden" name="redirect_uri" value="<?php echo $myUrl . "/BeforeSummaryPage.php";?>">
+        <input type="hidden" name="response_type" value="code">
+        <input type="hidden" name="client_id" value="<?php echo OpenPayU_Configuration::getClientId(); ?>">
+        <p><input type="submit" class="btn btn-primary" value="Next step (user authorization) >"></p>
+    </fieldset>
+</form>
+
+<form method="GET" action="<?php echo OpenPayu_Configuration::getSummaryUrl();?>">
+    <fieldset>
+        <legend>Process without user authentication, redirect to summary</legend>
+        <p>During this process, you will be taken to a summary</p>
+        <input type="hidden" name="sessionId" value="<?php echo $_SESSION['sessionId'];?>">
+        <input type="hidden" name="oauth_token" value="<?php echo $result->getAccessToken();?>">
+        <input type="hidden" name="order_id" value="1">
+        <input type="hidden" name="orderId" value="2">
+        <input type="hidden" name="customer_id" value="3">
+         <input type="hidden" name="customerId" value="4">
+        <p>
+            <label for="showLoginDialogSelect">Show login dialog:</label>
+            <select name="showLoginDialog" id="showLoginDialogSelect">
+                <option value="False">No</option>
+                <option value="True">Yes</option>
+            </select>
+            <input type="submit" class="btn btn-primary" value="Next step (summary page) >">
+        </p>
+    </fieldset>
+</form>
+<?php
+} else {
+    echo '<h4>Debug console</h4><pre>';
+    OpenPayU_Order::printOutputConsole();
+    echo '<br/><strong>ERROR:</strong><br />' . $result->getError() . ' ' . $result->getMessage() . '</pre>';
+}
+?>
+</div>
+</body>
+</html>

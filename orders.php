@@ -47,6 +47,9 @@ if(!session_id())
 		<a href='index.php'><img src='img/nextlogo.png' id='log-logo'></a>
 		<br/>
 		<h2>Zamówienia</h2>
+		<div class="oinfo">
+			Zmiana statusu zamówienia (zaksięgowanie należności) może potrwać kilka chwil. Aby upewnić się, że otrzymaliśmy Twoją wpłatę, odwiedź tę stronę ponownie za parę minut. W przypadku problemów prosimy o kontakt na <a>pomoc@asanti.com</a>.
+		</div>
 		<div class="product-row" id="top-row-o">
 			<div class="column-name">
 				<p>Numer zamówienia</p>
@@ -70,10 +73,13 @@ if(!session_id())
 			        $status='Niezapłacone';
 			        break;
 			    case 1:
-			        $status='Zapłacone';
+			        $status='Realizowane';
 			        break;
 			    case 2:
-			        $status='Zakończone';
+			        $status='Zapłacone';
+			        break;
+				case 3:
+			        $status='Anulowane';
 			        break;
 			}
 			$sv = $e['shipping_value'];
@@ -95,8 +101,18 @@ if(!session_id())
 					</div>
 					<div class='column-price-all'>
 						<p>".$ovsv."</p>
-					</div>
-				</div>"
+					</div>");
+					if($e['status']==0) {
+						echo(
+							"<div class='column-pay'>
+								<p id=o_".$e['oid']."><a>Zapłać</a></p>
+							</div>
+							<div class='column-cancel'>
+								<!--<p><a href='payu/OrderCancelRequest.php?id=".$e['oid']."'>Anuluj</a></p>-->
+							</div>
+					");
+					}
+				echo("</div>"
 		);
 		  }
 		 	 echo(
@@ -216,8 +232,47 @@ if(!session_id())
 		</div>");
 	}
 }
+mysqli_close($conn);
 ?>
 
 </div>
+<div class='cartInfoDiv'>
+		<div id='info'>
+			Aby przejść do systemu płatności elektronicznej, wciśnij przycisk "płacę z payu".
+		</div>
+		<div id="buttons">
+			<div id="left">wróć</div>
+			<div id="right">płacę z payu</div>
+		</div>
+	</div>
+	
+	<div class="cartbg"></div>
+	<div class="cartInfoZ"><img src="img/ajax-loader.gif"></div>
 </body>
 </html>
+<script type="text/javascript">
+$('.column-pay p').click(function(){
+         $(".cartInfoDiv").css("display", "block");
+         $(".cartbg").css("display", "block");
+         var id = $(this).attr("id");
+         id = id.substring(2);        
+         $('#buttons #right').attr("data", id);
+});
+$('#buttons #left, .cartbg').click(function(){
+         $(".cartInfoDiv").css("display", "none");
+         $(".cartbg").css("display", "none");
+});
+$('#buttons #right').click(function(){
+	var id = $(this).attr("data");
+	$(".cartInfoZ").css("display","block"); 
+        $.ajax({
+           type: "POST",
+           url: 'payu/repay.php',
+           data: {id: id},
+           success: function(data)
+           {
+              window.location.href=data;
+           }
+         });
+});
+</script>

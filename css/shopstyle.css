@@ -1502,6 +1502,67 @@ div.connectionBox .connectionTitle{
 		/*width: 100px;*/
 	}
 
+.cartbg {
+	position: fixed;
+	z-index: 3;
+	background-color: rgba(255,255,255,0.7);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display:none;
+}
+.cartInfoZ {
+	position: absolute;
+	padding: 25px 25px 25px 25px;
+	z-index: 5;
+	width: 500px;
+	height: 100px;
+	left: 50%;
+	margin-left: -250px;
+	top: 50%;
+	margin-top:  -150px;
+	display: none;
+	background-color: rgba(255,255,255,0.9);
+	border: 1px solid black;
+}
+	.cartInfoZ img {
+		margin-top: 40px;
+		margin-left: 170px;
+	}	
+.cartInfoDiv {
+	position: absolute;
+	padding: 25px 25px 25px 25px;
+	z-index: 4;
+	width: 500px;
+	height: 100px;
+	left: 50%;
+	margin-left: -250px;
+	top: 50%;
+	margin-top:  -150px;
+	display: none;
+	background-color: white;
+	border: 1px solid black;
+}	
+	.cartInfoDiv #info {
+		overflow: hidden;
+		font-size: 22pt;
+		font-family: "Gabriola";
+		margin-bottom: 30px;
+			
+	}
+	.cartInfoDiv #buttons {
+		overflow: hidden;
+		font-size: 10pt;
+		height: 15px;
+		cursor: pointer;
+	}
+		.cartInfoDiv #buttons #left{
+			float: left;
+		}
+		.cartInfoDiv #buttons #right{
+			float: right;
+		}
 #bot-row {
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -1632,13 +1693,18 @@ div.connectionBox .connectionTitle{
 	/*z-index: 20;*/
 }
 /*---------------------ORDERS------------------- */
+.oinfo {
+	margin: 0 auto;
+	width:700px;
+	font-size: 10pt;
+}
 #top-row-o, #top-row-os {
 	margin: 0 auto;
 	margin-top: 40px;
 	margin-bottom: 15px;
 	padding-bottom: 5px;
 	border-bottom: 1px solid gray;
-	width:700px;
+	width:800px;
 }
 
 #top-row-os {
@@ -1659,11 +1725,14 @@ div.connectionBox .connectionTitle{
 	margin-bottom: 8px;
 	min-height: 20px;
 	padding-bottom: 4px;
-	width:700px;
+	width:800px;
 }
 
 	#middle-row-o .column-price, #middle-row-o .column-quantity {
 		width: 150px;
+	}
+	#middle-row-o .column-pay, #middle-row-o .column-cancel {
+		width: 50px;
 	}
 
 #middle-row-os {

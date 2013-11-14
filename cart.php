@@ -162,7 +162,7 @@
 
 			}
 			
-			echo("<form method='POST' action='payu/confirm.php' name='cartForm'>");
+			echo("<form method='POST'  id='cartForm' name='cartForm'>");
 			while($rec = mysqli_fetch_array($sql)) {
 				$cat = $rec['urlName']."-".$rec['parentId'];
 				$sum+= $rec['price']*$val->count;
@@ -272,11 +272,11 @@
 					</p>
 			</div>
 			<div class="column-submit">
-				<p></p>
+				<p><a id='cartSubmit'>Kup</a></p>
 			</div>
 		</div>
 		<input id='discounthid' type='hidden' name='dischid' value='<?php if($check==1) { if($dval!=0){ echo($dval);} else {echo("0");}} ?>'/>
-		<div class="product-row" id="bot-row">
+		<!--<div class="product-row" id="bot-row">
 			<div class="column-fill">
 				<p>Rodzaj przesyłki:</p>
 			</div>
@@ -337,11 +337,11 @@
 				<input id='shippnamehid' type='hidden' name='shippnamehid' value='<?php echo($firstnameval); ?>'/>
 			</div>
 			<div class="column-submit">
-				<p><a id='cartSubmit' onclick="document.cartForm.submit();">Kup</a></a></p>
+				<p><a id='cartSubmit'> <!--onclick="document.cartForm.submit();"Kup</a></p>
 			</div>
-		</div>
+		</div>-->
 		</form>
-		<div class="product-row" id="bot-row" style="border: 0px">
+		<div class="product-row" id="bot-row" >
 			<div class='column-price-all' style="height: inherit">
 					<p style="margin-top: 10px;"><a href='index.php'>wróć do sklepu</a></p>
 			</div>
@@ -351,6 +351,18 @@
 		</div>
 		</div>
 	</div>
+	<div class='cartInfoDiv'>
+		<div id='info'>
+			Aby potwierdzić złożenie zamówienia kliknij w przycisk "płacę z payu" i przejdź do płatności.
+		</div>
+		<div id="buttons">
+			<div id="left">wróć</div>
+			<div id="right">płacę z payu</div>
+		</div>
+	</div>
+	
+	<div class="cartbg"></div>
+	<div class="cartInfoZ"><img src="img/ajax-loader.gif"></div>
 	 <?php include 'include/footer.php'; ?> 
 
 </body>
@@ -508,6 +520,26 @@ $('.column-remove').click(function() {
 	//)
 	//checkCart();
 	
+});
+$('#cartSubmit').click(function(){
+         $(".cartInfoDiv").css("display", "block");
+         $(".cartbg").css("display", "block");
+});
+$('#buttons #left, .cartbg').click(function(){
+         $(".cartInfoDiv").css("display", "none");
+         $(".cartbg").css("display", "none");
+});
+$('#buttons #right').click(function(){
+	$(".cartInfoZ").css("display","block"); 
+        $.ajax({
+           type: "POST",
+           url: 'payu/confirm.php',
+           data: $("#cartForm").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+              window.location.href=data;
+           }
+         });
 });
 
 </script>

@@ -167,6 +167,9 @@
     jQuery.validator.addMethod("Pcode", function(value, element) {
         return this.optional(element) || value.match(/^[0-9]{2}\-[0-9]{3}$/);
     }, "xx - xxx !")
+    jQuery.validator.addMethod("street", function(value, element) {
+        return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃa-zżźćńółęąś0-9 ]+$/);
+    }, "Tylko litery i cyfry !")
     
     //^([A-Z][a-z]*((\s)))+[A-Z][a-z]*$
     //^[A-Z][a-z]{1,}$
@@ -255,7 +258,7 @@ var validate = $(".regform").validate({
 		},
 		street: {
 			required: true,
-			city: true
+			street: true
 		},
 		pcode: {
 			required: true,
@@ -300,8 +303,7 @@ var validate = $(".regform").validate({
 			nameLastname: "Nieprawidłowe nazwisko !"		
 		},
 		street: {
-			required: "Pole ulica jest puste !",
-			city: "Wielkiej literą. Tylko litery."			
+			required: "Pole ulica jest puste !",		
 		},
 		pcode: {
 			required: "Brak kodu !"

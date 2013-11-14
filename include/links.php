@@ -8,6 +8,7 @@
 <script type="text/javascript" src="js/jquery-cookie.js"></script>
 <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 
 <link rel="stylesheet" href="css/shopstyle.css" />
 <!-- <link rel="stylesheet" href="css/sliderstyle.css" /> -->

@@ -258,6 +258,10 @@ $( document ).ready(function() {
         return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]{1,}$/);
     }, "Nieprawidłowe imię !")
     
+    jQuery.validator.addMethod("street", function(value, element) {
+        return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃa-zżźćńółęąś0-9 ]+$/);
+    }, "Tylko litery i cyfry !")
+    
     jQuery.validator.addMethod("city", function(value, element) {
         return this.optional(element) || value.match(/^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+(?:[\s-][A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+)*$/);
     }, "Nieprawidłowa nazwa miejscowości !")
@@ -341,7 +345,8 @@ var validate = $(".profileform").validate({
 			nameLastname: true			
 		},
 		street: {
-			required: true
+			required: true,
+			street: true
 		},
 		pcode: {
 			required: true,
@@ -386,7 +391,8 @@ var validate = $(".profileform").validate({
 			nameLastname: "Nieprawidłowe nazwisko !"		
 		},
 		street: {
-			required: "Pole ulica jest puste !"
+			required: "Pole ulica jest puste !",
+					
 		},
 		pcode: {
 			required: "Brak kodu !"
