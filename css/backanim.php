@@ -2,7 +2,8 @@
 	header("Content-type: text/css; charset: UTF-8");
 	
 	// Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-	$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+	require_once("../include/config.php");
+	$conn=mysqli_connect($config["db"]["db1"]["dbhost"], $config["db"]["db1"]["username"], $config["db"]["db1"]["password"], $config["db"]["db1"]["dbname"]);
 	// //////////////////////////////////////////////////////////////////////////////////////////////////// //
 	$photoList = array();
 	

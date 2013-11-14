@@ -167,7 +167,9 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 			        				<?php
 
 		
-										$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");										
+										require_once("../include/config.php");
+							   			$conn=mysqli_connect($config["db"]["db1"]["dbhost"], $config["db"]["db1"]["username"], $config["db"]["db1"]["password"], $config["db"]["db1"]["dbname"]);
+																				
 										class category {
 											public $id;
 											public $name;
@@ -287,8 +289,9 @@ if(isset($_SESSION['log']) && $_SESSION['status'] == "adm") {
 if(isset($_POST["submit"])){
 
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
-
+require_once("../include/config.php");
+$conn=mysqli_connect($config["db"]["db1"]["dbhost"], $config["db"]["db1"]["username"], $config["db"]["db1"]["password"], $config["db"]["db1"]["dbname"]);
+										
 $itemId = $_POST['passItemId'];
 $categoryId = $_POST['categoryToPost'];
 $itemName = $_POST['name'];

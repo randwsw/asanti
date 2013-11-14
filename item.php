@@ -18,13 +18,12 @@
     
     
 <?php
-
-
+require_once("include/config.php");
 // Vars /////////////////////////////////////////////////////////////////////////////////////////////// //
 $itemId = $_GET['id'];
 $photosList = array();
 $sizeList = array();
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn=mysqli_connect($config["db"]["db1"]["dbhost"], $config["db"]["db1"]["username"], $config["db"]["db1"]["password"], $config["db"]["db1"]["dbname"]);
 mysqli_set_charset($conn, "utf8");
 
 
@@ -103,7 +102,7 @@ while($row1 = mysqli_fetch_array($result1))
 	}
 }
 
-$conn=mysqli_connect("serwer1309748.home.pl","serwer1309748_04","9!c3Q9","serwer1309748_04");
+$conn=mysqli_connect($config["db"]["db1"]["dbhost"], $config["db"]["db1"]["username"], $config["db"]["db1"]["password"], $config["db"]["db1"]["dbname"]);
 mysqli_set_charset($conn, "utf8");
 
 if (mysqli_connect_errno())

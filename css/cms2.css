@@ -1880,3 +1880,383 @@ div#shipping #newShipping input[name="newName"]{
 div#shipping #newShipping input[name="newValue"]{
 	width: 70px;	
 }
+/* //////////////////////////////////////////////////// */
+/* ORDERS ///////////////////////////////////////////// */
+div#orders table{
+	width: 1000px;
+	height: auto;
+	border-collapse:collapse;
+	margin-top: 20px;		
+}
+
+div#orders table tr.head{
+	background-color: rgba(153,101,21,0.4);
+	color: White;
+	cursor: pointer;
+}
+
+div#orders table tr.head td{
+	padding-left: 5px;
+	padding-right: 5px;	
+	font-weight: bold;	
+}
+
+div#orders table tr.head td#order_id{
+	width: 40px;
+	border: 2px solid White;
+	text-align: center;	
+}
+
+div#orders table tr.head td#item_name{
+	border: 2px solid White;
+	/*width: 50px;*/
+	text-align: center;
+}
+
+div#orders table tr.head td#price{
+	width: 40px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#quantity{
+	width: 20px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#shipping_price{
+	width: 40px;
+	border: 2px solid White;
+	text-align: center;	
+}
+div#orders table tr.head td#sum_price{
+	width: 40px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#date{
+	width: 80px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#client_name{
+	width: 150px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#shipping{
+	width: 130px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.head td#status{
+	width: 110px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders table tr.odd{
+	text-align: center;
+	font-size: 9pt;
+	background-color: rgba(153,101,21,0.0);
+}
+
+div#orders table tr.odd:hover{
+	text-align: center;
+	font-size: 9pt;
+	background-color: rgba(153,101,21,0.5);
+}
+
+div#orders table tr.even{
+	text-align: center;
+	font-size: 9pt;
+	background-color: rgba(153,101,21,0.2);
+}
+
+div#orders table tr.even:hover{
+	text-align: center;
+	font-size: 9pt;
+	background-color: rgba(153,101,21,0.5);
+}
+
+div#orders table td.status{
+	font-weight: bold;	
+	cursor: pointer;
+}
+
+
+/* DETAILS */
+div#grayout{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(255,255,255,0.6);
+	z-index: 9;	
+	visibility: hidden;
+}
+div#orders #detailsPopup{
+	width: 550px;
+	height: auto;
+	border: 5px solid rgba(0,0,0,0.2);
+	position: absolute;
+	top: 50%;
+	left: 50%;	
+	margin-top: -400px;
+	margin-left: -225px;
+	background-color: White;
+	z-index: 10;
+}
+
+div#orders #detailsPopup .label{
+	margin-top: 0px;
+	margin-bottom: 4px;
+	width: 540px;
+	height: auto;
+	background-color: rgba(153,101,21,0.5);
+	font-size: 11pt;
+	color: White;
+	padding-left: 10px;	
+}
+
+div#orders #detailsPopup table.item1{
+	width: 550px;
+	margin-top: 20px	
+}
+
+table.item1 tr.head td.item_name{
+	width: auto;
+	border: 2px solid White;
+}
+
+table.item1 tr.head td.item_price{
+	width: 80px;	
+	border: 2px solid White;
+	text-align: center;
+}
+
+table.item1 tr.head td.item_quantity{
+	width: 20px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+table.item1 tr{
+	text-align: center;
+	font-size: 9pt;
+}
+
+table.item2 tr{
+	text-align: center;
+	font-size: 9pt;
+}
+
+table[name="t3"] tr{
+	text-align: center;
+	font-size: 9pt;
+}
+
+table[name="t4"] tr{
+	text-align: center;
+	font-size: 9pt;
+}
+
+table[name="t5"] tr{
+	text-align: center;
+	font-size: 9pt;
+}
+
+div#orders #detailsPopup table.item2{
+	width: 550px;
+	margin-top: 0px;			
+}
+
+table.item2 tr.head td.item_size{
+	width: 250px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+table.item2 tr.head td.item_color{
+	width: 100px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+div#orders #detailsPopup table[name="t3"]{
+	width: 550px;
+	margin-top: 10px;
+}
+
+
+table[name="t3"] tr.head td#ship_price{
+	width: 20px;
+	border: 2px solid White;
+	text-align: center;	
+}
+
+table[name="t3"] tr.head td#discount{
+	width: 20px;
+	border: 2px solid White;
+	text-align: center;	
+}
+
+table[name="t3"] tr.head td#sum{
+	width: 20px;
+	border: 2px solid White;
+	text-align: center;		
+}
+
+div#orders #detailsPopup table[name="t4"]{
+	width: 550px;
+	margin-top: 10px;
+}
+
+table[name="t4"] tr.head td#order_id{
+	width: 20px;
+}
+
+table[name="t4"] tr.head td#order_date{
+	width: 30px;
+	border: 2px solid White;
+	text-align: center;
+}
+
+table[name="t4"] tr.head td#email{
+	width: 180px;	
+	border: 2px solid White;
+	text-align: center;	
+}
+
+table[name="t4"] tr.head td#name{
+	width: 130px;	
+	border: 2px solid White;
+	text-align: center;	
+}
+
+table[name="t4"] tr.head td#lastName{	
+	width: 130px;
+	border: 2px solid White;
+	text-align: center;	
+}
+
+div#orders #detailsPopup table[name="t5"]{
+	width: 550px;
+	margin-top: 10px;
+}
+
+table[name="t5"] tr.head td#pcode{
+	width: 40px;	
+	border: 2px solid White;
+	text-align: center;	
+}
+
+table[name="t5"] tr.head td#city{
+	width: 120px;	
+	border: 2px solid White;
+	text-align: center;		
+}
+
+table[name="t5"] tr.head td#street{
+	width: 120px;	
+	border: 2px solid White;
+	text-align: center;		
+}
+
+table[name="t5"] tr.head td#hnum{
+	width: 30px;	
+	border: 2px solid White;
+	text-align: center;		
+}
+
+table[name="t5"] tr.head td#anum{
+	width: 35px;	
+	border: 2px solid White;
+	text-align: center;		
+}
+
+table[name="t5"] tr.head td#phone{
+	width: 60px;	
+	border: 2px solid White;
+	text-align: center;		
+}
+
+div#orders #detailsPopup #options{
+	position: inherit;
+	margin-top: 75px;	
+}
+
+div#orders #detailsPopup #itemDet{
+	margin-top: 50px;	
+}
+
+div#orders #detailsPopup #options #status{
+	width: 440px;
+	margin-left: 10px;
+	float: left;	
+	font-size: 9pt;
+}
+
+div#orders #detailsPopup #options #status p{
+	margin-top: -23px;	
+	margin-left: 115px;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+div#orders #detailsPopup #options #buttons{
+	width: 100px;
+	float: left;
+}
+
+div#orders #detailsPopup #options #buttons input[type="button"]{
+	float: right;	
+	margin-right: 10px;
+	margin-top: -3px;
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+
+
+
+
+div#orders table input[name="name"]{
+	width: 250px;	
+	text-align: center;
+}
+
+div#shipping table input[name="value"]{
+	width: 80px;	
+	text-align: center;
+}
+
+div#shipping input[name="submit"]{
+	background-color: #49a05e;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+
+div#shipping input[name="delete"]{
+	background-color: ;
+	color: rgba(255,255,255,0.8);
+	border: none;
+	cursor: pointer;
+	height: 22px;	
+}
+
+div#shipping #newShipping input[name="newName"]{
+	width: 230px;	
+}
+
+div#shipping #newShipping input[name="newValue"]{
+	width: 70px;	
+}
