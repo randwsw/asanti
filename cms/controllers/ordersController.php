@@ -42,7 +42,7 @@ switch ($action) {
 	
 	case "getAll":
 	// ---------------------------------------------------------------------------------------------------------- //
-	// GET ALL ITEMS -------------------------------------------------------------------------------------------- //
+	// GET ALL ORDERS ------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
 	// ---------------------------------------------------------------------------------------------------------- //
@@ -127,17 +127,49 @@ switch ($action) {
 			$sort = " ORDER BY i.name ASC";
 		}
 		
-		
+				$result = mysqli_query($conn, "SELECT 
+												o.id AS orderId, 
+												o.shipping_value AS shippingVal,
+												o.order_value AS orderValue,
+												o.disc AS discount, 
+												o.order_date AS orderDate,
+												o.shipping_name AS shipping,
+												o.status AS status,
+												u.name AS userName,
+												u.lastName AS userLastName
+												FROM orders o, users u
+												WHERE u.id = o.user_id
+												ORDER BY o.id DESC");
 				
-				$result = mysqli_query($conn,"SELECT i.id AS itemId, i.name AS itemName, i.description AS itemDescription, 
-												i.active AS itemActive, ph.url AS headPhotoUrl, i.price AS itemPrice, 
-												c.name AS categoryName, c.urlName AS categoryUrlName
-											FROM item i, category c, category_con cc, photo ph
-											WHERE c.id = cc.cat_id
-											AND i.id = cc.item_id"
-											. $idFilter . $nameFilter . $categoryFilter . $sets . $promoted .
-											" GROUP BY i.id"
-											. $sort." LIMIT $min, $itemsPerPage");
+				
+				
+				// $result = mysqli_query($conn, "SELECT 
+												// o.id AS orderId, 
+												// i.name AS itemName, 
+												// oc.price AS itemPrice, 
+												// oc.quantity AS quantity, 
+												// o.shipping_value AS shippingVal,
+												// o.order_value AS orderValue,
+												// o.disc AS discount, 
+												// o.order_date AS orderDate,
+												// u.name AS userName,
+												// u.lastName AS userLastName,
+												// o.shipping_name AS shipping,
+												// o.status AS status
+												// FROM orders o, orders_con oc, item i, users u
+												// WHERE i.id = oc.item_id 
+												// AND o.id = oc.order_id 
+												// AND u.id = o.user_id
+												// ORDER BY o.id DESC");
+				// $result = mysqli_query($conn,"SELECT i.id AS itemId, i.name AS itemName, i.description AS itemDescription, 
+												// i.active AS itemActive, ph.url AS headPhotoUrl, i.price AS itemPrice, 
+												// c.name AS categoryName, c.urlName AS categoryUrlName
+											// FROM item i, category c, category_con cc, photo ph
+											// WHERE c.id = cc.cat_id
+											// AND i.id = cc.item_id"
+											// . $idFilter . $nameFilter . $categoryFilter . $sets . $promoted .
+											// " GROUP BY i.id"
+											// . $sort." LIMIT $min, $itemsPerPage");
 											
 				
 				while($e=mysqli_fetch_assoc($result))
@@ -147,9 +179,248 @@ switch ($action) {
 			break;
 			
 			
+		
+		
+		
+		case "getItems":
+		// ---------------------------------------------------------------------------------------------------------- //
+		// GET ITEMS BY ORDER --------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		$orderId = $_POST['orderId'];
+		
+		$result = mysqli_query($conn, "SELECT 
+												i.name AS itemName, 
+												oc.price AS itemPrice, 
+												oc.quantity AS quantity
+												FROM orders o, orders_con oc, item i, users u
+												WHERE i.id = oc.item_id 
+												AND o.id = oc.order_id 
+												AND o.id = $orderId
+												GROUP BY i.name
+												ORDER BY o.id DESC");
+		while($e=mysqli_fetch_assoc($result))
+		              $output[]=$e;
+		           print(json_encode($output));
+			mysqli_close($conn);
+		
+		break;
+		
 			
 		
 		
+		case "getOne":
+		// ---------------------------------------------------------------------------------------------------------- //
+		// GET DETAILED ORDER  -------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		// ---------------------------------------------------------------------------------------------------------- //
+		$orderId = $_POST['orderId'];
+		
+		$result = mysqli_query($conn, "SELECT 
+										o.id AS orderId, 
+										i.name AS itemName, 
+										oc.price AS itemPrice, 
+										oc.quantity AS quantity, 
+										oc.sizes AS sizes,
+										o.shipping_value AS shippingVal,
+										o.order_value AS orderValue,
+										o.disc AS discount, 
+										o.order_date AS orderDate,
+										u.name AS userName,
+										u.lastName AS userLastName,
+										u.email AS email,
+										o.shipping_name AS shipping,
+										o.status AS status,
+										a.pcode AS pcode,
+										a.city AS city,
+										a.street AS street,
+										a.hnum AS hnum,
+										a.anum AS anum,
+										p.pValue AS phone
+										FROM orders o, orders_con oc, item i, users u, address a, phone p
+										WHERE o.id = '$orderId'
+										AND i.id = oc.item_id 
+										AND oc.order_id = o.id 
+										AND u.id = o.user_id
+										AND a.user_id = u.id
+										AND p.user_id = u.id
+										GROUP BY o.id");
+					while($row = mysqli_fetch_array($result))
+					{
+						
+						if($row['anum'] == null || $row['anum'] == "" || $row['anum'] == 0){
+							$anum = "";
+						}else{
+							$anum = $row['anum'];
+						}
+						
+						$itemPrice = $row['itemPrice'];
+						$quantity = $row['quantity'];
+						$shippingVal = $row['shippingVal'];
+						$discount = $row['discount'];
+						
+						if($discount != 0){
+							$sum = $itemPrice*$quantity*($discount/100)+$shippingVal;
+						}else{
+							$sum = $itemPrice*$quantity+$shippingVal;
+						}
+						$sum = sprintf('%0.2f', $sum);
+						
+						
+						$status = $row['status'];
+						
+						if($status == 0){
+			    			$status2 = "<p style='color: rgba(191,21,21,0.8);'>nieopłacone</p>";
+			    		}
+			    		if($status == 1){
+			    			$status2 = "<p style='color: #49a05e;'>opłacone</p>";
+			    		}
+			    		if($status == 2){
+			    			$status2 = "<p style='color: #49a05e;'>zrealizowane</p>";
+			    		}
+						if($status == 2){
+			    			$status2 = "<p style='color: rgba(153,101,21,0.8);'>anulowane</p>";
+			    		}
+						
+						
+						
+						$result2 = mysqli_query($conn, "SELECT 
+												i.name AS itemName, 
+												oc.price AS itemPrice, 
+												oc.quantity AS quantity,
+												oc.sizes AS sizes
+												FROM orders o, orders_con oc, item i, users u
+												WHERE i.id = oc.item_id 
+												AND o.id = oc.order_id 
+												AND o.id = $orderId
+												GROUP BY i.name
+												ORDER BY o.id DESC");
+						
+						class item{
+							public $itemName;
+							public $itemPrice;
+							public $quantity;
+							public $sizes;
+						}			
+						
+						$items = array();								
+								while($row2 = mysqli_fetch_array($result2))
+								{
+									$item = new item;
+									$item->itemName = $row2['itemName'];
+									$item->itemPrice = $row2['itemPrice'];
+									$item->quantity = $row2['quantity'];
+									$item->sizes = $row2['sizes'];
+									
+									array_push($items, $item);
+									unset($item);
+								}
+						
+						foreach($items as $i){
+							$itemPrice = $i->itemPrice * $i->quantity;
+						}
+						$sumPrice = $itemPrice * ($row['discount']/100) + $row['shippingVal'];
+						
+						echo('<table name="t4">
+									<tr class="head">
+										<td id="order_id">ID</td>
+										<td id="order_date">Data</td>
+										<td id="email">Email</td>
+										<td id="name">Imię</td>
+										<td id="lastName">Nazwisko</td>
+									</tr>
+									<tr>
+										<td>' . $row['orderId'] . '</td>
+										<td>' . $row['orderDate'] . '</td>
+										<td>' . $row['email'] . '</td>
+										<td>' . $row['userName'] . '</td>
+										<td>' . $row['userLastName'] . '</td>
+									</tr>
+								</table>
+								<table name="t5">
+									<tr class="head">
+										<td id="pcode">Kod</td>
+										<td id="city">Miasto</td>
+										<td id="street">Ulica</td>
+										<td id="hnum">Nr d.</td>
+										<td id="anum">Nr m.</td>
+										<td id="phone">Telefon</td>
+									</tr>
+									<tr>
+										<td>' . $row['pcode'] . '</td>
+										<td>' . $row['city'] . '</td>
+										<td>' . $row['street'] . '</td>
+										<td>' . $row['hnum'] . '</td>
+										<td>' . $anum . '</td>
+										<td>' . $row['phone'] . '</td>
+									</tr>
+								</table>
+								<table name="t3">
+									<tr class="head">
+										<td id="shipping">Przesyłka</td>
+										<td id="ship_price">Dostawa</td>
+										<td id="discount">Rabat</td>
+										<td id="sum">Suma</td>
+									</tr>
+									<tr>
+										<td>' . $row['shipping'] . '</td>
+										<td>' . $row['shippingVal'] . 'zł</td>
+										<td>' . $row['discount'] . '</td>
+										<td>' . $sumPrice . 'zł</td>
+									</tr>
+								</table>
+								<div id="itemDet">');
+								
+								foreach($items as $item){
+									echo('<table class="item1">
+											<tr class="head">
+												<td class="item_name">Nazwa przedmiotu</td>
+												<td class="item_price">Cena za szt.</td>
+												<td class="item_quantity">Ilość</td>
+											</tr>
+											<tr>
+												<td>' . $item->itemName . '</td>
+												<td>' . $item->itemPrice . 'zł</td>
+												<td>' . $item->quantity . '</td>
+											</tr>
+										</table>
+										<table class="item2">
+											<tr class="head">
+												<td class="item_size">Rozmiar</td>
+												<td class="item_color">Kolor</td>
+											</tr>
+											<tr>
+												<td>' . $item->sizes . '</td>
+												<td>biało-różowy</td>
+											</tr>
+										</table>');
+								}
+								
+								
+									
+									
+									
+								echo('</div>
+								<div id="options">
+									<div id="status">Status zamówienia:<p id="status">' . $status2 . '</p></div>
+									<div id="buttons">
+									<input type="button" name="close" value="Zamknij" />
+									</div>
+								</div>');
+					}
+					
+					// while($e=mysqli_fetch_assoc($result))
+		              // $output[]=$e;
+		           // print(json_encode($output));
+			mysqli_close($conn);
+			break;
+			
+			
+			
+			
+			
 		case "delete":
 		// ---------------------------------------------------------------------------------------------------------- //
 		// DELETE ITEM ---------------------------------------------------------------------------------------------- //
